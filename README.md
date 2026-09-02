@@ -1,33 +1,65 @@
-# Forest Hills Garden (FHG) — Official Web Landing Page
+# Forest Hills Garden (FHG) â€” Official Web Application
 
-The official enterprise landing page and digital profile for **Forest Hills Garden**, the Philippines' foremost contractor for heavy tree earthballing, right-of-way corridor felling, commercial landscaping, plant nurseries, and nationwide watershed reforestation. Established June 10, 1998 in Talisay, Batangas.
+> **"We Do It Right and Fast"**  
+> Philippines' Industrial Tree Services Authority since June 10, 1998.
 
-## ?? Overview
+---
 
-- **Proprietress / Manager**: Ms. Marife B. Luna
-- **Headquarters**: 4th Floor, Luna Building, Malvar St., Poblacion 8, Talisay, Batangas
-- **Nurseries**: Brgy. Tumaway & Brgy. Aya, Talisay, Batangas
-- **Fleet Capacity**: 89 DENR Registered Power Chainsaws, heavy cranes, boom trucks, wood chippers, and seedling transport vans
-- **Statutory Accreditations**: DENR Permitted Operator, PCA Registered Tree Cutter & Trader, PhilGEPS Blue Member (2005 - 23340), DBP Forest Program Partner
+## Overview
+Forest Hills Garden is the premier contractor in the Philippines specializing in large-scale tree earthballing, certified chainsaw tree cutting (89-unit DENR permitted fleet), PCA-permitted coconut felling, plant nursery propagation (150,000+ capacity across twin Batangas farms), commercial landscaping, and multi-year watershed reforestation.
 
-## ??? Enterprise Footprint
+### Trusted Enterprise Clients
+- **San Miguel Corporation** (SLEX TR4, ACTEX, CTBEX)
+- **Makati Development Corporation / Ayala Land** (Nuvali, Vermosa, Centrala, ARCA South)
+- **SM Prime Holdings & SMDC** (27+ Commercial & Residential Malls)
+- **EEI Corporation** (Metro Manila Subway Project CP101)
+- **NLEX Corporation** (NLEX-SLEX Connector Road, Candaba Viaduct)
+- **D.M. Consunji, Inc. (DMCI)** (Skyway Stage 3, CALAX, NSCR PNR Clark)
+- **DENR, PENRO, CENRO & DBP** (National Greening Program & Watershed Corridors)
 
-Trusted contractor for major Philippine conglomerates and infrastructure builders:
-- **San Miguel Corporation / SLTC**: SLEX TR4 Expressway Expansion (Packages B through F)
-- **EEI Corporation**: Metro Manila Subway Project (CP101)
-- **Makati Development Corp. (Ayala)**: Nuvali, Vermosa, Centrala, ARCA South
-- **SM Prime Holdings / SMDC**: 27+ Mall & Residential Developments
-- **NLEX Corporation**: NLEX-SLEX Connector Road, PNR Track Realignment
-- **D.M. Consunji, Inc. (DMCI)**: Skyway Stage 2 & Stage 3
-- **First Balfour / Leighton / Shimizu**: LRT-1 Cavite Extension, Candaba Viaduct
-- **DENR / PENRO**: 2,627-hectare Zambales Reforestation & National Greening Program across 11 regions
+---
 
-## ?? Tech Stack
+## Technology Stack (Awwwards-Tier Front-End)
+- **Framework**: [Next.js 15+](https://nextjs.org/) (App Router, Turbopack, TypeScript)
+- **Styling**: [Tailwind CSS v4](https://tailwindcss.com/) with custom enterprise design tokens
+- **Physics & Motion**: [Framer Motion](https://www.framer.com/motion/) (Spring physics, layout animations, staggered reveals)
+- **Smooth Inertia Scroll**: [Lenis](https://github.com/darkroomengineering/lenis)
+- **Icons**: [Lucide React](https://lucide.dev/)
+- **Micro-Interactions**: [Canvas Confetti](https://www.npmjs.com/package/canvas-confetti)
+- **Deployment**: [Vercel](https://vercel.com/) (Zero-configuration edge deployment)
 
-- **HTML5**: Semantic, accessible markup with comprehensive SEO and Open Graph metadata
-- **Vanilla CSS3**: Design system rooted in the official FHG logo colors (Vivid Forest Green, Lime Leaf, Sunburst Gold, Earth Brown)
-- **JavaScript (ES6+)**: Interactive RFP Scope Builder with live fleet recommendation engine, dynamic project filter & keyword search with 1-tap clear, custom form validation, and canvas particle motion
+---
 
-## ?? Deployment
+## Local Development
+```bash
+# Install dependencies
+npm install
 
-Built as a static web application. Deploy directly to GitHub Pages, Netlify, Vercel, or any standard web server.
+# Start local development server
+npm run dev
+
+# Create optimized production build
+npm run build
+
+# Start production server
+npm start
+```
+
+---
+
+## Statutory Accreditations
+- **DENR Registered Power Chainsaw Cutter**: 89 Permitted Chainsaws
+- **PCA Permitted Coconut Cutter**: NCR (RNCR-00958) & Laguna (R4-05595)
+- **PhilGEPS Blue Membership**: Reg. No. PhilGEPS-2005-23340
+- **DTI Certificate**: No. 1729753
+- **DBP Forest Program Accredited Partner**
+
+---
+
+## Office & Nursery Facilities
+- **Head Office**: 4th Floor, Luna Building, Malvar St., Poblacion 8, Talisay, Batangas
+- **Telefax**: (043) 741 0603
+- **Mobile Dispatch**: 0916 566 7265 / 0961 329 6727
+- **Executive Email**: edluna1971@yahoo.com / iamfeluna@yahoo.com
+- **Tumaway Nursery**: Brgy. Tumaway, Talisay, Batangas (100,000+ Sapling Capacity)
+- **Aya Nursery**: Brgy. Aya, Talisay, Batangas (50,000+ Stock Capacity)
