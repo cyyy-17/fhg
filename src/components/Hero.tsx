@@ -93,14 +93,14 @@ export default function Hero() {
         >
           <Link
             href="#projects"
-            className="flex items-center gap-3 px-8 py-4 rounded-full font-bold text-sm uppercase tracking-wider bg-gradient-to-r from-[#2e7d32] to-[#1a5c1a] text-white hover:brightness-110 shadow-xl border border-[#4caf50]/40 hover:scale-105 transition-all duration-200"
+            className="flex items-center gap-3 px-8 py-4 rounded-full font-bold text-sm uppercase tracking-wider bg-linear-to-r from-[#2e7d32] to-[#1a5c1a] text-white hover:brightness-110 shadow-xl border border-[#4caf50]/40 hover:scale-105 transition-all duration-200"
           >
             <span>Explore Signature Projects</span>
             <ArrowRight className="w-4 h-4" />
           </Link>
           <Link
             href="#estimate"
-            className="flex items-center gap-3 px-8 py-4 rounded-full font-bold text-sm uppercase tracking-wider bg-gradient-to-r from-[#ffd600] to-[#f9c923] text-[#061008] hover:brightness-110 shadow-xl shadow-[#ffd600]/20 hover:scale-105 transition-all duration-200"
+            className="flex items-center gap-3 px-8 py-4 rounded-full font-bold text-sm uppercase tracking-wider bg-linear-to-r from-[#ffd600] to-[#f9c923] text-[#061008] hover:brightness-110 shadow-xl shadow-[#ffd600]/20 hover:scale-105 transition-all duration-200"
           >
             <span>Configure Project RFP</span>
           </Link>

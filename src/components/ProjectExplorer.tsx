@@ -76,7 +76,7 @@ export default function ProjectExplorer() {
                 setShowAll(false);
               }}
               placeholder="Search by client, project, or location (e.g. SLEX, Subway, Nuvali, SM)..."
-              className="w-full pl-13 pr-12 py-3.5 rounded-full bg-[#102414]/90 border border-[#4caf50]/30 text-white placeholder:text-[#a8d5a8]/60 text-sm focus:outline-none focus:border-[#ffd600] focus:ring-2 focus:ring-[#ffd600]/20 transition-all shadow-lg"
+              className="w-full pl-13 pr-12 py-3.5 rounded-full form-input text-sm shadow-lg"
             />
             {searchQuery && (
               <button

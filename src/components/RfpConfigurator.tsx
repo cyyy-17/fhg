@@ -164,7 +164,7 @@ export default function RfpConfigurator() {
                   <select
                     value={service}
                     onChange={(e) => setService(e.target.value)}
-                    className="w-full px-4 py-3 rounded-xl bg-[#112414] border border-[#4caf50]/30 text-white text-sm focus:outline-none focus:border-[#ffd600] focus:ring-2 focus:ring-[#ffd600]/20 transition-all custom-select cursor-pointer"
+                    className="w-full px-4 py-3 rounded-xl form-input custom-select text-sm cursor-pointer"
                   >
                     <option value="Tree Earthballing & Relocation">Tree Earthballing & Relocation</option>
                     <option value="Certified Chainsaw Tree Cutting (89 Units)">Certified Chainsaw Tree Cutting (89 Units)</option>
@@ -183,7 +183,7 @@ export default function RfpConfigurator() {
                   <select
                     value={region}
                     onChange={(e) => setRegion(e.target.value)}
-                    className="w-full px-4 py-3 rounded-xl bg-[#112414] border border-[#4caf50]/30 text-white text-sm focus:outline-none focus:border-[#ffd600] focus:ring-2 focus:ring-[#ffd600]/20 transition-all custom-select cursor-pointer"
+                    className="w-full px-4 py-3 rounded-xl form-input custom-select text-sm cursor-pointer"
                   >
                     <option value="Batangas / Region IV-A (Calabarzon)">Batangas / Region IV-A (Calabarzon)</option>
                     <option value="Metro Manila (NCR) / Railway Alignment">Metro Manila (NCR) / Railway Alignment</option>
@@ -202,7 +202,7 @@ export default function RfpConfigurator() {
                   <select
                     value={volume}
                     onChange={(e) => setVolume(e.target.value)}
-                    className="w-full px-4 py-3 rounded-xl bg-[#112414] border border-[#4caf50]/30 text-white text-sm focus:outline-none focus:border-[#ffd600] focus:ring-2 focus:ring-[#ffd600]/20 transition-all custom-select cursor-pointer"
+                    className="w-full px-4 py-3 rounded-xl form-input custom-select text-sm cursor-pointer"
                   >
                     <option value="1 to 10 trees / Initial site assessment">1 to 10 trees / Initial site assessment</option>
                     <option value="11 to 50 trees / Medium development">11 to 50 trees / Medium development</option>
@@ -226,8 +226,8 @@ export default function RfpConfigurator() {
                         if (errors.name) setErrors({ ...errors, name: "" });
                       }}
                       placeholder="Engr. / Arch. / Manager Name"
-                      className={`w-full px-4 py-3 rounded-xl bg-[#112414] border text-white text-sm focus:outline-none focus:ring-2 transition-all ${
-                        errors.name ? "border-red-500 focus:ring-red-500/20" : "border-[#4caf50]/30 focus:border-[#ffd600] focus:ring-[#ffd600]/20"
+                      className={`w-full px-4 py-3 rounded-xl form-input text-sm ${
+                        errors.name ? "form-input-error" : ""
                       }`}
                     />
                     {errors.name && (
@@ -250,8 +250,8 @@ export default function RfpConfigurator() {
                         if (errors.company) setErrors({ ...errors, company: "" });
                       }}
                       placeholder="e.g. San Miguel / Ayala / SM Prime"
-                      className={`w-full px-4 py-3 rounded-xl bg-[#112414] border text-white text-sm focus:outline-none focus:ring-2 transition-all ${
-                        errors.company ? "border-red-500 focus:ring-red-500/20" : "border-[#4caf50]/30 focus:border-[#ffd600] focus:ring-[#ffd600]/20"
+                      className={`w-full px-4 py-3 rounded-xl form-input text-sm ${
+                        errors.company ? "form-input-error" : ""
                       }`}
                     />
                     {errors.company && (
@@ -276,8 +276,8 @@ export default function RfpConfigurator() {
                         if (errors.phone) setErrors({ ...errors, phone: "" });
                       }}
                       placeholder="0917 XXX XXXX"
-                      className={`w-full px-4 py-3 rounded-xl bg-[#112414] border text-white text-sm focus:outline-none focus:ring-2 transition-all ${
-                        errors.phone ? "border-red-500 focus:ring-red-500/20" : "border-[#4caf50]/30 focus:border-[#ffd600] focus:ring-[#ffd600]/20"
+                      className={`w-full px-4 py-3 rounded-xl form-input text-sm ${
+                        errors.phone ? "form-input-error" : ""
                       }`}
                     />
                     {errors.phone && (
@@ -300,8 +300,8 @@ export default function RfpConfigurator() {
                         if (errors.email) setErrors({ ...errors, email: "" });
                       }}
                       placeholder="name@company.com"
-                      className={`w-full px-4 py-3 rounded-xl bg-[#112414] border text-white text-sm focus:outline-none focus:ring-2 transition-all ${
-                        errors.email ? "border-red-500 focus:ring-red-500/20" : "border-[#4caf50]/30 focus:border-[#ffd600] focus:ring-[#ffd600]/20"
+                      className={`w-full px-4 py-3 rounded-xl form-input text-sm ${
+                        errors.email ? "form-input-error" : ""
                       }`}
                     />
                     {errors.email && (
@@ -315,7 +315,7 @@ export default function RfpConfigurator() {
 
                 <button
                   type="submit"
-                  className="w-full py-4 rounded-xl font-extrabold text-sm uppercase tracking-wider bg-gradient-to-r from-[#ffd600] to-[#f9c923] text-[#061008] hover:brightness-110 shadow-xl shadow-[#ffd600]/20 flex items-center justify-center gap-2 hover:scale-[1.01] transition-all duration-200 cursor-pointer mt-4"
+                  className="w-full py-4 rounded-xl font-extrabold text-sm uppercase tracking-wider bg-linear-to-r from-[#ffd600] to-[#f9c923] text-[#061008] hover:brightness-110 shadow-xl shadow-[#ffd600]/20 flex items-center justify-center gap-2 hover:scale-[1.01] transition-all duration-200 cursor-pointer mt-4"
                 >
                   <Send className="w-4 h-4" />
                   <span>Generate Official Proposal RFP</span>

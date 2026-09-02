@@ -131,7 +131,7 @@ export default function NurserySection() {
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                className="w-full h-full grayscale-[30%] contrast-[1.1]"
+                className="w-full h-full grayscale-30 contrast-[1.1]"
               />
             </div>
           </div>

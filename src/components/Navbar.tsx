@@ -65,7 +65,7 @@ export default function Navbar() {
             <Link
               key={item.href}
               href={item.href}
-              className="text-sm font-semibold text-[#a8d5a8] hover:text-white transition-colors duration-200 relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-[2px] after:bg-[#ffd600] after:transition-all after:duration-300 hover:after:w-full"
+              className="text-sm font-semibold text-[#a8d5a8] hover:text-white transition-colors duration-200 relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-0.5 after:bg-[#ffd600] after:transition-all after:duration-300 hover:after:w-full"
             >
               {item.label}
             </Link>
@@ -76,7 +76,7 @@ export default function Navbar() {
         <div className="flex items-center gap-4">
           <Link
             href="#estimate"
-            className="hidden sm:inline-flex items-center gap-2 px-6 py-2.5 rounded-full font-bold text-xs uppercase tracking-wider bg-gradient-to-r from-[#ffd600] to-[#f9c923] text-[#061008] hover:brightness-110 shadow-lg shadow-[#ffd600]/20 hover:scale-[1.02] transition-all duration-200"
+            className="hidden sm:inline-flex items-center gap-2 px-6 py-2.5 rounded-full font-bold text-xs uppercase tracking-wider bg-linear-to-r from-[#ffd600] to-[#f9c923] text-[#061008] hover:brightness-110 shadow-lg shadow-[#ffd600]/20 hover:scale-[1.02] transition-all duration-200"
           >
             <span>Submit Tender / RFP</span>
             <ArrowUpRight className="w-4 h-4" />
@@ -94,7 +94,7 @@ export default function Navbar() {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="xl:hidden fixed top-[65px] left-0 w-full h-[calc(100vh-65px)] bg-[#061208] p-8 flex flex-col justify-between overflow-y-auto border-t border-[#2e7d32]/20">
+        <div className="xl:hidden fixed top-16.25 left-0 w-full h-[calc(100vh-65px)] bg-[#061208] p-8 flex flex-col justify-between overflow-y-auto border-t border-[#2e7d32]/20">
           <div className="flex flex-col gap-4">
             {navItems.map((item) => (
               <Link
@@ -110,7 +110,7 @@ export default function Navbar() {
             <Link
               href="#estimate"
               onClick={() => setMobileMenuOpen(false)}
-              className="mt-4 w-full py-3.5 rounded-full text-center font-bold text-sm uppercase tracking-wider bg-gradient-to-r from-[#ffd600] to-[#f9c923] text-[#061008] shadow-lg shadow-[#ffd600]/20"
+              className="mt-4 w-full py-3.5 rounded-full text-center font-bold text-sm uppercase tracking-wider bg-linear-to-r from-[#ffd600] to-[#f9c923] text-[#061008] shadow-lg shadow-[#ffd600]/20"
             >
               Submit Tender / RFP
             </Link>

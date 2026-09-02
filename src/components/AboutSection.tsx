@@ -28,7 +28,7 @@ export default function AboutSection() {
             </p>
 
             {/* Official Motto Quote Box */}
-            <div className="p-6 rounded-2xl bg-gradient-to-r from-[#2e7d32]/25 to-[#112414]/80 border-l-4 border-[#ffd600] shadow-xl">
+            <div className="p-6 rounded-2xl bg-linear-to-r from-[#2e7d32]/25 to-[#112414]/80 border-l-4 border-[#ffd600] shadow-xl">
               <span className="text-4xl text-[#ffd600]/40 font-display font-black leading-none block mb-2">“</span>
               <p className="text-lg font-medium text-white italic leading-relaxed mb-3">
                 "We Do It Right and Fast. Our mission is to provide developers with dependable environmental clearing and greening without sacrificing statutory compliance or tree survival."
@@ -85,7 +85,7 @@ export default function AboutSection() {
                   <span className="text-[#ffd600]">100%</span>
                 </div>
                 <div className="w-full h-2 rounded-full bg-white/10 overflow-hidden">
-                  <div className="h-full bg-gradient-to-r from-[#4caf50] to-[#ffd600] rounded-full w-full" />
+                  <div className="h-full bg-linear-to-r from-[#4caf50] to-[#ffd600] rounded-full w-full" />
                 </div>
               </div>
 
@@ -95,7 +95,7 @@ export default function AboutSection() {
                   <span className="text-[#76c442]">100%</span>
                 </div>
                 <div className="w-full h-2 rounded-full bg-white/10 overflow-hidden">
-                  <div className="h-full bg-gradient-to-r from-[#2e7d32] to-[#76c442] rounded-full w-full" />
+                  <div className="h-full bg-linear-to-r from-[#2e7d32] to-[#76c442] rounded-full w-full" />
                 </div>
               </div>
             </div>

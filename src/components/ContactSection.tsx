@@ -157,8 +157,8 @@ export default function ContactSection() {
                       if (errors.fullName) setErrors({ ...errors, fullName: "" });
                     }}
                     placeholder="e.g. Engr. Juan Dela Cruz"
-                    className={`w-full px-4 py-3 rounded-xl bg-[#102414] border text-white text-sm focus:outline-none focus:ring-2 transition-all ${
-                      errors.fullName ? "border-red-500 focus:ring-red-500/20" : "border-[#4caf50]/30 focus:border-[#ffd600] focus:ring-[#ffd600]/20"
+                    className={`w-full px-4 py-3 rounded-xl form-input text-sm ${
+                      errors.fullName ? "form-input-error" : ""
                     }`}
                   />
                   {errors.fullName && (
@@ -181,8 +181,8 @@ export default function ContactSection() {
                       if (errors.email) setErrors({ ...errors, email: "" });
                     }}
                     placeholder="name@company.com"
-                    className={`w-full px-4 py-3 rounded-xl bg-[#102414] border text-white text-sm focus:outline-none focus:ring-2 transition-all ${
-                      errors.email ? "border-red-500 focus:ring-red-500/20" : "border-[#4caf50]/30 focus:border-[#ffd600] focus:ring-[#ffd600]/20"
+                    className={`w-full px-4 py-3 rounded-xl form-input text-sm ${
+                      errors.email ? "form-input-error" : ""
                     }`}
                   />
                   {errors.email && (
@@ -207,8 +207,8 @@ export default function ContactSection() {
                       if (errors.phone) setErrors({ ...errors, phone: "" });
                     }}
                     placeholder="0917 XXX XXXX"
-                    className={`w-full px-4 py-3 rounded-xl bg-[#102414] border text-white text-sm focus:outline-none focus:ring-2 transition-all ${
-                      errors.phone ? "border-red-500 focus:ring-red-500/20" : "border-[#4caf50]/30 focus:border-[#ffd600] focus:ring-[#ffd600]/20"
+                    className={`w-full px-4 py-3 rounded-xl form-input text-sm ${
+                      errors.phone ? "form-input-error" : ""
                     }`}
                   />
                   {errors.phone && (
@@ -231,8 +231,8 @@ export default function ContactSection() {
                       if (errors.subject) setErrors({ ...errors, subject: "" });
                     }}
                     placeholder="e.g. SLEX TR4 Tree Cutting Tender"
-                    className={`w-full px-4 py-3 rounded-xl bg-[#102414] border text-white text-sm focus:outline-none focus:ring-2 transition-all ${
-                      errors.subject ? "border-red-500 focus:ring-red-500/20" : "border-[#4caf50]/30 focus:border-[#ffd600] focus:ring-[#ffd600]/20"
+                    className={`w-full px-4 py-3 rounded-xl form-input text-sm ${
+                      errors.subject ? "form-input-error" : ""
                     }`}
                   />
                   {errors.subject && (
@@ -256,8 +256,8 @@ export default function ContactSection() {
                     if (errors.message) setErrors({ ...errors, message: "" });
                   }}
                   placeholder="Describe project location, estimated tree count, target start date, and any DENR permitting status..."
-                  className={`w-full px-4 py-3 rounded-xl bg-[#102414] border text-white text-sm focus:outline-none focus:ring-2 transition-all resize-none ${
-                    errors.message ? "border-red-500 focus:ring-red-500/20" : "border-[#4caf50]/30 focus:border-[#ffd600] focus:ring-[#ffd600]/20"
+                  className={`w-full px-4 py-3 rounded-xl form-input text-sm resize-none ${
+                    errors.message ? "form-input-error" : ""
                   }`}
                 />
                 {errors.message && (
@@ -270,7 +270,7 @@ export default function ContactSection() {
 
               <button
                 type="submit"
-                className="w-full py-4 rounded-xl font-extrabold text-sm uppercase tracking-wider bg-gradient-to-r from-[#2e7d32] to-[#1a5c1a] text-white hover:brightness-110 shadow-xl border border-[#4caf50]/40 flex items-center justify-center gap-2 hover:scale-[1.01] transition-all duration-200 cursor-pointer"
+                className="w-full py-4 rounded-xl font-extrabold text-sm uppercase tracking-wider bg-linear-to-r from-[#2e7d32] to-[#1a5c1a] text-white hover:brightness-110 shadow-xl border border-[#4caf50]/40 flex items-center justify-center gap-2 hover:scale-[1.01] transition-all duration-200 cursor-pointer"
               >
                 <Send className="w-4 h-4" />
                 <span>Send Direct Inquiry</span>
