@@ -129,7 +129,7 @@ export default function Hero() {
                 <span>{stat.value}</span>
                 <span className="text-[#ffd600] ml-0.5">{stat.suffix}</span>
               </div>
-              <span className="text-xs sm:text-sm font-bold text-[#f0fbf0] tracking-wide mb-1 min-h-[1.5rem] flex items-center justify-center text-center">
+              <span className="text-xs sm:text-sm font-bold text-[#f0fbf0] tracking-wide mb-1 min-h-6 flex items-center justify-center text-center">
                 {stat.label}
               </span>
               <span className="text-[10px] sm:text-[11px] text-[#a8d5a8] uppercase tracking-wider text-center">
