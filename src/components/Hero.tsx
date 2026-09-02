@@ -113,28 +113,26 @@ export default function Hero() {
           </Link>
         </motion.div>
 
-        {/* Expansive Stats Bar with Vertical Dividers */}
+        {/* Expansive Stats Bar with Perfectly Centered Dividers & Locked Baselines */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="w-full max-w-5xl glass-panel rounded-3xl p-6 sm:p-8 grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 shadow-2xl"
+          className="w-full max-w-5xl glass-panel rounded-3xl p-6 sm:p-8 grid grid-cols-2 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-[#4caf50]/20 shadow-2xl"
         >
           {companyData.stats.map((stat, idx) => (
             <div
               key={idx}
-              className={`flex flex-col items-center text-center ${
-                idx < companyData.stats.length - 1 ? "md:border-r md:border-[#4caf50]/20" : ""
-              }`}
+              className="flex flex-col items-center text-center px-4 py-3 md:py-1"
             >
-              <div className="text-3xl sm:text-4xl md:text-5xl font-black font-display text-white tracking-tight mb-1">
-                {stat.value}
-                <span className="text-[#ffd600]">{stat.suffix}</span>
+              <div className="text-3xl sm:text-4xl md:text-5xl font-black font-display text-white tracking-tight mb-1.5 flex items-baseline justify-center">
+                <span>{stat.value}</span>
+                <span className="text-[#ffd600] ml-0.5">{stat.suffix}</span>
               </div>
-              <span className="text-xs sm:text-sm font-bold text-[#f0fbf0] tracking-wide mb-0.5">
+              <span className="text-xs sm:text-sm font-bold text-[#f0fbf0] tracking-wide mb-1 min-h-[1.5rem] flex items-center justify-center text-center">
                 {stat.label}
               </span>
-              <span className="text-[11px] text-[#a8d5a8] uppercase tracking-wider">
+              <span className="text-[10px] sm:text-[11px] text-[#a8d5a8] uppercase tracking-wider text-center">
                 {stat.sub}
               </span>
             </div>

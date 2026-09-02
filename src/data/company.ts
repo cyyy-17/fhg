@@ -48,9 +48,9 @@ export const companyData = {
     }
   ],
   stats: [
-    { value: 26, suffix: "+", label: "Years of Enterprise Excellence", sub: "Founded June 10, 1998" },
-    { value: 89, suffix: "", label: "DENR Registered Chainsaws", sub: "Heavy Industrial Fleet" },
-    { value: 100, suffix: "K+", label: "Nursery Specimen Capacity", sub: "2 Batangas Facilities" },
-    { value: 100, suffix: "%", label: "Zero Environmental Infractions", sub: "Perfect Regulatory Record" }
+    { value: 26, suffix: "+", label: "Years of Excellence", sub: "Founded June 10, 1998" },
+    { value: 89, suffix: "+", label: "DENR Chainsaw Fleet", sub: "Heavy Industrial Units" },
+    { value: 100, suffix: "K+", label: "Nursery Tree Capacity", sub: "2 Batangas Facilities" },
+    { value: 100, suffix: "%", label: "Statutory Compliance", sub: "Zero Infractions Record" }
   ]
 };
