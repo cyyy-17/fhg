@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import confetti from "canvas-confetti";
-import { Check, Send, AlertCircle } from "lucide-react";
+import { Check, Send, AlertCircle, Users, Truck, Clock, ShieldCheck } from "lucide-react";
 
 export default function RfpConfigurator() {
   const [service, setService] = useState("Tree Earthballing & Relocation");
@@ -56,6 +56,38 @@ export default function RfpConfigurator() {
   const activeRecommendations =
     recommendations[service] || recommendations["Tree Earthballing & Relocation"];
 
+  // Real-time calculated deployment projections
+  const calculations = useMemo(() => {
+    let crew = "4–6 Certified Riggers & Sawyers";
+    let machinery = "1x Crane / Boom Truck + 4x Chainsaws";
+    let timeframe = "3–5 Working Days";
+    let permitting = "CENRO STCP Pre-Survey Ready";
+
+    if (volume.includes("11 to 50")) {
+      crew = "8–14 Certified Personnel + 1 Safety Officer";
+      machinery = "2x Heavy Boom Trucks + 8x Chainsaws + 1x Chipper";
+      timeframe = "7–14 Working Days";
+      permitting = "Full DENR STCP Clearance Dossier";
+    } else if (volume.includes("51 to 200")) {
+      crew = "16–28 Certified Personnel + 2 Safety Officers";
+      machinery = "50T Crane + 4x Boom Trucks + 16x Chainsaws + Chippers";
+      timeframe = "15–30 Working Days";
+      permitting = "PENRO / Regional Director Special Tree Permit";
+    } else if (volume.includes("200+")) {
+      crew = "35–60 Certified Personnel (Staged Corridor Crews)";
+      machinery = "Dedicated Multi-Crane Fleet + 30+ Heavy Chainsaws";
+      timeframe = "Project Concession Phased Schedule";
+      permitting = "Turnkey Infrastructure Priority STCP Clearance";
+    } else if (volume.includes("seedlings")) {
+      crew = "Nursery Propagation & Logistics Dispatch Team";
+      machinery = "10,000L Water Tankers + Flatbed Seedling Haulers";
+      timeframe = "Staggered Weekly Delivery Batches";
+      permitting = "DENR Official Seedling Receipt & Offset Certificate";
+    }
+
+    return { crew, machinery, timeframe, permitting };
+  }, [volume]);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -94,6 +126,8 @@ export default function RfpConfigurator() {
       `• Primary Service: ${service}\n` +
       `• Location / Region: ${region}\n` +
       `• Estimated Scope / Volume: ${volume}\n\n` +
+      `• Projected Mobilization: ${calculations.crew} | ${calculations.machinery}\n` +
+      `• Estimated Project Window: ${calculations.timeframe}\n\n` +
       `Please provide details on next steps, site inspection availability, and compliance requirements.\n\n` +
       `Thank you,\n${name} (${company})`
     );
@@ -117,15 +151,15 @@ export default function RfpConfigurator() {
               </h2>
 
               <p className="text-base text-[#a8d5a8] leading-relaxed">
-                Select your required scopes and tree volume to generate a structured Request for Proposal (RFP). Our arbor engineers review parameters and return a formal technical quotation within 24–48 hours.
+                Select required scopes and tree volume to generate a structured Request for Proposal (RFP). Our arbor engineers review parameters and return a formal technical quotation within 24–48 hours.
               </p>
 
               {/* Dynamic Fleet Recommendation Engine */}
               <div className="p-6 rounded-2xl bg-[#0a190d] border border-[#4caf50]/20">
                 <span className="text-xs font-bold text-[#ffd600] uppercase tracking-wider block mb-3">
-                  Recommended Mobilization Plan:
+                  Recommended Mobilization Equipment:
                 </span>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-2 mb-4">
                   {activeRecommendations.map((tag, idx) => (
                     <span
                       key={idx}
@@ -134,6 +168,38 @@ export default function RfpConfigurator() {
                       {tag}
                     </span>
                   ))}
+                </div>
+
+                {/* Real-Time Calculated Mobilization Summary */}
+                <div className="pt-4 border-t border-white/10 space-y-2 text-xs">
+                  <div className="flex items-center justify-between text-[#a8d5a8]">
+                    <span className="flex items-center gap-1.5">
+                      <Users className="w-3.5 h-3.5 text-[#ffd600]" />
+                      <span>Estimated Crew Size:</span>
+                    </span>
+                    <strong className="text-white">{calculations.crew}</strong>
+                  </div>
+                  <div className="flex items-center justify-between text-[#a8d5a8]">
+                    <span className="flex items-center gap-1.5">
+                      <Truck className="w-3.5 h-3.5 text-[#76c442]" />
+                      <span>Equipment Fleet:</span>
+                    </span>
+                    <strong className="text-white text-right">{calculations.machinery}</strong>
+                  </div>
+                  <div className="flex items-center justify-between text-[#a8d5a8]">
+                    <span className="flex items-center gap-1.5">
+                      <Clock className="w-3.5 h-3.5 text-[#ffd600]" />
+                      <span>Estimated Window:</span>
+                    </span>
+                    <strong className="text-white">{calculations.timeframe}</strong>
+                  </div>
+                  <div className="flex items-center justify-between text-[#a8d5a8]">
+                    <span className="flex items-center gap-1.5">
+                      <ShieldCheck className="w-3.5 h-3.5 text-[#76c442]" />
+                      <span>Permitting Plan:</span>
+                    </span>
+                    <strong className="text-[#76c442]">{calculations.permitting}</strong>
+                  </div>
                 </div>
               </div>
 

@@ -8,11 +8,11 @@ import { Phone, Menu, X, ArrowUpRight } from "lucide-react";
 const navItems = [
   { label: "About", href: "#about" },
   { label: "Services", href: "#services" },
+  { label: "Proof", href: "#proof" },
+  { label: "Fleet", href: "#fleet" },
   { label: "Projects", href: "#projects" },
-  { label: "Protocol", href: "#protocol" },
-  { label: "Clients", href: "#clients" },
-  { label: "Accreditations", href: "#credentials" },
-  { label: "Nurseries", href: "#nurseries" },
+  { label: "Nursery Stock", href: "#catalog" },
+  { label: "Dossier Vault", href: "#vault" },
   { label: "Contact", href: "#contact" },
 ];
 

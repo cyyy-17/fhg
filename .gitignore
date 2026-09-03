@@ -25,6 +25,7 @@
 *.pem
 Company Details/
 *.pdf
+!public/docs/*.pdf
 
 # debug
 npm-debug.log*

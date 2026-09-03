@@ -2,8 +2,10 @@
 
 import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, X, MapPin, Building2, Layers } from "lucide-react";
+import { Search, X, MapPin, Building2, Eye, ShieldCheck } from "lucide-react";
 import { projectsData, ProjectItem } from "@/data/projects";
+import ProjectModal from "./ProjectModal";
+import MediaPlaceholder from "./MediaPlaceholder";
 
 type CategoryFilter = "all" | "ongoing" | "infrastructure" | "commercial" | "reforestation";
 
@@ -11,6 +13,7 @@ export default function ProjectExplorer() {
   const [activeFilter, setActiveFilter] = useState<CategoryFilter>("all");
   const [searchQuery, setSearchQuery] = useState("");
   const [showAll, setShowAll] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
 
   const filteredProjects = useMemo(() => {
     return projectsData.filter((p) => {
@@ -142,54 +145,81 @@ export default function ProjectExplorer() {
         ) : (
           <motion.div layout className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6">
             <AnimatePresence>
-              {displayedProjects.map((p) => (
-                <motion.div
-                  layout
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.3 }}
-                  key={p.id}
-                  className="glass-panel glass-panel-hover rounded-2xl p-6 flex flex-col justify-between group"
-                >
-                  <div>
-                    {/* Top Row: Client & Status Badge */}
-                    <div className="flex items-center justify-between gap-3 mb-3">
-                      <div className="flex items-center gap-1.5 text-xs font-bold text-[#76c442] tracking-wider uppercase truncate">
-                        <Building2 className="w-3.5 h-3.5 shrink-0" />
-                        <span className="truncate">{p.client}</span>
+              {displayedProjects.map((p) => {
+                const isInfra = p.category === "infrastructure";
+                const isRefor = p.category === "reforestation";
+                return (
+                  <motion.div
+                    layout
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    transition={{ duration: 0.3 }}
+                    key={p.id}
+                    onClick={() => setSelectedProject(p)}
+                    className="glass-panel glass-panel-hover rounded-2xl p-6 flex flex-col justify-between group cursor-pointer"
+                  >
+                    <div>
+                      {/* Technical Preview Thumbnail */}
+                      <div className="mb-4 rounded-xl overflow-hidden border border-white/10">
+                        <MediaPlaceholder
+                          variant={isRefor ? "nursery-propagation" : isInfra ? "site-clearing" : "tree-specimen"}
+                          aspect="16/9"
+                          title={p.title}
+                          subtitle={p.client}
+                          badge={p.badge}
+                          tag={p.id.toUpperCase()}
+                        />
                       </div>
-                      <span
-                        className={`text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider shrink-0 ${
-                          p.badge === "Ongoing"
-                            ? "bg-[#ffd600]/20 text-[#ffd600] border border-[#ffd600]/40 animate-pulse"
-                            : "bg-[#2e7d32]/20 text-[#a8d5a8] border border-[#2e7d32]/40"
-                        }`}
-                      >
-                        {p.badge}
-                      </span>
+
+                      {/* Top Row: Client & Status Badge */}
+                      <div className="flex items-center justify-between gap-3 mb-3">
+                        <div className="flex items-center gap-1.5 text-xs font-bold text-[#76c442] tracking-wider uppercase truncate">
+                          <Building2 className="w-3.5 h-3.5 shrink-0" />
+                          <span className="truncate">{p.client}</span>
+                        </div>
+                        <span
+                          className={`text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider shrink-0 ${
+                            p.badge === "Ongoing"
+                              ? "bg-[#ffd600]/20 text-[#ffd600] border border-[#ffd600]/40 animate-pulse"
+                              : "bg-[#2e7d32]/20 text-[#a8d5a8] border border-[#2e7d32]/40"
+                          }`}
+                        >
+                          {p.badge}
+                        </span>
+                      </div>
+
+                      {/* Title */}
+                      <h3 className="text-lg font-bold font-heading text-white mb-2 group-hover:text-[#ffd600] transition-colors leading-snug">
+                        {p.title}
+                      </h3>
+
+                      {/* Location */}
+                      <div className="flex items-start gap-1.5 text-xs text-[#a8d5a8] mb-4">
+                        <MapPin className="w-3.5 h-3.5 text-[#ffd600] shrink-0 mt-0.5" />
+                        <span>{p.location}</span>
+                      </div>
                     </div>
 
-                    {/* Title */}
-                    <h3 className="text-lg font-bold font-heading text-white mb-3 group-hover:text-[#ffd600] transition-colors leading-snug">
-                      {p.title}
-                    </h3>
-
-                    {/* Location */}
-                    <div className="flex items-start gap-1.5 text-xs text-[#a8d5a8] mb-4">
-                      <MapPin className="w-3.5 h-3.5 text-[#ffd600] shrink-0 mt-0.5" />
-                      <span>{p.location}</span>
+                    {/* Scope snippet and Inspect trigger */}
+                    <div className="pt-4 border-t border-white/10">
+                      <p className="text-xs text-[#f0fbf0]/80 leading-relaxed line-clamp-2 mb-3">
+                        {p.scope}
+                      </p>
+                      <div className="flex items-center justify-between text-xs text-[#ffd600] font-bold">
+                        <span className="flex items-center gap-1">
+                          <ShieldCheck className="w-3.5 h-3.5 text-[#76c442]" />
+                          <span className="text-[11px] text-[#a8d5a8]">DENR Permitted</span>
+                        </span>
+                        <span className="flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                          <Eye className="w-3.5 h-3.5" />
+                          <span>Inspect Dossier</span>
+                        </span>
+                      </div>
                     </div>
-                  </div>
-
-                  {/* Scope description */}
-                  <div className="pt-4 border-t border-white/10">
-                    <p className="text-xs text-[#f0fbf0]/80 leading-relaxed">
-                      {p.scope}
-                    </p>
-                  </div>
-                </motion.div>
-              ))}
+                  </motion.div>
+                );
+              })}
             </AnimatePresence>
           </motion.div>
         )}
@@ -199,13 +229,19 @@ export default function ProjectExplorer() {
           <div className="mt-12 text-center">
             <button
               onClick={() => setShowAll(true)}
-              className="px-8 py-3.5 rounded-full font-bold text-xs uppercase tracking-wider bg-[#2e7d32] hover:bg-[#4caf50] text-white shadow-xl hover:scale-105 transition-all duration-200"
+              className="px-8 py-3.5 rounded-full font-bold text-xs uppercase tracking-wider bg-[#2e7d32] hover:bg-[#4caf50] text-white shadow-xl hover:scale-105 transition-all duration-200 cursor-pointer"
             >
               Show All {filteredProjects.length} Projects ↓
             </button>
           </div>
         )}
       </div>
+
+      {/* Project Detail Modal */}
+      <ProjectModal
+        project={selectedProject}
+        onClose={() => setSelectedProject(null)}
+      />
     </section>
   );
 }

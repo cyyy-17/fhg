@@ -89,7 +89,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.3 }}
-          className="flex flex-wrap justify-center gap-4 sm:gap-6 mb-16"
+          className="flex flex-wrap justify-center gap-4 sm:gap-6 mb-8"
         >
           <Link
             href="#projects"
@@ -105,11 +105,32 @@ export default function Hero() {
             <span>Configure Project RFP</span>
           </Link>
           <Link
-            href="#protocol"
-            className="flex items-center gap-3 px-8 py-4 rounded-full font-semibold text-sm text-white bg-white/5 hover:bg-white/10 border border-white/15 backdrop-blur-md hover:border-[#76c442] hover:scale-105 transition-all duration-200"
+            href="#vault"
+            className="flex items-center gap-3 px-8 py-4 rounded-full font-semibold text-sm text-white bg-white/5 hover:bg-white/10 border border-white/15 backdrop-blur-md hover:border-[#ffd600] hover:scale-105 transition-all duration-200"
           >
-            <FileText className="w-4 h-4 text-[#76c442]" />
-            <span>Our Compliance Protocol</span>
+            <FileText className="w-4 h-4 text-[#ffd600]" />
+            <span>Document Vault</span>
+          </Link>
+        </motion.div>
+
+        {/* Quick Discovery Navigation Chips */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.35 }}
+          className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-12 text-xs font-semibold text-[#a8d5a8]"
+        >
+          <Link href="#proof" className="px-3.5 py-1.5 rounded-full bg-white/5 hover:bg-white/10 hover:text-white border border-white/10 transition-colors">
+            Interactive Before/After Proof →
+          </Link>
+          <Link href="#fleet" className="px-3.5 py-1.5 rounded-full bg-white/5 hover:bg-white/10 hover:text-white border border-white/10 transition-colors">
+            89-Chainsaw Fleet Specs →
+          </Link>
+          <Link href="#catalog" className="px-3.5 py-1.5 rounded-full bg-white/5 hover:bg-white/10 hover:text-white border border-white/10 transition-colors">
+            Nursery Species Catalog →
+          </Link>
+          <Link href="#timeline" className="px-3.5 py-1.5 rounded-full bg-white/5 hover:bg-white/10 hover:text-white border border-white/10 transition-colors">
+            28-Year Timeline →
           </Link>
         </motion.div>
 
