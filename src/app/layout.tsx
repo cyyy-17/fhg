@@ -25,10 +25,10 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://fhg.vercel.app"),
-  title: "Forest Hills Garden | Forest Hill Garden Philippines — Tree Services & Landscaping",
+  metadataBase: new URL("https://fhg-two.vercel.app"),
+  title: "Forest Hills Garden | Industrial Tree Services Philippines",
   description:
-    "Forest Hills Garden (Forest Hill Garden) — Philippines' premier contractor for commercial tree earthballing, precision tree cutting, right-of-way felling, plant nurseries, and reforestation since 1998 in Talisay, Batangas. 'We Do It Right and Fast.'",
+    "Philippines' premier contractor for tree earthballing, precision chainsaw felling, DENR permits, and plant nurseries since 1998. Trusted by SMC, Ayala & EEI.",
   keywords: [
     "Forest Hills Garden",
     "Forest Hill Garden",
@@ -43,6 +43,9 @@ export const metadata: Metadata = {
     "reforestation Zambales",
   ],
   authors: [{ name: "Forest Hills Garden" }],
+  alternates: {
+    canonical: "https://fhg-two.vercel.app",
+  },
   verification: {
     google: "85t1JuUj8lLOWuWFYqwNk79r8NNBJSovLkpZYjoLQno",
   },
@@ -59,9 +62,10 @@ export const metadata: Metadata = {
   },
   openGraph: {
     siteName: "Forest Hills Garden",
-    title: "Forest Hills Garden (Forest Hill Garden) | Industrial Tree Services Authority",
+    title: "Forest Hills Garden | Industrial Tree Services Philippines",
     description:
-      "We Do It Right and Fast. Philippines' premier tree earthballing, chainsaw felling, plant nursery, and reforestation contractor since 1998. Trusted by San Miguel, Ayala, SM, NLEX, EEI, DMCI.",
+      "Philippines' premier contractor for tree earthballing, precision chainsaw felling, DENR permits, and plant nurseries since 1998. Trusted by SMC, Ayala & EEI.",
+    url: "https://fhg-two.vercel.app",
     type: "website",
     locale: "en_PH",
     images: [
@@ -75,7 +79,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Forest Hills Garden | Forest Hill Garden Philippines",
+    title: "Forest Hills Garden | Industrial Tree Services Philippines",
     description:
       "Official website of Forest Hills Garden. Industrial tree earthballing, felling, nursery supply, and environmental greening since 1998.",
     images: ["/images/logo.png"],
@@ -94,49 +98,122 @@ export default function RootLayout({
 }>) {
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "HomeAndConstructionBusiness",
-    name: "Forest Hills Garden",
-    alternateName: [
-      "Forest Hill Garden",
-      "FHG",
-      "Forest Hills Garden Philippines",
-      "Forest Hill Garden Batangas",
-      "Forest Hills Garden Talisay",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://fhg-two.vercel.app/#website",
+        url: "https://fhg-two.vercel.app",
+        name: "Forest Hills Garden",
+        alternateName: [
+          "Forest Hill Garden",
+          "FHG",
+          "Forest Hills Garden Philippines",
+          "Forest Hill Garden Philippines",
+          "Forest Hills Garden Batangas",
+        ],
+        description:
+          "Official website of Forest Hills Garden. Industrial tree earthballing, precision felling, plant nursery supply, and environmental compliance contractor since 1998.",
+        publisher: {
+          "@id": "https://fhg-two.vercel.app/#organization",
+        },
+        inLanguage: "en-PH",
+      },
+      {
+        "@type": "HomeAndConstructionBusiness",
+        "@id": "https://fhg-two.vercel.app/#organization",
+        name: "Forest Hills Garden",
+        alternateName: [
+          "Forest Hill Garden",
+          "FHG",
+          "Forest Hills Garden Philippines",
+          "Forest Hill Garden Batangas",
+          "Forest Hills Garden Talisay",
+        ],
+        url: "https://fhg-two.vercel.app",
+        image: "https://fhg-two.vercel.app/images/logo.png",
+        logo: "https://fhg-two.vercel.app/images/logo.png",
+        slogan: "We Do It Right and Fast",
+        foundingDate: "1998-06-10",
+        founder: {
+          "@type": "Person",
+          name: "Edwin G. Luna",
+        },
+        founderOrManager: {
+          "@type": "Person",
+          name: "Marife B. Luna",
+        },
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: "4th Floor, Luna Building, Malvar St., Poblacion 8",
+          addressLocality: "Talisay",
+          addressRegion: "Batangas",
+          postalCode: "4220",
+          addressCountry: "PH",
+        },
+        geo: {
+          "@type": "GeoCoordinates",
+          latitude: 14.095,
+          longitude: 120.978,
+        },
+        telephone: "+63-43-741-0603",
+        email: "edluna1971@yahoo.com",
+        priceRange: "$$",
+        areaServed: [
+          {
+            "@type": "AdministrativeArea",
+            name: "Metro Manila",
+          },
+          {
+            "@type": "AdministrativeArea",
+            name: "Calabarzon",
+          },
+          {
+            "@type": "Country",
+            name: "Philippines",
+          },
+        ],
+        description:
+          "Forest Hills Garden is the premier Philippine enterprise contractor for commercial tree earthballing, relocation, certified chainsaw felling, plant nursery propagation, commercial greening, and large-scale watershed reforestation.",
+        hasOfferCatalog: {
+          "@type": "OfferCatalog",
+          name: "Industrial Tree Care & Environmental Services",
+          itemListElement: [
+            {
+              "@type": "Offer",
+              itemOffered: {
+                "@type": "Service",
+                name: "Commercial Tree Earthballing & Relocation",
+                description: "Specialized root-ball excavation, hydraulic crane rigging, and specimen tree preservation.",
+              },
+            },
+            {
+              "@type": "Offer",
+              itemOffered: {
+                "@type": "Service",
+                name: "Certified Chainsaw Tree Cutting (89 Fleet)",
+                description: "DENR and PCA registered controlled sectional felling for expressway and railway right-of-way.",
+              },
+            },
+            {
+              "@type": "Offer",
+              itemOffered: {
+                "@type": "Service",
+                name: "Twin Plant Nursery Seedling Supply",
+                description: "150,000+ native forest saplings and compensatory planting stocks across Talisay, Batangas facilities.",
+              },
+            },
+            {
+              "@type": "Offer",
+              itemOffered: {
+                "@type": "Service",
+                name: "DENR Tree Inventory & STCP Permitting",
+                description: "Turnkey GPS tree census, caliper tagging, and statutory Special Tree Cutting Permit processing.",
+              },
+            },
+          ],
+        },
+      },
     ],
-    image: "https://fhg.vercel.app/images/logo.png",
-    logo: "https://fhg.vercel.app/images/logo.png",
-    slogan: "We Do It Right and Fast",
-    foundingDate: "1998-06-10",
-    founder: {
-      "@type": "Person",
-      name: "Edwin G. Luna",
-    },
-    founderOrManager: {
-      "@type": "Person",
-      name: "Marife B. Luna",
-    },
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: "4th Floor, Luna Building, Malvar St., Poblacion 8",
-      addressLocality: "Talisay",
-      addressRegion: "Batangas",
-      postalCode: "4220",
-      addressCountry: "PH",
-    },
-    geo: {
-      "@type": "GeoCoordinates",
-      latitude: 14.095,
-      longitude: 120.978,
-    },
-    telephone: "+63-43-741-0603",
-    email: "edluna1971@yahoo.com",
-    priceRange: "$$",
-    areaServed: {
-      "@type": "Country",
-      name: "Philippines",
-    },
-    description:
-      "Forest Hills Garden is the premier Philippine enterprise contractor for tree earthballing, relocation, certified chainsaw felling, plant nursery propagation, commercial greening, and large-scale watershed reforestation.",
   };
 
   return (
