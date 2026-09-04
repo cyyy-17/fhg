@@ -34,8 +34,9 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
     <div
       role="dialog"
       aria-modal="true"
-      className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 lg:p-10 bg-black/85 backdrop-blur-md overflow-y-auto animate-fadeIn"
+      className="fixed inset-0 z-100 flex items-center justify-center p-4 sm:p-6 lg:p-10 bg-black/85 backdrop-blur-md overflow-y-auto animate-fadeIn"
       onClick={onClose}
+
     >
       <div
         className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-3xl bg-[#061409] border border-[#4caf50]/40 shadow-2xl p-6 sm:p-10 text-white"

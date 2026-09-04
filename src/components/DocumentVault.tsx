@@ -201,9 +201,10 @@ export default function DocumentVault() {
         <div
           role="dialog"
           aria-modal="true"
-          className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md animate-fadeIn"
+          className="fixed inset-0 z-100 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md animate-fadeIn"
           onClick={() => setPreviewDoc(null)}
         >
+
 
           <div
             className="relative w-full max-w-5xl h-[90vh] rounded-3xl bg-[#061409] border border-[#4caf50]/40 shadow-2xl p-4 sm:p-6 flex flex-col text-white"
