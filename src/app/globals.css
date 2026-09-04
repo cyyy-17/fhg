@@ -128,3 +128,58 @@ html.lenis, html.lenis body {
   border-color: #ef4444;
   box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2);
 }
+
+/* Accessible text contrast token */
+.text-forest-muted {
+  color: #c4e1c4;
+}
+
+/* High-Contrast Print Styles for B2B Bid Packages */
+@media print {
+  body, html {
+    background-color: #ffffff !important;
+    color: #111827 !important;
+    font-size: 11pt !important;
+  }
+
+  header,
+  nav,
+  footer,
+  #floating-actions,
+  .no-print {
+    display: none !important;
+  }
+
+  .glass-panel {
+    background: #ffffff !important;
+    border: 1px solid #e5e7eb !important;
+    color: #111827 !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    background-color: transparent !important;
+    color: #111827 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    -webkit-text-fill-color: #111827 !important;
+  }
+
+
+  a {
+    text-decoration: underline !important;
+    color: #1b5e20 !important;
+  }
+
+  /* Force clean page breaks */
+  section {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+    padding-top: 1.5rem !important;
+    padding-bottom: 1.5rem !important;
+  }
+}
+

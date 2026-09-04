@@ -3,7 +3,8 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Phone, Menu, X, ArrowUpRight } from "lucide-react";
+import { Phone, Menu, X, ArrowUpRight, MessageCircle } from "lucide-react";
+
 
 const navItems = [
   { label: "About", href: "#about" },
@@ -11,10 +12,13 @@ const navItems = [
   { label: "Proof", href: "#proof" },
   { label: "Fleet", href: "#fleet" },
   { label: "Projects", href: "#projects" },
-  { label: "Nursery Stock", href: "#catalog" },
-  { label: "Dossier Vault", href: "#vault" },
+  { label: "Safety EHS", href: "#safety-ehs" },
+  { label: "Nursery", href: "#catalog" },
+  { label: "Vault", href: "#vault" },
+  { label: "FAQ", href: "#faq" },
   { label: "Contact", href: "#contact" },
 ];
+
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -73,7 +77,18 @@ export default function Navbar() {
         </nav>
 
         {/* Action Button & Mobile Trigger */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
+          <a
+            href="https://wa.me/639165667265"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden md:inline-flex items-center gap-1.5 px-4 py-2 rounded-full font-bold text-xs bg-[#25d366]/20 text-[#25d366] hover:bg-[#25d366] hover:text-white border border-[#25d366]/40 transition-all"
+            aria-label="WhatsApp Dispatch"
+          >
+            <MessageCircle className="w-3.5 h-3.5 fill-current" />
+            <span>WhatsApp</span>
+          </a>
+
           <Link
             href="#estimate"
             className="hidden sm:inline-flex items-center gap-2 px-6 py-2.5 rounded-full font-bold text-xs uppercase tracking-wider bg-linear-to-r from-[#ffd600] to-[#f9c923] text-[#061008] hover:brightness-110 shadow-lg shadow-[#ffd600]/20 hover:scale-[1.02] transition-all duration-200"
@@ -95,13 +110,13 @@ export default function Navbar() {
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
         <div className="xl:hidden fixed top-16.25 left-0 w-full h-[calc(100vh-65px)] bg-[#061208] p-8 flex flex-col justify-between overflow-y-auto border-t border-[#2e7d32]/20">
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-3">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="text-lg font-bold text-white py-3 border-b border-white/10 hover:text-[#76c442] hover:pl-2 transition-all flex items-center justify-between"
+                className="text-base font-bold text-white py-2.5 border-b border-white/10 hover:text-[#76c442] hover:pl-2 transition-all flex items-center justify-between"
               >
                 <span>{item.label}</span>
                 <span className="text-[#ffd600]">→</span>
@@ -110,19 +125,28 @@ export default function Navbar() {
             <Link
               href="#estimate"
               onClick={() => setMobileMenuOpen(false)}
-              className="mt-4 w-full py-3.5 rounded-full text-center font-bold text-sm uppercase tracking-wider bg-linear-to-r from-[#ffd600] to-[#f9c923] text-[#061008] shadow-lg shadow-[#ffd600]/20"
+              className="mt-3 w-full py-3 rounded-full text-center font-bold text-xs uppercase tracking-wider bg-linear-to-r from-[#ffd600] to-[#f9c923] text-[#061008] shadow-lg shadow-[#ffd600]/20"
             >
               Submit Tender / RFP
             </Link>
           </div>
 
-          <div className="pt-8 border-t border-white/10 flex flex-wrap gap-3">
+          <div className="pt-6 border-t border-white/10 flex flex-wrap gap-2.5">
             <a
-              href="tel:0437410603"
-              className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs font-semibold text-[#a8d5a8] hover:text-white"
+              href="https://wa.me/639165667265"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#25d366]/20 text-[#25d366] text-xs font-semibold"
             >
-              <Phone className="w-3.5 h-3.5 text-[#ffd600]" />
-              <span>(043) 741 0603</span>
+              <MessageCircle className="w-3.5 h-3.5 fill-current" />
+              <span>WhatsApp</span>
+            </a>
+            <a
+              href="viber://chat?number=%2B639165667265"
+              className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#7360f2]/20 text-[#a899ff] text-xs font-semibold"
+            >
+              <MessageCircle className="w-3.5 h-3.5 fill-current" />
+              <span>Viber</span>
             </a>
             <a
               href="tel:09165667265"
@@ -136,4 +160,5 @@ export default function Navbar() {
       )}
     </header>
   );
+
 }

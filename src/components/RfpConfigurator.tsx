@@ -2,7 +2,8 @@
 
 import { useState, useMemo } from "react";
 import confetti from "canvas-confetti";
-import { Check, Send, AlertCircle, Users, Truck, Clock, ShieldCheck } from "lucide-react";
+import { Check, Send, AlertCircle, Users, Truck, Clock, ShieldCheck, Copy, MessageCircle, Mail, X, Shield } from "lucide-react";
+import { companyData } from "@/data/company";
 
 export default function RfpConfigurator() {
   const [service, setService] = useState("Tree Earthballing & Relocation");
@@ -16,6 +17,9 @@ export default function RfpConfigurator() {
 
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
+
 
   // Dynamic Fleet Recommendations
   const recommendations: Record<string, string[]> = {
@@ -106,6 +110,7 @@ export default function RfpConfigurator() {
 
     setErrors({});
     setSubmitted(true);
+    setModalOpen(true);
 
     // Tactile celebration
     confetti({
@@ -127,13 +132,33 @@ export default function RfpConfigurator() {
       `• Location / Region: ${region}\n` +
       `• Estimated Scope / Volume: ${volume}\n\n` +
       `• Projected Mobilization: ${calculations.crew} | ${calculations.machinery}\n` +
-      `• Estimated Project Window: ${calculations.timeframe}\n\n` +
+      `• Estimated Project Window: ${calculations.timeframe}\n` +
+      `• Warranty Specification: 12-Month 100% Free Specimen Replacement\n\n` +
       `Please provide details on next steps, site inspection availability, and compliance requirements.\n\n` +
       `Thank you,\n${name} (${company})`
     );
 
     window.location.href = `mailto:edluna1971@yahoo.com?cc=iamfeluna@yahoo.com&subject=${subject}&body=${body}`;
   };
+
+  const compiledRfp =
+    `[FOREST HILLS GARDEN - RFP SPECIFICATION]\n` +
+    `Client: ${name} (${company})\n` +
+    `Contact: ${phone} | ${email}\n` +
+    `Scope: ${service}\n` +
+    `Region: ${region}\n` +
+    `Estimated Volume: ${volume}\n` +
+    `Mobilization Crew: ${calculations.crew}\n` +
+    `Mobilization Machinery: ${calculations.machinery}\n` +
+    `Projected Window: ${calculations.timeframe}\n` +
+    `Warranty: 12-Month Post-Transplantation Free Specimen Replacement`;
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(compiledRfp);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 3000);
+  };
+
 
   return (
     <section id="estimate" className="py-24 bg-[#030a04] relative z-20">
@@ -379,24 +404,105 @@ export default function RfpConfigurator() {
                   </div>
                 </div>
 
+                {/* Formal Survival Warranty Assurance */}
+                <div className="p-3.5 rounded-xl bg-[#ffd600]/10 border border-[#ffd600]/30 flex items-center gap-3 mt-2">
+                  <ShieldCheck className="w-5 h-5 text-[#ffd600] shrink-0" />
+                  <div className="text-xs">
+                    <strong className="text-white block">12-Month Tree Survival Warranty Included</strong>
+                    <span className="text-forest-muted">100% free specimen replacement backed by our twin Batangas nurseries.</span>
+                  </div>
+                </div>
+
                 <button
                   type="submit"
                   className="w-full py-4 rounded-xl font-extrabold text-sm uppercase tracking-wider bg-linear-to-r from-[#ffd600] to-[#f9c923] text-[#061008] hover:brightness-110 shadow-xl shadow-[#ffd600]/20 flex items-center justify-center gap-2 hover:scale-[1.01] transition-all duration-200 cursor-pointer mt-4"
                 >
                   <Send className="w-4 h-4" />
-                  <span>Generate Official Proposal RFP</span>
+                  <span>Generate & Dispatch Official Proposal RFP</span>
                 </button>
               </form>
-
-              {submitted && (
-                <div className="mt-4 p-4 rounded-xl bg-[#4caf50]/20 border border-[#76c442]/40 text-center text-xs text-[#f0fbf0]">
-                  Proposal generated! Mail client opened with pre-filled technical parameters.
-                </div>
-              )}
             </div>
           </div>
         </div>
       </div>
+
+      {/* RFP Dispatch Modal */}
+      {modalOpen && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fadeIn"
+          onClick={() => setModalOpen(false)}
+        >
+          <div
+            className="relative w-full max-w-xl rounded-3xl bg-[#07170a] border border-[#ffd600]/40 shadow-2xl p-6 sm:p-8 text-white"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setModalOpen(false)}
+              className="absolute top-5 right-5 w-8 h-8 rounded-full bg-white/10 hover:bg-[#ffd600] hover:text-[#050e07] flex items-center justify-center transition-colors cursor-pointer"
+              aria-label="Close Modal"
+            >
+              <X className="w-4 h-4" />
+            </button>
+
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-10 h-10 rounded-xl bg-[#ffd600]/20 flex items-center justify-center text-[#ffd600]">
+                <Check className="w-5 h-5" />
+              </div>
+              <div>
+                <h3 className="text-xl font-bold font-heading">RFP Specification Prepared</h3>
+                <span className="text-xs text-[#76c442]">Direct submission ready</span>
+              </div>
+            </div>
+
+            <p className="text-xs text-forest-muted mb-4">
+              Your default email app was triggered. If your system did not launch a mail client, select an instant dispatch option below:
+            </p>
+
+            <div className="p-3.5 rounded-xl bg-black/50 border border-white/10 font-mono text-xs text-[#ffd600] max-h-40 overflow-y-auto mb-5 whitespace-pre-wrap">
+              {compiledRfp}
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <button
+                onClick={handleCopy}
+                className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-bold text-xs uppercase tracking-wider bg-white/10 hover:bg-white/20 border border-white/15 text-white transition-all cursor-pointer"
+              >
+                {copied ? <Check className="w-4 h-4 text-[#76c442]" /> : <Copy className="w-4 h-4 text-[#ffd600]" />}
+                <span>{copied ? "Copied Specification!" : "1-Click Copy RFP"}</span>
+              </button>
+
+              <a
+                href={`https://wa.me/639165667265?text=${encodeURIComponent(compiledRfp)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-bold text-xs uppercase tracking-wider bg-[#25d366] text-white hover:brightness-110 shadow-lg transition-all"
+              >
+                <MessageCircle className="w-4 h-4 fill-white" />
+                <span>Forward via WhatsApp</span>
+              </a>
+
+              <a
+                href={`viber://chat?number=%2B639165667265`}
+                className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-bold text-xs uppercase tracking-wider bg-[#7360f2] text-white hover:brightness-110 shadow-lg transition-all"
+              >
+                <MessageCircle className="w-4 h-4 fill-white" />
+                <span>Forward via Viber</span>
+              </a>
+
+              <a
+                href={`mailto:edluna1971@yahoo.com?cc=iamfeluna@yahoo.com&subject=${encodeURIComponent(`[FHG Project Assessment Request] ${company} - ${service}`)}&body=${encodeURIComponent(compiledRfp)}`}
+                className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-bold text-xs uppercase tracking-wider bg-[#ffd600] text-[#050e07] hover:brightness-110 shadow-lg transition-all"
+              >
+                <Mail className="w-4 h-4" />
+                <span>Retry Mail Client</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
+

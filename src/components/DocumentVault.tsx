@@ -1,9 +1,12 @@
 "use client";
 
-import { FileCheck, Download, ExternalLink, ShieldCheck, FileText, Lock } from "lucide-react";
+import { useState } from "react";
+import { FileCheck, Download, ExternalLink, ShieldCheck, FileText, Lock, Eye, X } from "lucide-react";
 import MediaPlaceholder from "./MediaPlaceholder";
 
 interface DocumentItem {
+
+
   id: string;
   title: string;
   category: "Legal Registration" | "Tax Compliance" | "Project Audit" | "Logistics & Site";
@@ -78,6 +81,8 @@ const documents: DocumentItem[] = [
 ];
 
 export default function DocumentVault() {
+  const [previewDoc, setPreviewDoc] = useState<DocumentItem | null>(null);
+
   return (
     <section id="vault" className="py-24 bg-[#050e07] relative z-20">
       <div className="w-full max-w-[1720px] mx-auto px-6 md:px-12">
@@ -89,7 +94,7 @@ export default function DocumentVault() {
           <h2 className="text-3xl sm:text-5xl font-black font-display text-white tracking-tight leading-tight">
             Corporate Compliance & Document Vault
           </h2>
-          <p className="mt-4 text-base sm:text-lg text-[#a8d5a8]">
+          <p className="mt-4 text-base sm:text-lg text-forest-muted">
             Instant access to verified legal registrations, BIR tax clearances, and audited track records for expedited procurement onboarding.
           </p>
         </div>
@@ -102,7 +107,7 @@ export default function DocumentVault() {
             </div>
             <div>
               <h4 className="text-sm font-bold text-white">PhilGEPS Blue Member & DTI Verified</h4>
-              <p className="text-xs text-[#a8d5a8]">All files are authentic certified corporate documents ready for bidding envelopes.</p>
+              <p className="text-xs text-forest-muted">All files are authentic certified corporate documents ready for bidding envelopes.</p>
             </div>
           </div>
           <a
@@ -122,7 +127,10 @@ export default function DocumentVault() {
             >
               <div>
                 {/* Visual Technical Asset */}
-                <div className="mb-4 rounded-xl overflow-hidden border border-white/10">
+                <div
+                  className="mb-4 rounded-xl overflow-hidden border border-white/10 cursor-pointer"
+                  onClick={() => setPreviewDoc(doc)}
+                >
                   <MediaPlaceholder
                     variant="document-scan"
                     aspect="16/9"
@@ -145,39 +153,40 @@ export default function DocumentVault() {
                 </div>
 
                 {/* Title */}
-                <h3 className="text-lg font-bold font-heading text-white mb-2 group-hover:text-[#ffd600] transition-colors leading-snug">
+                <h3
+                  onClick={() => setPreviewDoc(doc)}
+                  className="text-lg font-bold font-heading text-white mb-2 group-hover:text-[#ffd600] transition-colors leading-snug cursor-pointer"
+                >
                   {doc.title}
                 </h3>
 
                 {/* Description */}
-                <p className="text-xs text-[#a8d5a8] leading-relaxed mb-4">
+                <p className="text-xs text-forest-muted leading-relaxed mb-4">
                   {doc.description}
                 </p>
               </div>
 
-              {/* Bottom Download Actions */}
+              {/* Bottom Actions */}
               <div className="pt-4 border-t border-white/10 flex items-center justify-between">
                 <span className="text-[11px] font-mono text-[#a8d5a8]">
                   {doc.fileSize}
                 </span>
                 <div className="flex items-center gap-2">
-                  <a
-                    href={doc.fileUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-2 rounded-lg bg-white/10 hover:bg-white/20 text-white transition-colors"
-                    title="View Document in Browser"
-                    aria-label={`View ${doc.title}`}
+                  <button
+                    onClick={() => setPreviewDoc(doc)}
+                    className="px-3 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-white text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer"
+                    title="Preview Document inside App"
                   >
-                    <ExternalLink className="w-4 h-4" />
-                  </a>
+                    <Eye className="w-3.5 h-3.5 text-[#ffd600]" />
+                    <span>Preview</span>
+                  </button>
                   <a
                     href={doc.fileUrl}
                     download
-                    className="px-4 py-2 rounded-lg bg-[#2e7d32] hover:bg-[#4caf50] text-white text-xs font-bold flex items-center gap-1.5 transition-colors shadow-md"
+                    className="px-3.5 py-2 rounded-lg bg-[#2e7d32] hover:bg-[#4caf50] text-white text-xs font-bold flex items-center gap-1.5 transition-colors shadow-md"
                   >
                     <Download className="w-3.5 h-3.5" />
-                    <span>Download</span>
+                    <span>PDF</span>
                   </a>
                 </div>
               </div>
@@ -185,6 +194,68 @@ export default function DocumentVault() {
           ))}
         </div>
       </div>
+
+      {/* In-App PDF Preview Modal */}
+      {previewDoc && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md animate-fadeIn"
+          onClick={() => setPreviewDoc(null)}
+        >
+          <div
+            className="relative w-full max-w-5xl h-[90vh] rounded-3xl bg-[#061409] border border-[#4caf50]/40 shadow-2xl p-4 sm:p-6 flex flex-col text-white"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div className="flex items-center justify-between pb-4 border-b border-white/10 gap-4">
+              <div className="flex items-center gap-3">
+                <div className="p-2 rounded-xl bg-[#ffd600]/20 text-[#ffd600]">
+                  <FileText className="w-5 h-5" />
+                </div>
+                <div>
+                  <h3 className="text-base sm:text-lg font-bold font-heading line-clamp-1">
+                    {previewDoc.title}
+                  </h3>
+                  <div className="flex items-center gap-2 text-xs text-[#a8d5a8]">
+                    <span>{previewDoc.docNumber}</span>
+                    <span>•</span>
+                    <span className="text-[#ffd600]">{previewDoc.fileSize}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <a
+                  href={previewDoc.fileUrl}
+                  download
+                  className="px-4 py-2 rounded-xl bg-[#2e7d32] hover:bg-[#4caf50] text-white text-xs font-bold flex items-center gap-1.5 transition-colors"
+                >
+                  <Download className="w-4 h-4" />
+                  <span className="hidden sm:inline">Download PDF</span>
+                </a>
+                <button
+                  onClick={() => setPreviewDoc(null)}
+                  className="w-9 h-9 rounded-full bg-white/10 hover:bg-[#ffd600] hover:text-[#050e07] flex items-center justify-center transition-colors cursor-pointer"
+                  aria-label="Close Preview"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+
+            {/* Embedded PDF Viewer */}
+            <div className="flex-1 w-full mt-4 rounded-xl overflow-hidden bg-black/40 border border-white/10">
+              <iframe
+                src={`${previewDoc.fileUrl}#toolbar=1&navpanes=0`}
+                className="w-full h-full border-0"
+                title={previewDoc.title}
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
+

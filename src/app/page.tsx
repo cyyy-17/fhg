@@ -8,6 +8,7 @@ import ServicesGrid from "@/components/ServicesGrid";
 import BeforeAfterSlider from "@/components/BeforeAfterSlider";
 import EquipmentShowcase from "@/components/EquipmentShowcase";
 import ProjectExplorer from "@/components/ProjectExplorer";
+import SafetyEhsSection from "@/components/SafetyEhsSection";
 import ComplianceProtocol from "@/components/ComplianceProtocol";
 import Accreditations from "@/components/Accreditations";
 import DocumentVault from "@/components/DocumentVault";
@@ -15,8 +16,10 @@ import ClientsWall from "@/components/ClientsWall";
 import NurserySection from "@/components/NurserySection";
 import NurseryCatalog from "@/components/NurseryCatalog";
 import RfpConfigurator from "@/components/RfpConfigurator";
+import FaqSection from "@/components/FaqSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
+import FloatingActions from "@/components/FloatingActions";
 
 export default function Home() {
   return (
@@ -32,6 +35,7 @@ export default function Home() {
         <BeforeAfterSlider />
         <EquipmentShowcase />
         <ProjectExplorer />
+        <SafetyEhsSection />
         <ComplianceProtocol />
         <Accreditations />
         <DocumentVault />
@@ -39,9 +43,12 @@ export default function Home() {
         <NurserySection />
         <NurseryCatalog />
         <RfpConfigurator />
+        <FaqSection />
         <ContactSection />
       </main>
       <Footer />
+      <FloatingActions />
     </div>
   );
 }
+

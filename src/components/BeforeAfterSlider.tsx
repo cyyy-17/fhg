@@ -43,7 +43,7 @@ const scenarios: ComparisonScenario[] = [
     beforeDesc: "Dense virgin right-of-way jungle with steep topography and active utility line hazards.",
     afterDesc: "Sectional controlled felling completed by 89-chainsaw certified crew, timber chipped and salvaged.",
     beforeImage: "/images/hero_canopy.jpg",
-    afterImage: "/images/nursery.jpg",
+    afterImage: "/images/corridor_cleared.jpg",
   },
 ];
 
