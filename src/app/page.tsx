@@ -2,22 +2,11 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import Marquee from "@/components/Marquee";
 import ValuePillars from "@/components/ValuePillars";
-import AboutSection from "@/components/AboutSection";
-import TimelineHistory from "@/components/TimelineHistory";
+import CompanyProfileHub from "@/components/CompanyProfileHub";
 import ServicesGrid from "@/components/ServicesGrid";
-import BeforeAfterSlider from "@/components/BeforeAfterSlider";
-import EquipmentShowcase from "@/components/EquipmentShowcase";
-import ProjectExplorer from "@/components/ProjectExplorer";
-import SafetyEhsSection from "@/components/SafetyEhsSection";
-import ComplianceProtocol from "@/components/ComplianceProtocol";
-import Accreditations from "@/components/Accreditations";
-import DocumentVault from "@/components/DocumentVault";
-import ClientsWall from "@/components/ClientsWall";
-import NurserySection from "@/components/NurserySection";
-import NurseryCatalog from "@/components/NurseryCatalog";
-import RfpConfigurator from "@/components/RfpConfigurator";
-import FaqSection from "@/components/FaqSection";
-import ContactSection from "@/components/ContactSection";
+import OperationsProofHub from "@/components/OperationsProofHub";
+import NurseryHub from "@/components/NurseryHub";
+import ProcurementHub from "@/components/ProcurementHub";
 import Footer from "@/components/Footer";
 import FloatingActions from "@/components/FloatingActions";
 
@@ -29,22 +18,11 @@ export default function Home() {
         <Hero />
         <Marquee />
         <ValuePillars />
-        <AboutSection />
-        <TimelineHistory />
+        <CompanyProfileHub />
         <ServicesGrid />
-        <BeforeAfterSlider />
-        <EquipmentShowcase />
-        <ProjectExplorer />
-        <SafetyEhsSection />
-        <ComplianceProtocol />
-        <Accreditations />
-        <DocumentVault />
-        <ClientsWall />
-        <NurserySection />
-        <NurseryCatalog />
-        <RfpConfigurator />
-        <FaqSection />
-        <ContactSection />
+        <OperationsProofHub />
+        <NurseryHub />
+        <ProcurementHub />
       </main>
       <Footer />
       <FloatingActions />
