@@ -6,15 +6,19 @@ export const companyData = {
   founder: "Mr. Edwin G. Luna",
   manager: "Ms. Marife B. Luna",
   headOffice: {
-    address: "4th Floor, Luna Building, Malvar St., Poblacion 8, Talisay, Batangas",
+    address: "Sitio Sto. Niño, Banga, Talisay, Batangas",
+    plusCode: "32V9+5P Talisay, Batangas",
+    category: "Agricultural Service",
+    hours: "Open 24 Hours",
     telefax: "(043) 741 0603",
     mobiles: ["0916 566 7265", "0961 329 6727"],
     viber: "+639165667265",
     whatsapp: "+639165667265",
     emails: ["edluna1971@yahoo.com", "iamfeluna@yahoo.com"],
-    googleMapsUrl: "https://maps.google.com/?q=14.095,120.978",
-    wazeUrl: "https://waze.com/ul?ll=14.095,120.978&navigate=yes"
+    googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=32V9%2B5P+Talisay,+Batangas",
+    wazeUrl: "https://waze.com/ul?q=Sitio+Sto.+Ni%C3%B1o+Banga+Talisay+Batangas"
   },
+
   nurseries: [
     {
       name: "Tumaway Plant Nursery Facility",

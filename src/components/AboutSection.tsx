@@ -20,8 +20,9 @@ export default function AboutSection() {
             </h2>
 
             <p className="text-base sm:text-lg text-[#a8d5a8] leading-relaxed">
-              <strong className="text-white">Forest Hills Garden</strong> is a registered sole proprietorship owned and managed by <strong className="text-white">Ms. Marife B. Luna</strong>, with headquarters at the 4th Floor, Luna Building, Malvar St., Poblacion 8, Talisay, Batangas, and two expansive propagation nurseries located in Brgy. Tumaway and Brgy. Aya, Talisay, Batangas.
+              <strong className="text-white">Forest Hills Garden</strong> is a registered sole proprietorship owned and managed by <strong className="text-white">Ms. Marife B. Luna</strong>, with headquarters at Sitio Sto. Niño, Banga, Talisay, Batangas (Plus Code: 32V9+5P), and two expansive propagation nurseries located in Brgy. Tumaway and Brgy. Aya, Talisay, Batangas.
             </p>
+
 
             <p className="text-sm sm:text-base text-[#a8d5a8] leading-relaxed">
               Initially founded on <span className="text-[#ffd600] font-semibold">June 10, 1998</span> by Ms. Luna's late husband, <span className="text-white font-medium">Mr. Edwin G. Luna</span>, the enterprise has expanded over more than 26 years into the nation's premier contractor for commercial earthballing, precision felling, and statutory environmental compliance.

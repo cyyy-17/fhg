@@ -115,8 +115,9 @@ export default function NurserySection() {
             <div className="p-5 bg-[#0e2413] border-b border-white/10 flex items-center justify-between">
               <div>
                 <h4 className="font-bold text-white text-base">Talisay, Batangas Operations Hub</h4>
-                <p className="text-xs text-[#a8d5a8]">Sitio Sto. Niño, Banga & Poblacion 8 Headquarters</p>
+                <p className="text-xs text-[#a8d5a8]">Sitio Sto. Niño, Banga Operations Hub • Open 24 Hours</p>
               </div>
+
               <span className="px-3 py-1 rounded-full bg-[#4caf50]/20 text-[#76c442] text-xs font-bold">
                 Batangas Corridor
               </span>

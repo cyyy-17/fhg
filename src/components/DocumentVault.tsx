@@ -65,9 +65,10 @@ const documents: DocumentItem[] = [
     docNumber: "Talisay Batangas HQ",
     fileUrl: "/docs/office-location-map.pdf",
     fileSize: "208 KB PDF",
-    description: "Route map to 4th Floor Luna Building, Malvar St., Poblacion 8, Talisay, Batangas for vendor onboarding and in-person meetings.",
+    description: "Route guide to Sitio Sto. Niño, Banga, Talisay, Batangas (Plus Code: 32V9+5P) operations hub for vendor onboarding and in-person meetings.",
     status: "Official Certified",
   },
+
   {
     id: "nursery-map",
     title: "Twin Plant Nursery Facilities Location Guide",

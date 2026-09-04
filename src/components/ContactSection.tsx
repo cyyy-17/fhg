@@ -162,11 +162,19 @@ export default function ContactSection() {
                   <MapPin className="w-6 h-6" />
                 </div>
                 <div>
-                  <span className="text-[11px] font-bold text-[#ffd600] uppercase tracking-wider block">
-                    Head Office & Administration
-                  </span>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-[11px] font-bold text-[#ffd600] uppercase tracking-wider block">
+                      Head Office & Administration
+                    </span>
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#76c442]/20 text-[#76c442]">
+                      Open 24 Hours
+                    </span>
+                  </div>
                   <span className="text-xs sm:text-sm font-bold text-white block">
                     {companyData.headOffice.address}
+                  </span>
+                  <span className="text-[11px] font-mono text-[#a8d5a8] block mt-0.5">
+                    Plus Code: {companyData.headOffice.plusCode} • Agricultural Service
                   </span>
                 </div>
               </div>
@@ -194,8 +202,9 @@ export default function ContactSection() {
 
             <div className="p-4 rounded-xl bg-white/5 border border-white/10 flex items-center gap-3 text-xs text-forest-muted">
               <Clock className="w-4 h-4 text-[#ffd600] shrink-0" />
-              <span>Operations Active: Monday to Saturday, 8:00 AM – 5:00 PM PHT</span>
+              <span>Operations Active: Open 24 Hours • 24/7 Dispatch & Arboricultural Operations</span>
             </div>
+
           </div>
 
           {/* Right Direct Inquiry Form */}

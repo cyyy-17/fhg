@@ -57,9 +57,11 @@ npm start
 ---
 
 ## Office & Nursery Facilities
-- **Head Office**: 4th Floor, Luna Building, Malvar St., Poblacion 8, Talisay, Batangas
+- **Head Office & Dispatch**: Sitio Sto. Niño, Banga, Talisay, Batangas (Plus Code: 32V9+5P) • Open 24 Hours
+- **Category**: Agricultural Service & Industrial Tree Contractor
 - **Telefax**: (043) 741 0603
 - **Mobile Dispatch**: 0916 566 7265 / 0961 329 6727
+
 - **Executive Email**: edluna1971@yahoo.com / iamfeluna@yahoo.com
 - **Tumaway Nursery**: Brgy. Tumaway, Talisay, Batangas (100,000+ Sapling Capacity)
 - **Aya Nursery**: Brgy. Aya, Talisay, Batangas (50,000+ Stock Capacity)

@@ -148,20 +148,23 @@ export default function RootLayout({
         },
         address: {
           "@type": "PostalAddress",
-          streetAddress: "4th Floor, Luna Building, Malvar St., Poblacion 8",
+          streetAddress: "Sitio Sto. Niño, Banga",
           addressLocality: "Talisay",
           addressRegion: "Batangas",
           postalCode: "4220",
           addressCountry: "PH",
         },
+        hasMap: "https://www.google.com/maps/search/?api=1&query=32V9%2B5P+Talisay,+Batangas",
+        openingHours: "Mo-Su 00:00-24:00",
         geo: {
           "@type": "GeoCoordinates",
           latitude: 14.095,
           longitude: 120.978,
         },
-        telephone: "+63-43-741-0603",
+        telephone: "+63-916-566-7265",
         email: "edluna1971@yahoo.com",
         priceRange: "$$",
+
         areaServed: [
           {
             "@type": "AdministrativeArea",

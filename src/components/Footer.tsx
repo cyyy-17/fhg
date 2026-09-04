@@ -91,9 +91,10 @@ export default function Footer() {
             </h4>
             <div className="text-xs space-y-3">
               <div>
-                <strong className="text-white block">Head Office</strong>
-                <span className="text-[#a8d5a8]">4F Luna Bldg., Malvar St., Poblacion 8, Talisay, Batangas</span>
+                <strong className="text-white block">Head Office & Dispatch</strong>
+                <span className="text-[#a8d5a8]">Sitio Sto. Niño, Banga, Talisay, Batangas (32V9+5P) • Open 24 Hours</span>
               </div>
+
               <div>
                 <strong className="text-white block">Tumaway Nursery</strong>
                 <span className="text-[#a8d5a8]">Brgy. Tumaway, Talisay, Batangas</span>
