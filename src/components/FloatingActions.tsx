@@ -1,11 +1,31 @@
 "use client";
 
-import { useState } from "react";
-import { MessageCircle, Phone, Printer, X, ShieldAlert, ChevronUp } from "lucide-react";
+import { useState, useEffect } from "react";
+import { MessageCircle, Phone, Printer, X, ChevronUp } from "lucide-react";
 
 export default function FloatingActions() {
   const [expanded, setExpanded] = useState(false);
   const [viberCopied, setViberCopied] = useState(false);
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 400);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    if (typeof window !== "undefined") {
+      const lenis = (window as any).__lenis;
+      if (lenis) {
+        lenis.scrollTo(0, { duration: 1.25 });
+      } else {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    }
+  };
 
   const handlePrint = () => {
     window.print();
@@ -21,9 +41,20 @@ export default function FloatingActions() {
 
   return (
     <div id="floating-actions" className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 no-print flex flex-col items-end gap-3">
+      {/* Smooth Scroll To Top Button */}
+      {showScrollTop && (
+        <button
+          onClick={scrollToTop}
+          className="w-10 h-10 rounded-full bg-[#0a1b0d]/90 hover:bg-[#2e7d32] border border-[#4caf50]/40 text-white flex items-center justify-center shadow-xl backdrop-blur-md transition-all duration-300 hover:scale-110 active:scale-95 animate-fadeIn cursor-pointer"
+          aria-label="Smooth scroll to top"
+        >
+          <ChevronUp className="w-5 h-5 text-[#ffd600]" />
+        </button>
+      )}
+
       {/* Expanded Quick Dial Menu */}
       {expanded && (
-        <div className="flex flex-col gap-2.5 mb-1 animate-fadeIn items-end">
+        <div className="flex flex-col gap-2.5 mb-1 animate-scaleIn items-end">
           {/* WhatsApp Direct */}
           <a
             href="https://wa.me/639165667265?text=Hello%20Forest%20Hills%20Garden,%20we%20have%20an%20inquiry%20regarding%20tree%20services."

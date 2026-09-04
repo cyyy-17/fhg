@@ -769,11 +769,11 @@ export default function CompanyProfileHub() {
         <div
           role="dialog"
           aria-modal="true"
-          className="fixed inset-0 z-9999 flex items-center justify-center p-4 sm:p-6 bg-black/85 backdrop-blur-md animate-fadeIn"
+          className="fixed inset-0 z-9999 flex items-center justify-center p-4 sm:p-6 bg-black/85 backdrop-blur-md animate-fadeInSimple"
           onClick={() => setBioModalOpen(false)}
         >
           <div
-            className="relative w-full max-w-3xl max-h-[90vh] rounded-3xl bg-[#061409] border border-[#4caf50]/40 shadow-2xl p-6 sm:p-10 flex flex-col text-white overflow-y-auto"
+            className="relative w-full max-w-3xl max-h-[90vh] rounded-3xl bg-[#061409] border border-[#4caf50]/40 shadow-2xl p-6 sm:p-10 flex flex-col text-white overflow-y-auto animate-scaleIn"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Modal Header */}

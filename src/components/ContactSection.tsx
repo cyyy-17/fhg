@@ -384,11 +384,11 @@ export default function ContactSection() {
         <div
           role="dialog"
           aria-modal="true"
-          className="fixed inset-0 z-9999 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fadeIn"
+          className="fixed inset-0 z-9999 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fadeInSimple"
           onClick={() => setModalOpen(false)}
         >
           <div
-            className="relative w-full max-w-xl rounded-3xl bg-[#07170a] border border-[#4caf50]/40 shadow-2xl p-6 sm:p-8 text-white my-auto"
+            className="relative w-full max-w-xl rounded-3xl bg-[#07170a] border border-[#4caf50]/40 shadow-2xl p-6 sm:p-8 text-white my-auto animate-scaleIn"
             onClick={(e) => e.stopPropagation()}
           >
             <button

@@ -161,7 +161,7 @@ export default function RootLayout({
           addressCountry: "PH",
         },
         hasMap: "https://www.google.com/maps/search/?api=1&query=32V9%2B5P+Talisay,+Batangas",
-        openingHours: "Mo-Su 00:00-24:00",
+        openingHours: "Mo-Sa 08:00-17:00",
         geo: {
           "@type": "GeoCoordinates",
           latitude: 14.095,
@@ -269,7 +269,7 @@ export default function RootLayout({
 
 
   return (
-    <html lang="en" className="dark scroll-smooth">
+    <html lang="en" className="dark">
       <head>
         <script
           type="application/ld+json"

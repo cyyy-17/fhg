@@ -198,7 +198,7 @@ export default function Navbar() {
 
       {/* Mobile Drawer (Organized by Command Hubs) */}
       {mobileMenuOpen && (
-        <div className="lg:hidden fixed top-16.25 left-0 w-full h-[calc(100vh-65px)] bg-[#061208] p-6 sm:p-8 flex flex-col justify-between overflow-y-auto border-t border-[#2e7d32]/20">
+        <div className="lg:hidden fixed top-16.25 left-0 w-full h-[calc(100vh-65px)] bg-[#061208]/95 backdrop-blur-2xl p-6 sm:p-8 flex flex-col justify-between overflow-y-auto border-t border-[#2e7d32]/20 animate-slideDown shadow-2xl">
           <div className="flex flex-col gap-4">
             {navItems.map((item) => (
               <div key={item.label} className="border-b border-white/10 pb-3">

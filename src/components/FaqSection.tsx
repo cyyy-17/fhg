@@ -103,11 +103,17 @@ export default function FaqSection() {
                   </div>
                 </button>
 
-                {isOpen && (
-                  <div className="px-6 pb-6 pt-2 border-t border-white/10 text-xs sm:text-sm text-forest-muted leading-relaxed animate-fadeIn">
-                    <p>{faq.answer}</p>
+                <div
+                  className={`grid transition-all duration-300 ease-in-out ${
+                    isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                  }`}
+                >
+                  <div className="overflow-hidden">
+                    <div className="px-6 pb-6 pt-2 border-t border-white/10 text-xs sm:text-sm text-forest-muted leading-relaxed">
+                      <p>{faq.answer}</p>
+                    </div>
                   </div>
-                )}
+                </div>
               </div>
             );
           })}

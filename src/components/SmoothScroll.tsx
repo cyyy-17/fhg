@@ -10,23 +10,56 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
     if (prefersReducedMotion) return;
 
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: 1.25,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: "vertical",
       gestureOrientation: "vertical",
       smoothWheel: true,
-      touchMultiplier: 2,
+      wheelMultiplier: 1.0,
+      touchMultiplier: 1.6,
+      syncTouch: true,
+      syncTouchLerp: 0.08,
     });
 
+    (window as any).__lenis = lenis;
+
+    // Intercept internal hash clicks for butter-smooth gliding
+    const handleAnchorClick = (e: MouseEvent) => {
+      const target = (e.target as HTMLElement).closest("a");
+      if (!target) return;
+
+      const href = target.getAttribute("href");
+      if (href && href.startsWith("#") && href.length > 1) {
+        const targetElement = document.querySelector(href);
+        if (targetElement) {
+          e.preventDefault();
+          lenis.scrollTo(targetElement as HTMLElement, {
+            offset: -75,
+            duration: 1.3,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          });
+
+          if (window.history.pushState) {
+            window.history.pushState(null, "", href);
+          }
+        }
+      }
+    };
+
+    document.addEventListener("click", handleAnchorClick);
+
+    let rafId: number;
     function raf(time: number) {
       lenis.raf(time);
-      requestAnimationFrame(raf);
+      rafId = requestAnimationFrame(raf);
     }
-
-    requestAnimationFrame(raf);
+    rafId = requestAnimationFrame(raf);
 
     return () => {
+      document.removeEventListener("click", handleAnchorClick);
+      cancelAnimationFrame(rafId);
       lenis.destroy();
+      (window as any).__lenis = undefined;
     };
   }, []);
 

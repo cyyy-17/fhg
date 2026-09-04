@@ -720,11 +720,11 @@ export default function ProcurementHub() {
         <div
           role="dialog"
           aria-modal="true"
-          className="fixed inset-0 z-9999 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md animate-fadeIn"
+          className="fixed inset-0 z-9999 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md animate-fadeInSimple"
           onClick={() => setPreviewDoc(null)}
         >
           <div
-            className="relative w-full max-w-5xl h-[90vh] rounded-3xl bg-[#061409] border border-[#4caf50]/40 shadow-2xl p-4 sm:p-6 flex flex-col text-white my-auto"
+            className="relative w-full max-w-5xl h-[90vh] rounded-3xl bg-[#061409] border border-[#4caf50]/40 shadow-2xl p-4 sm:p-6 flex flex-col text-white my-auto animate-scaleIn"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between pb-4 border-b border-white/10 gap-4">
@@ -773,11 +773,11 @@ export default function ProcurementHub() {
         <div
           role="dialog"
           aria-modal="true"
-          className="fixed inset-0 z-9999 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fadeIn"
+          className="fixed inset-0 z-9999 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fadeInSimple"
           onClick={() => setRfpModalOpen(false)}
         >
           <div
-            className="relative w-full max-w-lg rounded-3xl bg-[#061409] border border-[#ffd600]/40 shadow-2xl p-6 sm:p-8 text-white"
+            className="relative w-full max-w-lg rounded-3xl bg-[#061409] border border-[#ffd600]/40 shadow-2xl p-6 sm:p-8 text-white animate-scaleIn"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-4">

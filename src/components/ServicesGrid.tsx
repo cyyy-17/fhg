@@ -306,7 +306,7 @@ export default function ServicesGrid() {
         <div
           ref={sliderRef}
           onScroll={updateScrollState}
-          className="flex gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-none pb-4 pt-1"
+          className="flex gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-none pb-4 pt-1 scroll-smooth"
           style={{ scrollSnapType: "x mandatory", WebkitOverflowScrolling: "touch" }}
         >
           {servicesList.map((service) => {
@@ -432,11 +432,11 @@ export default function ServicesGrid() {
           role="dialog"
           aria-modal="true"
           aria-labelledby="drawer-title"
-          className="fixed inset-0 z-9999 flex justify-end bg-black/80 backdrop-blur-sm animate-fadeIn"
+          className="fixed inset-0 z-9999 flex justify-end bg-black/80 backdrop-blur-sm animate-fadeInSimple"
           onClick={() => setSelectedService(null)}
         >
           <div
-            className="relative w-full max-w-xl h-full bg-[#061409] border-l border-[#4caf50]/40 shadow-2xl p-6 sm:p-8 flex flex-col justify-between overflow-y-auto text-white"
+            className="relative w-full max-w-xl h-full bg-[#061409] border-l border-[#4caf50]/40 shadow-2xl p-6 sm:p-8 flex flex-col justify-between overflow-y-auto text-white animate-drawerSlide"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Drawer Header */}
