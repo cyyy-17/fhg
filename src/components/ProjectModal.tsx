@@ -41,20 +41,20 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
     <div
       role="dialog"
       aria-modal="true"
-      className="fixed inset-0 z-9999 flex items-center justify-center p-4 sm:p-6 lg:p-10 bg-black/85 backdrop-blur-md overflow-y-auto animate-fadeIn"
+      className="fixed inset-0 z-9999 flex items-center justify-center p-3 sm:p-6 lg:p-10 bg-black/85 backdrop-blur-md overflow-y-auto animate-fadeIn"
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-3xl bg-[#061409] border border-[#4caf50]/40 shadow-2xl p-6 sm:p-10 text-white my-auto"
+        className="relative w-full max-w-4xl max-h-[92vh] overflow-y-auto rounded-2xl sm:rounded-3xl bg-[#061409] border border-[#4caf50]/40 shadow-2xl p-4 sm:p-8 lg:p-10 text-white my-auto"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-6 right-6 w-10 h-10 rounded-full bg-white/10 hover:bg-[#ffd600] hover:text-[#050e07] text-white flex items-center justify-center transition-all cursor-pointer z-20"
+          className="absolute top-4 right-4 sm:top-6 sm:right-6 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/10 hover:bg-[#ffd600] hover:text-[#050e07] text-white flex items-center justify-center transition-all cursor-pointer z-20"
           aria-label="Close Project Dossier"
         >
-          <X className="w-5 h-5" />
+          <X className="w-4 h-4 sm:w-5 sm:h-5" />
         </button>
 
         {/* Header Badges with safety padding for close button */}

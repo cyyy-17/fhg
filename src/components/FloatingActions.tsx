@@ -20,7 +20,7 @@ export default function FloatingActions() {
   };
 
   return (
-    <div id="floating-actions" className="fixed bottom-6 right-6 z-40 no-print flex flex-col items-end gap-3">
+    <div id="floating-actions" className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 no-print flex flex-col items-end gap-3">
       {/* Expanded Quick Dial Menu */}
       {expanded && (
         <div className="flex flex-col gap-2.5 mb-1 animate-fadeIn items-end">
