@@ -348,7 +348,7 @@ export default function CompanyProfileHub() {
                     Plus Code: {companyData.headOffice.plusCode}
                   </p>
                   <p className="text-xs text-[#a8d5a8] leading-relaxed mb-4">
-                    24-hour rapid mobilization center for Laguna, Cavite, Batangas, and NCR corridors.
+                    Regional operations center for Laguna, Cavite, Batangas, and NCR corridors (8:00 AM – 5:00 PM).
                   </p>
                 </div>
                 <div className="pt-3 border-t border-white/10 flex items-center justify-between text-xs">

@@ -55,7 +55,7 @@ const navItems: NavItem[] = [
     href: "#vault",
   },
   {
-    label: "24/7 Dispatch",
+    label: "Office & Dispatch",
     href: "#contact",
   },
 ];

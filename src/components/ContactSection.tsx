@@ -193,7 +193,7 @@ export default function ContactSection() {
                       Head Office & Administration
                     </span>
                     <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#76c442]/20 text-[#76c442]">
-                      Open 24 Hours
+                      8:00 AM – 5:00 PM
                     </span>
                   </div>
                   <span className="text-xs sm:text-sm font-bold text-white block">
@@ -228,7 +228,7 @@ export default function ContactSection() {
 
             <div className="p-4 rounded-xl bg-white/5 border border-white/10 flex items-center gap-3 text-xs text-forest-muted">
               <Clock className="w-4 h-4 text-[#ffd600] shrink-0" />
-              <span>Operations Active: Open 24 Hours • 24/7 Dispatch & Arboricultural Operations</span>
+              <span>Operations Active: 8:00 AM – 5:00 PM (Mon–Sat) • Office & Arboricultural Dispatch</span>
             </div>
 
           </div>

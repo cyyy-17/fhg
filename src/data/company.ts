@@ -9,7 +9,7 @@ export const companyData = {
     address: "Sitio Sto. Niño, Banga, Talisay, Batangas",
     plusCode: "32V9+5P Talisay, Batangas",
     category: "Agricultural Service",
-    hours: "Open 24 Hours",
+    hours: "8:00 AM – 5:00 PM",
     telefax: "(043) 741 0603",
     mobiles: ["0916 566 7265", "0961 329 6727"],
     viber: "+639165667265",

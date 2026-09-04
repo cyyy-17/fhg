@@ -118,7 +118,7 @@ const generalFaqs = [
   },
   {
     question: "What is your emergency mobilization SLA for highway or power line hazards?",
-    answer: "We maintain 24-hour rapid dispatch teams across Calabarzon and Metro Manila. Emergency sectional felling and crane crews can mobilize within 4 to 12 hours of contract authorization."
+    answer: "We dispatch rapid crews across Calabarzon and Metro Manila during operating hours (8:00 AM – 5:00 PM). Emergency sectional felling and crane crews can mobilize within 4 to 12 hours of contract authorization."
   },
   {
     question: "Are your power chainsaws officially licensed by the government?",
@@ -233,7 +233,7 @@ export default function ProcurementHub() {
   const tabs: { key: ProcurementTab; label: string; icon: typeof Calculator; badge?: string }[] = [
     { key: "estimate", label: "Tender / RFP Estimator", icon: Calculator, badge: "Instant" },
     { key: "vault", label: "Document Vault", icon: FileText, badge: "6 PDF Files" },
-    { key: "contact", label: "24/7 Dispatch & Locations", icon: Phone, badge: "Open 24h" },
+    { key: "contact", label: "Office & Dispatch", icon: Phone, badge: "8AM–5PM" },
     { key: "faq", label: "Statutory & FAQs", icon: HelpCircle },
   ];
 
@@ -260,10 +260,10 @@ export default function ProcurementHub() {
             <span>Commercial Onboarding & Rapid Procurement</span>
           </div>
           <h2 className="text-3xl sm:text-5xl font-black font-display text-white tracking-tight leading-tight">
-            Tender Estimator, Legal Vault & 24/7 Dispatch
+            Tender Estimator, Legal Vault & Office Dispatch
           </h2>
           <p className="mt-3 text-sm sm:text-base text-[#a8d5a8]">
-            Configure commercial arboricultural tenders, download verified statutory clearances, or reach our 24-hour operations hub.
+            Configure commercial arboricultural tenders, download verified statutory clearances, or reach our Talisay main office (8:00 AM – 5:00 PM).
           </p>
         </div>
 
@@ -552,7 +552,7 @@ export default function ProcurementHub() {
           </div>
         )}
 
-        {/* TAB 3: 24/7 DISPATCH & HQ MAP */}
+        {/* TAB 3: OFFICE & DISPATCH HQ */}
         {activeTab === "contact" && (
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 animate-fadeIn max-w-6xl mx-auto">
             {/* Headquarters Card (7 cols) */}
@@ -560,11 +560,11 @@ export default function ProcurementHub() {
               <div>
                 <div className="flex items-center justify-between gap-2 mb-4">
                   <span className="text-xs font-mono font-bold uppercase text-[#ffd600] tracking-wider px-3 py-1 rounded-full bg-[#ffd600]/10 border border-[#ffd600]/20">
-                    Operations Headquarters • Open 24 Hours
+                    Operations Headquarters • 8:00 AM – 5:00 PM
                   </span>
                   <span className="text-xs font-mono text-[#76c442] flex items-center gap-1">
                     <Clock className="w-3.5 h-3.5" />
-                    24/7 Active Dispatch
+                    Mon–Sat 8:00 AM – 5:00 PM
                   </span>
                 </div>
 

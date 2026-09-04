@@ -92,7 +92,7 @@ export default function Footer() {
             <div className="text-xs space-y-3">
               <div>
                 <strong className="text-white block">Head Office & Dispatch</strong>
-                <span className="text-[#a8d5a8]">Sitio Sto. Niño, Banga, Talisay, Batangas (32V9+5P) • Open 24 Hours</span>
+                <span className="text-[#a8d5a8]">Sitio Sto. Niño, Banga, Talisay, Batangas (32V9+5P) • 8:00 AM – 5:00 PM</span>
               </div>
 
               <div>
