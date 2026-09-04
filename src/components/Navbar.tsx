@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Phone, Menu, X, ArrowUpRight, MessageCircle, ChevronDown, ShieldCheck, Sparkles } from "lucide-react";
 import { useActiveSection } from "@/hooks/useActiveSection";
 
@@ -21,43 +22,51 @@ interface NavItem {
 const navItems: NavItem[] = [
   {
     label: "About",
-    href: "#about",
+    href: "/#about",
     subItems: [
-      { label: "Executive Overview", href: "#about" },
-      { label: "Milestones (1998–2026)", href: "#timeline", badge: "28 Yrs" },
-      { label: "Statutory Credentials", href: "#credentials" },
-      { label: "Safety & EHS Shield", href: "#safety-ehs", badge: "1.24M Hrs" },
+      { label: "Executive Overview", href: "/#about" },
+      { label: "Milestones (1998–2026)", href: "/#timeline", badge: "28 Yrs" },
+      { label: "Statutory Credentials", href: "/#credentials" },
+      { label: "Safety & EHS Shield", href: "/#safety-ehs", badge: "1.24M Hrs" },
     ],
   },
   {
     label: "Services",
-    href: "#services",
+    href: "/services",
+    subItems: [
+      { label: "All Services Overview", href: "/services" },
+      { label: "Tree Earthballing", href: "/services#earthballing", badge: "98.7% Survival" },
+      { label: "Chainsaw Felling", href: "/services#tree-cutting", badge: "89 Units" },
+      { label: "PCA Coconut Felling", href: "/services#pca-cutting" },
+      { label: "Tree Census & GPS", href: "/services#tree-inventory" },
+      { label: "Commercial Greening", href: "/services#commercial-landscaping" },
+    ],
   },
   {
     label: "Operations & Fleet",
-    href: "#projects",
+    href: "/projects",
     subItems: [
-      { label: "Signature Projects", href: "#projects", badge: "Verified" },
-      { label: "Before / After Proof", href: "#proof" },
-      { label: "Heavy Fleet (89 Chainsaws)", href: "#fleet", badge: "89 Units" },
-      { label: "Client Trust Wall", href: "#clients" },
+      { label: "Signature Projects", href: "/projects#projects", badge: "Verified" },
+      { label: "Before / After Proof", href: "/projects#proof" },
+      { label: "Heavy Fleet (89 Chainsaws)", href: "/projects#fleet", badge: "89 Units" },
+      { label: "Client Trust Wall", href: "/projects#clients" },
     ],
   },
   {
     label: "Nurseries",
-    href: "#nurseries",
+    href: "/nurseries",
     subItems: [
-      { label: "Twin Batangas Facilities", href: "#nurseries", badge: "150K+" },
-      { label: "Live Species Catalog", href: "#catalog" },
+      { label: "Twin Batangas Facilities", href: "/nurseries#nurseries", badge: "150K+" },
+      { label: "Live Species Catalog", href: "/nurseries#catalog" },
     ],
   },
   {
     label: "Document Vault",
-    href: "#vault",
+    href: "/#vault",
   },
   {
     label: "Office & Dispatch",
-    href: "#contact",
+    href: "/contact",
   },
 ];
 
@@ -65,6 +74,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const pathname = usePathname();
 
   const activeSection = useActiveSection(
     ["hero", "about", "services", "operations-hub", "projects", "proof", "fleet", "clients", "nurseries", "catalog", "vault", "procurement-hub", "contact"],
@@ -72,13 +82,20 @@ export default function Navbar() {
   );
 
   const isItemActive = (item: NavItem) => {
-    const targetId = item.href.replace("#", "");
-    if (activeSection === targetId) return true;
-    if (targetId === "about" && (activeSection === "timeline" || activeSection === "credentials" || activeSection === "safety-ehs" || activeSection === "about")) return true;
-    if (targetId === "projects" && (activeSection === "operations-hub" || activeSection === "proof" || activeSection === "fleet" || activeSection === "clients" || activeSection === "projects")) return true;
-    if (targetId === "nurseries" && (activeSection === "catalog" || activeSection === "nurseries")) return true;
-    if (targetId === "vault" && (activeSection === "vault" || activeSection === "procurement-hub")) return true;
-    if (targetId === "contact" && (activeSection === "contact")) return true;
+    if (item.href === "/services" && pathname?.startsWith("/services")) return true;
+    if (item.href === "/nurseries" && pathname?.startsWith("/nurseries")) return true;
+    if (item.href === "/projects" && pathname?.startsWith("/projects")) return true;
+    if (item.href === "/contact" && pathname?.startsWith("/contact")) return true;
+
+    if (pathname === "/") {
+      const targetId = item.href.replace("/#", "").replace("#", "");
+      if (activeSection === targetId) return true;
+      if (targetId === "about" && (activeSection === "timeline" || activeSection === "credentials" || activeSection === "safety-ehs" || activeSection === "about")) return true;
+      if (targetId === "projects" && (activeSection === "operations-hub" || activeSection === "proof" || activeSection === "fleet" || activeSection === "clients" || activeSection === "projects")) return true;
+      if (targetId === "nurseries" && (activeSection === "catalog" || activeSection === "nurseries")) return true;
+      if (targetId === "vault" && (activeSection === "vault" || activeSection === "procurement-hub")) return true;
+      if (targetId === "contact" && (activeSection === "contact")) return true;
+    }
     return false;
   };
 
@@ -113,7 +130,7 @@ export default function Navbar() {
       <div className="w-full max-w-[1720px] mx-auto px-6 md:px-12 flex items-center justify-between">
         {/* Brand Logo & Title */}
         <Link
-          href="#hero"
+          href="/"
           className="flex items-center gap-3.5 group cursor-pointer shrink-0"
           aria-label="Forest Hills Garden Home"
         >
@@ -204,7 +221,7 @@ export default function Navbar() {
           </a>
 
           <Link
-            href="#estimate"
+            href="/#estimate"
             className="hidden sm:inline-flex items-center gap-2 px-5 xl:px-6 py-2.5 rounded-full font-bold text-xs uppercase tracking-wider bg-linear-to-r from-[#ffd600] to-[#f9c923] text-[#061008] hover:brightness-110 shadow-lg shadow-[#ffd600]/20 hover:scale-[1.02] transition-all duration-200"
           >
             <span>Submit Tender / RFP</span>
@@ -255,7 +272,7 @@ export default function Navbar() {
             ))}
 
             <Link
-              href="#estimate"
+              href="/#estimate"
               onClick={() => setMobileMenuOpen(false)}
               className="mt-2 w-full py-3 rounded-full text-center font-bold text-xs uppercase tracking-wider bg-linear-to-r from-[#ffd600] to-[#f9c923] text-[#061008] shadow-lg shadow-[#ffd600]/20"
             >

@@ -62,55 +62,78 @@ export default function Footer() {
           {/* Column 2: Core Services (3 cols) */}
           <div className="lg:col-span-3 flex flex-col gap-3">
             <h4 className="text-xs font-bold uppercase tracking-widest text-white mb-2">
-              Core Capabilities
+              <Link href="/services" className="hover:text-[#ffd600] transition-colors">
+                Core Capabilities →
+              </Link>
             </h4>
             <ul className="space-y-2 text-xs">
-              <li><Link href="#services" className="hover:text-white transition-colors">Large-Scale Tree Earthballing</Link></li>
-              <li><Link href="#services" className="hover:text-white transition-colors">Certified Tree Cutting (89 Chainsaws)</Link></li>
-              <li><Link href="#services" className="hover:text-white transition-colors">PCA Coconut Tree Felling & Salvage</Link></li>
-              <li><Link href="#services" className="hover:text-white transition-colors">Native Seedling Propagation & Supply</Link></li>
-              <li><Link href="#services" className="hover:text-white transition-colors">Commercial Greening & Landscaping</Link></li>
-              <li><Link href="#services" className="hover:text-white transition-colors">DENR Tree Inventory & Caliper Tagging</Link></li>
-              <li><Link href="#services" className="hover:text-white transition-colors">Watershed Reforestation & NGP</Link></li>
+              <li><Link href="/services#earthballing" className="hover:text-white transition-colors">Large-Scale Tree Earthballing</Link></li>
+              <li><Link href="/services#tree-cutting" className="hover:text-white transition-colors">Certified Tree Cutting (89 Chainsaws)</Link></li>
+              <li><Link href="/services#pca-cutting" className="hover:text-white transition-colors">PCA Coconut Tree Felling & Salvage</Link></li>
+              <li><Link href="/nurseries" className="hover:text-white transition-colors">Native Seedling Propagation & Supply</Link></li>
+              <li><Link href="/services#commercial-landscaping" className="hover:text-white transition-colors">Commercial Greening & Landscaping</Link></li>
+              <li><Link href="/services#tree-inventory" className="hover:text-white transition-colors">DENR Tree Inventory & Caliper Tagging</Link></li>
+              <li><Link href="/services#reforestation" className="hover:text-white transition-colors">Watershed Reforestation & NGP</Link></li>
             </ul>
           </div>
 
           {/* Column 3: Signature Infrastructure (3 cols) */}
           <div className="lg:col-span-3 flex flex-col gap-3">
             <h4 className="text-xs font-bold uppercase tracking-widest text-white mb-2">
-              Signature Projects
+              <Link href="/projects" className="hover:text-[#ffd600] transition-colors">
+                Signature Projects →
+              </Link>
             </h4>
             <ul className="space-y-2 text-xs">
-              <li><Link href="#projects" className="hover:text-white transition-colors">SLEX TR4 Expressway Expansion</Link></li>
-              <li><Link href="#projects" className="hover:text-white transition-colors">Metro Manila Subway Project CP101</Link></li>
-              <li><Link href="#projects" className="hover:text-white transition-colors">Isla Wind Farm High-Voltage Corridors</Link></li>
-              <li><Link href="#projects" className="hover:text-white transition-colors">NLEX-SLEX Connector Road</Link></li>
-              <li><Link href="#projects" className="hover:text-white transition-colors">Nuvali & Vermosa Estates (Ayala Land)</Link></li>
-              <li><Link href="#projects" className="hover:text-white transition-colors">SM Prime Commercial Developments</Link></li>
-              <li><Link href="#projects" className="hover:text-white transition-colors">Zambales 2,627-Ha NGP Plantation</Link></li>
+              <li><Link href="/projects#projects" className="hover:text-white transition-colors">SLEX TR4 Expressway Expansion</Link></li>
+              <li><Link href="/projects#projects" className="hover:text-white transition-colors">Metro Manila Subway Project CP101</Link></li>
+              <li><Link href="/projects#projects" className="hover:text-white transition-colors">Isla Wind Farm High-Voltage Corridors</Link></li>
+              <li><Link href="/projects#projects" className="hover:text-white transition-colors">NLEX-SLEX Connector Road</Link></li>
+              <li><Link href="/projects#projects" className="hover:text-white transition-colors">Nuvali & Vermosa Estates (Ayala Land)</Link></li>
+              <li><Link href="/projects#projects" className="hover:text-white transition-colors">SM Prime Commercial Developments</Link></li>
+              <li><Link href="/projects#projects" className="hover:text-white transition-colors">Zambales 2,627-Ha NGP Plantation</Link></li>
             </ul>
           </div>
 
           {/* Column 4: Quick Locations & Contact (2 cols) */}
           <div className="lg:col-span-2 flex flex-col gap-3">
             <h4 className="text-xs font-bold uppercase tracking-widest text-white mb-2">
-              Locations
+              <Link href="/contact" className="hover:text-[#ffd600] transition-colors">
+                Locations & Dispatch →
+              </Link>
             </h4>
-            <div className="text-xs space-y-3">
+            <address className="not-italic text-xs space-y-3">
               <div>
-                <strong className="text-white block">Head Office & Dispatch</strong>
+                <Link href="/contact" className="text-white font-bold block hover:text-[#ffd600] transition-colors">
+                  Head Office & Dispatch
+                </Link>
                 <span className="text-[#a8d5a8]">Sitio Sto. Niño, Banga, Talisay, Batangas (32V9+5P) • 8:00 AM – 5:00 PM</span>
               </div>
 
               <div>
-                <strong className="text-white block">Tumaway Nursery</strong>
+                <Link href="/nurseries#nurseries" className="text-white font-bold block hover:text-[#ffd600] transition-colors">
+                  Tumaway Nursery
+                </Link>
                 <span className="text-[#a8d5a8]">Brgy. Tumaway, Talisay, Batangas</span>
               </div>
               <div>
-                <strong className="text-white block">Aya Nursery</strong>
+                <Link href="/nurseries#nurseries" className="text-white font-bold block hover:text-[#ffd600] transition-colors">
+                  Aya Nursery
+                </Link>
                 <span className="text-[#a8d5a8]">Brgy. Aya, Talisay, Batangas</span>
               </div>
-            </div>
+
+              <div className="pt-1">
+                <a
+                  href="https://www.facebook.com/forest.hills.garden.2024/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-xs text-[#76c442] hover:text-[#ffd600] transition-colors"
+                >
+                  <span>Official Facebook Page ↗</span>
+                </a>
+              </div>
+            </address>
           </div>
         </div>
 

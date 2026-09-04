@@ -127,6 +127,7 @@ export default function RootLayout({
           "@id": "https://fhg-two.vercel.app/#organization",
         },
         inLanguage: "en-PH",
+        sameAs: ["https://www.facebook.com/forest.hills.garden.2024/"],
       },
       {
         "@type": "HomeAndConstructionBusiness",
@@ -144,6 +145,10 @@ export default function RootLayout({
         logo: "https://fhg-two.vercel.app/images/logo.png",
         slogan: "We Do It Right and Fast",
         foundingDate: "1998-06-10",
+        sameAs: [
+          "https://www.facebook.com/forest.hills.garden.2024/",
+          "https://www.google.com/maps/search/?api=1&query=32V9%2B5P+Talisay,+Batangas"
+        ],
         founder: {
           "@type": "Person",
           name: "Edwin G. Luna",
@@ -181,6 +186,26 @@ export default function RootLayout({
           {
             "@type": "AdministrativeArea",
             name: "Calabarzon",
+          },
+          {
+            "@type": "AdministrativeArea",
+            name: "Batangas",
+          },
+          {
+            "@type": "AdministrativeArea",
+            name: "Cavite",
+          },
+          {
+            "@type": "AdministrativeArea",
+            name: "Laguna",
+          },
+          {
+            "@type": "AdministrativeArea",
+            name: "Rizal",
+          },
+          {
+            "@type": "AdministrativeArea",
+            name: "Zambales",
           },
           {
             "@type": "Country",
@@ -227,6 +252,42 @@ export default function RootLayout({
             },
           ],
         },
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://fhg-two.vercel.app/#breadcrumbs",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: "https://fhg-two.vercel.app",
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Services",
+            item: "https://fhg-two.vercel.app/services",
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: "Nurseries",
+            item: "https://fhg-two.vercel.app/nurseries",
+          },
+          {
+            "@type": "ListItem",
+            position: 4,
+            name: "Projects",
+            item: "https://fhg-two.vercel.app/projects",
+          },
+          {
+            "@type": "ListItem",
+            position: 5,
+            name: "Contact",
+            item: "https://fhg-two.vercel.app/contact",
+          },
+        ],
       },
       {
         "@type": "FAQPage",

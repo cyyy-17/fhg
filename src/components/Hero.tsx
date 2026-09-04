@@ -118,20 +118,20 @@ export default function Hero() {
           className="flex flex-wrap justify-center gap-4 sm:gap-6 mb-8"
         >
           <Link
-            href="#projects"
+            href="/projects"
             className="flex items-center gap-3 px-8 py-4 rounded-full font-bold text-sm uppercase tracking-wider bg-linear-to-r from-[#2e7d32] to-[#1a5c1a] text-white hover:brightness-110 shadow-xl border border-[#4caf50]/40 hover:scale-105 transition-all duration-200"
           >
             <span>Explore Signature Projects</span>
             <ArrowRight className="w-4 h-4" />
           </Link>
           <Link
-            href="#estimate"
+            href="/#estimate"
             className="flex items-center gap-3 px-8 py-4 rounded-full font-bold text-sm uppercase tracking-wider bg-linear-to-r from-[#ffd600] to-[#f9c923] text-[#061008] hover:brightness-110 shadow-xl shadow-[#ffd600]/20 hover:scale-105 transition-all duration-200"
           >
             <span>Configure Project RFP</span>
           </Link>
           <Link
-            href="#vault"
+            href="/#vault"
             className="flex items-center gap-3 px-8 py-4 rounded-full font-semibold text-sm text-white bg-white/5 hover:bg-white/10 border border-white/15 backdrop-blur-md hover:border-[#ffd600] hover:scale-105 transition-all duration-200"
           >
             <FileText className="w-4 h-4 text-[#ffd600]" />
@@ -146,16 +146,16 @@ export default function Hero() {
           transition={{ duration: 0.7, delay: 0.35 }}
           className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-12 text-xs font-semibold text-[#a8d5a8]"
         >
-          <Link href="#proof" className="px-3.5 py-1.5 rounded-full bg-white/5 hover:bg-white/10 hover:text-white border border-white/10 transition-colors">
+          <Link href="/projects#proof" className="px-3.5 py-1.5 rounded-full bg-white/5 hover:bg-white/10 hover:text-white border border-white/10 transition-colors">
             Interactive Before/After Proof →
           </Link>
-          <Link href="#fleet" className="px-3.5 py-1.5 rounded-full bg-white/5 hover:bg-white/10 hover:text-white border border-white/10 transition-colors">
+          <Link href="/projects#fleet" className="px-3.5 py-1.5 rounded-full bg-white/5 hover:bg-white/10 hover:text-white border border-white/10 transition-colors">
             89-Chainsaw Fleet Specs →
           </Link>
-          <Link href="#catalog" className="px-3.5 py-1.5 rounded-full bg-white/5 hover:bg-white/10 hover:text-white border border-white/10 transition-colors">
+          <Link href="/nurseries#catalog" className="px-3.5 py-1.5 rounded-full bg-white/5 hover:bg-white/10 hover:text-white border border-white/10 transition-colors">
             Nursery Species Catalog →
           </Link>
-          <Link href="#timeline" className="px-3.5 py-1.5 rounded-full bg-white/5 hover:bg-white/10 hover:text-white border border-white/10 transition-colors">
+          <Link href="/#timeline" className="px-3.5 py-1.5 rounded-full bg-white/5 hover:bg-white/10 hover:text-white border border-white/10 transition-colors">
             28-Year Timeline →
           </Link>
         </motion.div>
