@@ -125,7 +125,8 @@ export default function NurserySection() {
             </div>
 
             {/* Map fills all remaining vertical space */}
-            <div className="w-full flex-1 min-h-[380px] relative">
+            <div className="w-full flex-1 min-h-95 relative">
+
               <iframe
                 title="Forest Hills Garden Office & Nursery Location Map"
                 src="https://www.google.com/maps/embed?origin=mfe&pb=!1m2!2m1!1sForest+Hills+Garden,+Banga,+Talisay,+Batangas"
