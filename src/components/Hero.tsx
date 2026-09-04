@@ -1,11 +1,37 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { ShieldCheck, CheckCircle2, Award, ArrowRight, FileText, ChevronDown } from "lucide-react";
 import ParticleCanvas from "./ParticleCanvas";
 import { companyData } from "@/data/company";
+
+function StatCounter({ target, duration = 1.8 }: { target: number; duration?: number }) {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    let startTimestamp: number | null = null;
+    let frameId: number;
+
+    const step = (timestamp: number) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / (duration * 1000), 1);
+      const ease = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+      setCount(Math.round(ease * target));
+
+      if (progress < 1) {
+        frameId = requestAnimationFrame(step);
+      }
+    };
+
+    frameId = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(frameId);
+  }, [target, duration]);
+
+  return <span>{count}</span>;
+}
 
 export default function Hero() {
   return (
@@ -36,7 +62,7 @@ export default function Hero() {
         >
           <span className="w-2.5 h-2.5 rounded-full bg-[#ffd600] shadow-[0_0_10px_#ffd600] animate-pulse" />
           <span className="text-xs font-bold text-[#fff176] tracking-widest uppercase">
-            DENR & PCA Certified • PhilGEPS Blue Member • 26+ Years Experience
+            DENR & PCA Certified • PhilGEPS Blue Member • 28+ Years Experience
           </span>
         </motion.div>
 
@@ -147,7 +173,7 @@ export default function Hero() {
               className="flex flex-col items-center text-center px-4 py-3 md:py-1"
             >
               <div className="text-3xl sm:text-4xl md:text-5xl font-black font-display text-white tracking-tight mb-1.5 flex items-baseline justify-center">
-                <span>{stat.value}</span>
+                <StatCounter target={stat.value} />
                 <span className="text-[#ffd600] ml-0.5">{stat.suffix}</span>
               </div>
               <span className="text-xs sm:text-sm font-bold text-[#f0fbf0] tracking-wide mb-1 min-h-6 flex items-center justify-center text-center">

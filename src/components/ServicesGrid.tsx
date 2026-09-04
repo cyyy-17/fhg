@@ -1,8 +1,10 @@
 "use client";
 
-import React, { useState, useRef, useEffect, useSyncExternalStore } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
+import { motion } from "framer-motion";
+import { useIsMounted } from "@/hooks/useIsMounted";
 import {
   TreePine,
   Axe,
@@ -202,8 +204,6 @@ const faqs = [
   }
 ];
 
-const emptySubscribe = () => () => {};
-
 export default function ServicesGrid() {
   const [selectedService, setSelectedService] = useState<ServiceItem | null>(null);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
@@ -212,11 +212,7 @@ export default function ServicesGrid() {
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
 
   const sliderRef = useRef<HTMLDivElement>(null);
-  const mounted = useSyncExternalStore(
-    emptySubscribe,
-    () => true,
-    () => false
-  );
+  const mounted = useIsMounted();
 
   // Sync scroll buttons & active index
   const updateScrollState = () => {
@@ -259,7 +255,13 @@ export default function ServicesGrid() {
     >
       <div className="w-full max-w-[1720px] mx-auto px-6 md:px-12">
         {/* Header with Navigation Controls */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.6 }}
+          className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10"
+        >
           <div>
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest text-[#ffd600] bg-[#ffd600]/10 border border-[#ffd600]/20 mb-3">
               <ShieldCheck className="w-3.5 h-3.5 text-[#ffd600]" />
@@ -300,7 +302,7 @@ export default function ServicesGrid() {
               <ChevronRight className="w-5 h-5" />
             </button>
           </div>
-        </div>
+        </motion.div>
 
         {/* Horizontal Snap Slider Track */}
         <div

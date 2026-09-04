@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Phone, Menu, X, ArrowUpRight, MessageCircle, ChevronDown, ShieldCheck, Sparkles } from "lucide-react";
+import { useActiveSection } from "@/hooks/useActiveSection";
 
 interface NavSubItem {
   label: string;
@@ -65,6 +66,22 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
 
+  const activeSection = useActiveSection(
+    ["hero", "about", "services", "operations-hub", "projects", "proof", "fleet", "clients", "nurseries", "catalog", "vault", "procurement-hub", "contact"],
+    "hero"
+  );
+
+  const isItemActive = (item: NavItem) => {
+    const targetId = item.href.replace("#", "");
+    if (activeSection === targetId) return true;
+    if (targetId === "about" && (activeSection === "timeline" || activeSection === "credentials" || activeSection === "safety-ehs" || activeSection === "about")) return true;
+    if (targetId === "projects" && (activeSection === "operations-hub" || activeSection === "proof" || activeSection === "fleet" || activeSection === "clients" || activeSection === "projects")) return true;
+    if (targetId === "nurseries" && (activeSection === "catalog" || activeSection === "nurseries")) return true;
+    if (targetId === "vault" && (activeSection === "vault" || activeSection === "procurement-hub")) return true;
+    if (targetId === "contact" && (activeSection === "contact")) return true;
+    return false;
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 30);
@@ -122,22 +139,29 @@ export default function Navbar() {
 
         {/* Streamlined Desktop Navigation (Visible lg and up) */}
         <nav className="hidden lg:flex items-center gap-6 xl:gap-8" aria-label="Main Navigation">
-          {navItems.map((item) => (
-            <div
-              key={item.label}
-              className="relative group py-2"
-              onMouseEnter={() => item.subItems && setActiveDropdown(item.label)}
-              onMouseLeave={() => setActiveDropdown(null)}
-            >
-              <Link
-                href={item.href}
-                className="text-xs xl:text-sm font-semibold text-[#a8d5a8] hover:text-white transition-colors duration-200 flex items-center gap-1 py-1"
+          {navItems.map((item) => {
+            const active = isItemActive(item);
+            return (
+              <div
+                key={item.label}
+                className="relative group py-2"
+                onMouseEnter={() => item.subItems && setActiveDropdown(item.label)}
+                onMouseLeave={() => setActiveDropdown(null)}
               >
-                <span>{item.label}</span>
-                {item.subItems && (
-                  <ChevronDown className="w-3 h-3 text-[#76c442] group-hover:rotate-180 transition-transform duration-200" />
-                )}
-              </Link>
+                <Link
+                  href={item.href}
+                  className={`text-xs xl:text-sm font-semibold transition-colors duration-200 flex items-center gap-1 py-1 ${
+                    active ? "text-[#ffd600]" : "text-[#a8d5a8] hover:text-white"
+                  }`}
+                >
+                  <span>{item.label}</span>
+                  {active && (
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#ffd600] ml-0.5" />
+                  )}
+                  {item.subItems && (
+                    <ChevronDown className="w-3 h-3 text-[#76c442] group-hover:rotate-180 transition-transform duration-200" />
+                  )}
+                </Link>
 
               {/* Sleek Glass Dropdown Flyout */}
               {item.subItems && activeDropdown === item.label && (
@@ -162,7 +186,8 @@ export default function Navbar() {
                 </div>
               )}
             </div>
-          ))}
+          );
+        })}
         </nav>
 
         {/* Action Buttons & Mobile Trigger */}

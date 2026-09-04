@@ -7,6 +7,7 @@ import ServicesGrid from "@/components/ServicesGrid";
 import OperationsProofHub from "@/components/OperationsProofHub";
 import NurseryHub from "@/components/NurseryHub";
 import ProcurementHub from "@/components/ProcurementHub";
+import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import FloatingActions from "@/components/FloatingActions";
 
@@ -23,6 +24,7 @@ export default function Home() {
         <OperationsProofHub />
         <NurseryHub />
         <ProcurementHub />
+        <ContactSection />
       </main>
       <Footer />
       <FloatingActions />

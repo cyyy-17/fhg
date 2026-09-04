@@ -70,10 +70,10 @@ export const metadata: Metadata = {
     locale: "en_PH",
     images: [
       {
-        url: "/images/logo.png",
-        width: 699,
-        height: 357,
-        alt: "Forest Hills Garden Logo",
+        url: "/images/og_image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Forest Hills Garden - Industrial Tree Services Authority Philippines",
       },
     ],
   },
@@ -82,7 +82,7 @@ export const metadata: Metadata = {
     title: "Forest Hills Garden | Industrial Tree Services Philippines",
     description:
       "Official website of Forest Hills Garden. Industrial tree earthballing, felling, nursery supply, and environmental greening since 1998.",
-    images: ["/images/logo.png"],
+    images: ["/images/og_image.jpg"],
   },
   icons: {
     icon: [
@@ -147,10 +147,12 @@ export default function RootLayout({
         founder: {
           "@type": "Person",
           name: "Edwin G. Luna",
+          jobTitle: "Founder & Operations Head",
         },
-        founderOrManager: {
+        employee: {
           "@type": "Person",
           name: "Marife B. Luna",
+          jobTitle: "General Manager",
         },
         address: {
           "@type": "PostalAddress",

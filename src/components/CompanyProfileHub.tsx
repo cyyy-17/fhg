@@ -1,8 +1,10 @@
 "use client";
 
-import { useState, useEffect, useSyncExternalStore } from "react";
+import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
+import { motion } from "framer-motion";
+import { useIsMounted } from "@/hooks/useIsMounted";
 import {
   Building2,
   Calendar,
@@ -103,11 +105,7 @@ export default function CompanyProfileHub() {
   const [selectedMilestone, setSelectedMilestone] = useState(0);
   const [selectedProtocol, setSelectedProtocol] = useState(0);
   const [bioModalOpen, setBioModalOpen] = useState(false);
-  const mounted = useSyncExternalStore(
-    emptySubscribe,
-    () => true,
-    () => false
-  );
+  const mounted = useIsMounted();
 
   // Listen to window hash for direct deep links (#about, #timeline, #credentials, #protocol, #safety-ehs)
   useEffect(() => {
@@ -185,7 +183,13 @@ export default function CompanyProfileHub() {
 
       <div className="w-full max-w-[1720px] mx-auto px-6 md:px-12 relative z-10">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-10 md:mb-12">
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.6 }}
+          className="text-center max-w-3xl mx-auto mb-10 md:mb-12"
+        >
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest text-[#76c442] bg-[#4caf50]/10 border border-[#4caf50]/20 mb-4">
             <Sparkles className="w-3.5 h-3.5 text-[#ffd600]" />
             <span>Executive Corporate Dossier • Est. 1998</span>
@@ -196,7 +200,7 @@ export default function CompanyProfileHub() {
           <p className="mt-4 text-sm sm:text-base text-[#a8d5a8] leading-relaxed">
             High-density dossier detailing corporate heritage, heavy fleet capacity, statutory clearances, and turnkey compliance.
           </p>
-        </div>
+        </motion.div>
 
         {/* Segmented Control Bar (Compact Tabs) */}
         <div className="flex justify-center mb-10">

@@ -2,8 +2,10 @@
 
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
+import { motion } from "framer-motion";
 import { Phone, Mail, MapPin, Send, AlertCircle, Clock, Copy, Check, MessageCircle, ExternalLink, Navigation, X } from "lucide-react";
 import { companyData } from "@/data/company";
+import { useIsMounted } from "@/hooks/useIsMounted";
 
 export default function ContactSection() {
   const [fullName, setFullName] = useState("");
@@ -16,11 +18,7 @@ export default function ContactSection() {
   const [modalOpen, setModalOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const [viberCopied, setViberCopied] = useState(false);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const mounted = useIsMounted();
 
   // Lock body scroll and handle ESC key
   useEffect(() => {
@@ -64,13 +62,6 @@ export default function ContactSection() {
 
     setErrors({});
     setModalOpen(true);
-
-    // Also attempt mailto launch
-    const emailSubject = encodeURIComponent(`[Website Inquiry] ${subject}`);
-    const emailBody = encodeURIComponent(
-      `Name: ${fullName}\nEmail: ${email}\nPhone: ${phone}\n\nMessage:\n${message}`
-    );
-    window.location.href = `mailto:edluna1971@yahoo.com?cc=iamfeluna@yahoo.com&subject=${emailSubject}&body=${emailBody}`;
   };
 
   const handleCopy = () => {
@@ -86,7 +77,13 @@ export default function ContactSection() {
   return (
     <section id="contact" className="py-24 bg-[#050e07] relative z-20">
       <div className="w-full max-w-[1720px] mx-auto px-6 md:px-12">
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.6 }}
+          className="text-center max-w-3xl mx-auto mb-16"
+        >
           <div className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest text-[#76c442] bg-[#4caf50]/10 border border-[#4caf50]/20 mb-4">
             Operations & Inquiries Desk
           </div>
@@ -96,7 +93,7 @@ export default function ContactSection() {
           <p className="mt-4 text-base sm:text-lg text-forest-muted">
             Direct lines to senior arboricultural project managers, heavy equipment dispatchers, and administrative compliance officers.
           </p>
-        </div>
+        </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           {/* Left Touchpoint Cards */}
@@ -410,7 +407,7 @@ export default function ContactSection() {
             </div>
 
             <p className="text-xs text-forest-muted mb-4">
-              Your default email client was triggered. If no mail program opened automatically, use the multi-channel dispatch options below:
+              Your inquiry dossier is ready. Choose your preferred dispatch channel or launch your email client directly below:
             </p>
 
             <div className="p-3.5 rounded-xl bg-black/40 border border-white/10 font-mono text-xs text-[#a8d5a8] max-h-36 overflow-y-auto mb-5 whitespace-pre-wrap">
@@ -456,7 +453,7 @@ export default function ContactSection() {
                 className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-bold text-xs uppercase tracking-wider bg-[#ffd600] text-[#050e07] hover:brightness-110 shadow-lg transition-all"
               >
                 <Mail className="w-4 h-4" />
-                <span>Retry Mail Client</span>
+                <span>Send via Email Client</span>
               </a>
             </div>
           </div>

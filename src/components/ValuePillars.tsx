@@ -1,3 +1,6 @@
+"use client";
+
+import { motion } from "framer-motion";
 import { TreePine, Recycle, Sprout, Award } from "lucide-react";
 
 export default function ValuePillars() {
@@ -19,14 +22,14 @@ export default function ValuePillars() {
     {
       num: "03",
       icon: Sprout,
-      title: "100,000+ Plant Nursery Capacity",
+      title: "150,000+ Plant Nursery Capacity",
       desc: "Twin facilities in Brgy. Tumaway and Brgy. Aya, Talisay, Batangas supplying indigenous forest saplings, ornamentals, and compensatory planting stocks.",
       tag: "Twin Batangas Nurseries"
     },
     {
       num: "04",
       icon: Award,
-      title: "26-Year Conglomerate Track Record",
+      title: "28-Year Conglomerate Track Record",
       desc: "Trusted by San Miguel, Ayala Land, SM Prime, EEI, DMCI, and NLEX across high-stakes infrastructure corridors and commercial masterplans.",
       tag: "Founded June 10, 1998"
     }
@@ -35,7 +38,13 @@ export default function ValuePillars() {
   return (
     <section id="why-choose" className="py-24 bg-[#040d04] relative z-20">
       <div className="w-full max-w-[1720px] mx-auto px-6 md:px-12">
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.6 }}
+          className="text-center max-w-3xl mx-auto mb-16"
+        >
           <div className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest text-[#76c442] bg-[#4caf50]/10 border border-[#4caf50]/20 mb-4">
             Industrial Tree Care Pillars
           </div>
@@ -45,15 +54,19 @@ export default function ValuePillars() {
           <p className="mt-4 text-base sm:text-lg text-[#a8d5a8]">
             Built on arboricultural discipline, massive mechanized capacity, and unwavering statutory compliance.
           </p>
-        </div>
+        </motion.div>
 
-        {/* Broad 4-Column Grid */}
+        {/* Broad 4-Column Grid with Staggered Fade-Up */}
         <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-4 gap-8">
-          {pillars.map((pillar) => {
+          {pillars.map((pillar, idx) => {
             const Icon = pillar.icon;
             return (
-              <div
+              <motion.div
                 key={pillar.num}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
                 className="glass-panel glass-panel-hover rounded-2xl p-8 relative flex flex-col justify-between overflow-hidden group"
               >
                 <div className="absolute top-6 right-6 font-display font-black text-3xl text-[#ffd600]/20 group-hover:text-[#ffd600]/40 transition-colors">
@@ -77,7 +90,7 @@ export default function ValuePillars() {
                     {pillar.tag}
                   </span>
                 </div>
-              </div>
+              </motion.div>
             );
           })}
         </div>

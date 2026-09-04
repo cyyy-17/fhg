@@ -1,8 +1,10 @@
 "use client";
 
-import { useState, useMemo, useEffect, useSyncExternalStore } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { createPortal } from "react-dom";
 import confetti from "canvas-confetti";
+import { motion } from "framer-motion";
+import { useIsMounted } from "@/hooks/useIsMounted";
 import {
   FileText,
   Calculator,
@@ -126,8 +128,6 @@ const generalFaqs = [
   }
 ];
 
-const emptySubscribe = () => () => {};
-
 export default function ProcurementHub() {
   const [activeTab, setActiveTab] = useState<ProcurementTab>("estimate");
 
@@ -150,11 +150,7 @@ export default function ProcurementHub() {
   // FAQ State
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
 
-  const mounted = useSyncExternalStore(
-    emptySubscribe,
-    () => true,
-    () => false
-  );
+  const mounted = useIsMounted();
 
   // Deep-link hash listener
   useEffect(() => {
@@ -246,7 +242,7 @@ export default function ProcurementHub() {
       {/* Anchor targets */}
       <span id="estimate" className="absolute -top-24 pointer-events-none" />
       <span id="vault" className="absolute -top-24 pointer-events-none" />
-      <span id="contact" className="absolute -top-24 pointer-events-none" />
+      <span id="dispatch" className="absolute -top-24 pointer-events-none" />
       <span id="faq" className="absolute -top-24 pointer-events-none" />
 
       {/* Subtle ambient lighting */}
@@ -254,7 +250,13 @@ export default function ProcurementHub() {
 
       <div className="w-full max-w-[1720px] mx-auto px-6 md:px-12 relative z-10">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-10">
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.6 }}
+          className="text-center max-w-3xl mx-auto mb-10"
+        >
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest text-[#ffd600] bg-[#ffd600]/10 border border-[#ffd600]/20 mb-3">
             <Sparkles className="w-3.5 h-3.5 text-[#ffd600]" />
             <span>Commercial Onboarding & Rapid Procurement</span>
@@ -265,7 +267,7 @@ export default function ProcurementHub() {
           <p className="mt-3 text-sm sm:text-base text-[#a8d5a8]">
             Configure commercial arboricultural tenders, download verified statutory clearances, or reach our Talisay main office (8:00 AM – 5:00 PM).
           </p>
-        </div>
+        </motion.div>
 
         {/* Segmented Control Bar */}
         <div className="flex justify-center mb-10">

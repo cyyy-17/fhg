@@ -3,6 +3,7 @@
 import { useState, useMemo } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import {
   Sprout,
   Search,
@@ -154,7 +155,13 @@ export default function NurseryHub() {
 
       <div className="w-full max-w-[1720px] mx-auto px-6 md:px-12">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-10">
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.6 }}
+          className="text-center max-w-3xl mx-auto mb-10"
+        >
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest text-[#76c442] bg-[#4caf50]/10 border border-[#4caf50]/20 mb-3">
             <Sprout className="w-3.5 h-3.5 text-[#76c442]" />
             <span>Batangas Production Base • 150,000+ Reserve Capacity</span>
@@ -165,7 +172,7 @@ export default function NurseryHub() {
           <p className="mt-3 text-sm sm:text-base text-[#a8d5a8]">
             Direct supplier of hardened native forest saplings, mature balled trees, and DENR compensatory planting stocks.
           </p>
-        </div>
+        </motion.div>
 
         {/* Unified Twin Nursery Capacity Banner */}
         <div className="glass-panel rounded-3xl p-6 sm:p-10 border border-[#4caf50]/25 shadow-2xl mb-12">

@@ -1,8 +1,10 @@
 "use client";
 
-import { useState, useMemo, useEffect, useRef, useCallback, useSyncExternalStore } from "react";
+import { useState, useMemo, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
+import { useIsMounted } from "@/hooks/useIsMounted";
 import {
   FolderKanban,
   ArrowLeftRight,
@@ -61,7 +63,7 @@ const comparisonScenarios: ComparisonScenario[] = [
     beforeDesc: "Mature 60-year-old Mango & Acacia trees surveyed with root-ball caliper conditioning and wire wrapping.",
     afterDesc: "Transplanted via 50-ton hydraulic crane to permanent central park buffer with active root stimulants.",
     beforeImage: "/images/earthballing.jpg",
-    afterImage: "/images/hero_canopy.jpg",
+    afterImage: "/images/transplanted_trees.jpg",
   },
   {
     id: "corridor-clearing",
@@ -75,6 +77,19 @@ const comparisonScenarios: ComparisonScenario[] = [
     afterDesc: "Sectional controlled felling completed by 89-chainsaw certified crew, timber chipped and salvaged.",
     beforeImage: "/images/hero_canopy.jpg",
     afterImage: "/images/corridor_cleared.jpg",
+  },
+  {
+    id: "watershed-reforestation",
+    title: "Mountain Watershed Reforestation & Compensatory Planting",
+    category: "Watershed & Ecological Restoration",
+    location: "Zambales Mountain Range & Batangas Watersheds",
+    metric: "150,000+ Native Saplings Established",
+    beforeLabel: "Barren Infrastructure Buffer",
+    afterLabel: "Vibrant Hardwood Reforestation",
+    beforeDesc: "Surveyed degraded slope requiring mandatory compensatory forest planting under DENR guidelines.",
+    afterDesc: "Thousands of native Narra, Apitong and Banaba saplings thriving under scheduled arboricultural maintenance.",
+    beforeImage: "/images/corridor_cleared.jpg",
+    afterImage: "/images/watershed_reforestation.jpg",
   },
 ];
 
@@ -181,8 +196,6 @@ const equipmentFleet: EquipmentItem[] = [
   },
 ];
 
-const emptySubscribe = () => () => {};
-
 export default function OperationsProofHub() {
   const [activeTab, setActiveTab] = useState<HubTab>("projects");
   const [projectFilter, setProjectFilter] = useState<ProjectFilter>("all");
@@ -202,11 +215,7 @@ export default function OperationsProofHub() {
   // Client sector state
   const [clientSector, setClientSector] = useState<ClientSector>("All");
 
-  const mounted = useSyncExternalStore(
-    emptySubscribe,
-    () => true,
-    () => false
-  );
+  const mounted = useIsMounted();
 
   // Deep-link hash listener
   useEffect(() => {
@@ -316,7 +325,13 @@ export default function OperationsProofHub() {
 
       <div className="w-full max-w-[1720px] mx-auto px-6 md:px-12 relative z-10">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-10">
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.6 }}
+          className="text-center max-w-3xl mx-auto mb-10"
+        >
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest text-[#ffd600] bg-[#ffd600]/10 border border-[#ffd600]/20 mb-3">
             <Sparkles className="w-3.5 h-3.5 text-[#ffd600]" />
             <span>Operational Proof & Mechanized Authority</span>
@@ -327,7 +342,7 @@ export default function OperationsProofHub() {
           <p className="mt-3 text-sm sm:text-base text-[#a8d5a8]">
             Explore signature civil project milestones, visual before/after proof, heavy crane machinery, and enterprise client partnerships.
           </p>
-        </div>
+        </motion.div>
 
         {/* Segmented Control Bar */}
         <div className="flex justify-center mb-10">
@@ -609,6 +624,26 @@ export default function OperationsProofHub() {
                   {c.label}
                 </button>
               ))}
+            </div>
+
+            {/* Equipment Fleet Visual Showcase Banner */}
+            <div className="relative w-full h-56 sm:h-72 rounded-3xl overflow-hidden border border-[#4caf50]/30 shadow-2xl">
+              <Image
+                src="/images/fleet_chainsaws.jpg"
+                alt="Forest Hills Garden Industrial Chainsaw Fleet & Operations Depot"
+                fill
+                className="object-cover object-center"
+              />
+              <div className="absolute inset-0 bg-linear-to-t from-[#050e07] via-black/40 to-transparent flex items-end p-6 sm:p-8">
+                <div>
+                  <span className="text-xs font-mono font-bold text-[#ffd600] uppercase tracking-wider block mb-1">
+                    Mechanized Field Readiness • Talisay Operations Depot
+                  </span>
+                  <h3 className="text-xl sm:text-2xl font-black font-display text-white">
+                    89 DENR-Registered Heavy Forestry Chainsaws & Crane Rigs
+                  </h3>
+                </div>
+              </div>
             </div>
 
             {/* Fleet Cards Grid */}
