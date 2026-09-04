@@ -141,7 +141,7 @@ export default function Navbar() {
 
               {/* Sleek Glass Dropdown Flyout */}
               {item.subItems && activeDropdown === item.label && (
-                <div className="absolute top-full left-0 pt-2 z-50 animate-fadeIn min-w-[240px]">
+                <div className="absolute top-full left-0 pt-2 z-50 animate-fadeIn min-w-60">
                   <div className="p-2 rounded-2xl bg-[#061409]/95 backdrop-blur-2xl border border-[#4caf50]/30 shadow-2xl space-y-1">
                     {item.subItems.map((sub) => (
                       <Link
