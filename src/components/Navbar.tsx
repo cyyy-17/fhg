@@ -142,7 +142,12 @@ export default function Navbar() {
               <span>WhatsApp</span>
             </a>
             <a
-              href="viber://chat?number=%2B639165667265"
+              href="viber://chat?number=639165667265"
+              onClick={() => {
+                if (typeof navigator !== "undefined" && navigator.clipboard) {
+                  navigator.clipboard.writeText("+639165667265");
+                }
+              }}
               className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#7360f2]/20 text-[#a899ff] text-xs font-semibold"
             >
               <MessageCircle className="w-3.5 h-3.5 fill-current" />

@@ -13,6 +13,8 @@ export const companyData = {
     telefax: "(043) 741 0603",
     mobiles: ["0916 566 7265", "0961 329 6727"],
     viber: "+639165667265",
+    viberUrl: "viber://chat?number=639165667265",
+    viberWebUrl: "https://viber.me/639165667265",
     whatsapp: "+639165667265",
     emails: ["edluna1971@yahoo.com", "iamfeluna@yahoo.com"],
     googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=32V9%2B5P+Talisay,+Batangas",

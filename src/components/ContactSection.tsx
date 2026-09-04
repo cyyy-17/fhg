@@ -15,6 +15,7 @@ export default function ContactSection() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [modalOpen, setModalOpen] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [viberCopied, setViberCopied] = useState(false);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -143,7 +144,12 @@ export default function ContactSection() {
                   <span>WhatsApp</span>
                 </a>
                 <a
-                  href="viber://chat?number=%2B639165667265"
+                  href="viber://chat?number=639165667265"
+                  onClick={() => {
+                    if (typeof navigator !== "undefined" && navigator.clipboard) {
+                      navigator.clipboard.writeText("+639165667265");
+                    }
+                  }}
                   className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#7360f2]/20 text-[#a899ff] hover:bg-[#7360f2] hover:text-white text-xs font-bold transition-colors"
                 >
                   <MessageCircle className="w-3.5 h-3.5" />
@@ -431,11 +437,18 @@ export default function ContactSection() {
               </a>
 
               <a
-                href={`viber://chat?number=%2B639165667265`}
-                className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-bold text-xs uppercase tracking-wider bg-[#7360f2] text-white hover:brightness-110 shadow-lg transition-all"
+                href="viber://chat?number=639165667265"
+                onClick={() => {
+                  if (typeof navigator !== "undefined" && navigator.clipboard) {
+                    navigator.clipboard.writeText(compiledInquiry);
+                    setViberCopied(true);
+                    setTimeout(() => setViberCopied(false), 4000);
+                  }
+                }}
+                className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-bold text-xs uppercase tracking-wider bg-[#7360f2] text-white hover:brightness-110 shadow-lg transition-all cursor-pointer"
               >
                 <MessageCircle className="w-4 h-4 fill-white" />
-                <span>Send via Viber</span>
+                <span>{viberCopied ? "Inquiry Copied for Viber!" : "Send via Viber"}</span>
               </a>
 
               <a

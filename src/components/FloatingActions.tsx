@@ -5,9 +5,18 @@ import { MessageCircle, Phone, Printer, X, ShieldAlert, ChevronUp } from "lucide
 
 export default function FloatingActions() {
   const [expanded, setExpanded] = useState(false);
+  const [viberCopied, setViberCopied] = useState(false);
 
   const handlePrint = () => {
     window.print();
+  };
+
+  const handleViberClick = () => {
+    if (typeof navigator !== "undefined" && navigator.clipboard) {
+      navigator.clipboard.writeText("+639165667265");
+      setViberCopied(true);
+      setTimeout(() => setViberCopied(false), 3000);
+    }
   };
 
   return (
@@ -29,11 +38,12 @@ export default function FloatingActions() {
 
           {/* Viber Direct */}
           <a
-            href="viber://chat?number=%2B639165667265"
+            href="viber://chat?number=639165667265"
+            onClick={handleViberClick}
             className="flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-[#7360f2] text-white text-xs font-bold shadow-xl hover:scale-105 transition-transform"
             aria-label="Viber Operations"
           >
-            <span>Viber Commercial Operations</span>
+            <span>{viberCopied ? "Viber (+63 916 566 7265) Copied!" : "Viber Commercial Operations"}</span>
             <MessageCircle className="w-4 h-4 fill-white" />
           </a>
 
