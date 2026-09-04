@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { FileCheck, Download, ExternalLink, ShieldCheck, FileText, Lock, Eye, X } from "lucide-react";
 import MediaPlaceholder from "./MediaPlaceholder";
 
@@ -83,6 +84,25 @@ const documents: DocumentItem[] = [
 
 export default function DocumentVault() {
   const [previewDoc, setPreviewDoc] = useState<DocumentItem | null>(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Lock body scroll and handle ESC key
+  useEffect(() => {
+    if (!previewDoc) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setPreviewDoc(null);
+    };
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.body.style.overflow = "auto";
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [previewDoc]);
 
   return (
     <section id="vault" className="py-24 bg-[#050e07] relative z-20">
@@ -197,17 +217,15 @@ export default function DocumentVault() {
       </div>
 
       {/* In-App PDF Preview Modal */}
-      {previewDoc && (
+      {previewDoc && mounted && createPortal(
         <div
           role="dialog"
           aria-modal="true"
-          className="fixed inset-0 z-100 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md animate-fadeIn"
+          className="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md animate-fadeIn"
           onClick={() => setPreviewDoc(null)}
         >
-
-
           <div
-            className="relative w-full max-w-5xl h-[90vh] rounded-3xl bg-[#061409] border border-[#4caf50]/40 shadow-2xl p-4 sm:p-6 flex flex-col text-white"
+            className="relative w-full max-w-5xl h-[90vh] rounded-3xl bg-[#061409] border border-[#4caf50]/40 shadow-2xl p-4 sm:p-6 flex flex-col text-white my-auto"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Modal Header */}
@@ -256,7 +274,8 @@ export default function DocumentVault() {
               />
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </section>
   );

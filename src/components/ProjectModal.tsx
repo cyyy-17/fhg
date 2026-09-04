@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { X, Building2, MapPin, ShieldCheck, CheckCircle2, ArrowRight, Axe, Trees, FileText } from "lucide-react";
 import { ProjectItem } from "@/data/projects";
 import MediaPlaceholder from "./MediaPlaceholder";
@@ -11,6 +12,12 @@ interface ProjectModalProps {
 }
 
 export default function ProjectModal({ project, onClose }: ProjectModalProps) {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   // Lock body scroll and handle ESC key
   useEffect(() => {
     if (!project) return;
@@ -25,21 +32,20 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
     };
   }, [project, onClose]);
 
-  if (!project) return null;
+  if (!project || !mounted) return null;
 
   const isInfra = project.category === "infrastructure";
   const isRefor = project.category === "reforestation";
 
-  return (
+  return createPortal(
     <div
       role="dialog"
       aria-modal="true"
-      className="fixed inset-0 z-100 flex items-center justify-center p-4 sm:p-6 lg:p-10 bg-black/85 backdrop-blur-md overflow-y-auto animate-fadeIn"
+      className="fixed inset-0 z-[9999] flex items-center justify-center p-4 sm:p-6 lg:p-10 bg-black/85 backdrop-blur-md overflow-y-auto animate-fadeIn"
       onClick={onClose}
-
     >
       <div
-        className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-3xl bg-[#061409] border border-[#4caf50]/40 shadow-2xl p-6 sm:p-10 text-white"
+        className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-3xl bg-[#061409] border border-[#4caf50]/40 shadow-2xl p-6 sm:p-10 text-white my-auto"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close Button */}
@@ -166,6 +172,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
           </a>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

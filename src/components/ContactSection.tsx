@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { Phone, Mail, MapPin, Send, AlertCircle, Clock, Copy, Check, MessageCircle, ExternalLink, Navigation, X } from "lucide-react";
 import { companyData } from "@/data/company";
 
@@ -14,6 +15,25 @@ export default function ContactSection() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [modalOpen, setModalOpen] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Lock body scroll and handle ESC key
+  useEffect(() => {
+    if (!modalOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setModalOpen(false);
+    };
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.body.style.overflow = "auto";
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [modalOpen]);
 
   const compiledInquiry =
     `[FOREST HILLS GARDEN - INQUIRY DOSSIER]\n` +
@@ -354,17 +374,15 @@ export default function ContactSection() {
       </div>
 
       {/* Confirmation & Multi-Channel Dispatch Modal */}
-      {modalOpen && (
+      {modalOpen && mounted && createPortal(
         <div
           role="dialog"
           aria-modal="true"
-          className="fixed inset-0 z-100 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fadeIn"
+          className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fadeIn"
           onClick={() => setModalOpen(false)}
         >
-
-
           <div
-            className="relative w-full max-w-xl rounded-3xl bg-[#07170a] border border-[#4caf50]/40 shadow-2xl p-6 sm:p-8 text-white"
+            className="relative w-full max-w-xl rounded-3xl bg-[#07170a] border border-[#4caf50]/40 shadow-2xl p-6 sm:p-8 text-white my-auto"
             onClick={(e) => e.stopPropagation()}
           >
             <button
@@ -429,7 +447,8 @@ export default function ContactSection() {
               </a>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </section>
   );
