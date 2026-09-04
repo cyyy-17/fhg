@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { MessageCircle, Phone, Printer, X, ChevronUp } from "lucide-react";
+import { MessageCircle, Phone, Download, X, ChevronUp } from "lucide-react";
 
 export default function FloatingActions() {
   const [expanded, setExpanded] = useState(false);
@@ -25,10 +25,6 @@ export default function FloatingActions() {
         window.scrollTo({ top: 0, behavior: "smooth" });
       }
     }
-  };
-
-  const handlePrint = () => {
-    window.print();
   };
 
   const handleViberClick = () => {
@@ -88,15 +84,16 @@ export default function FloatingActions() {
             <Phone className="w-4 h-4" />
           </a>
 
-          {/* Print Tender Profile */}
-          <button
-            onClick={handlePrint}
+          {/* Download Official Company Profile PDF */}
+          <a
+            href="/docs/company-profile.pdf"
+            download
             className="flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-[#ffd600] text-[#050e07] text-xs font-bold shadow-xl hover:scale-105 transition-transform cursor-pointer"
-            aria-label="Print Corporate Profile"
+            aria-label="Download Official Company Profile PDF"
           >
-            <span>Print Official Profile Dossier</span>
-            <Printer className="w-4 h-4" />
-          </button>
+            <span>Download Official Dossier (PDF)</span>
+            <Download className="w-4 h-4" />
+          </a>
         </div>
       )}
 
