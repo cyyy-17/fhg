@@ -34,7 +34,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
     <div
       role="dialog"
       aria-modal="true"
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 lg:p-10 bg-black/80 backdrop-blur-md overflow-y-auto animate-fadeIn"
+      className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 lg:p-10 bg-black/85 backdrop-blur-md overflow-y-auto animate-fadeIn"
       onClick={onClose}
     >
       <div
@@ -50,8 +50,8 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
           <X className="w-5 h-5" />
         </button>
 
-        {/* Header Badges */}
-        <div className="flex flex-wrap items-center gap-3 mb-4">
+        {/* Header Badges with safety padding for close button */}
+        <div className="flex flex-wrap items-center gap-3 mb-4 pr-14">
           <span
             className={`text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider ${
               project.badge === "Ongoing"
@@ -64,10 +64,11 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
           <span className="text-xs font-mono px-3 py-1 rounded-full bg-white/10 text-[#a8d5a8] uppercase">
             Sector: {project.category}
           </span>
-          <span className="text-xs font-mono text-[#ffd600] ml-auto mr-12 sm:mr-0">
+          <span className="text-xs font-mono text-[#ffd600] ml-auto">
             Dossier Ref: #{project.id.toUpperCase()}
           </span>
         </div>
+
 
         {/* Client & Title */}
         <div className="flex items-center gap-2 text-sm font-bold text-[#76c442] uppercase tracking-wider mb-2">
