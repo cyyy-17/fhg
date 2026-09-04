@@ -1,6 +1,7 @@
 import Image from "next/image";
-import { Sprout, MapPin, CheckCircle, ExternalLink } from "lucide-react";
+import { Sprout, MapPin, CheckCircle, ExternalLink, Navigation } from "lucide-react";
 import { companyData } from "@/data/company";
+
 
 export default function NurserySection() {
   return (
@@ -119,23 +120,54 @@ export default function NurserySection() {
               </div>
 
               <span className="px-3 py-1 rounded-full bg-[#4caf50]/20 text-[#76c442] text-xs font-bold">
-                Batangas Corridor
+                Plus Code: 32V9+5P
               </span>
             </div>
-            <div className="w-full h-80 sm:h-96 relative">
+
+            {/* Map fills all remaining vertical space */}
+            <div className="w-full flex-1 min-h-[380px] relative">
               <iframe
                 title="Forest Hills Garden Office & Nursery Location Map"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3869.851944883556!2d120.9780556!3d14.0950000!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33bd70b86b5b5b5b%3A0x1b1b1b1b1b1b1b1b!2sTalisay%2C%20Batangas!5e0!3m2!1sen!2sph!4v1700000000000!5m2!1sen!2sph"
+                src="https://www.google.com/maps/embed?origin=mfe&pb=!1m2!2m1!1sForest+Hills+Garden,+Banga,+Talisay,+Batangas"
                 width="100%"
                 height="100%"
                 style={{ border: 0 }}
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                className="w-full h-full grayscale-30 contrast-[1.1]"
+                className="w-full h-full"
               />
             </div>
+
+            {/* Bottom Navigation Toolbar */}
+            <div className="p-4 bg-[#0a190d] border-t border-white/10 flex flex-wrap items-center justify-between gap-3">
+              <div className="text-xs">
+                <span className="text-white font-bold block">Forest Hills Garden</span>
+                <span className="text-forest-muted">Sitio Sto. Niño, Banga, Talisay, Batangas</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <a
+                  href="https://waze.com/ul?q=Sitio+Sto.+Ni%C3%B1o+Banga+Talisay+Batangas"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/10 hover:bg-[#33ccff] hover:text-[#050e07] text-xs font-bold text-white transition-colors"
+                >
+                  <Navigation className="w-3.5 h-3.5" />
+                  <span>Waze</span>
+                </a>
+                <a
+                  href="https://www.google.com/maps/search/?api=1&query=32V9%2B5P+Talisay,+Batangas"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#2e7d32] hover:bg-[#4caf50] text-xs font-bold text-white transition-colors"
+                >
+                  <ExternalLink className="w-3.5 h-3.5" />
+                  <span>Google Maps</span>
+                </a>
+              </div>
+            </div>
           </div>
+
         </div>
       </div>
     </section>
