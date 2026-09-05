@@ -7,19 +7,10 @@ import { motion } from "framer-motion";
 import {
   Sprout,
   Search,
-  CheckCircle,
-  ShieldCheck,
-  ArrowRight,
   MapPin,
-  ExternalLink,
-  Sparkles,
-  TreePine,
-  Navigation,
   ArrowUpRight,
-  Layers,
 } from "lucide-react";
 import { companyData } from "@/data/company";
-import MediaPlaceholder from "./MediaPlaceholder";
 
 interface SpeciesItem {
   id: string;
@@ -230,6 +221,7 @@ export default function NurseryHub() {
                   src="/images/nursery.jpg"
                   alt="Forest Hills Garden Plant Nursery in Talisay Batangas"
                   fill
+                  sizes="(max-width: 1024px) 100vw, 500px"
                   className="object-cover object-center"
                 />
               </div>

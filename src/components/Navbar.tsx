@@ -4,8 +4,9 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Phone, Menu, X, ArrowUpRight, MessageCircle, ChevronDown, ShieldCheck, Sparkles } from "lucide-react";
+import { Phone, Menu, X, ArrowUpRight, MessageCircle, ChevronDown } from "lucide-react";
 import { useActiveSection } from "@/hooks/useActiveSection";
+import { useLenisScrollLock } from "@/hooks/useLenisScrollLock";
 
 interface NavSubItem {
   label: string;
@@ -18,6 +19,22 @@ interface NavItem {
   href: string;
   subItems?: NavSubItem[];
 }
+
+const NAV_SECTION_IDS = [
+  "hero",
+  "about",
+  "services",
+  "operations-hub",
+  "projects",
+  "proof",
+  "fleet",
+  "clients",
+  "nurseries",
+  "catalog",
+  "vault",
+  "procurement-hub",
+  "contact",
+];
 
 const navItems: NavItem[] = [
   {
@@ -76,10 +93,7 @@ export default function Navbar() {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const pathname = usePathname();
 
-  const activeSection = useActiveSection(
-    ["hero", "about", "services", "operations-hub", "projects", "proof", "fleet", "clients", "nurseries", "catalog", "vault", "procurement-hub", "contact"],
-    "hero"
-  );
+  const activeSection = useActiveSection(NAV_SECTION_IDS, "hero");
 
   const isItemActive = (item: NavItem) => {
     if (item.href === "/services" && pathname?.startsWith("/services")) return true;
@@ -107,17 +121,7 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Lock body scroll when mobile drawer is open
-  useEffect(() => {
-    if (mobileMenuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
-    return () => {
-      document.body.style.overflow = "auto";
-    };
-  }, [mobileMenuOpen]);
+  useLenisScrollLock(mobileMenuOpen);
 
   return (
     <header
@@ -140,6 +144,7 @@ export default function Navbar() {
               alt="Forest Hills Garden Official Logo"
               width={95}
               height={40}
+              sizes="95px"
               className="h-8 sm:h-9 w-auto object-contain"
               priority
             />
@@ -232,6 +237,8 @@ export default function Navbar() {
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="lg:hidden p-2 rounded-lg text-white hover:bg-white/10 transition-colors cursor-pointer"
             aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-nav"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -240,7 +247,10 @@ export default function Navbar() {
 
       {/* Mobile Drawer (Organized by Command Hubs) */}
       {mobileMenuOpen && (
-        <div className="lg:hidden fixed top-16.25 left-0 w-full h-[calc(100vh-65px)] bg-[#061208]/95 backdrop-blur-2xl p-6 sm:p-8 flex flex-col justify-between overflow-y-auto border-t border-[#2e7d32]/20 animate-slideDown shadow-2xl">
+        <div
+          id="mobile-nav"
+          className="lg:hidden fixed top-16.25 left-0 w-full h-[calc(100vh-65px)] bg-[#061208]/95 backdrop-blur-2xl p-6 sm:p-8 flex flex-col justify-between overflow-y-auto border-t border-[#2e7d32]/20 animate-slideDown shadow-2xl"
+        >
           <div className="flex flex-col gap-4">
             {navItems.map((item) => (
               <div key={item.label} className="border-b border-white/10 pb-3">

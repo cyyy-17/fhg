@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { Phone, Mail, MapPin, Send, AlertCircle, Clock, Copy, Check, MessageCircle, ExternalLink, Navigation, X } from "lucide-react";
 import { companyData } from "@/data/company";
 import { useIsMounted } from "@/hooks/useIsMounted";
+import { useLenisScrollLock } from "@/hooks/useLenisScrollLock";
 
 export default function ContactSection() {
   const [fullName, setFullName] = useState("");
@@ -20,16 +21,16 @@ export default function ContactSection() {
   const [viberCopied, setViberCopied] = useState(false);
   const mounted = useIsMounted();
 
-  // Lock body scroll and handle ESC key
+  useLenisScrollLock(modalOpen);
+
+  // Handle ESC key
   useEffect(() => {
     if (!modalOpen) return;
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") setModalOpen(false);
     };
-    document.body.style.overflow = "hidden";
     window.addEventListener("keydown", handleKeyDown);
     return () => {
-      document.body.style.overflow = "auto";
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [modalOpen]);

@@ -1,10 +1,12 @@
 "use client";
 
 import { useState, useMemo, useEffect } from "react";
-import { createPortal } from "react-dom";
 import confetti from "canvas-confetti";
-import { Check, Send, AlertCircle, Users, Truck, Clock, ShieldCheck, Copy, MessageCircle, Mail, X, Shield } from "lucide-react";
-import { companyData } from "@/data/company";
+import { Check, Send, AlertCircle, Users, Truck, Clock, ShieldCheck } from "lucide-react";
+import { useIsMounted } from "@/hooks/useIsMounted";
+import { useLenisScrollLock } from "@/hooks/useLenisScrollLock";
+import { recommendations, calculateDeployment } from "./rfp/rfpData";
+import RfpDispatchModal from "./rfp/RfpDispatchModal";
 
 export default function RfpConfigurator() {
   const [service, setService] = useState("Tree Earthballing & Relocation");
@@ -17,101 +19,30 @@ export default function RfpConfigurator() {
   const [email, setEmail] = useState("");
 
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [submitted, setSubmitted] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const [viberCopied, setViberCopied] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const mounted = useIsMounted();
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  useLenisScrollLock(modalOpen);
 
-  // Lock body scroll and handle ESC key
+  // Handle ESC key
   useEffect(() => {
     if (!modalOpen) return;
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") setModalOpen(false);
     };
-    document.body.style.overflow = "hidden";
     window.addEventListener("keydown", handleKeyDown);
     return () => {
-      document.body.style.overflow = "auto";
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [modalOpen]);
-
-
-  // Dynamic Fleet Recommendations
-  const recommendations: Record<string, string[]> = {
-    "Tree Earthballing & Relocation": [
-      "Heavy Crane 25T/50T Rigging",
-      "Root Ball Trenching Crew",
-      "Burlap & Wire Conditioning",
-      "Boom Truck Transport",
-    ],
-    "Certified Chainsaw Tree Cutting (89 Units)": [
-      "89-Chainsaw Permitted Operators",
-      "Sectional Aerial Riggers",
-      "High-Tension Powerline Protocol",
-      "Timber Transport Flatbeds",
-    ],
-    "PCA Coconut Tree Cutting & Trading": [
-      "PCA Permit Enforcement Team",
-      "Coco-Lumber Sawmill Routing",
-      "Heavy Winch Rigging Equipment",
-    ],
-    "DENR Tree Inventory & Risk Tagging": [
-      "GPS Digital Mapping Team",
-      "Caliper & Risk Level Census",
-      "DENR Special Tree Cutting Dossier",
-    ],
-    "Native Seedling Nursery Supply": [
-      "100K-Capacity Nursery Allocation",
-      "Indurated Container Stock",
-      "Compensatory Proof Certification",
-    ],
-    "Watershed Reforestation & NGP": [
-      "Contour Planting Labor Force",
-      "3-Year Firebreak Maintenance",
-      "Site Seedling Mortality Buffer",
-    ],
-  };
 
   const activeRecommendations =
     recommendations[service] || recommendations["Tree Earthballing & Relocation"];
 
   // Real-time calculated deployment projections
-  const calculations = useMemo(() => {
-    let crew = "4–6 Certified Riggers & Sawyers";
-    let machinery = "1x Crane / Boom Truck + 4x Chainsaws";
-    let timeframe = "3–5 Working Days";
-    let permitting = "CENRO STCP Pre-Survey Ready";
-
-    if (volume.includes("11 to 50")) {
-      crew = "8–14 Certified Personnel + 1 Safety Officer";
-      machinery = "2x Heavy Boom Trucks + 8x Chainsaws + 1x Chipper";
-      timeframe = "7–14 Working Days";
-      permitting = "Full DENR STCP Clearance Dossier";
-    } else if (volume.includes("51 to 200")) {
-      crew = "16–28 Certified Personnel + 2 Safety Officers";
-      machinery = "50T Crane + 4x Boom Trucks + 16x Chainsaws + Chippers";
-      timeframe = "15–30 Working Days";
-      permitting = "PENRO / Regional Director Special Tree Permit";
-    } else if (volume.includes("200+")) {
-      crew = "35–60 Certified Personnel (Staged Corridor Crews)";
-      machinery = "Dedicated Multi-Crane Fleet + 30+ Heavy Chainsaws";
-      timeframe = "Project Concession Phased Schedule";
-      permitting = "Turnkey Infrastructure Priority STCP Clearance";
-    } else if (volume.includes("seedlings")) {
-      crew = "Nursery Propagation & Logistics Dispatch Team";
-      machinery = "10,000L Water Tankers + Flatbed Seedling Haulers";
-      timeframe = "Staggered Weekly Delivery Batches";
-      permitting = "DENR Official Seedling Receipt & Offset Certificate";
-    }
-
-    return { crew, machinery, timeframe, permitting };
-  }, [volume]);
+  const calculations = useMemo(() => calculateDeployment(volume), [volume]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -130,7 +61,6 @@ export default function RfpConfigurator() {
     }
 
     setErrors({});
-    setSubmitted(true);
     setModalOpen(true);
 
     // Tactile celebration
@@ -178,6 +108,14 @@ export default function RfpConfigurator() {
     navigator.clipboard.writeText(compiledRfp);
     setCopied(true);
     setTimeout(() => setCopied(false), 3000);
+  };
+
+  const handleViberClick = () => {
+    if (typeof navigator !== "undefined" && navigator.clipboard) {
+      navigator.clipboard.writeText(compiledRfp);
+      setViberCopied(true);
+      setTimeout(() => setViberCopied(false), 4000);
+    }
   };
 
 
@@ -260,7 +198,7 @@ export default function RfpConfigurator() {
                 </div>
                 <div className="flex items-center gap-2.5 text-sm text-[#f0fbf0]">
                   <Check className="w-4 h-4 text-[#ffd600]" />
-                  <span>Full Comprehensive Contractor's All-Risk & OSHA Compliance</span>
+                  <span>Full Comprehensive Contractor&apos;s All-Risk &amp; OSHA Compliance</span>
                 </div>
               </div>
             </div>
@@ -448,89 +386,18 @@ export default function RfpConfigurator() {
       </div>
 
       {/* RFP Dispatch Modal */}
-      {modalOpen && mounted && createPortal(
-        <div
-          role="dialog"
-          aria-modal="true"
-          className="fixed inset-0 z-9999 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fadeInSimple"
-          onClick={() => setModalOpen(false)}
-        >
-          <div
-            className="relative w-full max-w-xl rounded-3xl bg-[#07170a] border border-[#ffd600]/40 shadow-2xl p-6 sm:p-8 text-white my-auto animate-scaleIn"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button
-              onClick={() => setModalOpen(false)}
-              className="absolute top-5 right-5 w-8 h-8 rounded-full bg-white/10 hover:bg-[#ffd600] hover:text-[#050e07] flex items-center justify-center transition-colors cursor-pointer"
-              aria-label="Close Modal"
-            >
-              <X className="w-4 h-4" />
-            </button>
-
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 rounded-xl bg-[#ffd600]/20 flex items-center justify-center text-[#ffd600]">
-                <Check className="w-5 h-5" />
-              </div>
-              <div>
-                <h3 className="text-xl font-bold font-heading">RFP Specification Prepared</h3>
-                <span className="text-xs text-[#76c442]">Direct submission ready</span>
-              </div>
-            </div>
-
-            <p className="text-xs text-forest-muted mb-4">
-              Your default email app was triggered. If your system did not launch a mail client, select an instant dispatch option below:
-            </p>
-
-            <div className="p-3.5 rounded-xl bg-black/50 border border-white/10 font-mono text-xs text-[#ffd600] max-h-40 overflow-y-auto mb-5 whitespace-pre-wrap">
-              {compiledRfp}
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <button
-                onClick={handleCopy}
-                className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-bold text-xs uppercase tracking-wider bg-white/10 hover:bg-white/20 border border-white/15 text-white transition-all cursor-pointer"
-              >
-                {copied ? <Check className="w-4 h-4 text-[#76c442]" /> : <Copy className="w-4 h-4 text-[#ffd600]" />}
-                <span>{copied ? "Copied Specification!" : "1-Click Copy RFP"}</span>
-              </button>
-
-              <a
-                href={`https://wa.me/639165667265?text=${encodeURIComponent(compiledRfp)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-bold text-xs uppercase tracking-wider bg-[#25d366] text-white hover:brightness-110 shadow-lg transition-all"
-              >
-                <MessageCircle className="w-4 h-4 fill-white" />
-                <span>Forward via WhatsApp</span>
-              </a>
-
-              <a
-                href="viber://chat?number=639165667265"
-                onClick={() => {
-                  if (typeof navigator !== "undefined" && navigator.clipboard) {
-                    navigator.clipboard.writeText(compiledRfp);
-                    setViberCopied(true);
-                    setTimeout(() => setViberCopied(false), 4000);
-                  }
-                }}
-                className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-bold text-xs uppercase tracking-wider bg-[#7360f2] text-white hover:brightness-110 shadow-lg transition-all cursor-pointer"
-              >
-                <MessageCircle className="w-4 h-4 fill-white" />
-                <span>{viberCopied ? "RFP Copied for Viber!" : "Forward via Viber"}</span>
-              </a>
-
-              <a
-                href={`mailto:edluna1971@yahoo.com?cc=iamfeluna@yahoo.com&subject=${encodeURIComponent(`[FHG Project Assessment Request] ${company} - ${service}`)}&body=${encodeURIComponent(compiledRfp)}`}
-                className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-bold text-xs uppercase tracking-wider bg-[#ffd600] text-[#050e07] hover:brightness-110 shadow-lg transition-all"
-              >
-                <Mail className="w-4 h-4" />
-                <span>Retry Mail Client</span>
-              </a>
-            </div>
-          </div>
-        </div>,
-        document.body
-      )}
+      <RfpDispatchModal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        mounted={mounted}
+        compiledRfp={compiledRfp}
+        company={company}
+        service={service}
+        copied={copied}
+        onCopy={handleCopy}
+        viberCopied={viberCopied}
+        onViberClick={handleViberClick}
+      />
     </section>
   );
 }

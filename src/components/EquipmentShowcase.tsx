@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Axe, Truck, Shovel, Trees, Droplets, CheckCircle, Shield, ArrowUpRight } from "lucide-react";
+import { Axe, Truck, Shovel, Trees, Droplets, CheckCircle, Shield, ArrowUpRight, type LucideIcon } from "lucide-react";
 import MediaPlaceholder from "./MediaPlaceholder";
 
 interface EquipmentItem {
@@ -112,7 +112,7 @@ type CategoryKey = "all" | "chainsaws" | "heavy-lift" | "excavation" | "processi
 export default function EquipmentShowcase() {
   const [activeCategory, setActiveCategory] = useState<CategoryKey>("all");
 
-  const categories: { key: CategoryKey; label: string; icon: any }[] = [
+  const categories: { key: CategoryKey; label: string; icon: LucideIcon }[] = [
     { key: "all", label: "Full Mechanized Fleet", icon: Shield },
     { key: "chainsaws", label: "89 Chainsaw Fleet", icon: Axe },
     { key: "heavy-lift", label: "Cranes & Boom Trucks", icon: Truck },
@@ -132,13 +132,13 @@ export default function EquipmentShowcase() {
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-14">
           <div className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest text-[#ffd600] bg-[#ffd600]/10 border border-[#ffd600]/20 mb-4">
-            Industrial Fleet & Rigging Inventory
+            Industrial Fleet &amp; Rigging Inventory
           </div>
           <h2 className="text-3xl sm:text-5xl font-black font-display text-white tracking-tight leading-tight">
             Mechanized Power to Handle Massive Scopes
           </h2>
           <p className="mt-4 text-base sm:text-lg text-[#a8d5a8]">
-            Equipped with the Philippines' largest certified private chainsaw fleet, heavy hydraulic cranes, and rapid-deployment logistics.
+            Equipped with the Philippines&apos; largest certified private chainsaw fleet, heavy hydraulic cranes, and rapid-deployment logistics.
           </p>
         </div>
 

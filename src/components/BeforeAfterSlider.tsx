@@ -161,6 +161,7 @@ export default function BeforeAfterSlider() {
                   src={scenario.afterImage}
                   alt={scenario.afterLabel}
                   fill
+                  sizes="(max-width: 1280px) 100vw, 1400px"
                   className="object-cover object-center filter saturate-[1.25] brightness-95"
                   priority
                 />
@@ -191,6 +192,7 @@ export default function BeforeAfterSlider() {
                     src={scenario.beforeImage}
                     alt={scenario.beforeLabel}
                     fill
+                    sizes="(max-width: 1280px) 100vw, 1400px"
                     className="object-cover object-center filter sepia-[0.35] brightness-75 contrast-125"
                     priority
                   />

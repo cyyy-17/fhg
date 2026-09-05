@@ -1,17 +1,20 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { ShieldCheck, CheckCircle2, Award, ArrowRight, FileText, ChevronDown } from "lucide-react";
 import ParticleCanvas from "./ParticleCanvas";
 import { companyData } from "@/data/company";
 
 function StatCounter({ target, duration = 1.8 }: { target: number; duration?: number }) {
   const [count, setCount] = useState(0);
+  const ref = useRef<HTMLSpanElement | null>(null);
+  const isInView = useInView(ref, { once: true, margin: "0px 0px -50px 0px" });
 
   useEffect(() => {
+    if (!isInView) return;
     let startTimestamp: number | null = null;
     let frameId: number;
 
@@ -28,9 +31,9 @@ function StatCounter({ target, duration = 1.8 }: { target: number; duration?: nu
 
     frameId = requestAnimationFrame(step);
     return () => cancelAnimationFrame(frameId);
-  }, [target, duration]);
+  }, [isInView, target, duration]);
 
-  return <span>{count}</span>;
+  return <span ref={ref}>{count}</span>;
 }
 
 export default function Hero() {
@@ -42,6 +45,7 @@ export default function Hero() {
           src="/images/hero_canopy.jpg"
           alt="Lush Philippine Forest Canopy"
           fill
+          sizes="100vw"
           className="object-cover object-center opacity-25 filter saturate-[1.2] brightness-90 scale-105"
           priority
         />
@@ -73,7 +77,7 @@ export default function Hero() {
           transition={{ duration: 0.7, delay: 0.1 }}
           className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black font-display text-white tracking-tight leading-[1.08] max-w-6xl mb-6"
         >
-          Philippines' Industrial{" "}
+          Philippines&apos; Industrial{" "}
           <span className="text-gradient-gold">Tree Services</span>{" "}
           <span className="text-gradient-emerald">Authority</span>
         </motion.h1>
@@ -85,8 +89,8 @@ export default function Hero() {
           transition={{ duration: 0.7, delay: 0.2 }}
           className="text-lg sm:text-xl md:text-2xl text-[#a8d5a8] max-w-4xl font-normal leading-relaxed mb-10"
         >
-          Earthballing & Relocation &nbsp;·&nbsp; Right-of-Way Felling &nbsp;·&nbsp; Watershed Reforestation &nbsp;·&nbsp; Plant Nurseries —{" "}
-          <em className="text-white font-medium">"We Do It Right and Fast."</em> Trusted by San Miguel, Ayala, SM, EEI & DMCI since 1998.
+          Earthballing &amp; Relocation &nbsp;·&nbsp; Right-of-Way Felling &nbsp;·&nbsp; Watershed Reforestation &nbsp;·&nbsp; Plant Nurseries —{" "}
+          <em className="text-white font-medium">&ldquo;We Do It Right and Fast.&rdquo;</em> Trusted by San Miguel, Ayala, SM, EEI &amp; DMCI since 1998.
         </motion.p>
 
         {/* Quick Enterprise Assurance Badges */}

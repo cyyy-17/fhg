@@ -53,6 +53,7 @@ export default function NurserySection() {
                 src="/images/nursery.jpg"
                 alt="Forest Hills Garden Plant Nursery in Talisay Batangas"
                 fill
+                sizes="(max-width: 1024px) 100vw, 500px"
                 className="object-cover object-center"
               />
             </div>

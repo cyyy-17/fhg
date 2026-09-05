@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { TreePine, ArrowLeft, Home, Phone, Compass } from "lucide-react";
+import { TreePine, Home, Phone, Compass } from "lucide-react";
 
 export default function NotFound() {
   return (
@@ -38,7 +38,7 @@ export default function NotFound() {
           </Link>
 
           <Link
-            href="/#services"
+            href="/services"
             className="flex items-center gap-2 px-6 py-3.5 rounded-full bg-white/10 hover:bg-white/15 text-white border border-white/20 text-xs font-semibold tracking-wider hover:border-[#ffd600] transition-all hover:scale-105 cursor-pointer"
           >
             <Compass className="w-4 h-4 text-[#ffd600]" />
@@ -46,7 +46,7 @@ export default function NotFound() {
           </Link>
 
           <Link
-            href="/#contact"
+            href="/contact"
             className="flex items-center gap-2 px-6 py-3.5 rounded-full bg-[#102414] hover:bg-[#1a3820] text-[#f0fbf0] border border-[#4caf50]/30 text-xs font-semibold tracking-wider transition-all hover:scale-105 cursor-pointer"
           >
             <Phone className="w-4 h-4 text-[#76c442]" />

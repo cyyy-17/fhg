@@ -1,10 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { createPortal } from "react-dom";
-import { X, Building2, MapPin, ShieldCheck, CheckCircle2, ArrowRight, Axe, Trees, FileText } from "lucide-react";
+import { X, Building2, MapPin, ShieldCheck, CheckCircle2, ArrowRight, Axe, FileText } from "lucide-react";
 import { ProjectItem } from "@/data/projects";
 import MediaPlaceholder from "./MediaPlaceholder";
+import { useIsMounted } from "@/hooks/useIsMounted";
+import { useLenisScrollLock } from "@/hooks/useLenisScrollLock";
 
 interface ProjectModalProps {
   project: ProjectItem | null;
@@ -12,22 +14,18 @@ interface ProjectModalProps {
 }
 
 export default function ProjectModal({ project, onClose }: ProjectModalProps) {
-  const [mounted, setMounted] = useState(false);
+  const mounted = useIsMounted();
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  useLenisScrollLock(Boolean(project));
 
-  // Lock body scroll and handle ESC key
+  // Handle ESC key
   useEffect(() => {
     if (!project) return;
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
     };
-    document.body.style.overflow = "hidden";
     window.addEventListener("keydown", handleKeyDown);
     return () => {
-      document.body.style.overflow = "auto";
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [project, onClose]);

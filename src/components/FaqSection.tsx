@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronDown, HelpCircle, FileText, ArrowUpRight } from "lucide-react";
+import { ChevronDown, HelpCircle, ArrowUpRight } from "lucide-react";
 
 export interface FaqItem {
   question: string;

@@ -2,9 +2,7 @@
 
 import { useState, useMemo, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { motion } from "framer-motion";
-import { useIsMounted } from "@/hooks/useIsMounted";
 import {
   FolderKanban,
   ArrowLeftRight,
@@ -12,20 +10,9 @@ import {
   Building2,
   Search,
   MapPin,
-  Eye,
-  ShieldCheck,
   CheckCircle2,
   Sparkles,
-  Axe,
-  Shovel,
-  Trees,
-  Droplets,
-  Shield,
   ArrowUpRight,
-  ChevronDown,
-  Layers,
-  ChevronLeft,
-  ChevronRight,
 } from "lucide-react";
 import { projectsData, ProjectItem } from "@/data/projects";
 import { clientsData } from "@/data/clients";
@@ -207,15 +194,25 @@ export default function OperationsProofHub() {
   const [scenarioIndex, setScenarioIndex] = useState(0);
   const [sliderPos, setSliderPos] = useState(50);
   const [isDragging, setIsDragging] = useState(false);
+  const [containerWidth, setContainerWidth] = useState(0);
   const sliderContainerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const updateWidth = () => {
+      if (sliderContainerRef.current) {
+        setContainerWidth(sliderContainerRef.current.clientWidth);
+      }
+    };
+    updateWidth();
+    window.addEventListener("resize", updateWidth);
+    return () => window.removeEventListener("resize", updateWidth);
+  }, []);
 
   // Fleet state
   const [equipmentFilter, setEquipmentFilter] = useState<EquipmentFilter>("all");
 
   // Client sector state
   const [clientSector, setClientSector] = useState<ClientSector>("All");
-
-  const mounted = useIsMounted();
 
   // Deep-link hash listener
   useEffect(() => {
@@ -541,6 +538,7 @@ export default function OperationsProofHub() {
                       src={currentScenario.afterImage}
                       alt={currentScenario.afterLabel}
                       fill
+                      sizes="(max-width: 1024px) 100vw, 800px"
                       className="object-cover"
                     />
                   ) : (
@@ -556,12 +554,13 @@ export default function OperationsProofHub() {
                   className="absolute inset-0 bg-[#162013] overflow-hidden"
                   style={{ width: `${sliderPos}%` }}
                 >
-                  <div className="absolute inset-0 w-full h-full" style={{ width: sliderContainerRef.current ? `${sliderContainerRef.current.clientWidth}px` : "100%" }}>
+                  <div className="absolute inset-0 w-full h-full" style={{ width: containerWidth ? `${containerWidth}px` : "100%" }}>
                     {currentScenario.beforeImage ? (
                       <Image
                         src={currentScenario.beforeImage}
                         alt={currentScenario.beforeLabel}
                         fill
+                        sizes="(max-width: 1024px) 100vw, 800px"
                         className="object-cover"
                       />
                     ) : (
@@ -632,6 +631,7 @@ export default function OperationsProofHub() {
                 src="/images/fleet_chainsaws.jpg"
                 alt="Forest Hills Garden Industrial Chainsaw Fleet & Operations Depot"
                 fill
+                sizes="(max-width: 1024px) 100vw, 1200px"
                 className="object-cover object-center"
               />
               <div className="absolute inset-0 bg-linear-to-t from-[#050e07] via-black/40 to-transparent flex items-end p-6 sm:p-8">

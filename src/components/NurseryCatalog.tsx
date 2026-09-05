@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { Sprout, Search, CheckCircle, ShieldCheck, ArrowRight } from "lucide-react";
+import { Sprout, Search, ShieldCheck, ArrowRight } from "lucide-react";
 import MediaPlaceholder from "./MediaPlaceholder";
 
 interface SpeciesItem {

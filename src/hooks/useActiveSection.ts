@@ -2,11 +2,13 @@ import { useState, useEffect } from "react";
 
 export function useActiveSection(sectionIds: string[], defaultSection: string = ""): string {
   const [activeSection, setActiveSection] = useState<string>(defaultSection);
+  const sectionIdsKey = sectionIds.join(",");
 
   useEffect(() => {
     if (typeof window === "undefined" || !("IntersectionObserver" in window)) return;
 
-    const elements = sectionIds
+    const ids = sectionIdsKey.split(",").filter(Boolean);
+    const elements = ids
       .map((id) => document.getElementById(id))
       .filter((el): el is HTMLElement => el !== null);
 
@@ -14,10 +16,8 @@ export function useActiveSection(sectionIds: string[], defaultSection: string = 
 
     const observer = new IntersectionObserver(
       (entries) => {
-        // Sort visible entries by intersection ratio or find topmost
         const visibleEntries = entries.filter((e) => e.isIntersecting);
         if (visibleEntries.length > 0) {
-          // Sort by highest intersection ratio
           visibleEntries.sort((a, b) => b.intersectionRatio - a.intersectionRatio);
           setActiveSection(visibleEntries[0].target.id);
         }
@@ -34,7 +34,7 @@ export function useActiveSection(sectionIds: string[], defaultSection: string = 
       elements.forEach((el) => observer.unobserve(el));
       observer.disconnect();
     };
-  }, [sectionIds]);
+  }, [sectionIdsKey]);
 
   return activeSection;
 }

@@ -130,7 +130,7 @@ export default function ProjectExplorer() {
         {filteredProjects.length === 0 ? (
           <div className="text-center py-16 p-8 rounded-2xl glass-panel max-w-lg mx-auto">
             <p className="text-base text-[#a8d5a8]">
-              No projects found matching <strong className="text-white">"{searchQuery}"</strong>.
+              No projects found matching <strong className="text-white">&ldquo;{searchQuery}&rdquo;</strong>.
             </p>
             <button
               onClick={() => {

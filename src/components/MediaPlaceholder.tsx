@@ -1,5 +1,6 @@
 "use client";
 
+import { useId } from "react";
 import { Trees, Axe, Mountain, Sprout, FileCheck2, Camera } from "lucide-react";
 
 export type PlaceholderVariant =
@@ -86,6 +87,8 @@ export default function MediaPlaceholder({
     },
   }[variant];
 
+  const uniqueId = useId();
+  const patternId = `grid-${variant}-${aspect}-${uniqueId.replace(/:/g, "")}`;
   const Icon = configs.icon;
   const displayTitle = title || configs.defaultTitle;
   const displaySub = subtitle || configs.defaultSub;
@@ -102,7 +105,7 @@ export default function MediaPlaceholder({
       >
         <defs>
           <pattern
-            id={`grid-${variant}-${aspect}`}
+            id={patternId}
             width="28"
             height="28"
             patternUnits="userSpaceOnUse"
@@ -116,7 +119,7 @@ export default function MediaPlaceholder({
             />
           </pattern>
         </defs>
-        <rect width="100%" height="100%" fill={`url(#grid-${variant}-${aspect})`} />
+        <rect width="100%" height="100%" fill={`url(#${patternId})`} />
       </svg>
 
       {/* Radial ambient glow */}

@@ -1,6 +1,6 @@
 "use client";
 
-import { Award, Calendar, CheckCircle2, ShieldCheck, Flag } from "lucide-react";
+import { Calendar, CheckCircle2, Flag } from "lucide-react";
 
 interface Milestone {
   year: string;

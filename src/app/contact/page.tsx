@@ -4,7 +4,7 @@ import Navbar from "@/components/Navbar";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import FloatingActions from "@/components/FloatingActions";
-import { ChevronRight, Phone, MessageCircle, Mail, MapPin, Clock } from "lucide-react";
+import { ChevronRight, Phone } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Contact Forest Hills Garden | Office & Dispatch Talisay, Batangas",

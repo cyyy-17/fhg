@@ -4,7 +4,7 @@ import Navbar from "@/components/Navbar";
 import OperationsProofHub from "@/components/OperationsProofHub";
 import Footer from "@/components/Footer";
 import FloatingActions from "@/components/FloatingActions";
-import { ChevronRight, ArrowRight, FolderKanban, ShieldCheck, FileCheck } from "lucide-react";
+import { ChevronRight, ArrowRight, FolderKanban, FileCheck } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Signature Infrastructure Projects & Heavy Fleet Proof | Forest Hills Garden",
@@ -140,7 +140,7 @@ export default function ProjectsPage() {
 
             <div className="flex flex-wrap items-center gap-3 shrink-0">
               <Link
-                href="/#estimate"
+                href="/contact"
                 className="flex items-center gap-2 px-6 py-3.5 rounded-full font-bold text-xs uppercase tracking-wider bg-linear-to-r from-[#ffd600] to-[#f9c923] text-[#061008] hover:brightness-110 shadow-lg shadow-[#ffd600]/20 hover:scale-105 transition-all"
               >
                 <span>Tender Subcontractor RFP</span>

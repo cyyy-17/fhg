@@ -1,7 +1,8 @@
 import { ShieldCheck, CheckCircle, FileCheck } from "lucide-react";
-import { companyData } from "@/data/company";
 
 export default function AboutSection() {
+  const currentYears = new Date().getFullYear() - 1998;
+
   return (
     <section id="about" className="py-24 bg-[#050e07] relative z-20 overflow-hidden">
       {/* Subtle ambient lighting */}
@@ -12,7 +13,7 @@ export default function AboutSection() {
           {/* Left Column: Narrative & History */}
           <div className="lg:col-span-7 flex flex-col gap-6">
             <div className="inline-flex items-center self-start px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest text-[#76c442] bg-[#4caf50]/10 border border-[#4caf50]/20">
-              Company Profile & Corporate Heritage
+              Company Profile &amp; Corporate Heritage
             </div>
 
             <h2 className="text-3xl sm:text-5xl font-black font-display text-white tracking-tight leading-tight">
@@ -23,19 +24,18 @@ export default function AboutSection() {
               <strong className="text-white">Forest Hills Garden</strong> is a registered sole proprietorship owned and managed by <strong className="text-white">Ms. Marife B. Luna</strong>, with headquarters at Sitio Sto. Niño, Banga, Talisay, Batangas (Plus Code: 32V9+5P), and two expansive propagation nurseries located in Brgy. Tumaway and Brgy. Aya, Talisay, Batangas.
             </p>
 
-
             <p className="text-sm sm:text-base text-[#a8d5a8] leading-relaxed">
-              Initially founded on <span className="text-[#ffd600] font-semibold">June 10, 1998</span> by Ms. Luna's late husband, <span className="text-white font-medium">Mr. Edwin G. Luna</span>, the enterprise has expanded over more than 26 years into the nation's premier contractor for commercial earthballing, precision felling, and statutory environmental compliance.
+              Initially founded on <span className="text-[#ffd600] font-semibold">June 10, 1998</span> by Ms. Luna&apos;s late husband, <span className="text-white font-medium">Mr. Edwin G. Luna</span>, the enterprise has expanded over more than {currentYears} years into the nation&apos;s premier contractor for commercial earthballing, precision felling, and statutory environmental compliance.
             </p>
 
             {/* Official Motto Quote Box */}
             <div className="p-6 rounded-2xl bg-linear-to-r from-[#2e7d32]/25 to-[#112414]/80 border-l-4 border-[#ffd600] shadow-xl">
               <span className="text-4xl text-[#ffd600]/40 font-display font-black leading-none block mb-2">“</span>
               <p className="text-lg font-medium text-white italic leading-relaxed mb-3">
-                "We Do It Right and Fast. Our mission is to provide developers with dependable environmental clearing and greening without sacrificing statutory compliance or tree survival."
+                &ldquo;We Do It Right and Fast. Our mission is to provide developers with dependable environmental clearing and greening without sacrificing statutory compliance or tree survival.&rdquo;
               </p>
               <span className="text-xs font-bold text-[#ffd600] tracking-wider uppercase">
-                — Ms. Marife B. Luna, Proprietress & General Manager
+                — Ms. Marife B. Luna, Proprietress &amp; General Manager
               </span>
             </div>
           </div>

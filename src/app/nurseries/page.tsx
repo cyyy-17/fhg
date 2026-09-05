@@ -4,7 +4,7 @@ import Navbar from "@/components/Navbar";
 import NurseryHub from "@/components/NurseryHub";
 import Footer from "@/components/Footer";
 import FloatingActions from "@/components/FloatingActions";
-import { ChevronRight, ArrowRight, Sprout, MapPin, Phone } from "lucide-react";
+import { ChevronRight, ArrowRight, Sprout, Phone } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Plant Nursery Talisay Batangas | 150,000+ Native Seedlings | Forest Hills Garden",

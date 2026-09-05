@@ -11,6 +11,9 @@ export default function ParticleCanvas() {
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
+    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReduced) return;
+
     let width = (canvas.width = canvas.parentElement?.offsetWidth || window.innerWidth);
     let height = (canvas.height = canvas.parentElement?.offsetHeight || window.innerHeight);
 
@@ -20,9 +23,6 @@ export default function ParticleCanvas() {
       height = canvas.height = canvas.parentElement?.offsetHeight || window.innerHeight;
     };
     window.addEventListener("resize", handleResize);
-
-    const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (prefersReduced) return;
 
     class Particle {
       x = 0;

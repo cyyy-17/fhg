@@ -1,6 +1,6 @@
 "use client";
 
-import { ShieldCheck, HardHat, Award, HeartPulse, FileCheck, CheckCircle2, Siren } from "lucide-react";
+import { ShieldCheck, HardHat, Award, HeartPulse, CheckCircle2, Siren } from "lucide-react";
 import { companyData } from "@/data/company";
 
 export default function SafetyEhsSection() {

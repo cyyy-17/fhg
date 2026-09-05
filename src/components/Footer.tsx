@@ -1,22 +1,9 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUp } from "lucide-react";
+import ScrollTopButton from "./ScrollTopButton";
 import { companyData } from "@/data/company";
 
 export default function Footer() {
-  const scrollToTop = () => {
-    if (typeof window !== "undefined") {
-      const lenis = (window as any).__lenis;
-      if (lenis) {
-        lenis.scrollTo(0, { duration: 1.3 });
-      } else {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      }
-    }
-  };
-
   return (
     <footer className="bg-[#020602] border-t border-[#4caf50]/15 pt-20 pb-12 relative z-20 text-[#a8d5a8]">
       <div className="w-full max-w-[1720px] mx-auto px-6 md:px-12">
@@ -31,6 +18,7 @@ export default function Footer() {
                   alt="Forest Hills Garden Logo"
                   width={110}
                   height={44}
+                  sizes="110px"
                   className="h-10 w-auto object-contain"
                 />
               </div>
@@ -45,7 +33,7 @@ export default function Footer() {
             </div>
 
             <p className="text-base text-[#ffd600] font-display italic font-semibold mt-2">
-              "{companyData.tagline}"
+              &ldquo;{companyData.tagline}&rdquo;
             </p>
 
             <p className="text-xs text-[#a8d5a8] leading-relaxed max-w-sm">
@@ -143,13 +131,7 @@ export default function Footer() {
           <p className="text-[#a8d5a8]/60 text-center sm:text-right">
             All client names and project records reference completed or ongoing contract scopes. No proprietary financial data disclosed.
           </p>
-          <button
-            onClick={scrollToTop}
-            className="w-10 h-10 rounded-full bg-[#112414] hover:bg-[#2e7d32] text-white border border-[#4caf50]/30 flex items-center justify-center transition-all cursor-pointer shadow-lg hover:scale-110"
-            aria-label="Back to Top"
-          >
-            <ArrowUp className="w-4 h-4" />
-          </button>
+          <ScrollTopButton />
         </div>
       </div>
     </footer>

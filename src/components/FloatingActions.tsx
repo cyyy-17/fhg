@@ -18,7 +18,7 @@ export default function FloatingActions() {
 
   const scrollToTop = () => {
     if (typeof window !== "undefined") {
-      const lenis = (window as any).__lenis;
+      const lenis = (window as unknown as { __lenis?: { scrollTo: (target: number, opts?: { duration?: number }) => void } }).__lenis;
       if (lenis) {
         lenis.scrollTo(0, { duration: 1.25 });
       } else {
@@ -88,6 +88,7 @@ export default function FloatingActions() {
           <a
             href="/docs/company-profile.pdf"
             download
+            rel="noopener"
             className="flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-[#ffd600] text-[#050e07] text-xs font-bold shadow-xl hover:scale-105 transition-transform cursor-pointer"
             aria-label="Download Official Company Profile PDF"
           >
