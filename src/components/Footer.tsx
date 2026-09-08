@@ -43,7 +43,9 @@ export default function Footer() {
             <div className="text-xs text-white/60 space-y-1 pt-2">
               <p>DTI Registration No.: 1729753</p>
               <p>PhilGEPS Registration No.: 2005-23340</p>
-              <p>DENR & PCA Permitted Operator</p>
+              <p>Mayor&apos;s/LGU Business Permit: [PENDING — INSERT CURRENT TALISAY LGU PERMIT NO.]</p>
+              <p>BIR Registered TIN: [PENDING — INSERT REGISTERED TIN FROM BIR COR]</p>
+              <p>DENR &amp; PCA Permitted Operator</p>
             </div>
           </div>
 
@@ -125,10 +127,22 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Bottom Bar with Back to Top */}
-        <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
-          <p>© {new Date().getFullYear()} Forest Hills Garden. All Rights Reserved. Talisay, Batangas, Philippines.</p>
-          <p className="text-[#a8d5a8]/60 text-center sm:text-right">
+        {/* Bottom Bar with Policy Links and Back to Top */}
+        <div className="pt-8 border-t border-white/10 flex flex-col lg:flex-row items-center justify-between gap-4 text-xs">
+          <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 text-center sm:text-left">
+            <p>© {new Date().getFullYear()} Forest Hills Garden. All Rights Reserved. Talisay, Batangas, Philippines.</p>
+            <span className="hidden sm:inline text-white/20">•</span>
+            <div className="flex items-center gap-3">
+              <Link href="/privacy-policy" className="text-[#ffd600] hover:underline">
+                Privacy Policy (RA 10173)
+              </Link>
+              <span className="text-white/20">•</span>
+              <Link href="/terms" className="text-[#ffd600] hover:underline">
+                Terms of Use &amp; Disclaimers
+              </Link>
+            </div>
+          </div>
+          <p className="text-[#a8d5a8]/60 text-center lg:text-right">
             All client names and project records reference completed or ongoing contract scopes. No proprietary financial data disclosed.
           </p>
           <ScrollTopButton />

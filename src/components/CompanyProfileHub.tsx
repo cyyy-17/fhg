@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { motion } from "framer-motion";
 import { useIsMounted } from "@/hooks/useIsMounted";
 import { useLenisScrollLock } from "@/hooks/useLenisScrollLock";
@@ -11,6 +11,8 @@ import {
   ClipboardList,
   ShieldCheck,
   Sparkles,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import ProfileOverviewTab from "./profile/ProfileOverviewTab";
 import ProfileTimelineTab from "./profile/ProfileTimelineTab";
@@ -71,6 +73,51 @@ export default function CompanyProfileHub() {
     };
   }, [bioModalOpen]);
 
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const tabRefs = useRef<Record<string, HTMLButtonElement | null>>({});
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+
+  const checkScroll = useCallback(() => {
+    const el = scrollContainerRef.current;
+    if (!el) return;
+    const { scrollLeft, scrollWidth, clientWidth } = el;
+    setCanScrollLeft(scrollLeft > 8);
+    setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 8);
+  }, []);
+
+  useEffect(() => {
+    checkScroll();
+    const el = scrollContainerRef.current;
+    if (!el) return;
+    el.addEventListener("scroll", checkScroll, { passive: true });
+    window.addEventListener("resize", checkScroll);
+    return () => {
+      el.removeEventListener("scroll", checkScroll);
+      window.removeEventListener("resize", checkScroll);
+    };
+  }, [checkScroll]);
+
+  // Smoothly center active tab whenever activeTab changes
+  useEffect(() => {
+    const activeEl = tabRefs.current[activeTab];
+    if (activeEl) {
+      activeEl.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+        inline: "center",
+      });
+    }
+    const timer = setTimeout(checkScroll, 350);
+    return () => clearTimeout(timer);
+  }, [activeTab, checkScroll]);
+
+  const scrollByAmount = (delta: number) => {
+    const el = scrollContainerRef.current;
+    if (!el) return;
+    el.scrollBy({ left: delta, behavior: "smooth" });
+  };
+
   const tabs: { key: TabKey; label: string; icon: typeof Building2; badge?: string }[] = [
     { key: "overview", label: "Executive Overview", icon: Building2 },
     { key: "timeline", label: "Historical Milestones", icon: Calendar, badge: "1998–2026" },
@@ -114,38 +161,78 @@ export default function CompanyProfileHub() {
           </p>
         </motion.div>
 
-        {/* Dynamic Hub Navigation Bar (5 Hub Tabs) */}
-        <div className="flex items-center justify-start sm:justify-center overflow-x-auto pb-4 mb-10 no-scrollbar">
-          <div className="inline-flex p-1.5 rounded-2xl bg-[#061409]/90 border border-[#4caf50]/20 backdrop-blur-xl shadow-xl gap-1">
-            {tabs.map((tab) => {
-              const Icon = tab.icon;
-              const isActive = activeTab === tab.key;
-              return (
-                <button
-                  key={tab.key}
-                  onClick={() => setActiveTab(tab.key)}
-                  className={`flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all whitespace-nowrap cursor-pointer ${
-                    isActive
-                      ? "bg-linear-to-r from-[#ffd600] to-[#f9c923] text-[#050e07] shadow-lg shadow-[#ffd600]/20 scale-100"
-                      : "text-[#a8d5a8] hover:text-white hover:bg-white/5"
-                  }`}
-                >
-                  <Icon className={`w-4 h-4 ${isActive ? "text-[#050e07]" : "text-[#76c442]"}`} />
-                  <span>{tab.label}</span>
-                  {tab.badge && (
-                    <span
-                      className={`text-[10px] font-mono px-2 py-0.5 rounded-full font-bold uppercase tracking-wider ${
-                        isActive
-                          ? "bg-[#050e07] text-[#ffd600]"
-                          : "bg-white/10 text-[#a8d5a8]"
-                      }`}
-                    >
-                      {tab.badge}
-                    </span>
-                  )}
-                </button>
-              );
-            })}
+        {/* Dynamic Hub Navigation Bar (5 Hub Tabs) with Full Mobile Edge Touch Panning */}
+        <div className="relative mb-10 -mx-6 px-6 sm:mx-0 sm:px-0">
+          {/* Mobile Left Arrow Cue */}
+          {canScrollLeft && (
+            <button
+              type="button"
+              onClick={() => scrollByAmount(-180)}
+              aria-label="Scroll left tabs"
+              className="absolute left-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-[#061409]/95 border border-[#4caf50]/40 text-[#ffd600] flex items-center justify-center shadow-lg sm:hidden backdrop-blur-md transition-all active:scale-95 cursor-pointer"
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+          )}
+
+          {/* Mobile Right Arrow Cue */}
+          {canScrollRight && (
+            <button
+              type="button"
+              onClick={() => scrollByAmount(180)}
+              aria-label="Scroll right tabs"
+              className="absolute right-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-[#061409]/95 border border-[#4caf50]/40 text-[#ffd600] flex items-center justify-center shadow-lg sm:hidden backdrop-blur-md transition-all active:scale-95 cursor-pointer"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          )}
+
+          {/* Native High-Performance Touch Scroll Container */}
+          <div
+            ref={scrollContainerRef}
+            data-lenis-prevent="true"
+            className="flex items-center justify-start sm:justify-center overflow-x-auto pb-2 scrollbar-none no-scrollbar touch-pan-x overscroll-x-contain scroll-smooth"
+            style={{
+              WebkitOverflowScrolling: "touch",
+              touchAction: "pan-x pan-y",
+            }}
+          >
+            <div className="inline-flex p-1.5 rounded-2xl bg-[#061409]/90 border border-[#4caf50]/20 backdrop-blur-xl shadow-xl gap-1 shrink-0">
+              {tabs.map((tab) => {
+                const Icon = tab.icon;
+                const isActive = activeTab === tab.key;
+                return (
+                  <button
+                    key={tab.key}
+                    ref={(el) => {
+                      tabRefs.current[tab.key] = el;
+                    }}
+                    type="button"
+                    onClick={() => setActiveTab(tab.key)}
+                    className={`flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all whitespace-nowrap shrink-0 cursor-pointer select-none ${
+                      isActive
+                        ? "bg-linear-to-r from-[#ffd600] to-[#f9c923] text-[#050e07] shadow-lg shadow-[#ffd600]/20 scale-100"
+                        : "text-[#a8d5a8] hover:text-white hover:bg-white/5 active:bg-white/10"
+                    }`}
+                    style={{ touchAction: "manipulation" }}
+                  >
+                    <Icon className={`w-4 h-4 ${isActive ? "text-[#050e07]" : "text-[#76c442]"}`} />
+                    <span>{tab.label}</span>
+                    {tab.badge && (
+                      <span
+                        className={`text-[10px] font-mono px-2 py-0.5 rounded-full font-bold uppercase tracking-wider ${
+                          isActive
+                            ? "bg-[#050e07] text-[#ffd600]"
+                            : "bg-white/10 text-[#a8d5a8]"
+                        }`}
+                      >
+                        {tab.badge}
+                      </span>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </div>
 

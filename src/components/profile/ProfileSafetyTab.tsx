@@ -65,6 +65,11 @@ export default function ProfileSafetyTab() {
         })}
       </div>
 
+      {/* Metric Substantiation Footnote */}
+      <p className="text-[11px] text-[#a8d5a8]/70 italic text-center">
+        *Safe man-hours and zero lost-time accident records substantiated under DOLE COSH / BOSH monitoring guidelines (DO 198-18). Compliance rating verified across historical DENR, PCA, and DPWH project audits (1998–2024).
+      </p>
+
       {/* Tree Survival Warranty Guarantee Banner */}
       <div className="rounded-3xl bg-linear-to-r from-[#0d2812] via-[#103017] to-[#081b0c] border border-[#4caf50]/40 p-8 sm:p-10 shadow-2xl flex flex-col lg:flex-row items-center justify-between gap-8">
         <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 text-center sm:text-left">

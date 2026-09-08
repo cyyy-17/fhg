@@ -50,7 +50,9 @@ export default function DocumentVault() {
             </div>
             <div>
               <h4 className="text-sm font-bold text-white">PhilGEPS Blue Member & DTI Verified</h4>
-              <p className="text-xs text-forest-muted">All files are authentic certified corporate documents ready for bidding envelopes.</p>
+              <p className="text-xs text-forest-muted">
+                Authentic certified corporate documents for procurement onboarding. Verify document effective and validity dates prior to tender submission.
+              </p>
             </div>
           </div>
           <a
@@ -136,6 +138,10 @@ export default function DocumentVault() {
             </div>
           ))}
         </div>
+
+        <p className="text-[11px] text-[#a8d5a8]/70 italic text-center mt-8">
+          *All document scans are authentic records of Forest Hills Garden. Bidders must verify current validity dates with our administration desk prior to formal envelope submission.
+        </p>
       </div>
 
       {/* In-App PDF Preview Modal */}

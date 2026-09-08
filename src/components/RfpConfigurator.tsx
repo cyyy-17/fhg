@@ -17,6 +17,7 @@ export default function RfpConfigurator() {
   const [company, setCompany] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
+  const [consent, setConsent] = useState(false);
 
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [modalOpen, setModalOpen] = useState(false);
@@ -53,6 +54,9 @@ export default function RfpConfigurator() {
     if (!phone.trim()) newErrors.phone = "Please enter contact phone number.";
     if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       newErrors.email = "Please enter a valid email address.";
+    }
+    if (!consent) {
+      newErrors.consent = "You must consent to data processing under RA 10173 to proceed.";
     }
 
     if (Object.keys(newErrors).length > 0) {
@@ -185,6 +189,9 @@ export default function RfpConfigurator() {
                     <strong className="text-[#76c442]">{calculations.permitting}</strong>
                   </div>
                 </div>
+                <p className="text-[11px] text-[#a8d5a8]/70 italic mt-3">
+                  *Mobilization metrics and timeframes are preliminary engineering heuristics. Binding proposals require formal on-site tree inspection.
+                </p>
               </div>
 
               <div className="space-y-3 pt-2">
@@ -371,6 +378,52 @@ export default function RfpConfigurator() {
                     <span className="text-forest-muted">100% free specimen replacement backed by our twin Batangas nurseries.</span>
                   </div>
                 </div>
+
+                {/* Data Privacy Consent (RA 10173) */}
+                <div className="pt-2">
+                  <label className="flex items-start gap-3 cursor-pointer select-none">
+                    <input
+                      type="checkbox"
+                      checked={consent}
+                      onChange={(e) => {
+                        setConsent(e.target.checked);
+                        if (errors.consent) setErrors({ ...errors, consent: "" });
+                      }}
+                      className="mt-1 w-4 h-4 rounded border-[#4caf50]/40 bg-[#050e07] text-[#ffd600] focus:ring-[#ffd600] focus:ring-offset-0 cursor-pointer shrink-0"
+                    />
+                    <span className="text-xs text-[#a8d5a8] leading-relaxed">
+                      I consent to Forest Hills Garden processing my contact information to generate this project assessment in accordance with Republic Act No. 10173 (
+                      <a
+                        href="/privacy-policy"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[#ffd600] underline hover:text-white transition-colors"
+                      >
+                        Data Privacy Policy
+                      </a>
+                      ).
+                    </span>
+                  </label>
+                  {errors.consent && (
+                    <span className="flex items-center gap-1 text-xs text-red-400 mt-1.5">
+                      <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                      {errors.consent}
+                    </span>
+                  )}
+                </div>
+
+                <p className="text-[11px] text-[#a8d5a8]/70">
+                  Estimates are non-binding. Subject to our{" "}
+                  <a
+                    href="/terms"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[#ffd600] underline hover:text-white transition-colors"
+                  >
+                    Terms of Use &amp; Disclaimers
+                  </a>
+                  .
+                </p>
 
                 <button
                   type="submit"

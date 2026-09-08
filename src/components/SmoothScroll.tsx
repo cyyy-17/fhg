@@ -22,9 +22,9 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
       gestureOrientation: "vertical",
       smoothWheel: true,
       wheelMultiplier: 1.0,
-      touchMultiplier: 1.6,
-      syncTouch: true,
-      syncTouchLerp: 0.08,
+      touchMultiplier: 1.0,
+      syncTouch: false,
+      allowNestedScroll: true,
     });
 
     window.__lenis = lenis;

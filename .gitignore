@@ -26,6 +26,8 @@
 Company Details/
 *.pdf
 !public/docs/*.pdf
+26-27 PROPOSAL/
+*.docx
 
 # debug
 npm-debug.log*

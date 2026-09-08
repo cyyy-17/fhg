@@ -14,6 +14,7 @@ export default function ContactSection() {
   const [phone, setPhone] = useState("");
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
+  const [consent, setConsent] = useState(false);
 
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [modalOpen, setModalOpen] = useState(false);
@@ -55,6 +56,7 @@ export default function ContactSection() {
     if (!phone.trim()) newErrors.phone = "Please enter your phone number.";
     if (!subject.trim()) newErrors.subject = "Please enter project subject or location.";
     if (!message.trim()) newErrors.message = "Please enter project details.";
+    if (!consent) newErrors.consent = "You must consent to data processing under RA 10173 to submit.";
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
@@ -364,6 +366,43 @@ export default function ContactSection() {
                   </span>
                 )}
               </div>
+
+              {/* Data Privacy Consent (RA 10173) */}
+              <div className="pt-2">
+                <label className="flex items-start gap-3 cursor-pointer select-none">
+                  <input
+                    type="checkbox"
+                    checked={consent}
+                    onChange={(e) => {
+                      setConsent(e.target.checked);
+                      if (errors.consent) setErrors({ ...errors, consent: "" });
+                    }}
+                    className="mt-1 w-4 h-4 rounded border-[#4caf50]/40 bg-[#050e07] text-[#ffd600] focus:ring-[#ffd600] focus:ring-offset-0 cursor-pointer shrink-0"
+                  />
+                  <span className="text-xs text-[#a8d5a8] leading-relaxed">
+                    I consent to Forest Hills Garden processing my contact details to respond to this inquiry, in accordance with Republic Act No. 10173 (
+                    <a
+                      href="/privacy-policy"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[#ffd600] underline hover:text-white transition-colors"
+                    >
+                      Data Privacy Policy
+                    </a>
+                    ).
+                  </span>
+                </label>
+                {errors.consent && (
+                  <span className="flex items-center gap-1 text-xs text-red-400 mt-1.5">
+                    <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                    {errors.consent}
+                  </span>
+                )}
+              </div>
+
+              <p className="text-[11px] text-[#a8d5a8]/70">
+                Your data is used solely to evaluate and respond to your inquiry. No information is sold or disclosed to unauthorized third parties.
+              </p>
 
               <button
                 type="submit"

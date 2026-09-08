@@ -44,6 +44,21 @@ html.lenis, html.lenis body {
   pointer-events: none;
 }
 
+/* Cross-Browser Scrollbar Hiding & Native Mobile Touch Panning */
+.no-scrollbar::-webkit-scrollbar,
+.scrollbar-none::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+.no-scrollbar,
+.scrollbar-none {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
+  -webkit-overflow-scrolling: touch;
+}
+
 /* Smooth Keyframes & Transitions */
 @keyframes fadeIn {
   from {

@@ -342,8 +342,12 @@ export default function OperationsProofHub() {
         </motion.div>
 
         {/* Segmented Control Bar */}
-        <div className="flex justify-center mb-10">
-          <div className="inline-flex items-center gap-1.5 p-1.5 rounded-2xl bg-[#0a1b0d]/90 border border-white/10 backdrop-blur-xl shadow-2xl max-w-full overflow-x-auto scrollbar-none">
+        <div className="flex justify-center mb-10 -mx-4 px-4 sm:mx-0 sm:px-0">
+          <div
+            data-lenis-prevent="true"
+            className="inline-flex items-center gap-1.5 p-1.5 rounded-2xl bg-[#0a1b0d]/90 border border-white/10 backdrop-blur-xl shadow-2xl max-w-full overflow-x-auto scrollbar-none touch-pan-x overscroll-x-contain"
+            style={{ WebkitOverflowScrolling: "touch", touchAction: "pan-x pan-y" }}
+          >
             {hubTabs.map((tab) => {
               const Icon = tab.icon;
               const isActive = activeTab === tab.key;

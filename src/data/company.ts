@@ -54,7 +54,7 @@ export const companyData = {
   credentials: [
     {
       title: "DENR Registered Chainsaw Cutter",
-      detail: "89 Registered Chainsaws with active permits to cut and operate for infrastructure corridor clearing."
+      detail: "89 Registered Chainsaws with active permits to cut and operate for infrastructure corridor clearing. Registered pursuant to Republic Act No. 9175 (Chainsaw Act of 2002). DENR Cert. No(s).: [PENDING — INSERT DENR CERT NOS.]."
     },
     {
       title: "PCA Registered Coconut Tree Cutter",

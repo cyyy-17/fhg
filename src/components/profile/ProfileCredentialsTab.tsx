@@ -58,6 +58,10 @@ export default function ProfileCredentialsTab() {
           Inspect Official Vault
         </Link>
       </div>
+
+      <p className="text-[11px] text-[#a8d5a8]/70 italic text-center">
+        *Heavy chainsaw fleet operated strictly pursuant to RA 9175 under authorized DENR/CENRO cutting permits. All business permits and statutory registrations subject to annual regulatory renewal.
+      </p>
     </div>
   );
 }

@@ -307,9 +307,10 @@ export default function ServicesGrid() {
         {/* Horizontal Snap Slider Track */}
         <div
           ref={sliderRef}
+          data-lenis-prevent="true"
           onScroll={updateScrollState}
-          className="flex gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-none pb-4 pt-1 scroll-smooth"
-          style={{ scrollSnapType: "x mandatory", WebkitOverflowScrolling: "touch" }}
+          className="flex gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-none pb-4 pt-1 scroll-smooth touch-pan-x overscroll-x-contain"
+          style={{ scrollSnapType: "x mandatory", WebkitOverflowScrolling: "touch", touchAction: "pan-x pan-y" }}
         >
           {servicesList.map((service) => {
             const Icon = service.icon;
