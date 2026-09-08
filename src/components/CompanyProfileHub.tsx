@@ -75,6 +75,7 @@ export default function CompanyProfileHub() {
 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const tabRefs = useRef<Record<string, HTMLButtonElement | null>>({});
+  const isInitialMount = useRef(true);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
 
@@ -98,14 +99,26 @@ export default function CompanyProfileHub() {
     };
   }, [checkScroll]);
 
-  // Smoothly center active tab whenever activeTab changes
+  // Smoothly center active tab horizontally within container ONLY on tab switch (never scroll window)
   useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      return;
+    }
+    const container = scrollContainerRef.current;
     const activeEl = tabRefs.current[activeTab];
-    if (activeEl) {
-      activeEl.scrollIntoView({
+    if (container && activeEl) {
+      const containerRect = container.getBoundingClientRect();
+      const elRect = activeEl.getBoundingClientRect();
+      const relativeLeft = elRect.left - containerRect.left;
+      const targetScrollLeft =
+        container.scrollLeft +
+        relativeLeft -
+        container.clientWidth / 2 +
+        activeEl.clientWidth / 2;
+      container.scrollTo({
+        left: Math.max(0, targetScrollLeft),
         behavior: "smooth",
-        block: "nearest",
-        inline: "center",
       });
     }
     const timer = setTimeout(checkScroll, 350);
