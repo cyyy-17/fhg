@@ -13,6 +13,7 @@ import {
   AlertTriangle,
   Building2,
   Phone,
+  Cookie,
 } from "lucide-react";
 import { companyData } from "@/data/company";
 
@@ -302,12 +303,48 @@ export default function PrivacyPolicyPage() {
             </p>
           </section>
 
-          {/* 8. Contact Our Compliance Desk */}
+          {/* 8. Cookies and Browser Local Storage Policy */}
+          <section id="cookies" className="glass-panel rounded-3xl p-8 sm:p-10 border border-[#4caf50]/20 space-y-4 scroll-mt-28">
+            <div className="flex items-center gap-3 text-[#ffd600]">
+              <Cookie className="w-6 h-6" />
+              <h2 className="text-xl sm:text-2xl font-bold font-heading text-white">
+                8. Cookies &amp; Browser Local Storage Policy
+              </h2>
+            </div>
+            <p className="text-sm text-[#a8d5a8] leading-relaxed">
+              In accordance with NPC transparency guidelines, Forest Hills Garden informs users regarding our use of cookies and browser local storage:
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2 text-xs">
+              <div className="p-4 rounded-xl bg-black/30 border border-white/10 space-y-1.5">
+                <strong className="text-white block">Strictly Necessary</strong>
+                <span className="text-[#a8d5a8]">
+                  Used for Lenis smooth scroll coordination, UI accessibility state, security header enforcement, and saving your consent preferences (<code className="text-[#ffd600]">fhg_cookie_consent</code>). Always active.
+                </span>
+              </div>
+              <div className="p-4 rounded-xl bg-black/30 border border-white/10 space-y-1.5">
+                <strong className="text-white block">Functional / Cache</strong>
+                <span className="text-[#a8d5a8]">
+                  Caches active RFP calculation values and volume parameters temporarily in browser memory so configurations are preserved if you switch tabs.
+                </span>
+              </div>
+              <div className="p-4 rounded-xl bg-black/30 border border-white/10 space-y-1.5">
+                <strong className="text-white block">No Third-Party Ad Trackers</strong>
+                <span className="text-[#a8d5a8]">
+                  We do NOT employ third-party advertising cookies, cross-site trackers, or data-broker pixels. Your browsing activity on this site remains private.
+                </span>
+              </div>
+            </div>
+            <p className="text-xs text-[#a8d5a8] pt-2">
+              You can adjust or revoke your cookie choices at any time using the <strong>Cookie Preferences</strong> link in the footer of every page.
+            </p>
+          </section>
+
+          {/* 9. Contact Our Compliance Desk */}
           <section className="glass-panel rounded-3xl p-8 sm:p-10 border border-[#4caf50]/40 space-y-6">
             <div className="flex items-center gap-3 text-white">
               <Mail className="w-6 h-6 text-[#ffd600]" />
               <h2 className="text-xl sm:text-2xl font-bold font-heading">
-                8. Privacy Inquiries & Exercising Your Rights
+                9. Privacy Inquiries &amp; Exercising Your Rights
               </h2>
             </div>
             <p className="text-sm text-[#a8d5a8] leading-relaxed">

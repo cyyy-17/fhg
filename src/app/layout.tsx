@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Outfit, Playfair_Display, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
+import CookieBanner from "@/components/CookieBanner";
 
 const outfit = Outfit({
   variable: "--font-heading",
@@ -343,6 +344,7 @@ export default function RootLayout({
         className={`${outfit.variable} ${playfair.variable} ${jakarta.variable} font-body antialiased bg-[#050e07] text-[#f0fbf0]`}
       >
         <SmoothScroll>{children}</SmoothScroll>
+        <CookieBanner />
       </body>
     </html>
   );

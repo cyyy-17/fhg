@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import ScrollTopButton from "./ScrollTopButton";
@@ -140,6 +142,18 @@ export default function Footer() {
               <Link href="/terms" className="text-[#ffd600] hover:underline">
                 Terms of Use &amp; Disclaimers
               </Link>
+              <span className="text-white/20">•</span>
+              <button
+                type="button"
+                onClick={() => {
+                  if (typeof window !== "undefined") {
+                    window.dispatchEvent(new CustomEvent("fhg_open_cookie_settings"));
+                  }
+                }}
+                className="text-[#ffd600] hover:underline cursor-pointer bg-transparent border-0 p-0 text-xs inline-block"
+              >
+                Cookie Preferences
+              </button>
             </div>
           </div>
           <p className="text-[#a8d5a8]/60 text-center lg:text-right">

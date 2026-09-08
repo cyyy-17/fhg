@@ -13,6 +13,9 @@ import {
   AlertCircle,
   HelpCircle,
   Gavel,
+  Handshake,
+  HardHat,
+  ShieldAlert,
 } from "lucide-react";
 import { companyData } from "@/data/company";
 
@@ -281,12 +284,63 @@ export default function TermsPage() {
             </p>
           </section>
 
-          {/* 8. Governing Law & Venue */}
+          {/* 8. Anti-Bribery, Anti-Corruption & Procurement Integrity */}
+          <section className="glass-panel rounded-3xl p-8 sm:p-10 border border-[#ffd600]/30 space-y-4">
+            <div className="flex items-center gap-3 text-[#ffd600]">
+              <Handshake className="w-6 h-6" />
+              <h2 className="text-xl sm:text-2xl font-bold font-heading text-white">
+                8. Anti-Bribery, Procurement Integrity &amp; Fair Dealing
+              </h2>
+            </div>
+            <p className="text-sm text-[#a8d5a8] leading-relaxed">
+              Forest Hills Garden strictly upholds zero-tolerance policies against bribery, illicit commissions, and unethical trade practices pursuant to Republic Act No. 3019 (Anti-Graft and Corrupt Practices Act) and Republic Act No. 9184 (Government Procurement Reform Act).
+            </p>
+            <p className="text-sm text-[#a8d5a8] leading-relaxed">
+              As a PhilGEPS Blue Registered Contractor (Reg. No. 2005-23340), our bids, subcontracting proposals, and equipment leases are submitted with full transparency and verified costing. No employee or agent of FHG is authorized to offer or accept any improper payment, gift, or inducement in connection with tender awards.
+            </p>
+          </section>
+
+          {/* 9. DOLE Labor Standards & Hazardous Operations (RA 9231) */}
+          <section className="glass-panel rounded-3xl p-8 sm:p-10 border border-[#4caf50]/20 space-y-4">
+            <div className="flex items-center gap-3 text-[#76c442]">
+              <HardHat className="w-6 h-6" />
+              <h2 className="text-xl sm:text-2xl font-bold font-heading text-white">
+                9. Labor Standards, Safety Officers &amp; Zero Child-Labor
+              </h2>
+            </div>
+            <p className="text-sm text-[#a8d5a8] leading-relaxed">
+              Tree earthballing, heavy crane rigging, and precision chainsaw cutting constitute hazardous industrial occupations. Pursuant to Republic Act No. 9231 (Elimination of the Worst Forms of Child Labor) and the Labor Code of the Philippines:
+            </p>
+            <ul className="list-disc list-inside space-y-2 text-xs sm:text-sm text-[#a8d5a8] pl-2">
+              <li><strong className="text-white">Strict Adult Age Requirement:</strong> 100% of our field arborists, chainsaw fellers, heavy operators, and rigging personnel are at least eighteen (18) years of age with certified vocational competencies.</li>
+              <li><strong className="text-white">DOLE COSH/BOSH On-Site Supervision:</strong> All high-risk felling operations operate under direct supervision of DOLE-accredited Construction Occupational Safety and Health (COSH) officers.</li>
+              <li><strong className="text-white">Statutory Benefits:</strong> All personnel maintain active statutory coverage under the Social Security System (SSS), Philippine Health Insurance Corporation (PhilHealth), and Home Development Mutual Fund (Pag-IBIG).</li>
+            </ul>
+          </section>
+
+          {/* 10. Taal Volcano & Climate Contingency Continuity (RA 10121) */}
+          <section className="glass-panel rounded-3xl p-8 sm:p-10 border border-[#4caf50]/20 space-y-4">
+            <div className="flex items-center gap-3 text-[#ffd600]">
+              <ShieldAlert className="w-6 h-6" />
+              <h2 className="text-xl sm:text-2xl font-bold font-heading text-white">
+                10. Taal Volcano &amp; Environmental Contingency Continuity
+              </h2>
+            </div>
+            <p className="text-sm text-[#a8d5a8] leading-relaxed">
+              Our twin botanical propagation facilities (Tumaway and Aya) and primary dispatch hub are situated in Talisay, Batangas, in geographic proximity to Taal Volcano. Pursuant to Republic Act No. 10121 (Philippine Disaster Risk Reduction and Management Act of 2010):
+            </p>
+            <ul className="list-disc list-inside space-y-2 text-xs sm:text-sm text-[#a8d5a8] pl-2">
+              <li><strong className="text-white">Nursery Stock Safeguards:</strong> Active ashfall-washdown systems and protective greenhouse shade structures protect our compensatory sapling buffer stocks during volcanic unrest.</li>
+              <li><strong className="text-white">Emergency Response Mobilization:</strong> In the event of force majeure declarations or PHIVOLCS Alert Levels, FHG maintains alternative equipment staging depots in Calabarzon to maintain uninterrupted client service commitments.</li>
+            </ul>
+          </section>
+
+          {/* 11. Governing Law & Venue */}
           <section className="glass-panel rounded-3xl p-8 sm:p-10 border border-[#4caf50]/40 space-y-4">
             <div className="flex items-center gap-3 text-[#ffd600]">
               <Gavel className="w-6 h-6" />
               <h2 className="text-xl sm:text-2xl font-bold font-heading text-white">
-                8. Governing Law & Jurisdiction
+                11. Governing Law &amp; Jurisdiction
               </h2>
             </div>
             <p className="text-sm text-[#a8d5a8] leading-relaxed">
