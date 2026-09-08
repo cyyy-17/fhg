@@ -8,7 +8,6 @@ import { useIsMounted } from "@/hooks/useIsMounted";
 import {
   FileText,
   Calculator,
-  Phone,
   HelpCircle,
   ShieldCheck,
   Download,
@@ -19,19 +18,14 @@ import {
   MessageCircle,
   Copy,
   Check,
-  MapPin,
-  ExternalLink,
   ChevronDown,
-  Clock,
   Sparkles,
-  ArrowUpRight,
   Mail,
 } from "lucide-react";
-import { companyData } from "@/data/company";
 import { documents, type DocumentItem } from "@/data/documents";
 import { useLenisScrollLock } from "@/hooks/useLenisScrollLock";
 
-type ProcurementTab = "estimate" | "vault" | "contact" | "faq";
+type ProcurementTab = "estimate" | "vault" | "faq";
 
 const generalFaqs = [
   {
@@ -66,6 +60,7 @@ export default function ProcurementHub() {
   const [company, setCompany] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
+  const [consent, setConsent] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [rfpModalOpen, setRfpModalOpen] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -82,8 +77,12 @@ export default function ProcurementHub() {
       let matchedTab: ProcurementTab | null = null;
       if (hash === "#estimate" || hash === "#rfp") matchedTab = "estimate";
       else if (hash === "#vault" || hash === "#documents") matchedTab = "vault";
-      else if (hash === "#contact" || hash === "#dispatch") matchedTab = "contact";
       else if (hash === "#faq") matchedTab = "faq";
+      else if (hash === "#contact" || hash === "#dispatch") {
+        const el = document.getElementById("contact");
+        if (el) el.scrollIntoView({ behavior: "smooth" });
+        return;
+      }
 
       if (matchedTab) {
         setActiveTab(matchedTab);
@@ -123,6 +122,9 @@ export default function ProcurementHub() {
     if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       newErrors.email = "Please enter a valid email address.";
     }
+    if (!consent) {
+      newErrors.consent = "You must consent to data processing under RA 10173 to proceed.";
+    }
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
@@ -152,7 +154,6 @@ export default function ProcurementHub() {
   const tabs: { key: ProcurementTab; label: string; icon: typeof Calculator; badge?: string }[] = [
     { key: "estimate", label: "Tender / RFP Estimator", icon: Calculator, badge: "Instant" },
     { key: "vault", label: "Document Vault", icon: FileText, badge: "6 PDF Files" },
-    { key: "contact", label: "Office & Dispatch", icon: Phone, badge: "8AM–5PM" },
     { key: "faq", label: "Statutory & FAQs", icon: HelpCircle },
   ];
 
@@ -392,11 +393,53 @@ export default function ProcurementHub() {
                 </div>
               </div>
 
+              {/* Data Privacy Consent (RA 10173) & Non-Binding Estimate Disclaimer */}
+              <div className="pt-3 border-t border-white/10 space-y-2">
+                <label className="flex items-start gap-3 cursor-pointer select-none">
+                  <input
+                    type="checkbox"
+                    checked={consent}
+                    onChange={(e) => {
+                      setConsent(e.target.checked);
+                      if (errors.consent) setErrors({ ...errors, consent: "" });
+                    }}
+                    className="mt-1 w-4 h-4 rounded border-[#4caf50]/40 bg-[#050e07] text-[#ffd600] focus:ring-[#ffd600] focus:ring-offset-0 cursor-pointer shrink-0"
+                  />
+                  <span className="text-xs text-[#a8d5a8] leading-relaxed">
+                    I consent to Forest Hills Garden processing my contact details for this project assessment in accordance with Republic Act No. 10173 (
+                    <a
+                      href="/privacy-policy"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[#ffd600] underline hover:text-white transition-colors"
+                    >
+                      Data Privacy Policy
+                    </a>
+                    ).
+                  </span>
+                </label>
+                {errors.consent && (
+                  <span className="text-[10px] text-red-400 block">{errors.consent}</span>
+                )}
+                <p className="text-[11px] text-[#a8d5a8]/70 italic">
+                  *Projections and mobilization heuristics are non-binding estimates subject to formal site inspection and our{" "}
+                  <a
+                    href="/terms"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[#ffd600] underline hover:text-white transition-colors"
+                  >
+                    Terms of Use &amp; Disclaimers
+                  </a>
+                  .
+                </p>
+              </div>
+
               {/* Action Buttons */}
               <div className="pt-4 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div className="flex items-center gap-2 text-xs text-[#a8d5a8]">
                   <ShieldCheck className="w-4 h-4 text-[#76c442]" />
-                  <span>PhilGEPS Blue Member & DTI 1729753 Verified Contractor</span>
+                  <span>PhilGEPS Blue Member &amp; DTI 1729753 Verified Contractor</span>
                 </div>
                 <button
                   type="submit"
@@ -421,12 +464,14 @@ export default function ProcurementHub() {
                   <p className="text-xs text-[#a8d5a8]">Instant access to verified legal registrations, BIR clearances, and completed works archives.</p>
                 </div>
               </div>
-              <button
-                onClick={() => setActiveTab("estimate")}
-                className="px-5 py-2 rounded-full bg-[#ffd600] text-[#050e07] text-xs font-bold uppercase tracking-wider hover:brightness-110 shrink-0 cursor-pointer"
+              <a
+                href="/docs/company-profile.pdf"
+                download
+                className="px-5 py-2.5 rounded-full bg-[#ffd600] text-[#050e07] text-xs font-bold uppercase tracking-wider hover:brightness-110 shrink-0 cursor-pointer flex items-center gap-2 shadow-lg shadow-[#ffd600]/20"
               >
-                Request Custom Vendor Pack
-              </button>
+                <Download className="w-4 h-4" />
+                <span>Download Master Capability Dossier (PDF)</span>
+              </a>
             </div>
 
             {/* Document Grid */}
@@ -478,126 +523,10 @@ export default function ProcurementHub() {
                 </div>
               ))}
             </div>
-          </div>
-        )}
 
-        {/* TAB 3: OFFICE & DISPATCH HQ */}
-        {activeTab === "contact" && (
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 animate-fadeIn max-w-6xl mx-auto">
-            {/* Headquarters Card (7 cols) */}
-            <div className="lg:col-span-7 glass-panel rounded-3xl p-8 border border-[#4caf50]/30 shadow-2xl flex flex-col justify-between">
-              <div>
-                <div className="flex items-center justify-between gap-2 mb-4">
-                  <span className="text-xs font-mono font-bold uppercase text-[#ffd600] tracking-wider px-3 py-1 rounded-full bg-[#ffd600]/10 border border-[#ffd600]/20">
-                    Operations Headquarters • 8:00 AM – 5:00 PM
-                  </span>
-                  <span className="text-xs font-mono text-[#76c442] flex items-center gap-1">
-                    <Clock className="w-3.5 h-3.5" />
-                    Mon–Sat 8:00 AM – 5:00 PM
-                  </span>
-                </div>
-
-                <h3 className="text-2xl font-bold font-heading text-white mb-2">
-                  Forest Hills Garden Dispatch Center
-                </h3>
-
-                <p className="text-sm text-[#a8d5a8] leading-relaxed mb-6">
-                  {companyData.headOffice.address}
-                </p>
-
-                <div className="p-4 rounded-2xl bg-[#0a1c0d] border border-white/10 space-y-3 mb-6">
-                  <div className="flex items-center justify-between text-xs">
-                    <span className="text-[#a8d5a8]">Plus Code:</span>
-                    <strong className="text-white font-mono">{companyData.headOffice.plusCode}</strong>
-                  </div>
-                  <div className="flex items-center justify-between text-xs">
-                    <span className="text-[#a8d5a8]">Telefax:</span>
-                    <strong className="text-white font-mono">{companyData.headOffice.telefax}</strong>
-                  </div>
-                  <div className="flex items-center justify-between text-xs">
-                    <span className="text-[#a8d5a8]">Official Emails:</span>
-                    <span className="text-[#ffd600] font-mono text-[11px]">{companyData.headOffice.emails.join(" • ")}</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-3">
-                <a
-                  href={companyData.headOffice.googleMapsUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold flex items-center gap-2 transition-colors"
-                >
-                  <MapPin className="w-4 h-4 text-[#ffd600]" />
-                  <span>Google Maps</span>
-                </a>
-                <a
-                  href={companyData.headOffice.wazeUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold flex items-center gap-2 transition-colors"
-                >
-                  <ExternalLink className="w-4 h-4 text-[#76c442]" />
-                  <span>Waze Navigation</span>
-                </a>
-                <a
-                  href="https://wa.me/639165667265"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-5 py-2 rounded-xl bg-[#25d366] text-white text-xs font-bold flex items-center gap-2 hover:brightness-110 shadow-md"
-                >
-                  <MessageCircle className="w-4 h-4 fill-current" />
-                  <span>WhatsApp Dispatch</span>
-                </a>
-              </div>
-            </div>
-
-            {/* Direct Hotlines Card (5 cols) */}
-            <div className="lg:col-span-5 glass-panel rounded-3xl p-8 border border-white/10 shadow-2xl flex flex-col justify-between">
-              <div>
-                <h4 className="text-lg font-bold font-heading text-white mb-4">
-                  Direct Arborist Dispatch Lines
-                </h4>
-
-                <div className="space-y-4">
-                  {companyData.headOffice.mobiles.map((mobile, idx) => (
-                    <a
-                      key={idx}
-                      href={`tel:${mobile.replace(/\s+/g, "")}`}
-                      className="p-4 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-between transition-colors group"
-                    >
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-xl bg-[#ffd600]/20 text-[#ffd600] flex items-center justify-center">
-                          <Phone className="w-4 h-4" />
-                        </div>
-                        <div>
-                          <strong className="text-sm font-bold text-white group-hover:text-[#ffd600] transition-colors block">
-                            {mobile}
-                          </strong>
-                          <span className="text-[10px] text-[#a8d5a8]">Mobile & Viber Hotlink</span>
-                        </div>
-                      </div>
-                      <ArrowUpRight className="w-4 h-4 text-[#ffd600]" />
-                    </a>
-                  ))}
-
-                  <div className="p-4 rounded-2xl bg-linear-to-r from-[#102414] to-[#0a180d] border border-[#76c442]/30">
-                    <strong className="text-xs font-bold text-[#ffd600] uppercase tracking-wider block mb-1">
-                      Emergency Corridor Clearing
-                    </strong>
-                    <p className="text-xs text-[#a8d5a8] leading-relaxed">
-                      Instant mobilization for high-tension line hazards, fallen trees, and roadway blockages across Calabarzon and NCR.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="pt-4 border-t border-white/10 text-center">
-                <span className="text-[11px] font-mono text-[#a8d5a8]">
-                  Manager: {companyData.manager}
-                </span>
-              </div>
-            </div>
+            <p className="text-[11px] text-[#a8d5a8]/70 italic text-center mt-6">
+              *All certificate scans are authentic records of Forest Hills Garden. Bidders must verify current validity dates with our administration desk prior to formal envelope submission.
+            </p>
           </div>
         )}
 
@@ -736,6 +665,49 @@ export default function ProcurementHub() {
             </pre>
 
             <div className="space-y-2.5">
+              <button
+                type="button"
+                onClick={() => {
+                  const printWindow = window.open("", "_blank");
+                  if (printWindow) {
+                    printWindow.document.write(`
+                      <!DOCTYPE html>
+                      <html>
+                        <head>
+                          <title>Forest Hills Garden - RFP Specification Dossier</title>
+                          <style>
+                            body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; padding: 40px; color: #111; line-height: 1.5; }
+                            .header { border-bottom: 2px solid #2e7d32; padding-bottom: 15px; margin-bottom: 25px; }
+                            h1 { color: #1b5e20; margin: 0 0 5px 0; font-size: 24px; }
+                            .sub { color: #555; font-size: 13px; }
+                            .box { background: #f4f8f4; border: 1px solid #c8e6c9; border-radius: 8px; padding: 20px; font-family: monospace; font-size: 13px; white-space: pre-wrap; margin-bottom: 25px; }
+                            .footer { border-top: 1px solid #ddd; padding-top: 15px; font-size: 11px; color: #777; }
+                          </style>
+                        </head>
+                        <body>
+                          <div class="header">
+                            <h1>FOREST HILLS GARDEN</h1>
+                            <div class="sub">Industrial Tree Earthballing, Precision Chainsaw Felling &amp; Twin Batangas Nurseries • Est. 1998</div>
+                            <div class="sub">Sitio Sto. Niño, Banga, Talisay, Batangas • DTI Reg. 1729753 • PhilGEPS 2005-23340</div>
+                          </div>
+                          <div class="box">${compiledRfpDossier.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</div>
+                          <div class="footer">
+                            <p><strong>Notice:</strong> This project specification dossier represents a preliminary engineering inquiry for procurement planning. Formal binding quotations require on-site tree caliper assessment and signed Purchase Order. Warranty terms: 12-Month Post-Transplantation 100% Free Specimen Replacement.</p>
+                            <p>Forest Hills Garden Administration Desk • Telefax: (043) 741 0603 • Mobile: 0916 566 7265 • Email: edluna1971@yahoo.com</p>
+                          </div>
+                          <script>window.onload = function() { window.print(); };</script>
+                        </body>
+                      </html>
+                    `);
+                    printWindow.document.close();
+                  }
+                }}
+                className="w-full py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer"
+              >
+                <FileText className="w-4 h-4 text-[#ffd600]" />
+                <span>Print / Save as PDF Quotation Sheet</span>
+              </button>
+
               <a
                 href={`https://wa.me/639165667265?text=${encodeURIComponent(compiledRfpDossier)}`}
                 target="_blank"
@@ -766,10 +738,29 @@ export default function ProcurementHub() {
                 <span>{copied ? "Copied to Clipboard!" : "Copy Dossier Text"}</span>
               </button>
             </div>
+
+            <p className="text-[11px] text-[#a8d5a8]/70 text-center mt-3">
+              No desktop email app? Click &ldquo;Copy Dossier Text&rdquo; and email directly to <strong className="text-white">edluna1971@yahoo.com</strong>
+            </p>
           </div>
         </div>,
         document.body
       )}
+
+      {/* Cross-Section Navigation Bridge to Operations & Contact */}
+      <div className="w-full max-w-[1720px] mx-auto px-6 md:px-12 mt-12">
+        <div className="p-4 rounded-2xl bg-white/5 border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#a8d5a8]">
+          <span>
+            Looking for our physical dispatch office, Waze coordinates, or wishing to meet in person?
+          </span>
+          <a
+            href="#contact"
+            className="text-[#ffd600] font-bold hover:underline shrink-0 flex items-center gap-1.5"
+          >
+            <span>Proceed to Operations &amp; Dispatch Desk ↓</span>
+          </a>
+        </div>
+      </div>
     </section>
   );
 }

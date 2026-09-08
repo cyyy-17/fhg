@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, useInView } from "framer-motion";
-import { ShieldCheck, CheckCircle2, Award, ArrowRight, FileText, ChevronDown } from "lucide-react";
+import { ShieldCheck, CheckCircle2, Award, ArrowRight, FileText, ChevronDown, Zap } from "lucide-react";
 import ParticleCanvas from "./ParticleCanvas";
 import { companyData } from "@/data/company";
 
@@ -111,6 +111,10 @@ export default function Hero() {
           <div className="flex items-center gap-2 px-5 py-2 rounded-full bg-[#102414]/80 border border-[#4caf50]/30 text-xs sm:text-sm font-medium text-[#f0fbf0] backdrop-blur-md">
             <Award className="w-4 h-4 text-[#ffd600]" />
             <span>89 DENR Registered Chainsaw Fleet</span>
+          </div>
+          <div className="flex items-center gap-2 px-5 py-2 rounded-full bg-[#102414]/80 border border-[#ffd600]/30 text-xs sm:text-sm font-medium text-[#f0fbf0] backdrop-blur-md">
+            <Zap className="w-4 h-4 text-[#ffd600]" />
+            <span>48–72h Rapid Luzon Mobilization SLA</span>
           </div>
         </motion.div>
 

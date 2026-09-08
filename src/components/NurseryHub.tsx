@@ -286,61 +286,83 @@ export default function NurseryHub() {
           </div>
         </div>
 
-        {/* Species Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {filteredSpecies.map((item) => (
-            <div
-              key={item.id}
-              className="glass-panel glass-panel-hover rounded-2xl p-5 flex flex-col justify-between border border-white/10 group"
+        {/* Species Cards Grid or Empty Search State */}
+        {filteredSpecies.length === 0 ? (
+          <div className="text-center py-16 px-6 glass-panel rounded-3xl border border-white/10 max-w-xl mx-auto">
+            <Sprout className="w-10 h-10 text-[#ffd600] mx-auto mb-3 opacity-60" />
+            <h4 className="text-base font-bold text-white mb-1">
+              No Species Matching &ldquo;{searchQuery}&rdquo;
+            </h4>
+            <p className="text-xs text-[#a8d5a8] leading-relaxed mb-5">
+              We propagate over 150,000+ native and exotic saplings across our twin Batangas farms. Contact our nursery coordinators directly for custom contract propagation or rare native stocks.
+            </p>
+            <button
+              type="button"
+              onClick={() => {
+                setSearchQuery("");
+                setActiveCategory("all");
+              }}
+              className="px-5 py-2 rounded-full bg-[#ffd600] text-[#050e07] text-xs font-bold uppercase tracking-wider hover:brightness-110 transition-all cursor-pointer"
             >
-              <div>
-                <div className="flex items-center justify-between gap-2 mb-3">
-                  <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-white/10 text-white font-bold">
-                    {item.facility.split(" ")[0]}
-                  </span>
-                  <span
-                    className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
-                      item.stockStatus === "Immediate Bulk Delivery"
-                        ? "bg-[#2e7d32]/30 text-[#76c442] border border-[#76c442]/30"
-                        : "bg-[#ffd600]/15 text-[#ffd600] border border-[#ffd600]/30"
-                    }`}
+              Reset Filter &amp; Search
+            </button>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {filteredSpecies.map((item) => (
+              <div
+                key={item.id}
+                className="glass-panel glass-panel-hover rounded-2xl p-5 flex flex-col justify-between border border-white/10 group"
+              >
+                <div>
+                  <div className="flex items-center justify-between gap-2 mb-3">
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-white/10 text-white font-bold">
+                      {item.facility.split(" ")[0]}
+                    </span>
+                    <span
+                      className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                        item.stockStatus === "Immediate Bulk Delivery"
+                          ? "bg-[#2e7d32]/30 text-[#76c442] border border-[#76c442]/30"
+                          : "bg-[#ffd600]/15 text-[#ffd600] border border-[#ffd600]/30"
+                      }`}
+                    >
+                      {item.stockStatus}
+                    </span>
+                  </div>
+
+                  <h4 className="text-base font-bold text-white mb-1 group-hover:text-[#ffd600] transition-colors leading-snug">
+                    {item.commonName}
+                  </h4>
+                  <p className="text-xs font-mono text-[#a8d5a8] italic mb-3">
+                    {item.scientificName}
+                  </p>
+
+                  <div className="space-y-1.5 text-xs text-white/80 pt-3 border-t border-white/10">
+                    <div className="flex justify-between text-[11px]">
+                      <span className="text-[#a8d5a8]">Specs:</span>
+                      <span className="text-white text-right line-clamp-1">{item.availableSizes.split("•")[0]}</span>
+                    </div>
+                    <div className="flex justify-between text-[11px]">
+                      <span className="text-[#a8d5a8]">Compliance:</span>
+                      <span className="text-[#76c442] text-right line-clamp-1">{item.offsetCompliance.split(" ")[0]} Ready</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="pt-4 mt-4 border-t border-white/10 flex items-center justify-between">
+                  <span className="text-[10px] font-mono text-[#ffd600]">{item.growthRate}</span>
+                  <Link
+                    href="#estimate"
+                    className="text-xs font-bold text-white hover:text-[#ffd600] flex items-center gap-1 transition-colors"
                   >
-                    {item.stockStatus}
-                  </span>
-                </div>
-
-                <h4 className="text-base font-bold text-white mb-1 group-hover:text-[#ffd600] transition-colors leading-snug">
-                  {item.commonName}
-                </h4>
-                <p className="text-xs font-mono text-[#a8d5a8] italic mb-3">
-                  {item.scientificName}
-                </p>
-
-                <div className="space-y-1.5 text-xs text-white/80 pt-3 border-t border-white/10">
-                  <div className="flex justify-between text-[11px]">
-                    <span className="text-[#a8d5a8]">Specs:</span>
-                    <span className="text-white text-right line-clamp-1">{item.availableSizes.split("•")[0]}</span>
-                  </div>
-                  <div className="flex justify-between text-[11px]">
-                    <span className="text-[#a8d5a8]">Compliance:</span>
-                    <span className="text-[#76c442] text-right line-clamp-1">{item.offsetCompliance.split(" ")[0]} Ready</span>
-                  </div>
+                    <span>Request Lot</span>
+                    <ArrowUpRight className="w-3.5 h-3.5" />
+                  </Link>
                 </div>
               </div>
-
-              <div className="pt-4 mt-4 border-t border-white/10 flex items-center justify-between">
-                <span className="text-[10px] font-mono text-[#ffd600]">{item.growthRate}</span>
-                <Link
-                  href="#estimate"
-                  className="text-xs font-bold text-white hover:text-[#ffd600] flex items-center gap-1 transition-colors"
-                >
-                  <span>Request Lot</span>
-                  <ArrowUpRight className="w-3.5 h-3.5" />
-                </Link>
-              </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );
