@@ -167,15 +167,22 @@ export default function CookieBanner() {
                   Remembers RFP calculation parameters &amp; UI settings.
                 </span>
               </div>
-              <label className="relative inline-flex items-center cursor-pointer shrink-0">
-                <input
-                  type="checkbox"
-                  checked={functional}
-                  onChange={(e) => setFunctional(e.target.checked)}
-                  className="sr-only peer"
+              <button
+                type="button"
+                role="switch"
+                aria-checked={functional}
+                onClick={() => setFunctional((prev) => !prev)}
+                className={`w-9 h-5 rounded-full transition-colors cursor-pointer shrink-0 p-0.5 flex items-center ${
+                  functional ? "bg-[#2e7d32]" : "bg-white/20"
+                }`}
+                aria-label="Toggle Preferences and Form Cache Cookies"
+              >
+                <span
+                  className={`block w-4 h-4 rounded-full bg-white transition-transform ${
+                    functional ? "translate-x-4" : "translate-x-0"
+                  }`}
                 />
-                <div className="w-9 h-5 bg-white/20 peer-focus:outline-hidden rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[#2e7d32]" />
-              </label>
+              </button>
             </div>
 
             {/* Analytics */}
@@ -188,15 +195,22 @@ export default function CookieBanner() {
                   Anonymous performance metrics to improve response speeds.
                 </span>
               </div>
-              <label className="relative inline-flex items-center cursor-pointer shrink-0">
-                <input
-                  type="checkbox"
-                  checked={analytics}
-                  onChange={(e) => setAnalytics(e.target.checked)}
-                  className="sr-only peer"
+              <button
+                type="button"
+                role="switch"
+                aria-checked={analytics}
+                onClick={() => setAnalytics((prev) => !prev)}
+                className={`w-9 h-5 rounded-full transition-colors cursor-pointer shrink-0 p-0.5 flex items-center ${
+                  analytics ? "bg-[#2e7d32]" : "bg-white/20"
+                }`}
+                aria-label="Toggle Operational Analytics Cookies"
+              >
+                <span
+                  className={`block w-4 h-4 rounded-full bg-white transition-transform ${
+                    analytics ? "translate-x-4" : "translate-x-0"
+                  }`}
                 />
-                <div className="w-9 h-5 bg-white/20 peer-focus:outline-hidden rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-[#2e7d32]" />
-              </label>
+              </button>
             </div>
           </div>
         )}
