@@ -178,7 +178,7 @@ export default function CompanyProfileHub() {
         </motion.div>
 
         {/* Dynamic Hub Navigation Bar (5 Hub Tabs) */}
-        <div className="relative max-w-6xl mx-auto mb-10 -mx-4 px-4 sm:mx-auto sm:px-0">
+        <div className="relative max-w-6xl mx-auto mb-10 px-4 sm:px-0">
           {/* Mobile Left Arrow Cue */}
           {canScrollLeft && (
             <button
@@ -205,11 +205,11 @@ export default function CompanyProfileHub() {
 
           {/* Left Edge Fade Mask on scroll */}
           {canScrollLeft && (
-            <div className="pointer-events-none absolute left-0 sm:left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-[#060d07] to-transparent z-10 lg:hidden rounded-l-xl" />
+            <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-8 bg-linear-to-r from-[#060d07] to-transparent z-10 lg:hidden rounded-l-xl" />
           )}
           {/* Right Edge Fade Mask on scroll */}
           {canScrollRight && (
-            <div className="pointer-events-none absolute right-0 sm:right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-[#060d07] to-transparent z-10 lg:hidden rounded-r-xl" />
+            <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-8 bg-linear-to-l from-[#060d07] to-transparent z-10 lg:hidden rounded-r-xl" />
           )}
 
           {/* Native High-Performance Touch Scroll Container */}
