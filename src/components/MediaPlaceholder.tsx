@@ -119,44 +119,47 @@ export default function MediaPlaceholder({
       {/* Atmospheric Vignette */}
       <div className="absolute inset-0 bg-linear-to-t from-[#060d07] via-transparent to-[#060d07]/60 pointer-events-none" />
 
-      {/* Top Header Row with Archival Badge */}
-      <div className="relative z-10 p-4 sm:p-5 flex items-center justify-between">
-        <span className="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-[#060d07]/90 border border-white/10 text-[10px] font-mono font-semibold text-[#f6f7f4] tracking-wider uppercase">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#c5a059]" />
-          {badge}
-        </span>
-        <span className="text-[10px] font-mono text-[#9aa89b] tracking-wider uppercase hidden sm:inline-block">
-          {displayTag}
-        </span>
-      </div>
-
-      {/* Center Specimen Dossier Frame */}
-      <div className="relative z-10 flex flex-col items-center justify-center h-[calc(100%-84px)] px-6 text-center">
-        <div className="relative mb-3.5 flex items-center justify-center">
-          <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-lg border border-white/10 bg-[#060d07]/80 flex items-center justify-center group-hover:border-[#c5a059]/50 transition-colors duration-300">
-            <Icon
-              className="w-7 h-7 sm:w-8 sm:h-8 text-[#dfbe76] transition-transform duration-300 group-hover:scale-105"
-            />
-          </div>
+      {/* Content Layout Container (Pure in-flow Flexbox to prevent any collision) */}
+      <div className="relative z-10 flex flex-col justify-between h-full">
+        {/* Top Header Row with Archival Badge */}
+        <div className="p-3 sm:p-4 flex items-center justify-between shrink-0">
+          <span className="inline-flex items-center gap-1.5 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded bg-[#060d07]/90 border border-white/10 text-[10px] font-mono font-semibold text-[#f6f7f4] tracking-wider uppercase">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#c5a059]" />
+            {badge}
+          </span>
+          <span className="text-[10px] font-mono text-[#9aa89b] tracking-wider uppercase hidden sm:inline-block">
+            {displayTag}
+          </span>
         </div>
 
-        <h4 className="text-sm sm:text-base font-semibold font-heading text-[#f6f7f4] tracking-tight mb-1 leading-snug group-hover:text-[#dfbe76] transition-colors">
-          {displayTitle}
-        </h4>
-        <p className="text-xs text-[#9aa89b] max-w-sm leading-relaxed line-clamp-2">
-          {displaySub}
-        </p>
-      </div>
+        {/* Center Specimen Dossier Frame */}
+        <div className="flex-1 min-h-0 flex flex-col items-center justify-center px-4 py-1 text-center">
+          <div className="relative mb-2 flex items-center justify-center shrink-0">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg border border-white/10 bg-[#060d07]/80 flex items-center justify-center group-hover:border-[#c5a059]/50 transition-colors duration-300">
+              <Icon
+                className="w-5 h-5 sm:w-6 sm:h-6 text-[#dfbe76] transition-transform duration-300 group-hover:scale-105"
+              />
+            </div>
+          </div>
 
-      {/* Bottom Technical Spec Ledger */}
-      <div className="absolute bottom-0 left-0 right-0 z-10 bg-[#060d07]/95 border-t border-white/10 px-4 py-2 flex items-center justify-between text-[10px] font-mono">
-        <span className="text-[#9aa89b] truncate max-w-[70%]">{configs.meta}</span>
-        {showOverlayPrompt && (
-          <span className="text-[#c5a059] flex items-center gap-1 font-medium shrink-0">
-            <Camera className="w-3 h-3" />
-            <span className="hidden sm:inline">Archival Mount</span>
-          </span>
-        )}
+          <h4 className="text-xs sm:text-sm font-semibold font-heading text-[#f6f7f4] tracking-tight leading-snug group-hover:text-[#dfbe76] transition-colors truncate max-w-full px-2">
+            {displayTitle}
+          </h4>
+          <p className="text-[10px] sm:text-xs text-[#9aa89b] max-w-xs leading-relaxed truncate hidden sm:block mt-0.5">
+            {displaySub}
+          </p>
+        </div>
+
+        {/* Bottom Technical Spec Ledger */}
+        <div className="shrink-0 bg-[#060d07]/95 border-t border-white/10 px-3 py-1.5 sm:px-4 sm:py-2 flex items-center justify-between text-[10px] font-mono">
+          <span className="text-[#9aa89b] truncate max-w-[70%]">{configs.meta}</span>
+          {showOverlayPrompt && (
+            <span className="text-[#c5a059] flex items-center gap-1 font-medium shrink-0">
+              <Camera className="w-3 h-3" />
+              <span className="hidden sm:inline">Archival Mount</span>
+            </span>
+          )}
+        </div>
       </div>
     </div>
   );
