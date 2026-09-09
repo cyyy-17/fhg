@@ -53,7 +53,7 @@ export default function ProfileCredentialsTab() {
         </div>
         <Link
           href="#vault"
-          className="px-5 py-2.5 rounded-lg bg-linear-to-r from-[#f59e0b] to-[#d97706] hover:from-[#fbbf24] hover:to-[#f59e0b] text-[#050d07] text-xs font-semibold uppercase tracking-wider transition-all shrink-0 font-bold shadow-md"
+          className="px-5 py-2.5 rounded-lg bg-linear-to-r from-[#f59e0b] to-[#d97706] hover:from-[#fbbf24] hover:to-[#f59e0b] text-[#050d07] text-xs uppercase tracking-wider transition-all shrink-0 font-bold shadow-md"
         >
           Inspect Official Vault
         </Link>

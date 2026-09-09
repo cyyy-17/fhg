@@ -94,7 +94,7 @@ export default function ProfileSafetyTab() {
         <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0">
           <Link
             href="/contact"
-            className="px-5 py-2.5 rounded-lg font-semibold text-xs uppercase tracking-wider bg-linear-to-r from-[#f59e0b] to-[#d97706] hover:from-[#fbbf24] hover:to-[#f59e0b] text-[#050d07] shadow-md transition-all font-bold"
+            className="px-5 py-2.5 rounded-lg text-xs uppercase tracking-wider bg-linear-to-r from-[#f59e0b] to-[#d97706] hover:from-[#fbbf24] hover:to-[#f59e0b] text-[#050d07] shadow-md transition-all font-bold"
           >
             Request EHS Plan
           </Link>

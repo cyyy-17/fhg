@@ -75,7 +75,7 @@ export default function Hero() {
           <span className="text-white/20">|</span>
           <span>TALISAY, BATANGAS</span>
           <span className="text-white/20 hidden sm:inline">|</span>
-          <span className="text-[#f59e0b] font-medium hidden sm:inline font-semibold">WE DO IT RIGHT AND FAST</span>
+          <span className="text-[#f59e0b] hidden sm:inline font-semibold">WE DO IT RIGHT AND FAST</span>
           <span className="text-white/20 hidden md:inline">|</span>
           <span className="text-[#4ade80] hidden md:inline">PHILGEPS BLUE MEMBER</span>
         </motion.div>
@@ -151,7 +151,7 @@ export default function Hero() {
         >
           <Link
             href="/contact"
-            className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-lg font-semibold text-sm tracking-wide bg-linear-to-r from-[#f59e0b] to-[#d97706] hover:from-[#fbbf24] hover:to-[#f59e0b] text-[#050d07] shadow-lg shadow-black/40 hover:shadow-[0_0_25px_rgba(245,158,11,0.3)] transition-all font-bold"
+            className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-lg text-sm tracking-wide bg-linear-to-r from-[#f59e0b] to-[#d97706] hover:from-[#fbbf24] hover:to-[#f59e0b] text-[#050d07] shadow-lg shadow-black/40 hover:shadow-[0_0_25px_rgba(245,158,11,0.3)] transition-all font-bold"
           >
             <span>Request Tender RFP</span>
             <ArrowRight className="w-4 h-4" />
