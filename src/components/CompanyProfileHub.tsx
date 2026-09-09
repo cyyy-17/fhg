@@ -172,14 +172,14 @@ export default function CompanyProfileHub() {
         </motion.div>
 
         {/* Dynamic Hub Navigation Bar (5 Hub Tabs) */}
-        <div className="relative mb-10 -mx-6 px-6 sm:mx-0 sm:px-0">
+        <div className="relative flex justify-center mb-10 -mx-4 px-4 sm:mx-0 sm:px-0">
           {/* Mobile Left Arrow Cue */}
           {canScrollLeft && (
             <button
               type="button"
               onClick={() => scrollByAmount(-180)}
               aria-label="Scroll left tabs"
-              className="absolute left-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-[#0a150c] border border-white/10 text-[#dfbe76] flex items-center justify-center shadow-lg sm:hidden backdrop-blur-xs transition-all active:scale-95 cursor-pointer"
+              className="absolute left-1 sm:left-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-[#0a150c] border border-white/10 text-[#dfbe76] flex items-center justify-center shadow-lg sm:hidden backdrop-blur-xs transition-all active:scale-95 cursor-pointer"
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
@@ -191,7 +191,7 @@ export default function CompanyProfileHub() {
               type="button"
               onClick={() => scrollByAmount(180)}
               aria-label="Scroll right tabs"
-              className="absolute right-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-[#0a150c] border border-white/10 text-[#dfbe76] flex items-center justify-center shadow-lg sm:hidden backdrop-blur-xs transition-all active:scale-95 cursor-pointer"
+              className="absolute right-1 sm:right-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-[#0a150c] border border-white/10 text-[#dfbe76] flex items-center justify-center shadow-lg sm:hidden backdrop-blur-xs transition-all active:scale-95 cursor-pointer"
             >
               <ChevronRight className="w-4 h-4" />
             </button>
@@ -201,48 +201,46 @@ export default function CompanyProfileHub() {
           <div
             ref={scrollContainerRef}
             data-lenis-prevent="true"
-            className="flex items-center justify-start sm:justify-center overflow-x-auto pb-2 scrollbar-none no-scrollbar touch-pan-x overscroll-x-contain scroll-smooth"
+            className="inline-flex items-center p-1.5 rounded-xl bg-[#0a150c] border border-white/10 shadow-xl gap-1 max-w-full overflow-x-auto scrollbar-none no-scrollbar touch-pan-x overscroll-x-contain scroll-smooth"
             style={{
               WebkitOverflowScrolling: "touch",
               touchAction: "pan-x pan-y",
             }}
           >
-            <div className="inline-flex p-1.5 rounded-xl bg-[#0a150c] border border-white/10 shadow-xl gap-1 shrink-0">
-              {tabs.map((tab) => {
-                const Icon = tab.icon;
-                const isActive = activeTab === tab.key;
-                return (
-                  <button
-                    key={tab.key}
-                    ref={(el) => {
-                      tabRefs.current[tab.key] = el;
-                    }}
-                    type="button"
-                    onClick={() => setActiveTab(tab.key)}
-                    className={`flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-lg text-xs sm:text-sm font-semibold transition-all whitespace-nowrap shrink-0 cursor-pointer select-none ${
-                      isActive
-                        ? "bg-[#c5a059] text-[#060d07] shadow-md scale-100"
-                        : "text-[#9aa89b] hover:text-[#f6f7f4] hover:bg-white/5 active:bg-white/10"
-                    }`}
-                    style={{ touchAction: "manipulation" }}
-                  >
-                    <Icon className={`w-4 h-4 ${isActive ? "text-[#060d07]" : "text-[#c5a059]"}`} />
-                    <span>{tab.label}</span>
-                    {tab.badge && (
-                      <span
-                        className={`text-[10px] font-mono px-2 py-0.5 rounded font-medium uppercase tracking-wider ${
-                          isActive
-                            ? "bg-[#060d07] text-[#dfbe76]"
-                            : "bg-white/5 text-[#9aa89b]"
-                        }`}
-                      >
-                        {tab.badge}
-                      </span>
-                    )}
-                  </button>
-                );
-              })}
-            </div>
+            {tabs.map((tab) => {
+              const Icon = tab.icon;
+              const isActive = activeTab === tab.key;
+              return (
+                <button
+                  key={tab.key}
+                  ref={(el) => {
+                    tabRefs.current[tab.key] = el;
+                  }}
+                  type="button"
+                  onClick={() => setActiveTab(tab.key)}
+                  className={`flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-lg text-xs sm:text-sm font-semibold transition-all whitespace-nowrap shrink-0 cursor-pointer select-none ${
+                    isActive
+                      ? "bg-[#c5a059] text-[#060d07] shadow-md scale-100"
+                      : "text-[#9aa89b] hover:text-[#f6f7f4] hover:bg-white/5 active:bg-white/10"
+                  }`}
+                  style={{ touchAction: "manipulation" }}
+                >
+                  <Icon className={`w-4 h-4 ${isActive ? "text-[#060d07]" : "text-[#c5a059]"}`} />
+                  <span>{tab.label}</span>
+                  {tab.badge && (
+                    <span
+                      className={`text-[10px] font-mono px-2 py-0.5 rounded font-medium uppercase tracking-wider ${
+                        isActive
+                          ? "bg-[#060d07] text-[#dfbe76]"
+                          : "bg-white/5 text-[#9aa89b]"
+                      }`}
+                    >
+                      {tab.badge}
+                    </span>
+                  )}
+                </button>
+              );
+            })}
           </div>
         </div>
 
