@@ -10,11 +10,47 @@ export interface ProjectItem {
 
 export const projectsData: ProjectItem[] = [
   {
+    id: "giga-ace-6-isla-wind",
+    client: "Giga ACE 6, Inc. (AC Energy / Ayala)",
+    title: "Quezon North Wind Project (Isla Wind Farm)",
+    location: "Brgy. Pandan & Masicap, Real, Quezon; Brgy. Cagsiay III, Mauban; Pakil, Laguna",
+    scope: "Tree removal, GPS tree inventory & tagging, securing DENR cutting permits, and supply/delivery of compensatory seedling replacements for access roads, met mast, jetty port, batching plant, and temporary facilities. Conferred 3,000,000 Safe Manhours Without LTI.",
+    category: "infrastructure",
+    badge: "Completed"
+  },
+  {
+    id: "keyland-vermira",
+    client: "Keyland Corporation",
+    title: "Vermira Residential Subdivision Project",
+    location: "Brgy. Lumbang & Talisay, Lipa City, Batangas",
+    scope: "Tree removal, area clearing works, compensatory seedling turnover, and comprehensive civil landscaping works for major residential estate.",
+    category: "commercial",
+    badge: "Completed"
+  },
+  {
+    id: "mdc-alveo-caleia",
+    client: "Makati Development Corporation (Ayala Land)",
+    title: "Alveo Village 2 (Caleia) Vermosa Estate",
+    location: "Vermosa Boulevard, Imus, Cavite",
+    scope: "Tree cutting, specimen earthballing, root excavation, crane transit, and supply/delivery of statutory native seedling replacements for high-end residential community.",
+    category: "commercial",
+    badge: "Ongoing"
+  },
+  {
+    id: "mdc-sereneo-nuvali",
+    client: "Makati Development Corporation (Ayala Land)",
+    title: "Sereneo (Alveo 6) Nuvali Masterplanned Estate",
+    location: "Nuvali, Santa Rosa, Laguna",
+    scope: "Tree cutting, large-scale earthballing, root excavation, crane transit, specimen relocation, and delivery of acclimatized seedling replacements.",
+    category: "commercial",
+    badge: "Ongoing"
+  },
+  {
     id: "slex-tr4",
     client: "South Luzon Tollway Corp. / San Miguel Corp.",
     title: "SLEX Toll Road 4 (TR4) Expressway Extension",
-    location: "Makban to Tiaong & Candelaria, Quezon",
-    scope: "Extensive tree cutting, earthballing, right-of-way corridor clearing, tree inventory, and seedling replacement for Packages B, C, D, E, and F.",
+    location: "Makban to Tiaong & Candelaria, Quezon; Alaminos & Calamba, Laguna",
+    scope: "Extensive tree cutting, coconut palm felling under PCA permits, earthballing, right-of-way corridor clearing, and compensatory seedling replacement for Packages B, C, D, E, and F.",
     category: "infrastructure",
     badge: "Ongoing"
   },
@@ -22,270 +58,153 @@ export const projectsData: ProjectItem[] = [
     id: "subway-cp101",
     client: "EEI Corporation",
     title: "Metro Manila Subway Project (MMSP) CP101",
-    location: "Tandang Sora, Quirino Hwy, Ugong & Depot, Valenzuela / QC",
-    scope: "Tree cutting and earthballing works intended for subway stations demolition, tunnel shaft access, and depot facility establishment.",
+    location: "Valenzuela Depot, Tandang Sora, Quirino Hwy, Ugong & VMMC, Quezon City",
+    scope: "Tree cutting and earthballing works intended for subway station demolition, tunnel shaft access, and depot facility establishment.",
     category: "infrastructure",
     badge: "Ongoing"
   },
   {
-    id: "isla-wind",
-    client: "Isla Wind Power Project",
-    title: "Wind Farm Access Roads & Turbine Corridors",
-    location: "Quezon & Rizal Mountain Ranges",
-    scope: "Right-of-way clearing, earthballing, slope clearing, and forestry compliance along high-altitude wind turbine transmission access roads.",
+    id: "adhi-ptpp-railway",
+    client: "ADHI PTPP Joint Venture",
+    title: "Malolos-Clark Railway Project (MCRP) Package CP S-01",
+    location: "Solis to Blumentritt, Manila",
+    scope: "Tree cutting, mature specimen earthballing, railway right-of-way corridor clearing, and delivery of statutory seedling replacements along high-density urban rail alignment.",
     category: "infrastructure",
     badge: "Ongoing"
+  },
+  {
+    id: "candaba-3rd-viaduct",
+    client: "Leighton Contractors (Asia) Limited",
+    title: "Candaba Central Infill (3rd Viaduct) Expressway Project",
+    location: "Pulilan, Bulacan to Apalit, Pampanga",
+    scope: "Expressway embankment tree removal, water marsh vegetative buffer management, and turn-over of certified compensatory seedling replacement.",
+    category: "infrastructure",
+    badge: "Completed"
+  },
+  {
+    id: "smdc-calm-dawn",
+    client: "SM Development Corporation / Vancouver",
+    title: "Calm Residences & Dawn Residences Commercial Estates",
+    location: "Santa Rosa City, Laguna",
+    scope: "Pre-construction tree cutting, mature specimen earthballing, and site clearing works to give way for multi-building residential condominium communities.",
+    category: "commercial",
+    badge: "Completed"
+  },
+  {
+    id: "sm-prime-nationwide",
+    client: "SM Prime Holdings, Inc. / SMDC",
+    title: "Nationwide Mall Expansions & Commercial Complex Greening",
+    location: "Metro Manila, Cavite, Laguna, Batangas, Bulacan, Clark (24+ Malls & 27 Greening Contracts)",
+    scope: "Multi-site tree removal, earthballing, carpark expansions (SM Megamall, SM MOA, SM Southmall, SM Batangas, SM Trece Martires, SM Calamba, SM Clark), and corporate container plant supply.",
+    category: "commercial",
+    badge: "Completed"
+  },
+  {
+    id: "zambales-ngp-csd",
+    client: "DENR – PENRO Zambales",
+    title: "National Greening Program (NGP) Comprehensive Site Development",
+    location: "Sitio Ulpoy, Iba (757 ha) & Susong Dalaga, Sta. Cruz, Zambales (1,870 ha)",
+    scope: "2,627 hectares Comprehensive Site Development (CSD) encompassing indigenous seedling propagation, contour plantation establishment, 3-year firebreak maintenance, and forest protection (Awarded Best NGP Site 2015).",
+    category: "reforestation",
+    badge: "Completed"
+  },
+  {
+    id: "mdc-areza-lipa",
+    client: "Ayala Land Estates, Inc. / MDC",
+    title: "Areza Commercial & Institutional Estate Phase 1 & 2",
+    location: "Brgy. Bulacnin, Lipa City, Batangas",
+    scope: "Tree removal, mature specimen earthballing, site clearing, and compensatory forest tree replacement delivery for new Batangas commercial center.",
+    category: "commercial",
+    badge: "Completed"
+  },
+  {
+    id: "mdc-centrala-pampanga",
+    client: "Makati Development Corporation",
+    title: "Centrala Commercial Land Development Estate",
+    location: "Brgy. Miming, Angeles City, Pampanga",
+    scope: "Pre-development tree cutting, site clearing, temporary nursery establishment, and supply/delivery of replacement seedlings.",
+    category: "commercial",
+    badge: "Ongoing"
+  },
+  {
+    id: "prime-metro-bmd",
+    client: "Prime Metro BMD Corporation",
+    title: "Isla Wind Farm & Wawa Tayabasan Civil Clearing",
+    location: "Real & Mauban, Quezon; Wawa Tayabasan, Antipolo, Rizal",
+    scope: "Heavy tree cutting and earthballing for jetty port, batching plant, temporary facilities, and water infrastructure corridors.",
+    category: "infrastructure",
+    badge: "Completed"
   },
   {
     id: "nlex-slex-connector",
     client: "NLEX Corporation",
-    title: "NLEX-SLEX Connector Road Project (Section 2)",
-    location: "España Blvd. to Sta. Mesa, Manila",
+    title: "NLEX-SLEX Connector Road (Section 1 & 2)",
+    location: "C-3 Caloocan Interchange to PUP Sta. Mesa, Manila",
     scope: "Controlled sectional tree dismantling along active PNR railway corridor, utility relocation coordination, and zero-damage felling.",
     category: "infrastructure",
     badge: "Completed"
   },
   {
-    id: "mdc-nuvali",
-    client: "Makati Development Corporation (Ayala Land)",
-    title: "Nuvali Commercial & Residential Developments",
-    location: "Santa Rosa & Calamba, Laguna",
-    scope: "Heritage tree earthballing, root excavation, crane transit, specimen relocation, and estate perimeter landscaping across multiple sectors.",
-    category: "commercial",
+    id: "shimizu-lrt1-subway",
+    client: "Shimizu Corporation / Shimizu-Fujita-Takenaka-EEI JV",
+    title: "LRT Line 1 Cavite Extension & Subway Joint Venture",
+    location: "LRTA Compound, Pasay City & Metro Manila Alignments",
+    scope: "Urban tree cutting, earthballing, and root-conditioning for LRT-1 Cavite Extension and subway station packages.",
+    category: "infrastructure",
     badge: "Completed"
   },
   {
-    id: "smdc-residences",
-    client: "SM Prime Holdings / SMDC",
-    title: "Multi-Site High-Rise Residential Estates",
-    location: "Metro Manila, Cavite & Tagaytay",
-    scope: "Pre-construction tree cutting permits, mature specimen earthballing, compensatory sapling delivery, and corporate ground development for 27+ projects.",
-    category: "commercial",
+    id: "bouygues-lrt1",
+    client: "Bouygues Travaux Publics Philippines, Inc.",
+    title: "LRT Line 1 Cavite Extension Corridor (Package 1)",
+    location: "Baclaran Station to Dr. A. Santos Ave., Parañaque & Las Piñas City",
+    scope: "Corridor tree cutting, specimen earthballing, and root-conditioning along elevated guideway right-of-way.",
+    category: "infrastructure",
     badge: "Completed"
   },
   {
-    id: "zambales-ngp",
-    client: "DENR / PENRO Zambales",
-    title: "National Greening Program (NGP) Watershed Reforestation",
-    location: "Zambales Mountain Range Corridor",
-    scope: "Comprehensive plantation establishment, 2,627-hectare indigenous seedling propagation, contour planting, and 3-year firebreak maintenance.",
+    id: "sta-clara-nscr",
+    client: "Sta. Clara International Corporation",
+    title: "NSCR Railway Corridor & Manila Water Treatment Plant",
+    location: "Tutuban to Malolos, Bulacan & Cardona, Rizal",
+    scope: "Supply of specialized labor, tools, and heavy chainsaws for coconut and fruit-bearing tree clearing; spillway and water facility greening.",
+    category: "infrastructure",
+    badge: "Completed"
+  },
+  {
+    id: "bcda-lawton-widening",
+    client: "Northern Builders / BCDA",
+    title: "Lawton Avenue Widening Project (Phase 1 & Phase 2)",
+    location: "5th Avenue to Bayani Road Junction, Taguig City",
+    scope: "Urban tree cutting, mechanical tree earthballing, and root-ball extraction for major arterial avenue expansion.",
+    category: "infrastructure",
+    badge: "Completed"
+  },
+  {
+    id: "dmci-skyway-stage3",
+    client: "D.M. Consunji, Inc. (DMCI)",
+    title: "Metro Manila Skyway Stage 3 & Stage 2 Connectors",
+    location: "Buendia, Makati to Balintawak, Quezon City & Las Piñas",
+    scope: "Controlled sectional tree removal, nighttime crane rigging near elevated highway structures, and median tree relocation.",
+    category: "infrastructure",
+    badge: "Completed"
+  },
+  {
+    id: "dbp-watershed-forest",
+    client: "Development Bank of the Philippines (DBP Forest Program)",
+    title: "Provincial Watershed Preservation & Agro-Forestry",
+    location: "Baler, Aurora; Marinduque; Nueva Vizcaya; Batangas",
+    scope: "Watershed reforestation, supply and delivery of high-grade forest saplings, fruit trees, and continuous plantation nurturing under DBP Accreditation No. 11-2005.",
     category: "reforestation",
     badge: "Completed"
   },
   {
-    id: "candaba-viaduct",
-    client: "NLEX Corporation / Leighton Contractors",
-    title: "Candaba 3rd Viaduct Expansion Project",
-    location: "Pulilan, Bulacan to Apalit, Pampanga",
-    scope: "Precision tree removal along expressway embankment, water marsh buffer tree management, and compensatory native sapling turn-over.",
-    category: "infrastructure",
-    badge: "Completed"
-  },
-  {
-    id: "dmci-skyway",
-    client: "D.M. Consunji, Inc. (DMCI)",
-    title: "Metro Manila Skyway Stage 3 Connector",
-    location: "Buendia, Makati to Balintawak, Quezon City",
-    scope: "Urban corridor clearance, sectional crane tree cutting near elevated flyovers, and arterial road median tree transplantation.",
-    category: "infrastructure",
-    badge: "Completed"
-  },
-  {
-    id: "first-balfour-lrt1",
-    client: "First Balfour / Bouygues Travaux Publics",
-    title: "LRT-1 Cavite Extension Project (Package 1)",
-    location: "Parañaque, Las Piñas to Bacoor, Cavite",
-    scope: "Tree cutting and relocation along Manila-Cavite alignment, DENR STCP permit management, and compensatory stock delivery.",
-    category: "infrastructure",
-    badge: "Completed"
-  },
-  {
-    id: "vermoza-ayala",
-    client: "Makati Development Corporation (Ayala Land)",
-    title: "Vermosa Mixed-Use Estate Development",
-    location: "Imus & Dasmariñas, Cavite",
-    scope: "Large-scale tree census, earthballing of mature mango and acacia trees, and landscape propagation setup across central boulevards.",
-    category: "commercial",
-    badge: "Completed"
-  },
-  {
-    id: "sm-city-trece",
-    client: "SM Prime Holdings",
-    title: "SM City Trece Martires Commercial Center",
-    location: "Trece Martires City, Cavite",
-    scope: "Site clearing, commercial tree removal, green belt landscape tree planting, and nursery container plant supply.",
-    category: "commercial",
-    badge: "Completed"
-  },
-  {
-    id: "laguna-lake-highway",
-    client: "DPWH Region IV-A",
-    title: "Laguna Lake Highway Green Corridor",
-    location: "Taguig City to Taytay, Rizal",
-    scope: "Floodway dike tree management, shoreline vegetative buffer planting, and PCA coconut palm clearance.",
-    category: "infrastructure",
-    badge: "Completed"
-  },
-  {
-    id: "smdc-wind-tagaytay",
-    client: "SM Development Corporation",
-    title: "Wind Residences & Highlands Estates",
-    location: "Tagaytay City, Cavite",
-    scope: "Cold-climate pine and ornamental tree earthballing, slope retaining greening, and perimeter landscape installation.",
-    category: "commercial",
-    badge: "Completed"
-  },
-  {
-    id: "centrala-ayala",
-    client: "Makati Development Corporation",
-    title: "Centrala Commercial Estate Development",
-    location: "San Fernando, Pampanga",
-    scope: "Pre-development tree inventory, site tree earthballing, temporary nursery maintenance, and replanting into main park boulevards.",
-    category: "commercial",
-    badge: "Ongoing"
-  },
-  {
-    id: "cavite-tagaytay-calamba",
-    client: "San Miguel Infrastructure",
-    title: "Cavite-Tagaytay-Batangas Expressway (CTBEX)",
-    location: "Silang, Cavite to Nasugbu, Batangas",
-    scope: "Right-of-way felling, PCA coconut clearing, coffee plantation salvaging, and statutory CENRO compliance processing.",
-    category: "infrastructure",
-    badge: "Ongoing"
-  },
-  {
-    id: "marikina-watershed",
-    client: "DENR EMB / River Basin Control Office",
+    id: "marikina-watershed-denr",
+    client: "DENR / River Basin Control Office",
     title: "Upper Marikina River Basin Protected Landscape",
     location: "Antipolo & Baras, Rizal",
-    scope: "Plantation establishment of 120,000 indigenous hardwood seedlings (Narra, Kupang, Tindalo) with post-planting nurturing.",
+    scope: "Plantation establishment of indigenous hardwood seedlings (Narra, Kupang, Tindalo) with post-planting nurturing across protected river basins.",
     category: "reforestation",
     badge: "Completed"
-  },
-  {
-    id: "arca-south",
-    client: "Makati Development Corporation",
-    title: "ARCA South Mixed-Use Transit Hub",
-    location: "FTI Complex, Taguig City",
-    scope: "Urban tree transplanting, root pruning, hydraulic crane rigging, and sustainable landscape tree preservation.",
-    category: "commercial",
-    badge: "Completed"
-  },
-  {
-    id: "calax-connector",
-    client: "DMCI / Metro Pacific Tollways",
-    title: "Cavite-Laguna Expressway (CALAX) Interchanges",
-    location: "Santa Rosa to Kawit, Cavite",
-    scope: "Precision tree cutting near high-tension pylons, interchange embankment landscaping, and compensatory seedling supply.",
-    category: "infrastructure",
-    badge: "Completed"
-  },
-  {
-    id: "batangas-solar-farm",
-    client: "CleanTech Global Renewables",
-    title: "50MW Calatagan Solar Farm Corridor",
-    location: "Calatagan & Balayan, Batangas",
-    scope: "Solar field shading tree felling, shrub clearing, boundary vegetative buffer planting, and soil condition treatments.",
-    category: "infrastructure",
-    badge: "Completed"
-  },
-  {
-    id: "sm-city-batangas",
-    client: "SM Prime Holdings",
-    title: "SM City Batangas Expansion & Complex",
-    location: "Batangas City, Batangas",
-    scope: "Carpark expansion tree earthballing, roadside landscape felling, and decorative plant box delivery.",
-    category: "commercial",
-    badge: "Completed"
-  },
-  {
-    id: "pantabangan-watershed",
-    client: "National Irrigation Administration / DENR",
-    title: "Pantabangan-Carranglan Watershed Reforestation",
-    location: "Nueva Ecija",
-    scope: "Erosion prevention reforestation, 45,000 bamboo culm and native tree planting along critical reservoir feeder tributaries.",
-    category: "reforestation",
-    badge: "Completed"
-  },
-  {
-    id: "actex-expansion",
-    client: "SMC SLEX Inc.",
-    title: "Alabang-Calamba-Sto. Tomas Expressway (ACTEX) Widening",
-    location: "Biñan to Calamba, Laguna",
-    scope: "Median barrier tree clearing, nighttime emergency chainsaw felling, and traffic-controlled right-of-way management.",
-    category: "infrastructure",
-    badge: "Ongoing"
-  },
-  {
-    id: "nuvali-solenad",
-    client: "Ayala Malls / MDC",
-    title: "Solenad Lakeside Commercial Park",
-    location: "Nuvali, Santa Rosa, Laguna",
-    scope: "Specimen weeping willow and acacia earthballing, lake-edge turfing, and ornamental shrub installation.",
-    category: "commercial",
-    badge: "Completed"
-  },
-  {
-    id: "sierra-madre-ngp",
-    client: "DENR CENRO Real / Infanta",
-    title: "Southern Sierra Madre Forest Corridor Recovery",
-    location: "Real & General Nakar, Quezon",
-    scope: "Community-partnered reforestation, 80 hectares of native Dipterocarp seedling planting, and forest protection patrols.",
-    category: "reforestation",
-    badge: "Completed"
-  },
-  {
-    id: "pnr-clark-phase1",
-    client: "Taisei-DMCI Joint Venture",
-    title: "North-South Commuter Railway (NSCR) PNR Clark",
-    location: "Tutuban, Manila to Malolos, Bulacan",
-    scope: "Railway right-of-way clearing, commercial tree removal, PCA coconut tree permits, and tree inventory census.",
-    category: "infrastructure",
-    badge: "Ongoing"
-  },
-  {
-    id: "sm-fairview-tower",
-    client: "SM Prime Holdings",
-    title: "SM City Fairview Towers & BPO Hub",
-    location: "Novaliches, Quezon City",
-    scope: "Site preparatory tree earthballing, rooftop container tree installation, and premium garden loam delivery.",
-    category: "commercial",
-    badge: "Completed"
-  },
-  {
-    id: "tarlac-pangasinan-tpex",
-    client: "San Miguel Holdings",
-    title: "TPLEX Binalonan to Rosario Tollway Section",
-    location: "Pangasinan to La Union Border",
-    scope: "Interchange tree clearing, slope hydroseeding preparation, and compensatory planting along tollway perimeter.",
-    category: "infrastructure",
-    badge: "Completed"
-  },
-  {
-    id: "angono-quarry-rehab",
-    client: "LafargeHolcim / Republic Cement",
-    title: "Quarry Perimeter Greening & Buffer Zone",
-    location: "Angono & Teresa, Rizal",
-    scope: "Industrial quarry slope bio-engineering, vetiver grass planting, and fast-growing forest tree canopy setup.",
-    category: "reforestation",
-    badge: "Completed"
-  },
-  {
-    id: "ayala-alviera",
-    client: "Makati Development Corporation",
-    title: "Alviera Mixed-Use Estate Corridor",
-    location: "Porac, Pampanga",
-    scope: "Pre-grading tree assessment, specimen acacia earthballing, estate nursery propagation, and golf course buffer planting.",
-    category: "commercial",
-    badge: "Ongoing"
-  },
-  {
-    id: "slex-tr5-lucena",
-    client: "San Miguel Infrastructure",
-    title: "SLEX Toll Road 5 (TR5) Alignment Scouting",
-    location: "Lucena City to Matnog, Sorsogon",
-    scope: "Initial arboricultural alignment census, preliminary tree density survey, and environmental clearance planning.",
-    category: "infrastructure",
-    badge: "Ongoing"
   }
 ];

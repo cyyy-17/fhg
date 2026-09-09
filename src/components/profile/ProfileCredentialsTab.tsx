@@ -60,7 +60,7 @@ export default function ProfileCredentialsTab() {
       </div>
 
       <p className="text-[11px] font-mono text-[#9aa89b]/70 italic text-center">
-        *Heavy chainsaw fleet operated strictly pursuant to RA 9175 under authorized DENR/CENRO cutting permits. All business permits and statutory registrations subject to regular regulatory renewal.
+        *Heavy chainsaw fleet of 90 registered units operated strictly pursuant to RA 9175 under authorized DENR-CENRO Lipa cutting permits with authority to operate in projects outside its jurisdiction. All statutory registrations subject to regular regulatory renewal.
       </p>
     </div>
   );

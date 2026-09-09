@@ -151,8 +151,8 @@ export default function ProcurementEstimatorTab() {
               <option value="Tree Earthballing & Relocation" className="bg-[#0a150c]">
                 Tree Earthballing &amp; Relocation
               </option>
-              <option value="Certified Chainsaw Tree Cutting (89 Units)" className="bg-[#0a150c]">
-                Chainsaw Tree Cutting (89 Saws)
+              <option value="Certified Chainsaw Tree Cutting (90 Units)" className="bg-[#0a150c]">
+                Chainsaw Tree Cutting (90 Saws)
               </option>
               <option value="PCA Coconut Tree Cutting & Trading" className="bg-[#0a150c]">
                 PCA Coconut Tree Removal
@@ -411,8 +411,8 @@ export default function ProcurementEstimatorTab() {
                         <body>
                           <div class="header">
                             <h1>FOREST HILLS GARDEN</h1>
-                            <div class="sub">Industrial Tree Earthballing, Precision Chainsaw Felling &amp; Twin Batangas Nurseries • Est. 1998</div>
-                            <div class="sub">Sitio Sto. Niño, Banga, Talisay, Batangas • DTI Reg. 1729753 • PhilGEPS 2005-23340</div>
+                            <div class="sub">Industrial Tree Earthballing, Precision Chainsaw Felling &amp; Batangas Plant Nurseries • Est. 1998</div>
+                            <div class="sub">Sitio Sto. Niño, Banga, Talisay, Batangas • DTI Reg. 1729753 (Valid to 2030) • PhilGEPS 2005-23340</div>
                           </div>
                           <div class="box">${compiledRfpDossier.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</div>
                           <div class="footer">

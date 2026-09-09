@@ -10,7 +10,7 @@ import { ChevronRight, ArrowRight, Phone } from "lucide-react";
 export const metadata: Metadata = {
   title: "Industrial Tree Services, Earthballing & Chainsaw Felling | Forest Hills Garden",
   description:
-    "Expert tree earthballing, 89-chainsaw precision tree cutting, PCA permitted coconut removal, tree inventory & GPS tagging, and DENR compliance across Luzon.",
+    "Expert tree earthballing, 90-chainsaw precision tree cutting, PCA permitted coconut removal, tree inventory & GPS tagging, and DENR compliance across Luzon.",
   keywords: [
     "tree earthballing Philippines",
     "chainsaw tree cutting contractor",
@@ -76,7 +76,7 @@ export default function ServicesPage() {
       },
       {
         "@type": "Service",
-        name: "Certified Chainsaw Tree Cutting (89 Fleet)",
+        name: "Certified Chainsaw Tree Cutting (90 Fleet)",
         provider: {
           "@type": "HomeAndConstructionBusiness",
           name: "Forest Hills Garden",
@@ -84,7 +84,7 @@ export default function ServicesPage() {
         },
         areaServed: ["Metro Manila", "Calabarzon", "Central Luzon"],
         description:
-          "Sectional dismantle of hazardous or infrastructure-obstructing trees using 89 registered heavy chainsaws with zero-damage track record.",
+          "Sectional dismantle of hazardous or infrastructure-obstructing trees using 90 registered heavy chainsaws with zero-damage track record.",
       },
       {
         "@type": "Service",

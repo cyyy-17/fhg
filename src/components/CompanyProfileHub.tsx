@@ -133,9 +133,9 @@ export default function CompanyProfileHub() {
   const tabs: { key: TabKey; label: string; icon: typeof Building2; badge?: string }[] = [
     { key: "overview", label: "Executive Overview", icon: Building2 },
     { key: "timeline", label: "Historical Milestones", icon: Calendar, badge: "1998–2026" },
-    { key: "credentials", label: "Statutory Credentials", icon: Award, badge: "89 Units" },
+    { key: "credentials", label: "Statutory Credentials", icon: Award, badge: "90 Units" },
     { key: "protocol", label: "Turnkey Protocol", icon: ClipboardList, badge: "4 Phases" },
-    { key: "safety", label: "Safety & Warranty", icon: ShieldCheck, badge: "1.24M Hrs" },
+    { key: "safety", label: "Safety & Warranty", icon: ShieldCheck, badge: "3M Hrs" },
   ];
 
   return (

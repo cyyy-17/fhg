@@ -231,7 +231,7 @@ export default function RootLayout({
               "@type": "Offer",
               itemOffered: {
                 "@type": "Service",
-                name: "Certified Chainsaw Tree Cutting (89 Fleet)",
+                name: "Certified Chainsaw Tree Cutting (90 Fleet)",
                 description: "DENR and PCA registered controlled sectional felling for expressway and railway right-of-way.",
               },
             },
@@ -239,7 +239,7 @@ export default function RootLayout({
               "@type": "Offer",
               itemOffered: {
                 "@type": "Service",
-                name: "Twin Plant Nursery Seedling Supply",
+                name: "Batangas Plant Nursery Seedling Supply",
                 description: "150,000+ native forest saplings and compensatory planting stocks across Talisay, Batangas facilities.",
               },
             },
@@ -304,7 +304,7 @@ export default function RootLayout({
           },
           {
             "@type": "Question",
-            name: "How fast can your 89-chainsaw fleet and heavy crane machinery mobilize?",
+            name: "How fast can your 90-chainsaw fleet and heavy crane machinery mobilize?",
             acceptedAnswer: {
               "@type": "Answer",
               text: "For projects across Metro Manila, Batangas, Laguna, Cavite, and Rizal, crews mobilize within 48 to 72 hours following Notice to Proceed and permit verification."
@@ -315,7 +315,7 @@ export default function RootLayout({
             name: "What are your tree survival warranty terms for commercial earthballing?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "We provide a 12-Month Post-Transplantation Warranty with a 98.7% survival rate. Should a transplanted tree fail due to shock, Forest Hills Garden provides 100% free specimen replacement from twin Batangas nursery reserves."
+              text: "We provide a 12-Month Post-Transplantation Warranty with a 98.7% survival rate. Should a transplanted tree fail due to shock, Forest Hills Garden provides 100% free specimen replacement from Batangas nursery reserves."
             }
           },
           {

@@ -53,7 +53,7 @@ const navItems: NavItem[] = [
     subItems: [
       { label: "All Services Overview", href: "/services" },
       { label: "Tree Earthballing", href: "/services#earthballing", badge: "98.7% Survival" },
-      { label: "Chainsaw Felling", href: "/services#tree-cutting", badge: "89 Units" },
+      { label: "Chainsaw Felling", href: "/services#tree-cutting", badge: "90 Units" },
       { label: "PCA Coconut Felling", href: "/services#pca-cutting" },
       { label: "Tree Census & GPS", href: "/services#tree-inventory" },
       { label: "Commercial Greening", href: "/services#commercial-landscaping" },
@@ -65,7 +65,7 @@ const navItems: NavItem[] = [
     subItems: [
       { label: "Signature Projects", href: "/projects#projects", badge: "Verified" },
       { label: "Before / After Proof", href: "/projects#proof" },
-      { label: "Heavy Fleet (89 Chainsaws)", href: "/projects#fleet", badge: "89 Units" },
+      { label: "Heavy Fleet (90 Chainsaws)", href: "/projects#fleet", badge: "90 Units" },
       { label: "Client Trust Wall", href: "/projects#clients" },
     ],
   },
@@ -73,7 +73,7 @@ const navItems: NavItem[] = [
     label: "Nurseries",
     href: "/nurseries",
     subItems: [
-      { label: "Twin Batangas Facilities", href: "/nurseries#nurseries", badge: "150K+" },
+      { label: "Batangas Nursery Facilities", href: "/nurseries#nurseries", badge: "150K+" },
       { label: "Live Species Catalog", href: "/nurseries#catalog" },
     ],
   },

@@ -136,7 +136,7 @@ export default function TermsPage() {
               By accessing or using this website, submitting an inquiry, or downloading compliance credentials, you agree to be bound by these Terms of Use in compliance with Republic Act No. 8792 (Electronic Commerce Act of 2000) and Republic Act No. 11967 (Internet Transactions Act of 2023).
             </p>
             <p className="text-sm text-[#9aa89b] leading-relaxed">
-              Forest Hills Garden (&ldquo;FHG&rdquo;) is a duly registered sole proprietorship under Philippine law (DTI Certificate No. 1729753, PhilGEPS Reg. No. 2005-23340), owned and operated by {companyData.manager}, with principal address at {companyData.headOffice.address}.
+              Forest Hills Garden (&ldquo;FHG&rdquo;) is a duly registered sole proprietorship under Philippine law (DTI Certificate No. 1729753, valid until May 28, 2030; PhilGEPS Reg. No. PhilGEPS-2005-23340; BIR OCN 059RC20230000016326), owned and operated by {companyData.manager}, in transition of corporate ownership to Forest Hills Ventures Incorporated (SEC Reg. No. 2023060103408-45), with principal address at {companyData.headOffice.address}.
             </p>
           </section>
 
@@ -186,9 +186,9 @@ export default function TermsPage() {
                 </p>
               </div>
               <div className="p-4 rounded-xl bg-[#060d07]/60 border border-white/8">
-                <strong className="text-[#f6f7f4] block mb-1">1,240,000+ Safe Man-Hours without Lost-Time Accident</strong>
+                <strong className="text-[#f6f7f4] block mb-1">3,000,000 Safe Man-Hours without Lost-Time Incident (LTI)</strong>
                 <p className="text-[#9aa89b]">
-                  Reflects accumulated field operational hours without lost-time injuries (LTI), monitored pursuant to Department of Labor and Employment (DOLE) Department Order No. 198-18 and Construction Occupational Safety and Health (COSH) guidelines.
+                  Reflects accumulated field operational hours without lost-time incidents (LTI), culminating in the Plaque of Special Recognition conferred on January 21, 2026 by Giga ACE 6, Inc. for the Quezon North Wind Project, monitored pursuant to Department of Labor and Employment (DOLE) Construction Occupational Safety and Health (COSH) guidelines (DO 198-18).
                 </p>
               </div>
               <div className="p-4 rounded-xl bg-[#060d07]/60 border border-white/8">
@@ -217,7 +217,7 @@ export default function TermsPage() {
                   Warranty Inclusions
                 </span>
                 <ul className="list-disc list-inside text-xs text-[#9aa89b] space-y-1.5">
-                  <li>100% free specimen replacement from our twin Batangas nursery facilities upon verified death caused by transplant root shock.</li>
+                  <li>100% free specimen replacement from our Batangas nursery facilities upon verified death caused by transplant root shock.</li>
                   <li>Bi-weekly post-transplant monitoring and hormone stimulation during the initial 180-day establishment window.</li>
                   <li>Equally sized or caliper-equivalent acclimatized replacement sapling/specimen.</li>
                 </ul>
@@ -245,7 +245,7 @@ export default function TermsPage() {
               </h2>
             </div>
             <p className="text-sm text-[#9aa89b] leading-relaxed">
-              All 89 units comprising our industrial chainsaw and heavy felling fleet are registered and operated strictly in compliance with Republic Act No. 9175 (The Chainsaw Act of 2002) and relevant Department of Environment and Natural Resources (DENR) Administrative Orders.
+              All 90 units comprising our industrial chainsaw and heavy felling fleet are registered with DENR-CENRO Lipa (with authority to operate outside jurisdiction) and operated strictly in compliance with Republic Act No. 9175 (The Chainsaw Act of 2002) and relevant Department of Environment and Natural Resources (DENR) Administrative Orders.
             </p>
             <p className="text-sm text-[#9aa89b] leading-relaxed">
               Forest Hills Garden does NOT sell, distribute, or import power saws to the public. Our fleet is deployed exclusively by trained, DOLE-certified tree fellers holding valid tree cutting permits issued by CENRO/PENRO/DENR or the Philippine Coconut Authority (PCA).
@@ -327,7 +327,7 @@ export default function TermsPage() {
               </h2>
             </div>
             <p className="text-sm text-[#9aa89b] leading-relaxed">
-              Our twin botanical propagation facilities (Tumaway and Aya) and primary dispatch hub are situated in Talisay, Batangas, in geographic proximity to Taal Volcano. Pursuant to Republic Act No. 10121 (Philippine Disaster Risk Reduction and Management Act of 2010):
+              Our botanical propagation facilities (Sitio Latag, Tumaway, and Aya) and primary dispatch hub are situated in Talisay, Batangas, in geographic proximity to Taal Volcano. Pursuant to Republic Act No. 10121 (Philippine Disaster Risk Reduction and Management Act of 2010):
             </p>
             <ul className="list-disc list-inside space-y-2 text-xs sm:text-sm text-[#9aa89b] pl-2">
               <li><strong className="text-[#f6f7f4]">Nursery Stock Safeguards:</strong> Active ashfall-washdown systems and protective greenhouse shade structures protect our compensatory sapling buffer stocks during volcanic unrest.</li>

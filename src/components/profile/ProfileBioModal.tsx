@@ -52,16 +52,16 @@ export default function ProfileBioModal({ isOpen, onClose, mounted }: ProfileBio
             <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-[#dfbe76] mb-2">
               <span>Founder Memorial Tribute</span>
               <span className="text-white/20">•</span>
-              <span>June 10, 1998</span>
+              <span>June 10, 1998 – April 24, 2015</span>
             </div>
             <h4 className="text-lg sm:text-xl font-bold font-heading text-[#f6f7f4] mb-2">
-              Mr. Edwin G. Luna (1971–2021)
+              Mr. Edwin G. Luna
             </h4>
             <p className="mb-3">
-              Founded Forest Hills Garden on June 10, 1998 in Talisay, Batangas with a clear charter: provide rapid, high-discipline earthballing and specialized heavy chainsaw felling for emerging developments.
+              Founded and led Forest Hills Garden from June 10, 1998 until he passed away on April 24, 2015 in Talisay, Batangas. Under his leadership, the firm established its foundational capabilities in tree earthballing, chainsaw felling, and nursery propagation across Luzon.
             </p>
             <p className="text-xs text-[#9aa89b]/80 italic">
-              His technical discipline in precision felling and root-conditioning lives on in every crew mobilized across Luzon.
+              His enduring corporate creed — &ldquo;We Do It Right and Fast&rdquo; — remains the company&apos;s guiding operational principle.
             </p>
           </div>
 
@@ -69,15 +69,17 @@ export default function ProfileBioModal({ isOpen, onClose, mounted }: ProfileBio
           <div className="p-6 rounded-xl bg-[#060d07] border border-white/10">
             <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-[#c5a059] mb-2">
               <span>Proprietress &amp; General Manager</span>
+              <span className="text-white/20">•</span>
+              <span>May 7, 2015 – Present</span>
             </div>
             <h4 className="text-lg sm:text-xl font-bold font-heading text-[#f6f7f4] mb-2">
-              Ms. Marife B. Luna
+              Mrs. Marife B. Luna
             </h4>
             <p className="mb-3">
-              Under Ms. Marife B. Luna&apos;s decisive executive stewardship, Forest Hills Garden transitioned into mega-scale infrastructure right-of-way concessions. She steered major contracts for San Miguel Corporation (SLEX TR4, CALAX) and EEI Corporation (Metro Manila Subway CP101).
+              Taking over executive management on May 7, 2015, Mrs. Marife B. Luna expanded Forest Hills Garden into major infrastructure rights-of-way concessions, high-voltage renewable corridors, and rail alignments. She steered flagship contracts for Giga ACE 6 (Quezon North Wind), San Miguel Corporation (SLEX TR4), Ayala Land (Vermosa &amp; Nuvali), and EEI Corporation (Subway CP101).
             </p>
-            <p>
-              She maintains direct executive oversight over the 89-unit chainsaw fleet, DTI/PhilGEPS procurement standing, and twin propagation nurseries.
+            <p className="mb-3">
+              She maintains direct executive oversight over the 90-unit DENR-registered chainsaw fleet, PCA certifications, three Batangas propagation facilities, and the ongoing corporate transition to <strong className="text-[#f6f7f4]">Forest Hills Ventures Incorporated</strong> (SEC Reg. No. 2023060103408-45).
             </p>
           </div>
 
@@ -85,10 +87,10 @@ export default function ProfileBioModal({ isOpen, onClose, mounted }: ProfileBio
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
             <div className="p-4 rounded-lg bg-[#060d07] border border-white/10">
               <h5 className="font-mono text-xs uppercase tracking-wider text-[#dfbe76] mb-1">
-                Direct Owner Accountability
+                Direct Executive Accountability
               </h5>
               <p className="text-xs text-[#9aa89b]">
-                Clients interface directly with executive leadership for rapid decision-making on emergency felling and critical path project milestones.
+                Clients interface directly with executive leadership for rapid decision-making on emergency felling, storm response, and critical path project milestones.
               </p>
             </div>
             <div className="p-4 rounded-lg bg-[#060d07] border border-white/10">
@@ -96,7 +98,7 @@ export default function ProfileBioModal({ isOpen, onClose, mounted }: ProfileBio
                 Statutory Zero-Infraction
               </h5>
               <p className="text-xs text-[#9aa89b]">
-                Zero stop-work orders, zero environmental penalties, and 100% full compliance with DENR, PCA, and DOLE standards across 28+ years.
+                Zero stop-work orders, zero environmental penalties, and 100% compliance across DENR, PCA, DPWH, and DOLE audits across 28+ years of contracting history.
               </p>
             </div>
           </div>
@@ -105,7 +107,7 @@ export default function ProfileBioModal({ isOpen, onClose, mounted }: ProfileBio
         {/* Modal Footer */}
         <div className="mt-8 pt-4 border-t border-white/10 flex items-center justify-between">
           <span className="text-xs font-mono text-[#9aa89b]">
-            DTI Certificate: 1729753
+            DTI Certificate: 1729753 (Valid to May 28, 2030)
           </span>
           <button
             onClick={onClose}

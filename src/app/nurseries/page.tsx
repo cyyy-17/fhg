@@ -9,7 +9,7 @@ import { ChevronRight, ArrowRight, Phone } from "lucide-react";
 export const metadata: Metadata = {
   title: "Plant Nursery Talisay Batangas | 150,000+ Native Seedlings | Forest Hills Garden",
   description:
-    "Twin production facilities in Brgy. Tumaway & Brgy. Aya, Talisay, Batangas. Supplying 150,000+ indigenous forest saplings, Narra, Molave, mature balled trees, and DENR compensatory planting stocks.",
+    "Three production facilities in Sitio Latag, Brgy. Tumaway & Brgy. Aya, Talisay, Batangas. Supplying 150,000+ indigenous forest saplings, Narra, Molave, mature balled trees, and DENR compensatory planting stocks.",
   keywords: [
     "plant nursery Talisay Batangas",
     "native tree seedlings Philippines",
@@ -23,9 +23,9 @@ export const metadata: Metadata = {
     canonical: "https://fhg-two.vercel.app/nurseries",
   },
   openGraph: {
-    title: "Twin Plant Nurseries Talisay Batangas | Forest Hills Garden",
+    title: "Plant Nurseries Talisay Batangas | Forest Hills Garden",
     description:
-      "150,000+ native forest saplings and landscape-grade trees across two specialized propagation facilities in Talisay, Batangas.",
+      "150,000+ native forest saplings and landscape-grade trees across three specialized propagation facilities in Talisay, Batangas.",
     url: "https://fhg-two.vercel.app/nurseries",
     type: "website",
     locale: "en_PH",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
         url: "/images/og_image.jpg",
         width: 1200,
         height: 630,
-        alt: "Forest Hills Garden Twin Nurseries - Talisay Batangas",
+        alt: "Forest Hills Garden Plant Nurseries - Talisay Batangas",
       },
     ],
   },
@@ -126,7 +126,7 @@ export default function NurseriesPage() {
                 <span>[ 150,000+ RESERVE CAPACITY • TALISAY, BATANGAS ]</span>
               </div>
               <h1 className="text-4xl sm:text-6xl font-bold font-heading text-[#f6f7f4] tracking-tight leading-tight">
-                Twin Production{" "}
+                Batangas Production{" "}
                 <span className="font-editorial italic font-normal text-[#dfbe76]">
                   Plant Nurseries
                 </span>

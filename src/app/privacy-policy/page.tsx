@@ -126,7 +126,7 @@ export default function PrivacyPolicyPage() {
               <span>•</span>
               <span>Last Revised: September 2026</span>
               <span>•</span>
-              <span className="text-[#dfbe76]">DTI Reg. No. 1729753</span>
+              <span className="text-[#dfbe76]">DTI Reg. No. 1729753 (Valid to May 28, 2030)</span>
             </div>
           </div>
         </div>
@@ -148,7 +148,7 @@ export default function PrivacyPolicyPage() {
             </p>
             <div className="p-4 rounded-xl bg-[#060d07]/80 border border-white/8 text-xs space-y-1.5 font-mono text-[#9aa89b]">
               <p><strong className="text-[#f6f7f4]">Business Name:</strong> Forest Hills Garden (FHG)</p>
-              <p><strong className="text-[#f6f7f4]">Legal Structure:</strong> Sole Proprietorship registered with DTI (Certificate No. 1729753)</p>
+              <p><strong className="text-[#f6f7f4]">Legal Structure:</strong> Sole Proprietorship registered with DTI (Certificate No. 1729753, valid until May 28, 2030); in transition of ownership to Forest Hills Ventures Incorporated (SEC Reg. No. 2023060103408-45)</p>
               <p><strong className="text-[#f6f7f4]">Proprietress & General Manager:</strong> {companyData.manager}</p>
               <p><strong className="text-[#f6f7f4]">Principal Office:</strong> {companyData.headOffice.address}</p>
               <p><strong className="text-[#f6f7f4]">Email Desk:</strong> {companyData.headOffice.emails.join(" / ")}</p>

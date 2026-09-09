@@ -116,7 +116,7 @@ export default function Hero() {
           <div className="flex items-center gap-2.5 p-3 rounded-lg bg-[#0b160e] border border-white/5 text-xs text-[#f6f7f4]">
             <Award className="w-4 h-4 text-[#c5a059] shrink-0" />
             <span className="leading-tight text-[11px] text-[#9aa89b]">
-              <strong className="text-[#f6f7f4] block">89-Unit Fleet</strong>
+              <strong className="text-[#f6f7f4] block">90-Unit Fleet</strong>
               Heavy Chainsaw Docket
             </span>
           </div>

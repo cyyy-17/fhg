@@ -41,14 +41,14 @@ export const servicesData: ServiceItem[] = [
     category: "Corridor Clearing",
     icon: "Axe",
     shortDesc: "Sectional dismantle of hazardous or infrastructure-obstructing trees using heavy certified chainsaws.",
-    metrics: ["89 Units Fleet", "Zero-Damage", "CARI Insured"],
+    metrics: ["90 Units Fleet", "Zero-Damage", "CARI Insured"],
     specs: {
       deliverables: [
         "Rigged sectional dismantle near energized high-voltage lines",
         "Precision directional felling for expressway rights-of-way",
         "Timber inventory, log scaling, salvage, and clean bio-clearing",
       ],
-      equipment: ["89 Stihl Industrial Heavy Chainsaws", "Cherry Picker Boom Trucks", "Heavy Log Winches"],
+      equipment: ["90 Stihl Industrial Heavy Chainsaws (DENR Lipa)", "Cherry Picker Boom Trucks", "Heavy Log Winches"],
       permits: ["DENR Special Tree Cutting Permit (STCP)", "Barangay Tree Safety Clearance"],
       turnaround: "Emergency: 4 Hours | Standard: 48 Hours",
     },
@@ -59,7 +59,7 @@ export const servicesData: ServiceItem[] = [
     category: "Statutory Salvage",
     icon: "Palmtree",
     shortDesc: "Permitted coconut palm cutting, clearing, and lumber recovery under strict PCA compliance.",
-    metrics: ["26 PCA Units", "NCR & Laguna", "Zero Infraction"],
+    metrics: ["26 PCA Units", "NCR & Quezon", "Zero Infraction"],
     specs: {
       deliverables: [
         "Turnkey processing of official PCA Permit to Cut (NCR & Region 4A)",
@@ -67,7 +67,7 @@ export const servicesData: ServiceItem[] = [
         "Commercial coco-lumber processing and legal transport manifests",
       ],
       equipment: ["PCA-Registered Chainsaws", "Heavy Flatbed Trucks", "Stump Grinders"],
-      permits: ["PCA RNCR-00958 (Metro Manila)", "PCA R4-05595 (Laguna / Batangas)"],
+      permits: ["PCA RNCR-1000203 (NCR)", "PCA R4A-Q1-1000565 & 1000776 (Quezon)"],
       turnaround: "24–72 Hours",
     },
   },
@@ -94,16 +94,16 @@ export const servicesData: ServiceItem[] = [
     title: "Native Seedling Propagation",
     category: "Batangas Facilities",
     icon: "Sprout",
-    shortDesc: "Production of acclimatized native forest saplings and compensatory planting stocks across 2 farms.",
-    metrics: ["150K+ Stock", "Twin Nurseries", "1:50/1:100 Ratio"],
+    shortDesc: "Production of acclimatized native forest saplings and compensatory planting stocks across 3 farms.",
+    metrics: ["150K+ Stock", "3 Nurseries", "1:50/1:100 Ratio"],
     specs: {
       deliverables: [
         "Containerized native hardwood stocks (Narra, Molave, Ipil, Banaba)",
         "Compensatory seedling turnover certificates signed by CENRO",
         "Pre-conditioned nursery trees for immediate commercial landscape installation",
       ],
-      equipment: ["Tumaway Nursery Facility (100k cap)", "Aya Ecological Nursery (50k cap)", "Misting Beds"],
-      permits: ["BPI Nursery Accreditation", "DENR Certificate of Seed Origin"],
+      equipment: ["Sitio Latag Nursery Facility (100k cap)", "Tumaway Farm (80k cap)", "Aya Ecological Nursery (50k cap)"],
+      permits: ["DENR Accreditation DENR-IVA-BAT-2012-001", "DENR Certificate of Seed Origin"],
       turnaround: "Immediate Stock Dispatch",
     },
   },
@@ -113,7 +113,7 @@ export const servicesData: ServiceItem[] = [
     category: "National Greening",
     icon: "Mountain",
     shortDesc: "Multi-year watershed rehabilitation, carbon-sink propagation, and NGP plantation maintenance.",
-    metrics: ["2,600+ Hectares", "DBP Partner", "3-Year Care"],
+    metrics: ["2,627 Hectares", "Best NGP 2015", "3-Year Care"],
     specs: {
       deliverables: [
         "Baseline soil test, contour staking, and endemic seedling installation",
@@ -121,7 +121,7 @@ export const servicesData: ServiceItem[] = [
         "Quarterly survival monitoring with free replacement turnover",
       ],
       equipment: ["4x4 Reforestation Support Trucks", "Micro-Irrigation Pumps", "Brushcutters"],
-      permits: ["DBP Forest Program Partnership", "DENR-NGP MoA"],
+      permits: ["DBP Forest Program (Accreditation 11-2005)", "DENR-NGP MoA"],
       turnaround: "Multi-Year Phased Execution",
     },
   },

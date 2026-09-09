@@ -54,7 +54,7 @@ export default function NurseryHub() {
             <span>[ 06 / NURSERY BASE &amp; SPECIES DOCKET ]</span>
           </div>
           <h2 className="text-3xl sm:text-5xl font-bold font-heading text-[#f6f7f4] tracking-tight leading-tight">
-            Twin Propagation Nurseries &amp; <br />
+            Batangas Propagation Nurseries &amp; <br />
             <span className="font-editorial italic font-normal text-[#dfbe76]">
               Species Inventory
             </span>
@@ -133,10 +133,10 @@ export default function NurseryHub() {
                   className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-[#f6f7f4] flex items-center gap-1.5 transition-colors"
                 >
                   <MapPin className="w-3.5 h-3.5 text-[#c5a059]" />
-                  <span>Tumaway Farm Directions</span>
+                  <span>Sitio Latag Farm Directions</span>
                 </a>
                 <a
-                  href={companyData.nurseries[1].googleMapsUrl}
+                  href={companyData.nurseries[2].googleMapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-[#f6f7f4] flex items-center gap-1.5 transition-colors"
@@ -192,7 +192,7 @@ export default function NurseryHub() {
               No Species Matching &ldquo;{searchQuery}&rdquo;
             </h4>
             <p className="text-xs text-[#9aa89b] leading-relaxed mb-5">
-              We propagate over 150,000+ native and exotic saplings across our twin Batangas farms. Contact our nursery coordinators directly for custom contract propagation or rare native stocks.
+              We propagate over 150,000+ native and exotic saplings across our three Batangas nursery facilities. Contact our nursery coordinators directly for custom contract propagation or rare native stocks.
             </p>
             <button
               type="button"

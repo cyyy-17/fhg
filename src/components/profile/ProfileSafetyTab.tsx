@@ -7,25 +7,25 @@ const pillars = [
     icon: HardHat,
     metric: "100% Certified",
     title: "DOLE COSH & BOSH Certified",
-    desc: "On-site safety officers oversight across all crane rigging, climbing, and power saw felling operations.",
+    desc: "On-site safety officers oversight across all crane rigging, climbing, and 90-chainsaw heavy felling operations.",
   },
   {
     icon: Award,
-    metric: "1,240,000+ Safe Hours",
-    title: "Zero Lost-Time Accident Record",
-    desc: "Flawless incident-free track record maintained across expressway corridors and subway station access shafts.",
+    metric: "3,000,000 Safe Hours",
+    title: "Zero Lost-Time Incident (LTI) Record",
+    desc: "Flawless incident-free track record officially recognized by Giga ACE 6, Inc. on January 21, 2026 for the Quezon North Wind Project.",
   },
   {
     icon: ShieldCheck,
     metric: "CARI & CGL Active",
     title: "Comprehensive Insurance Shield",
-    desc: "Active Contractor's All Risk and Comprehensive General Liability covering personnel and client property.",
+    desc: "Active Contractor's All Risk and Comprehensive General Liability covering personnel and client property across all job sites.",
   },
   {
     icon: HeartPulse,
     metric: "OSHA & DOLE Compliant",
     title: "Ballistic PPE Standards",
-    desc: "Stihl ballistic chaps, ANSI climbing harnesses, steel-toed boots, and radio-equipped arborist helmets.",
+    desc: "Stihl ballistic chaps, ANSI climbing harnesses, steel-toed boots, and radio-equipped arborist helmets for all crews.",
   },
 ];
 
@@ -67,7 +67,7 @@ export default function ProfileSafetyTab() {
 
       {/* Metric Substantiation Footnote */}
       <p className="text-[11px] font-mono text-[#9aa89b]/70 italic text-center">
-        *Safe man-hours and zero lost-time accident records substantiated under DOLE COSH / BOSH monitoring guidelines (DO 198-18). Compliance rating verified across historical DENR, PCA, and DPWH project audits (1998–2024).
+        *Safe man-hours substantiated by Plaque of Special Recognition for 3,000,000 Safe Manhours Without Lost Time Incident issued on January 21, 2026 by Giga ACE 6, Inc. for the Quezon North Wind Project under DOLE COSH / BOSH guidelines (DO 198-18).
       </p>
 
       {/* Tree Survival Warranty Guarantee Banner */}
@@ -86,7 +86,7 @@ export default function ProfileSafetyTab() {
               100% Free Specimen Replacement Guarantee
             </h4>
             <p className="text-xs sm:text-sm text-[#9aa89b] max-w-2xl leading-relaxed">
-              {companyData.warranty.coverage}. Backed by our twin Batangas nursery reserves and bi-weekly arborist monitoring during early acclimatization.
+              {companyData.warranty.coverage}. Backed by our Batangas nursery reserves and bi-weekly arborist monitoring during early acclimatization.
             </p>
           </div>
         </div>

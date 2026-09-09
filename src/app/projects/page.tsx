@@ -9,14 +9,14 @@ import { ChevronRight, ArrowRight, FileCheck } from "lucide-react";
 export const metadata: Metadata = {
   title: "Signature Infrastructure Projects & Heavy Fleet Proof | Forest Hills Garden",
   description:
-    "Verified contractor track record across SLEX TR4, Metro Manila Subway Project CP101, Isla Wind Farm, Nuvali & Vermosa Estates, and 2,627-Ha Zambales NGP reforestation. 89-chainsaw registered fleet.",
+    "Verified contractor track record across SLEX TR4, Metro Manila Subway Project CP101, Quezon North Wind Farm, Nuvali & Vermosa Estates, and 2,627-Ha Zambales NGP reforestation. 90-chainsaw registered fleet.",
   keywords: [
     "SLEX TR4 tree cutting",
     "Metro Manila Subway Project arborist contractor",
     "Nuvali tree earthballing Ayala",
     "San Miguel EEI DMCI tree subcontractor",
     "Zambales reforestation NGP",
-    "89 chainsaw heavy fleet Philippines",
+    "90 chainsaw heavy fleet Philippines",
   ],
   alternates: {
     canonical: "https://fhg-two.vercel.app/projects",

@@ -17,7 +17,7 @@ export default function OperationsFleetTab() {
 
   const categories: { key: EquipmentFilter; label: string }[] = [
     { key: "all", label: "Entire Fleet Docket" },
-    { key: "chainsaws", label: "Chainsaws (89 Units)" },
+    { key: "chainsaws", label: "Chainsaws (90 Units)" },
     { key: "heavy-lift", label: "Cranes & Boom Trucks" },
     { key: "excavation", label: "Hydraulic Excavators" },
     { key: "processing", label: "Wood Chippers" },

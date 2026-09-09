@@ -27,6 +27,7 @@ Company Details/
 *.pdf
 !public/docs/*.pdf
 26-27 PROPOSAL/
+Documents/
 *.docx
 
 # debug

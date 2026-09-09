@@ -43,11 +43,11 @@ export default function Footer() {
             </p>
 
             <div className="text-[11px] font-mono text-[#9aa89b]/80 space-y-1 pt-2 border-t border-white/5">
-              <p>DTI Certificate No.: 1729753</p>
+              <p>DTI Certificate No.: 1729753 (Valid to May 28, 2030)</p>
               <p>PhilGEPS Registration: 2005-23340 (Blue Member)</p>
-              <p>LGU Business Permit: Active on File (Talisay, Batangas)</p>
-              <p>BIR Taxpayer COR 2303: Active on File</p>
-              <p>DENR &amp; PCA Permitted Operator</p>
+              <p>BIR Registration: OCN 059RC20230000016326 (RDO 059)</p>
+              <p>DENR Lipa 90-Chainsaw Fleet &amp; PCA Permitted</p>
+              <p>Transition: Forest Hills Ventures Inc. (SEC 2023060103408-45)</p>
             </div>
           </div>
 
@@ -59,7 +59,7 @@ export default function Footer() {
             </h4>
             <ul className="space-y-2 text-xs">
               <li><Link href="/services#earthballing" className="hover:text-[#f6f7f4] transition-colors">Large-Scale Tree Earthballing</Link></li>
-              <li><Link href="/services#tree-cutting" className="hover:text-[#f6f7f4] transition-colors">Certified Tree Cutting (89 Chainsaws)</Link></li>
+              <li><Link href="/services#tree-cutting" className="hover:text-[#f6f7f4] transition-colors">Certified Tree Cutting (90 Chainsaws)</Link></li>
               <li><Link href="/services#pca-cutting" className="hover:text-[#f6f7f4] transition-colors">PCA Coconut Tree Felling &amp; Salvage</Link></li>
               <li><Link href="/nurseries" className="hover:text-[#f6f7f4] transition-colors">Native Seedling Propagation &amp; Supply</Link></li>
               <li><Link href="/services#commercial-landscaping" className="hover:text-[#f6f7f4] transition-colors">Commercial Greening &amp; Landscaping</Link></li>
@@ -94,20 +94,20 @@ export default function Footer() {
             <address className="not-italic text-xs space-y-3">
               <div>
                 <Link href="/contact" className="text-[#f6f7f4] font-medium block hover:text-[#dfbe76] transition-colors">
-                  Head Office &amp; Dispatch
+                  Head Office &amp; Operations Hub
                 </Link>
-                <span className="text-[#9aa89b] text-[11px]">Sitio Sto. Niño, Banga, Talisay, Batangas • 8:00 AM – 5:00 PM</span>
+                <span className="text-[#9aa89b] text-[11px]">Sitio Sto. Niño, Banga &amp; Malvar St., Talisay, Batangas</span>
               </div>
 
               <div>
                 <Link href="/nurseries#nurseries" className="text-[#f6f7f4] font-medium block hover:text-[#dfbe76] transition-colors">
-                  Tumaway Nursery
+                  Sitio Latag Nursery Facility
                 </Link>
-                <span className="text-[#9aa89b] text-[11px]">Brgy. Tumaway, Talisay, Batangas</span>
+                <span className="text-[#9aa89b] text-[11px]">Sitio Latag, Tumaway, Talisay, Batangas</span>
               </div>
               <div>
                 <Link href="/nurseries#nurseries" className="text-[#f6f7f4] font-medium block hover:text-[#dfbe76] transition-colors">
-                  Aya Nursery
+                  Aya Ecological Reserve
                 </Link>
                 <span className="text-[#9aa89b] text-[11px]">Brgy. Aya, Talisay, Batangas</span>
               </div>

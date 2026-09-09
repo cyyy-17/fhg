@@ -80,7 +80,7 @@ export default function OperationsProofHub() {
             </span>
           </h2>
           <p className="mt-3 text-sm sm:text-base text-[#9aa89b]">
-            Explore verified project portfolios, interactive before/after site transformations, 89-chainsaw registered fleet specifications, and conglomerate client trust.
+            Explore verified project portfolios, interactive before/after site transformations, 90-chainsaw registered fleet specifications, and conglomerate client trust.
           </p>
         </motion.div>
 

@@ -140,7 +140,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
           </h4>
           <div className="flex flex-wrap gap-2 text-xs font-medium">
             <span className="px-3 py-1 rounded bg-[#0a150c] border border-white/10 text-[#9aa89b]">
-              89-Chainsaw Permitted Fleet
+              90-Chainsaw Permitted Fleet
             </span>
             <span className="px-3 py-1 rounded bg-[#0a150c] border border-white/10 text-[#9aa89b]">
               Sectional Rigging Climbing Crew

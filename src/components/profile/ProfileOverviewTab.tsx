@@ -16,7 +16,7 @@ export default function ProfileOverviewTab({ onOpenBioModal }: ProfileOverviewTa
           <div className="relative z-10">
             <div className="flex items-center justify-between gap-4 mb-5">
               <span className="text-[10px] font-mono font-semibold tracking-wider uppercase px-2.5 py-1 rounded bg-[#060d07] text-[#dfbe76] border border-white/10">
-                Sole Proprietorship • DTI Reg. 1729753
+                Sole Proprietorship • DTI Reg. 1729753 (Valid to 2030)
               </span>
               <span className="text-xs font-mono text-[#9aa89b] flex items-center gap-1.5">
                 <Clock className="w-3.5 h-3.5 text-[#c5a059]" />
@@ -29,11 +29,11 @@ export default function ProfileOverviewTab({ onOpenBioModal }: ProfileOverviewTa
             </h3>
 
             <p className="text-sm text-[#9aa89b] leading-relaxed mb-4">
-              Owned and actively directed by <strong className="text-[#f6f7f4] font-medium">Ms. Marife B. Luna</strong>, Forest Hills Garden operates from Talisay, Batangas, supported by twin propagation nurseries in Brgy. Tumaway and Brgy. Aya.
+              Owned and actively managed by <strong className="text-[#f6f7f4] font-medium">{companyData.manager}</strong>, Forest Hills Garden operates from Talisay, Batangas, supported by three (3) plant nursery facilities in Sitio Latag, Brgy. Tumaway, and Brgy. Aya.
             </p>
 
             <p className="text-xs sm:text-sm text-[#9aa89b] leading-relaxed mb-6">
-              Initially founded on <strong className="text-[#dfbe76]">June 10, 1998</strong> by her late husband, <strong className="text-[#f6f7f4] font-medium">Mr. Edwin G. Luna</strong>, FHG has evolved into the Philippines&apos; premier contractor for large-scale earthballing, expressway corridor clearing, and statutory DENR compliance.
+              Initially founded on <strong className="text-[#dfbe76]">June 10, 1998</strong> by her late husband, <strong className="text-[#f6f7f4] font-medium">Mr. Edwin G. Luna</strong> (who managed the firm until April 24, 2015), FHG has evolved into the Philippines&apos; premier contractor for large-scale earthballing, expressway corridor clearing, and statutory DENR compliance — currently in corporate transition to <strong className="text-[#f6f7f4]">Forest Hills Ventures Incorporated</strong> (SEC Reg. No. 2023060103408-45).
             </p>
 
             {/* Official Motto Quote */}
@@ -42,7 +42,7 @@ export default function ProfileOverviewTab({ onOpenBioModal }: ProfileOverviewTa
                 &ldquo;We Do It Right and Fast. We provide developers with dependable environmental clearing and greening without sacrificing statutory compliance or tree survival.&rdquo;
               </p>
               <span className="text-[11px] font-mono text-[#dfbe76] tracking-wider uppercase">
-                — Ms. Marife B. Luna, Proprietress &amp; General Manager
+                — {companyData.manager}, Proprietress &amp; General Manager
               </span>
             </div>
           </div>
@@ -115,13 +115,16 @@ export default function ProfileOverviewTab({ onOpenBioModal }: ProfileOverviewTa
               <h4 className="font-semibold text-[#f6f7f4] text-sm">Operations Headquarters</h4>
             </div>
             <p className="text-xs text-[#f6f7f4] font-medium mb-1">
-              {companyData.headOffice.address}
+              {companyData.headOffice.buildingName}, {companyData.headOffice.address}
+            </p>
+            <p className="text-[11px] font-mono text-[#9aa89b] mb-1">
+              Town Office: {companyData.headOffice.townOffice}
             </p>
             <p className="text-[11px] font-mono text-[#9aa89b] mb-3">
               Plus Code: {companyData.headOffice.plusCode}
             </p>
             <p className="text-xs text-[#9aa89b] leading-relaxed mb-4">
-              Regional operations center for Laguna, Cavite, Batangas, and NCR corridors (8:00 AM – 5:00 PM).
+              Regional operations center for Laguna, Cavite, Batangas, Quezon, and NCR corridors (8:00 AM – 5:00 PM).
             </p>
           </div>
           <div className="pt-3 border-t border-white/10 flex items-center justify-between text-xs">
@@ -138,12 +141,12 @@ export default function ProfileOverviewTab({ onOpenBioModal }: ProfileOverviewTa
           </div>
         </div>
 
-        {/* Hub 2: Tumaway Facility */}
+        {/* Hub 2: Sitio Latag Nursery Facility */}
         <div className="rounded-xl bg-[#0a150c] p-6 border border-white/10 flex flex-col justify-between">
           <div>
             <div className="flex items-center gap-2.5 text-[#dfbe76] mb-3">
               <MapPin className="w-5 h-5 text-[#c5a059]" />
-              <h4 className="font-semibold text-[#f6f7f4] text-sm">Tumaway Nursery Facility</h4>
+              <h4 className="font-semibold text-[#f6f7f4] text-sm">{companyData.nurseries[0].name}</h4>
             </div>
             <p className="text-xs text-[#dfbe76] font-mono font-semibold mb-1">
               {companyData.nurseries[0].capacity}
@@ -162,7 +165,7 @@ export default function ProfileOverviewTab({ onOpenBioModal }: ProfileOverviewTa
               <ExternalLink className="w-3.5 h-3.5 text-[#c5a059]" />
               <span>View Location</span>
             </a>
-            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#060d07] border border-white/10 text-[#f6f7f4]">Active Farm</span>
+            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#060d07] border border-white/10 text-[#f6f7f4]">Main Facility</span>
           </div>
         </div>
 
@@ -171,18 +174,18 @@ export default function ProfileOverviewTab({ onOpenBioModal }: ProfileOverviewTa
           <div>
             <div className="flex items-center gap-2.5 text-[#dfbe76] mb-3">
               <MapPin className="w-5 h-5 text-[#c5a059]" />
-              <h4 className="font-semibold text-[#f6f7f4] text-sm">Aya Ecological Nursery</h4>
+              <h4 className="font-semibold text-[#f6f7f4] text-sm">{companyData.nurseries[2].name}</h4>
             </div>
             <p className="text-xs text-[#dfbe76] font-mono font-semibold mb-1">
-              {companyData.nurseries[1].capacity}
+              {companyData.nurseries[2].capacity}
             </p>
             <p className="text-[11px] text-[#9aa89b] leading-relaxed mb-4">
-              {companyData.nurseries[1].specialty}
+              {companyData.nurseries[2].specialty}
             </p>
           </div>
           <div className="pt-3 border-t border-white/10 flex items-center justify-between text-xs">
             <a
-              href={companyData.nurseries[1].googleMapsUrl}
+              href={companyData.nurseries[2].googleMapsUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="text-[#dfbe76] hover:text-[#f6f7f4] font-medium flex items-center gap-1 transition-colors"

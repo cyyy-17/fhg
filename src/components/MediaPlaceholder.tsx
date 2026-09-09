@@ -51,7 +51,7 @@ export default function MediaPlaceholder({
     "heavy-equipment": {
       icon: Axe,
       code: "PLATE 02 — FLEET DOCKET",
-      meta: "DENR REGISTERED • 89-CHAINSAW REGISTRY",
+      meta: "DENR REGISTERED • 90-CHAINSAW REGISTRY",
       defaultTitle: "Heavy Mechanized Fleet Unit",
       defaultSub: "Industrial right-of-way felling & hydraulic crane rigging machinery",
       accent: "#c5a059",
