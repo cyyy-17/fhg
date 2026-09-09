@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://fhg-two.vercel.app";
-  const contentDate = new Date("2025-02-15T00:00:00.000Z");
+  const contentDate = new Date();
 
   return [
     {

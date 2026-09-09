@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Signature Infrastructure Projects & Fleet Proof | Forest Hills Garden",
     description:
-      "Operational proof, before & after transformations, and equipment specifications trusted by the Philippines' leading infrastructure conglomerates.",
+      "Verified infrastructure portfolios, technical equipment specifications, and contracting dockets trusted by the Philippines' leading infrastructure conglomerates.",
     url: "https://fhg-two.vercel.app/projects",
     type: "website",
     locale: "en_PH",
@@ -135,7 +135,7 @@ export default function ProjectsPage() {
                 </span>
               </h1>
               <p className="mt-4 text-sm sm:text-base text-[#9aa89b] leading-relaxed">
-                Explore our project dossier across high-consequence tollways, subway alignments, and estate developments. Complete with interactive before/after proof, heavy fleet specifications, and client trust verification.
+                Explore our verified project dossier across high-consequence tollways, subway alignments, and estate developments. Complete with heavy fleet specifications, client trust verification, and statutory compliance dockets.
               </p>
             </div>
 

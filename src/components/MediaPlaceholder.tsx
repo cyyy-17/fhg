@@ -67,9 +67,9 @@ export default function MediaPlaceholder({
     "nursery-propagation": {
       icon: Sprout,
       code: "PLATE 04 — NURSERY RESERVE",
-      meta: "150,000+ COMBINED CAPABILITY • ACCLIMATIZED",
+      meta: "230,000+ COMBINED CAPACITY • ACCLIMATIZED",
       defaultTitle: "Acclimatized Nursery Reserves",
-      defaultSub: "Tumaway & Aya Talisay propagation facilities",
+      defaultSub: "Sitio Latag, Tumaway & Aya propagation facilities",
       accent: "#dfbe76",
     },
     "document-scan": {

@@ -64,14 +64,14 @@ export default function NurseryHub() {
           </p>
         </motion.div>
 
-        {/* Unified Twin Nursery Capacity Banner */}
+        {/* Unified 3-Facility Nursery Capacity Banner */}
         <div className="rounded-2xl bg-[#0a150c] p-6 sm:p-10 border border-white/10 shadow-2xl mb-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-7 flex flex-col gap-4">
               <div className="inline-flex items-center gap-2 text-xs font-mono font-semibold uppercase tracking-wider text-[#dfbe76]">
                 <span>Micro-Climate Controlled Acclimatization</span>
                 <span className="text-white/20">•</span>
-                <span>Talisay, Batangas</span>
+                <span>Talisay, Batangas (12+ Hectares)</span>
               </div>
 
               <h3 className="text-2xl sm:text-3xl font-bold font-heading text-[#f6f7f4] leading-snug">
@@ -79,41 +79,50 @@ export default function NurseryHub() {
               </h3>
 
               <p className="text-xs sm:text-sm text-[#9aa89b] leading-relaxed">
-                Operating under rigorous root conditioning and micro-irrigation schedules. Every sapling designated for DENR 1:50 or 1:100 compensatory compliance is nursery-hardened for superior root establishment before site deployment.
+                Operating under rigorous root conditioning and micro-irrigation schedules across 3 specialized Batangas facilities. Every sapling designated for DENR 1:50 or 1:100 compensatory compliance is nursery-hardened for superior root establishment before site deployment.
               </p>
 
-              {/* Dual Facility Metric Cards */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-4 border-t border-white/10">
-                <div className="p-3.5 rounded-xl bg-[#060d07] border border-white/5">
+              {/* Three Facilities Metric Cards Grid */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-4 border-t border-white/10">
+                <div className="p-3 rounded-xl bg-[#060d07] border border-white/5">
                   <div className="flex items-baseline gap-1 mb-1">
-                    <span className="text-2xl font-bold font-heading text-[#f6f7f4]">100K</span>
-                    <span className="text-sm font-editorial italic text-[#dfbe76]">+</span>
+                    <span className="text-xl sm:text-2xl font-bold font-heading text-[#f6f7f4]">100K</span>
+                    <span className="text-xs font-editorial italic text-[#dfbe76]">+</span>
                   </div>
-                  <strong className="text-xs font-semibold text-[#f6f7f4] block">Tumaway Facility</strong>
-                  <span className="text-[10px] font-mono text-[#9aa89b]">Native forest hardwoods</span>
+                  <strong className="text-xs font-semibold text-[#f6f7f4] block truncate">Sitio Latag</strong>
+                  <span className="text-[10px] font-mono text-[#9aa89b]">Native hardwoods</span>
                 </div>
 
-                <div className="p-3.5 rounded-xl bg-[#060d07] border border-white/5">
+                <div className="p-3 rounded-xl bg-[#060d07] border border-white/5">
                   <div className="flex items-baseline gap-1 mb-1">
-                    <span className="text-2xl font-bold font-heading text-[#dfbe76]">50K</span>
-                    <span className="text-sm font-editorial italic text-[#c5a059]">+</span>
+                    <span className="text-xl sm:text-2xl font-bold font-heading text-[#f6f7f4]">80K</span>
+                    <span className="text-xs font-editorial italic text-[#dfbe76]">+</span>
                   </div>
-                  <strong className="text-xs font-semibold text-[#f6f7f4] block">Aya Facility</strong>
-                  <span className="text-[10px] font-mono text-[#9aa89b]">Ornamental &amp; balled stocks</span>
+                  <strong className="text-xs font-semibold text-[#f6f7f4] block truncate">Tumaway Farm</strong>
+                  <span className="text-[10px] font-mono text-[#9aa89b]">Heavy balled stocks</span>
                 </div>
 
-                <div className="p-3.5 rounded-xl bg-[#060d07] border border-white/5">
+                <div className="p-3 rounded-xl bg-[#060d07] border border-white/5">
                   <div className="flex items-baseline gap-1 mb-1">
-                    <span className="text-2xl font-bold font-heading text-[#f6f7f4]">1:50</span>
-                    <span className="text-xs font-mono text-[#dfbe76]">/ 1:100</span>
+                    <span className="text-xl sm:text-2xl font-bold font-heading text-[#dfbe76]">50K</span>
+                    <span className="text-xs font-editorial italic text-[#c5a059]">+</span>
                   </div>
-                  <strong className="text-xs font-semibold text-[#f6f7f4] block">DENR Ratio</strong>
-                  <span className="text-[10px] font-mono text-[#9aa89b]">Compensatory compliance</span>
+                  <strong className="text-xs font-semibold text-[#f6f7f4] block truncate">Aya Nursery</strong>
+                  <span className="text-[10px] font-mono text-[#9aa89b]">Endemic &amp; ornamentals</span>
+                </div>
+
+                <div className="p-3 rounded-xl bg-[#060d07] border border-white/5">
+                  <div className="flex items-baseline gap-1 mb-1">
+                    <span className="text-xl sm:text-2xl font-bold font-heading text-[#c5a059]">230K</span>
+                    <span className="text-xs font-editorial italic text-[#dfbe76]">+</span>
+                  </div>
+                  <strong className="text-xs font-semibold text-[#f6f7f4] block truncate">Total Reserve</strong>
+                  <span className="text-[10px] font-mono text-[#9aa89b]">DENR 1:50 / 1:100</span>
                 </div>
               </div>
             </div>
 
-            {/* Right Image Asset with Location Guide Chips */}
+            {/* Right Image Asset with Location Guide Chips for All 3 Sites */}
             <div className="lg:col-span-5 flex flex-col gap-3">
               <div className="relative h-56 sm:h-64 rounded-xl overflow-hidden border border-white/10 shadow-xl">
                 <Image
@@ -125,24 +134,33 @@ export default function NurseryHub() {
                 />
               </div>
 
-              <div className="flex flex-wrap items-center justify-between gap-2 pt-1 text-xs">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-1 text-[11px]">
                 <a
                   href={companyData.nurseries[0].googleMapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-[#f6f7f4] flex items-center gap-1.5 transition-colors"
+                  className="px-2.5 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-[#f6f7f4] flex items-center justify-center gap-1 transition-colors"
                 >
-                  <MapPin className="w-3.5 h-3.5 text-[#c5a059]" />
-                  <span>Sitio Latag Farm Directions</span>
+                  <MapPin className="w-3 h-3 text-[#c5a059] shrink-0" />
+                  <span className="truncate">Sitio Latag</span>
+                </a>
+                <a
+                  href={companyData.nurseries[1].googleMapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-2.5 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-[#f6f7f4] flex items-center justify-center gap-1 transition-colors"
+                >
+                  <MapPin className="w-3 h-3 text-[#c5a059] shrink-0" />
+                  <span className="truncate">Tumaway Farm</span>
                 </a>
                 <a
                   href={companyData.nurseries[2].googleMapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-[#f6f7f4] flex items-center gap-1.5 transition-colors"
+                  className="px-2.5 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-[#f6f7f4] flex items-center justify-center gap-1 transition-colors"
                 >
-                  <MapPin className="w-3.5 h-3.5 text-[#dfbe76]" />
-                  <span>Aya Farm Directions</span>
+                  <MapPin className="w-3 h-3 text-[#dfbe76] shrink-0" />
+                  <span className="truncate">Aya Nursery</span>
                 </a>
               </div>
             </div>

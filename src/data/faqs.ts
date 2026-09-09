@@ -10,7 +10,7 @@ export const generalFaqs: FaqItem[] = [
   },
   {
     question: "Can you provide compensatory planting seedlings directly to DENR for our project?",
-    answer: "Yes. As an accredited nursery operator with three Batangas facilities (Sitio Latag, Brgy. Tumaway, and Brgy. Aya) holding 150,000+ native saplings, we supply, deliver, and officially turnover the mandated compensatory seedlings (1:50 or 1:100 ratio) directly to CENRO/PENRO and secure your official Certificate of Compliance."
+    answer: "Yes. As an accredited nursery operator with three Batangas facilities (Sitio Latag, Brgy. Tumaway, and Brgy. Aya) holding 230,000+ native saplings, we supply, deliver, and officially turnover the mandated compensatory seedlings (1:50 or 1:100 ratio) directly to CENRO/PENRO and secure your official Certificate of Compliance."
   },
   {
     question: "What is your emergency mobilization SLA for highway or power line hazards?",

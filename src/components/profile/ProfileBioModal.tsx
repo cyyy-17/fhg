@@ -1,7 +1,9 @@
 "use client";
 
+import { useEffect } from "react";
 import { createPortal } from "react-dom";
 import { UserCheck, X } from "lucide-react";
+import { useLenisScrollLock } from "@/hooks/useLenisScrollLock";
 
 interface ProfileBioModalProps {
   isOpen: boolean;
@@ -10,12 +12,24 @@ interface ProfileBioModalProps {
 }
 
 export default function ProfileBioModal({ isOpen, onClose, mounted }: ProfileBioModalProps) {
+  useLenisScrollLock(isOpen);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen, onClose]);
+
   if (!isOpen || !mounted) return null;
 
   return createPortal(
     <div
       role="dialog"
       aria-modal="true"
+      aria-labelledby="bio-modal-title"
       className="fixed inset-0 z-9999 flex items-center justify-center p-4 sm:p-6 bg-black/85 backdrop-blur-xs animate-fadeInSimple"
       onClick={onClose}
     >
@@ -30,7 +44,7 @@ export default function ProfileBioModal({ isOpen, onClose, mounted }: ProfileBio
               <UserCheck className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-lg sm:text-xl font-bold font-heading text-[#f6f7f4]">
+              <h3 id="bio-modal-title" className="text-lg sm:text-xl font-bold font-heading text-[#f6f7f4]">
                 Corporate Leadership &amp; Heritage
               </h3>
               <p className="text-xs text-[#9aa89b]">Forest Hills Garden Official Dossier</p>

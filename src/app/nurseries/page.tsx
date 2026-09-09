@@ -7,9 +7,9 @@ import FloatingActions from "@/components/FloatingActions";
 import { ChevronRight, ArrowRight, Phone } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Plant Nursery Talisay Batangas | 150,000+ Native Seedlings | Forest Hills Garden",
+  title: "Plant Nursery Talisay Batangas | 230,000+ Native Seedlings | Forest Hills Garden",
   description:
-    "Three production facilities in Sitio Latag, Brgy. Tumaway & Brgy. Aya, Talisay, Batangas. Supplying 150,000+ indigenous forest saplings, Narra, Molave, mature balled trees, and DENR compensatory planting stocks.",
+    "Three production facilities in Sitio Latag, Brgy. Tumaway & Brgy. Aya, Talisay, Batangas. Supplying 230,000+ indigenous forest saplings, Narra, Molave, mature balled trees, and DENR compensatory planting stocks across 12+ hectares.",
   keywords: [
     "plant nursery Talisay Batangas",
     "native tree seedlings Philippines",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Plant Nurseries Talisay Batangas | Forest Hills Garden",
     description:
-      "150,000+ native forest saplings and landscape-grade trees across three specialized propagation facilities in Talisay, Batangas.",
+      "230,000+ native forest saplings and landscape-grade trees across three specialized propagation facilities in Talisay, Batangas.",
     url: "https://fhg-two.vercel.app/nurseries",
     type: "website",
     locale: "en_PH",
@@ -63,6 +63,28 @@ export default function NurseriesPage() {
       },
       {
         "@type": "GardenStore",
+        "@id": "https://fhg-two.vercel.app/nurseries#facility-latag",
+        name: "Forest Hills Garden - Sitio Latag Nursery Facility",
+        url: "https://fhg-two.vercel.app/nurseries",
+        telephone: "+63-916-566-7265",
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: "Sitio Latag, Tumaway",
+          addressLocality: "Talisay",
+          addressRegion: "Batangas",
+          postalCode: "4220",
+          addressCountry: "PH",
+        },
+        geo: {
+          "@type": "GeoCoordinates",
+          latitude: 14.089851,
+          longitude: 121.037593,
+        },
+        description:
+          "Primary 100,000+ capacity production facility along Talisay-Tanauan Road for containerized indigenous forest saplings, hardened Narra, Balitbitan, and DENR compensatory planting stocks.",
+      },
+      {
+        "@type": "GardenStore",
         "@id": "https://fhg-two.vercel.app/nurseries#facility-tumaway",
         name: "Forest Hills Garden - Tumaway Nursery Facility",
         url: "https://fhg-two.vercel.app/nurseries",
@@ -72,10 +94,11 @@ export default function NurseriesPage() {
           streetAddress: "Brgy. Tumaway",
           addressLocality: "Talisay",
           addressRegion: "Batangas",
+          postalCode: "4220",
           addressCountry: "PH",
         },
         description:
-          "Primary 100,000+ capacity production facility for containerized indigenous forest saplings, DENR compensatory planting stocks, and wholesale supply.",
+          "Secondary 80,000+ capacity forest stock and heavy root-ball holding fields for ongoing infrastructure tenders and hardwood replacements.",
       },
       {
         "@type": "GardenStore",
@@ -88,10 +111,11 @@ export default function NurseriesPage() {
           streetAddress: "Brgy. Aya",
           addressLocality: "Talisay",
           addressRegion: "Batangas",
+          postalCode: "4220",
           addressCountry: "PH",
         },
         description:
-          "Specialized 50,000+ capacity holding and acclimatization nursery for mature earthballed heritage trees and landscape specimen stocks.",
+          "Specialized 50,000+ capacity ecological propagation nursery for endemic watershed saplings, rare ornamentals, and mature balled heritage trees.",
       },
     ],
   };
@@ -123,7 +147,7 @@ export default function NurseriesPage() {
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
             <div className="max-w-4xl">
               <div className="inline-flex items-center gap-2 text-xs font-mono text-[#c5a059] tracking-widest uppercase mb-3">
-                <span>[ 150,000+ RESERVE CAPACITY • TALISAY, BATANGAS ]</span>
+                <span>[ 230,000+ RESERVE CAPACITY • 3 TALISAY FACILITIES ]</span>
               </div>
               <h1 className="text-4xl sm:text-6xl font-bold font-heading text-[#f6f7f4] tracking-tight leading-tight">
                 Batangas Production{" "}
@@ -132,7 +156,7 @@ export default function NurseriesPage() {
                 </span>
               </h1>
               <p className="mt-4 text-sm sm:text-base text-[#9aa89b] leading-relaxed">
-                Direct grower supplier of DENR-certified indigenous saplings (Narra, Molave, Ipil, Banaba) and acclimatized mature specimen trees for commercial infrastructure and estate greening.
+                Direct grower supplier of DENR-certified indigenous saplings (Narra, Molave, Ipil, Banaba) and acclimatized mature specimen trees across 12+ hectares for commercial infrastructure and estate greening.
               </p>
             </div>
 

@@ -9,6 +9,11 @@ import {
   CheckCircle2,
   FileText,
   X,
+  Copy,
+  Check,
+  FileCheck,
+  ChevronDown,
+  ChevronUp,
 } from "lucide-react";
 import { documents, type DocumentItem } from "@/data/documents";
 import { useIsMounted } from "@/hooks/useIsMounted";
@@ -16,6 +21,8 @@ import { useLenisScrollLock } from "@/hooks/useLenisScrollLock";
 
 export default function ProcurementVaultTab() {
   const [previewDoc, setPreviewDoc] = useState<DocumentItem | null>(null);
+  const [packetCopied, setPacketCopied] = useState(false);
+  const [showPacketDetails, setShowPacketDetails] = useState(false);
   const mounted = useIsMounted();
 
   useLenisScrollLock(Boolean(previewDoc));
@@ -29,10 +36,35 @@ export default function ProcurementVaultTab() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [previewDoc]);
 
+  const preQualDossier =
+    `[FOREST HILLS GARDEN — VENDOR PRE-QUALIFICATION ENVELOPE]\n` +
+    `Legal Name: Forest Hills Garden\n` +
+    `Proprietress & GM: Mrs. Marife B. Luna\n` +
+    `DTI Registration: Cert. No. 1729753 (Valid to May 28, 2030)\n` +
+    `BIR Taxpayer: TIN 922-166-219-00000 • OCN 059RC20230000016326 (RDO 059 Lipa City)\n` +
+    `PhilGEPS Registry: PhilGEPS – 2005 – 23340 (Blue Membership)\n` +
+    `DENR Fleet: 90 Registered Chainsaws under DENR-CENRO Lipa (RA 9175)\n` +
+    `PCA Licensure: RNCR-1000203 (NCR) • R4A-Q1-1000565 & 1000776 (Quezon)\n` +
+    `DBP Partner: Accreditation No. 11-2005 (DBP Forest Program)\n` +
+    `Corporate Succession: Forest Hills Ventures Inc. (SEC Reg. 2023060103408-45)\n` +
+    `Statutory Social: SSS 04-1056852-7 • PhilHealth 009080000900 • Pag-IBIG 800170666174\n` +
+    `Safety Track Record: 3,000,000 Safe Manhours Without LTI (Giga ACE 6, Jan 2026)\n` +
+    `Nurseries: 3 Batangas Facilities (Sitio Latag 100K+, Tumaway 80K+, Aya 50K+ | 230K+ Reserve)\n` +
+    `Headquarters: Sitio Sto. Niño, Banga & Malvar St., Poblacion 8, Talisay, Batangas 4220\n` +
+    `Contact: edluna1971@yahoo.com • (043) 741 0603 • 0916 566 7265`;
+
+  const handleCopyPacket = () => {
+    if (typeof navigator !== "undefined" && navigator.clipboard) {
+      navigator.clipboard.writeText(preQualDossier);
+      setPacketCopied(true);
+      setTimeout(() => setPacketCopied(false), 3500);
+    }
+  };
+
   return (
     <div className="space-y-6 animate-fadeIn">
       {/* Top Banner */}
-      <div className="p-5 sm:p-6 rounded-2xl bg-[#0a150c] border border-[#c5a059]/30 shadow-xl flex flex-col md:flex-row items-center justify-between gap-4 max-w-5xl mx-auto mb-6">
+      <div className="p-5 sm:p-6 rounded-2xl bg-[#0a150c] border border-[#c5a059]/30 shadow-xl flex flex-col md:flex-row items-center justify-between gap-4 max-w-5xl mx-auto mb-4">
         <div className="flex items-center gap-3">
           <ShieldCheck className="w-8 h-8 text-[#c5a059] shrink-0" />
           <div>
@@ -42,14 +74,88 @@ export default function ProcurementVaultTab() {
             </p>
           </div>
         </div>
-        <a
-          href="/docs/company-profile.pdf"
-          download
-          className="px-5 py-2.5 rounded-full bg-[#c5a059] text-[#060d07] text-xs font-bold uppercase tracking-wider hover:bg-[#dfbe76] shrink-0 cursor-pointer flex items-center gap-2 shadow-lg shadow-[#c5a059]/20 transition-all"
-        >
-          <Download className="w-4 h-4" />
-          <span>Download Master Capability Dossier (PDF)</span>
-        </a>
+        <div className="flex flex-wrap items-center gap-2.5">
+          <button
+            onClick={handleCopyPacket}
+            className="px-4 py-2 rounded-full bg-white/5 hover:bg-white/10 text-[#f6f7f4] border border-white/10 text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer"
+          >
+            {packetCopied ? <Check className="w-3.5 h-3.5 text-[#dfbe76]" /> : <Copy className="w-3.5 h-3.5 text-[#c5a059]" />}
+            <span>{packetCopied ? "Packet Copied!" : "Copy B2B Accreditation Summary"}</span>
+          </button>
+          <a
+            href="/docs/company-profile.pdf"
+            download
+            className="px-5 py-2 rounded-full bg-[#c5a059] text-[#060d07] text-xs font-bold uppercase tracking-wider hover:bg-[#dfbe76] shrink-0 cursor-pointer flex items-center gap-2 shadow-lg shadow-[#c5a059]/20 transition-all"
+          >
+            <Download className="w-3.5 h-3.5" />
+            <span>Master Profile PDF</span>
+          </a>
+        </div>
+      </div>
+
+      {/* Pre-Qualification Envelope Checklist Strip */}
+      <div className="p-5 rounded-2xl bg-[#060d07] border border-white/10 max-w-5xl mx-auto mb-6">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+          <div className="flex items-center gap-2.5">
+            <FileCheck className="w-5 h-5 text-[#dfbe76] shrink-0" />
+            <div>
+              <span className="text-xs font-mono font-semibold text-[#f6f7f4] block">
+                Standard B2B Contractor Eligibility Checklist
+              </span>
+              <span className="text-[11px] text-[#9aa89b]">
+                All statutory documents for general contractor accreditation and government tender envelopes.
+              </span>
+            </div>
+          </div>
+          <button
+            onClick={() => setShowPacketDetails(!showPacketDetails)}
+            className="text-xs font-mono text-[#dfbe76] hover:text-[#f6f7f4] flex items-center gap-1 transition-colors cursor-pointer shrink-0"
+          >
+            <span>{showPacketDetails ? "Hide Checklist Details" : "View Envelope Checklist (12 Items)"}</span>
+            {showPacketDetails ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+          </button>
+        </div>
+
+        {showPacketDetails && (
+          <div className="mt-4 pt-4 border-t border-white/10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 text-xs animate-fadeIn">
+            <div className="p-3 rounded-lg bg-[#0a150c] border border-white/5">
+              <strong className="text-[#f6f7f4] block text-[11px] mb-0.5">DTI Certificate 1729753</strong>
+              <span className="text-[#9aa89b] text-[10px] font-mono">Valid through May 28, 2030</span>
+            </div>
+            <div className="p-3 rounded-lg bg-[#0a150c] border border-white/5">
+              <strong className="text-[#f6f7f4] block text-[11px] mb-0.5">BIR COR &amp; 2303 Exemption</strong>
+              <span className="text-[#9aa89b] text-[10px] font-mono">TIN 922-166-219-00000 • RDO 059</span>
+            </div>
+            <div className="p-3 rounded-lg bg-[#0a150c] border border-white/5">
+              <strong className="text-[#f6f7f4] block text-[11px] mb-0.5">PhilGEPS Blue Registered</strong>
+              <span className="text-[#9aa89b] text-[10px] font-mono">Reg. PhilGEPS-2005-23340</span>
+            </div>
+            <div className="p-3 rounded-lg bg-[#0a150c] border border-white/5">
+              <strong className="text-[#f6f7f4] block text-[11px] mb-0.5">DENR Chainsaw Authority</strong>
+              <span className="text-[#9aa89b] text-[10px] font-mono">90 Units (DENR-CENRO Lipa)</span>
+            </div>
+            <div className="p-3 rounded-lg bg-[#0a150c] border border-white/5">
+              <strong className="text-[#f6f7f4] block text-[11px] mb-0.5">PCA Tree Cutter Licensure</strong>
+              <span className="text-[#9aa89b] text-[10px] font-mono">RNCR-1000203, Quezon 565 &amp; 776</span>
+            </div>
+            <div className="p-3 rounded-lg bg-[#0a150c] border border-white/5">
+              <strong className="text-[#f6f7f4] block text-[11px] mb-0.5">3M Safe Manhours Plaque</strong>
+              <span className="text-[#9aa89b] text-[10px] font-mono">Giga ACE 6 Conferred Jan 2026</span>
+            </div>
+            <div className="p-3 rounded-lg bg-[#0a150c] border border-white/5">
+              <strong className="text-[#f6f7f4] block text-[11px] mb-0.5">DBP Forest Partner</strong>
+              <span className="text-[#9aa89b] text-[10px] font-mono">Accreditation No. 11-2005</span>
+            </div>
+            <div className="p-3 rounded-lg bg-[#0a150c] border border-white/5">
+              <strong className="text-[#f6f7f4] block text-[11px] mb-0.5">Statutory SSS/PHIC/HDMF</strong>
+              <span className="text-[#9aa89b] text-[10px] font-mono">Fully Compliant &amp; Active</span>
+            </div>
+            <div className="p-3 rounded-lg bg-[#0a150c] border border-white/5">
+              <strong className="text-[#f6f7f4] block text-[11px] mb-0.5">3 Batangas Nurseries</strong>
+              <span className="text-[#9aa89b] text-[10px] font-mono">230,000+ Native Stocks Reserve</span>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Document Grid */}

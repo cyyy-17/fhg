@@ -103,13 +103,19 @@ export default function Footer() {
                 <Link href="/nurseries#nurseries" className="text-[#f6f7f4] font-medium block hover:text-[#dfbe76] transition-colors">
                   Sitio Latag Nursery Facility
                 </Link>
-                <span className="text-[#9aa89b] text-[11px]">Sitio Latag, Tumaway, Talisay, Batangas</span>
+                <span className="text-[#9aa89b] text-[11px]">Sitio Latag, Tumaway, Talisay, Batangas (100K+)</span>
+              </div>
+              <div>
+                <Link href="/nurseries#nurseries" className="text-[#f6f7f4] font-medium block hover:text-[#dfbe76] transition-colors">
+                  Tumaway Plant Propagation Farm
+                </Link>
+                <span className="text-[#9aa89b] text-[11px]">Brgy. Tumaway, Talisay, Batangas (80K+)</span>
               </div>
               <div>
                 <Link href="/nurseries#nurseries" className="text-[#f6f7f4] font-medium block hover:text-[#dfbe76] transition-colors">
                   Aya Ecological Reserve
                 </Link>
-                <span className="text-[#9aa89b] text-[11px]">Brgy. Aya, Talisay, Batangas</span>
+                <span className="text-[#9aa89b] text-[11px]">Brgy. Aya, Talisay, Batangas (50K+)</span>
               </div>
 
               <div className="pt-1">

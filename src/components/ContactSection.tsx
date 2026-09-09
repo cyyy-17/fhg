@@ -130,6 +130,39 @@ export default function ContactSection() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Left Touchpoint Cards */}
           <div className="lg:col-span-5 flex flex-col gap-4">
+            {/* Rapid Hazard & Typhoon Mobilization Notice */}
+            <div className="rounded-xl bg-[#0a150c] p-5 border border-[#c5a059]/40 bg-radial from-[#c5a059]/5 to-transparent flex flex-col gap-2.5 shadow-lg">
+              <div className="flex items-center justify-between gap-2">
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#dfbe76]">
+                    Rapid Hazard &amp; Storm Dispatch
+                  </span>
+                </div>
+                <span className="text-[10px] font-mono text-[#9aa89b] bg-[#060d07] px-2 py-0.5 rounded border border-white/5">4–12h SLA</span>
+              </div>
+              <p className="text-xs text-[#9aa89b] leading-relaxed">
+                Emergency sectional dismantling for fallen trees obstructing national expressways, high-voltage lines, and commercial estates across Luzon.
+              </p>
+              <div className="flex items-center gap-2 pt-2 border-t border-white/10">
+                <a
+                  href="tel:09165667265"
+                  className="flex-1 py-2 rounded-lg bg-[#c5a059] text-[#060d07] text-xs font-bold text-center hover:bg-[#dfbe76] transition-colors"
+                >
+                  Hotline: 0916 566 7265
+                </a>
+                <a
+                  href="https://wa.me/639165667265?text=EMERGENCY%20DISPATCH:%20Tree%20hazard%20obstruction%20requiring%20immediate%20crew%20mobilization."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3.5 py-2 rounded-lg bg-[#25d366] text-white text-xs font-semibold flex items-center gap-1.5 hover:brightness-105 transition-all shrink-0"
+                >
+                  <MessageCircle className="w-3.5 h-3.5 fill-white" />
+                  <span>WhatsApp</span>
+                </a>
+              </div>
+            </div>
+
             <a
               href="tel:0437410603"
               className="rounded-xl bg-[#0a150c] p-6 flex items-center gap-4 border border-white/10 group hover:border-[#c5a059]/40 transition-colors"

@@ -66,7 +66,7 @@ export default function ContactPage() {
         url: "https://fhg-two.vercel.app/contact",
         name: "Contact Forest Hills Garden",
         description:
-          "Official contact channels for Forest Hills Garden head office, heavy equipment dispatch, and twin Batangas nursery facilities.",
+          "Official contact channels for Forest Hills Garden head office, heavy equipment dispatch, and three Batangas nursery facilities.",
         mainEntity: {
           "@type": "HomeAndConstructionBusiness",
           name: "Forest Hills Garden",

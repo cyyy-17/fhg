@@ -172,12 +172,13 @@ export default function RootLayout({
         openingHours: "Mo-Sa 08:00-17:00",
         geo: {
           "@type": "GeoCoordinates",
-          latitude: 14.095,
-          longitude: 120.978,
+          latitude: 14.090054,
+          longitude: 121.021166,
         },
         telephone: "+63-916-566-7265",
         email: "edluna1971@yahoo.com",
-        priceRange: "$$",
+        taxID: "922-166-219-00000",
+        priceRange: "$$$",
 
         areaServed: [
           {

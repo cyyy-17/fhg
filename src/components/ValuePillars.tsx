@@ -25,8 +25,8 @@ export default function ValuePillars() {
     {
       num: "03",
       icon: Sprout,
-      title: "150,000+ Native Saplings & Nursery Reserves",
-      desc: "Three Batangas facilities in Sitio Latag, Brgy. Tumaway, and Brgy. Aya supplying indigenous forest saplings, ornamentals, and statutory compensatory planting stocks.",
+      title: "230,000+ Native Saplings & Nursery Reserves",
+      desc: "Three Batangas facilities in Sitio Latag, Brgy. Tumaway, and Brgy. Aya holding 230,000+ indigenous forest saplings, ornamentals, and statutory compensatory planting stocks across 12+ hectares.",
       tag: "Three Batangas Nurseries",
       action: "/nurseries",
     },

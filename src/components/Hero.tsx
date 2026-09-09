@@ -96,7 +96,7 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="text-base sm:text-lg md:text-xl text-[#9aa89b] max-w-3xl font-normal leading-relaxed mb-8"
         >
-          Large-scale tree earthballing, precision right-of-way felling, certified chainsaw operations, and twin Batangas nursery reserves. Official infrastructure contractor trusted by San Miguel, Ayala Land, SM Prime, and EEI since 1998.
+          Large-scale tree earthballing, precision right-of-way felling, certified chainsaw operations, and three Batangas nursery facilities totaling 12+ hectares. Official infrastructure contractor trusted by San Miguel, Ayala Land, SM Prime, and EEI since 1998.
         </motion.p>
 
         {/* Key Operational Credentials Grid */}

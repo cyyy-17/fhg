@@ -42,7 +42,7 @@ const faqs = [
   },
   {
     question: "What is your survival warranty on mature earthballed trees?",
-    answer: "We provide a 12-Month Post-Transplantation Warranty targeting a 98.7% survival rate. If a tree succumbs to root shock, we provide 100% free specimen replacement from our twin Batangas nursery reserves.",
+    answer: "We provide a 12-Month Post-Transplantation Warranty targeting a 98.7% survival rate. If a tree succumbs to root shock, we provide 100% free specimen replacement from our three Batangas nursery reserves (230,000+ saplings in stock).",
   },
   {
     question: "Can your heavy chainsaws operate in high-voltage utility lines?",

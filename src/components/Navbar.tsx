@@ -26,7 +26,6 @@ const NAV_SECTION_IDS = [
   "services",
   "operations-hub",
   "projects",
-  "proof",
   "fleet",
   "clients",
   "nurseries",
@@ -44,7 +43,7 @@ const navItems: NavItem[] = [
       { label: "Executive Overview", href: "/#about" },
       { label: "Milestones (1998–2026)", href: "/#timeline", badge: "28 Yrs" },
       { label: "Statutory Credentials", href: "/#credentials" },
-      { label: "Safety & EHS Shield", href: "/#safety-ehs", badge: "1.24M Hrs" },
+      { label: "Safety & EHS Shield", href: "/#safety-ehs", badge: "3.0M Hrs" },
     ],
   },
   {
@@ -72,7 +71,7 @@ const navItems: NavItem[] = [
     label: "Nurseries",
     href: "/nurseries",
     subItems: [
-      { label: "Batangas Nursery Facilities", href: "/nurseries#nurseries", badge: "150K+" },
+      { label: "Batangas Nursery Facilities", href: "/nurseries#nurseries", badge: "230K+" },
       { label: "Live Species Catalog", href: "/nurseries#catalog" },
     ],
   },
@@ -114,7 +113,6 @@ export default function Navbar() {
       if (
         targetId === "projects" &&
         (activeSection === "operations-hub" ||
-          activeSection === "proof" ||
           activeSection === "fleet" ||
           activeSection === "clients" ||
           activeSection === "projects")

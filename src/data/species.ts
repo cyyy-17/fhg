@@ -3,7 +3,7 @@ export interface SpeciesItem {
   commonName: string;
   scientificName: string;
   category: "native" | "ornamental" | "bamboo" | "mature-balled";
-  facility: "Tumaway (100K+)" | "Aya (50K+)";
+  facility: "Sitio Latag (100K+)" | "Tumaway (80K+)" | "Aya (50K+)";
   availableSizes: string;
   growthRate: string;
   offsetCompliance: string;
@@ -16,7 +16,7 @@ export const speciesData: SpeciesItem[] = [
     commonName: "Narra (Philippine National Tree)",
     scientificName: "Pterocarpus indicus",
     category: "native",
-    facility: "Tumaway (100K+)",
+    facility: "Sitio Latag (100K+)",
     availableSizes: "1.5m to 3.5m Saplings • 15–30cm Caliper",
     growthRate: "Medium to Fast Hardwood",
     offsetCompliance: "DENR Priority Reforestation Hardwood",
@@ -38,7 +38,7 @@ export const speciesData: SpeciesItem[] = [
     commonName: "Molave (Philippine Teak)",
     scientificName: "Vitex parviflora",
     category: "native",
-    facility: "Tumaway (100K+)",
+    facility: "Tumaway (80K+)",
     availableSizes: "1.2m to 2.0m Polybagged Saplings",
     growthRate: "Slow-Growing Dense Hardwood",
     offsetCompliance: "High-Value DENR Conservation Species",
@@ -49,7 +49,7 @@ export const speciesData: SpeciesItem[] = [
     commonName: "Balitbitan (Pink Silk Tassel Tree)",
     scientificName: "Cynometra ramiflora",
     category: "native",
-    facility: "Tumaway (100K+)",
+    facility: "Sitio Latag (100K+)",
     availableSizes: "1.5m to 3.0m Containerized Specimens",
     growthRate: "Moderate Coastal & Riparian",
     offsetCompliance: "Riverbank & Water Basin Stabilization",
@@ -60,7 +60,7 @@ export const speciesData: SpeciesItem[] = [
     commonName: "Giant Bamboo / Kawayan Tinik",
     scientificName: "Bambusa blumeana / Gigantochloa",
     category: "bamboo",
-    facility: "Tumaway (100K+)",
+    facility: "Sitio Latag (100K+)",
     availableSizes: "Rooted Culms • 2.0m to 4.0m Clump Clones",
     growthRate: "Rapid Soil Bio-Engineering",
     offsetCompliance: "NIA & DPWH Slope Anti-Erosion Mandate",
@@ -82,7 +82,7 @@ export const speciesData: SpeciesItem[] = [
     commonName: "Kupang (Philippine Locust Tree)",
     scientificName: "Parkia timoriana",
     category: "native",
-    facility: "Tumaway (100K+)",
+    facility: "Tumaway (80K+)",
     availableSizes: "1.5m to 2.8m Seedling Stocks",
     growthRate: "Fast Canopy Umbrella Hardwood",
     offsetCompliance: "DENR Watershed Greening Program",
@@ -93,7 +93,7 @@ export const speciesData: SpeciesItem[] = [
     commonName: "Tindalo (Precious Red Hardwood)",
     scientificName: "Afzelia rhomboidea",
     category: "native",
-    facility: "Tumaway (100K+)",
+    facility: "Tumaway (80K+)",
     availableSizes: "1.0m to 2.2m Hardened Seedlings",
     growthRate: "Slow Dense Heritage Hardwood",
     offsetCompliance: "National Greening Program Compensatory",
