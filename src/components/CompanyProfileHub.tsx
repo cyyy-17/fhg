@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useIsMounted } from "@/hooks/useIsMounted";
 import { useLenisScrollLock } from "@/hooks/useLenisScrollLock";
@@ -10,8 +10,6 @@ import {
   Award,
   ClipboardList,
   ShieldCheck,
-  ChevronLeft,
-  ChevronRight,
 } from "lucide-react";
 import ProfileOverviewTab from "./profile/ProfileOverviewTab";
 import ProfileTimelineTab from "./profile/ProfileTimelineTab";
@@ -72,69 +70,6 @@ export default function CompanyProfileHub() {
     };
   }, [bioModalOpen]);
 
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const tabRefs = useRef<Record<string, HTMLButtonElement | null>>({});
-  const isInitialMount = useRef(true);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(false);
-
-  const checkScroll = useCallback(() => {
-    const el = scrollContainerRef.current;
-    if (!el) return;
-    const { scrollLeft, scrollWidth, clientWidth } = el;
-    setCanScrollLeft(scrollLeft > 8);
-    setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 8);
-  }, []);
-
-  useEffect(() => {
-    checkScroll();
-    const el = scrollContainerRef.current;
-    if (!el) return;
-    el.addEventListener("scroll", checkScroll, { passive: true });
-    window.addEventListener("resize", checkScroll);
-    return () => {
-      el.removeEventListener("scroll", checkScroll);
-      window.removeEventListener("resize", checkScroll);
-    };
-  }, [checkScroll]);
-
-  // Scroll active tab into view only if it's not already fully visible (never aggressive centering)
-  useEffect(() => {
-    if (isInitialMount.current) {
-      isInitialMount.current = false;
-      return;
-    }
-    const container = scrollContainerRef.current;
-    const activeEl = tabRefs.current[activeTab];
-    if (container && activeEl) {
-      // If container has no overflow, skip scrolling entirely
-      if (container.scrollWidth <= container.clientWidth) return;
-
-      const containerRect = container.getBoundingClientRect();
-      const elRect = activeEl.getBoundingClientRect();
-
-      const isVisibleLeft = elRect.left >= containerRect.left + 8;
-      const isVisibleRight = elRect.right <= containerRect.right - 8;
-
-      if (!isVisibleLeft) {
-        // Element is cut off on the left -> scroll left to reveal it
-        const scrollDelta = elRect.left - (containerRect.left + 12);
-        container.scrollBy({ left: scrollDelta, behavior: "smooth" });
-      } else if (!isVisibleRight) {
-        // Element is cut off on the right -> scroll right to reveal it
-        const scrollDelta = elRect.right - (containerRect.right - 12);
-        container.scrollBy({ left: scrollDelta, behavior: "smooth" });
-      }
-    }
-    const timer = setTimeout(checkScroll, 350);
-    return () => clearTimeout(timer);
-  }, [activeTab, checkScroll]);
-
-  const scrollByAmount = (delta: number) => {
-    const el = scrollContainerRef.current;
-    if (!el) return;
-    el.scrollBy({ left: delta, behavior: "smooth" });
-  };
 
   const tabs: { key: TabKey; label: string; icon: typeof Building2; badge?: string }[] = [
     { key: "overview", label: "Executive Overview", icon: Building2 },
@@ -177,50 +112,12 @@ export default function CompanyProfileHub() {
           </p>
         </motion.div>
 
-        {/* Dynamic Hub Navigation Bar (5 Hub Tabs) */}
-        <div className="relative max-w-6xl mx-auto mb-10 px-4 sm:px-0">
-          {/* Mobile Left Arrow Cue */}
-          {canScrollLeft && (
-            <button
-              type="button"
-              onClick={() => scrollByAmount(-180)}
-              aria-label="Scroll left tabs"
-              className="absolute left-1 sm:left-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-[#0a150c] border border-white/10 text-[#dfbe76] flex items-center justify-center shadow-lg lg:hidden backdrop-blur-xs transition-all active:scale-95 cursor-pointer"
-            >
-              <ChevronLeft className="w-4 h-4" />
-            </button>
-          )}
-
-          {/* Mobile Right Arrow Cue */}
-          {canScrollRight && (
-            <button
-              type="button"
-              onClick={() => scrollByAmount(180)}
-              aria-label="Scroll right tabs"
-              className="absolute right-1 sm:right-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-[#0a150c] border border-white/10 text-[#dfbe76] flex items-center justify-center shadow-lg lg:hidden backdrop-blur-xs transition-all active:scale-95 cursor-pointer"
-            >
-              <ChevronRight className="w-4 h-4" />
-            </button>
-          )}
-
-          {/* Left Edge Fade Mask on scroll */}
-          {canScrollLeft && (
-            <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-8 bg-linear-to-r from-[#060d07] to-transparent z-10 lg:hidden rounded-l-xl" />
-          )}
-          {/* Right Edge Fade Mask on scroll */}
-          {canScrollRight && (
-            <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-8 bg-linear-to-l from-[#060d07] to-transparent z-10 lg:hidden rounded-r-xl" />
-          )}
-
-          {/* Native High-Performance Touch Scroll Container */}
+        {/* Central Segmented Tab Controls */}
+        <div className="flex justify-center mb-10 -mx-4 px-4 sm:mx-0 sm:px-0">
           <div
-            ref={scrollContainerRef}
             data-lenis-prevent="true"
-            className="flex items-center p-1.5 rounded-xl bg-[#0a150c] border border-white/10 shadow-xl gap-1 max-w-full overflow-x-auto scrollbar-none no-scrollbar touch-pan-x overscroll-x-contain scroll-smooth"
-            style={{
-              WebkitOverflowScrolling: "touch",
-              touchAction: "pan-x pan-y",
-            }}
+            className="inline-flex items-center gap-1 p-1.5 rounded-xl bg-[#0a150c] border border-white/10 shadow-xl max-w-full overflow-x-auto scrollbar-none touch-pan-x overscroll-x-contain"
+            style={{ WebkitOverflowScrolling: "touch", touchAction: "pan-x pan-y" }}
           >
             {tabs.map((tab) => {
               const Icon = tab.icon;
@@ -228,23 +125,18 @@ export default function CompanyProfileHub() {
               return (
                 <button
                   key={tab.key}
-                  ref={(el) => {
-                    tabRefs.current[tab.key] = el;
-                  }}
-                  type="button"
                   onClick={() => setActiveTab(tab.key)}
-                  className={`flex-1 min-w-max lg:min-w-0 flex items-center justify-center gap-1.5 xl:gap-2 px-3 sm:px-3.5 lg:px-2.5 xl:px-4 py-2.5 rounded-lg text-xs xl:text-sm font-semibold transition-all whitespace-nowrap shrink-0 lg:shrink cursor-pointer select-none ${
+                  className={`px-4 py-2.5 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-200 flex items-center gap-2 shrink-0 cursor-pointer select-none ${
                     isActive
                       ? "bg-[#c5a059] text-[#060d07] shadow-md scale-100"
                       : "text-[#9aa89b] hover:text-[#f6f7f4] hover:bg-white/5 active:bg-white/10"
                   }`}
-                  style={{ touchAction: "manipulation" }}
                 >
-                  <Icon className={`w-4 h-4 shrink-0 ${isActive ? "text-[#060d07]" : "text-[#c5a059]"}`} />
-                  <span className="truncate">{tab.label}</span>
+                  <Icon className={`w-4 h-4 ${isActive ? "text-[#060d07]" : "text-[#c5a059]"}`} />
+                  <span>{tab.label}</span>
                   {tab.badge && (
                     <span
-                      className={`text-[9px] xl:text-[10px] font-mono px-1.5 py-0.5 rounded font-medium uppercase tracking-wider shrink-0 ${
+                      className={`text-[10px] font-mono px-2 py-0.5 rounded font-medium ${
                         isActive
                           ? "bg-[#060d07] text-[#dfbe76]"
                           : "bg-white/5 text-[#9aa89b]"
