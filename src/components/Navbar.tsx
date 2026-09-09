@@ -64,7 +64,6 @@ const navItems: NavItem[] = [
     href: "/projects",
     subItems: [
       { label: "Signature Projects", href: "/projects#projects", badge: "Verified" },
-      { label: "Before / After Proof", href: "/projects#proof" },
       { label: "Heavy Fleet (90 Chainsaws)", href: "/projects#fleet", badge: "90 Units" },
       { label: "Client Trust Wall", href: "/projects#clients" },
     ],

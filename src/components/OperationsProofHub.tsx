@@ -4,18 +4,16 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
   FolderKanban,
-  ArrowLeftRight,
   Truck,
   Building2,
 } from "lucide-react";
 import { projectsData } from "@/data/projects";
 import { clientsData } from "@/data/clients";
 import OperationsProjectsTab from "./operations/OperationsProjectsTab";
-import OperationsProofTab from "./operations/OperationsProofTab";
 import OperationsFleetTab from "./operations/OperationsFleetTab";
 import OperationsClientsTab from "./operations/OperationsClientsTab";
 
-type HubTab = "projects" | "proof" | "fleet" | "clients";
+type HubTab = "projects" | "fleet" | "clients";
 
 export default function OperationsProofHub() {
   const [activeTab, setActiveTab] = useState<HubTab>("projects");
@@ -26,7 +24,6 @@ export default function OperationsProofHub() {
       const hash = window.location.hash.toLowerCase();
       let matchedTab: HubTab | null = null;
       if (hash === "#projects") matchedTab = "projects";
-      else if (hash === "#proof") matchedTab = "proof";
       else if (hash === "#fleet") matchedTab = "fleet";
       else if (hash === "#clients") matchedTab = "clients";
 
@@ -44,8 +41,7 @@ export default function OperationsProofHub() {
 
   const hubTabs: { key: HubTab; label: string; icon: typeof FolderKanban; badge?: string }[] = [
     { key: "projects", label: "Signature Projects", icon: FolderKanban, badge: `${projectsData.length} Works` },
-    { key: "proof", label: "Before / After Proof", icon: ArrowLeftRight, badge: "Verified" },
-    { key: "fleet", label: "Industrial Fleet", icon: Truck, badge: "89 Saws • 50T" },
+    { key: "fleet", label: "Industrial Fleet", icon: Truck, badge: "90 Saws • 50T" },
     { key: "clients", label: "Enterprise Clients", icon: Building2, badge: `${clientsData.length} Partners` },
   ];
 
@@ -57,7 +53,6 @@ export default function OperationsProofHub() {
     >
       {/* Anchor targets for direct hash routing */}
       <span id="projects" className="absolute -top-24 pointer-events-none" />
-      <span id="proof" className="absolute -top-24 pointer-events-none" />
       <span id="fleet" className="absolute -top-24 pointer-events-none" />
       <span id="clients" className="absolute -top-24 pointer-events-none" />
 
@@ -80,7 +75,7 @@ export default function OperationsProofHub() {
             </span>
           </h2>
           <p className="mt-3 text-sm sm:text-base text-[#9aa89b]">
-            Explore verified project portfolios, interactive before/after site transformations, 90-chainsaw registered fleet specifications, and conglomerate client trust.
+            Explore verified project portfolios, 90-chainsaw registered fleet specifications, and conglomerate client trust.
           </p>
         </motion.div>
 
@@ -126,7 +121,6 @@ export default function OperationsProofHub() {
         {/* Sub-component Views */}
         <div>
           {activeTab === "projects" && <OperationsProjectsTab />}
-          {activeTab === "proof" && <OperationsProofTab />}
           {activeTab === "fleet" && <OperationsFleetTab />}
           {activeTab === "clients" && <OperationsClientsTab />}
         </div>
