@@ -59,7 +59,7 @@ const navItems: NavItem[] = [
     ],
   },
   {
-    label: "Operations & Fleet",
+    label: "Operations",
     href: "/projects",
     subItems: [
       { label: "Signature Projects", href: "/projects#projects", badge: "Verified" },
@@ -76,11 +76,11 @@ const navItems: NavItem[] = [
     ],
   },
   {
-    label: "Document Vault",
+    label: "Vault",
     href: "/#vault",
   },
   {
-    label: "Office & Dispatch",
+    label: "Contact",
     href: "/contact",
   },
 ];
@@ -151,36 +151,38 @@ export default function Navbar() {
           : "py-5 bg-transparent border-b border-transparent"
       }`}
     >
-      <div className="w-full max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
+      <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 flex items-center justify-between gap-4 lg:gap-8">
         {/* Brand Mark & Typographic Ledger */}
         <Link
           href="/"
-          className="flex items-center gap-3.5 group cursor-pointer shrink-0"
+          className="flex items-center gap-3 group cursor-pointer shrink-0 mr-2 lg:mr-6"
           aria-label="Forest Hills Garden Home"
         >
-          <div className="h-10 sm:h-11 bg-white px-2.5 py-1 rounded-lg flex items-center justify-center border border-white/20 group-hover:border-[#22c55e]/60 transition-all shadow-sm group-hover:shadow-[0_0_15px_rgba(34,197,94,0.3)]">
+          <div className="h-9 sm:h-10 px-2 rounded-lg bg-white flex items-center justify-center border border-white/25 group-hover:border-[#22c55e]/60 transition-all shadow-sm shrink-0">
             <Image
               src="/images/logo.png"
               alt="Forest Hills Garden Official Logo"
-              width={95}
-              height={40}
-              sizes="95px"
-              className="h-7 sm:h-8 w-auto object-contain"
+              width={75}
+              height={36}
+              sizes="75px"
+              className="h-6.5 sm:h-7.5 w-auto object-contain"
               priority
             />
           </div>
           <div className="flex flex-col">
-            <span className="font-bold text-[#f6f7f4] text-sm sm:text-base tracking-wider font-heading leading-tight group-hover:text-[#4ade80] transition-colors">
+            <span className="font-bold text-[#f6f7f4] text-sm sm:text-[15px] tracking-wide font-heading leading-tight group-hover:text-[#4ade80] transition-colors whitespace-nowrap">
               FOREST HILLS GARDEN
             </span>
-            <span className="text-[9px] sm:text-[10px] font-mono tracking-widest text-[#f59e0b] uppercase font-medium">
-              EST. 1998 • WE DO IT RIGHT AND FAST
+            <span className="text-[10px] font-mono tracking-wider text-[#9aa89b] uppercase whitespace-nowrap flex items-center gap-1.5 leading-tight mt-0.5">
+              <span className="text-[#f59e0b] font-semibold">EST. 1998</span>
+              <span className="text-white/20">•</span>
+              <span>COMMERCIAL LANDSCAPE</span>
             </span>
           </div>
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center gap-6 xl:gap-8" aria-label="Main Navigation">
+        <nav className="hidden lg:flex items-center gap-1 xl:gap-1.5" aria-label="Main Navigation">
           {navItems.map((item) => {
             const active = isItemActive(item);
             return (
@@ -192,8 +194,10 @@ export default function Navbar() {
               >
                 <Link
                   href={item.href}
-                  className={`text-xs xl:text-sm font-medium transition-colors duration-200 flex items-center gap-1 py-1 ${
-                    active ? "text-[#4ade80]" : "text-[#9aa89b] hover:text-[#f6f7f4]"
+                  className={`px-3 py-1.5 rounded-lg text-xs xl:text-sm font-medium transition-all duration-200 flex items-center gap-1 whitespace-nowrap ${
+                    active
+                      ? "text-[#4ade80] bg-[#16a34a]/10"
+                      : "text-[#9aa89b] hover:text-[#f6f7f4] hover:bg-white/5"
                   }`}
                 >
                   <span>{item.label}</span>
@@ -235,12 +239,12 @@ export default function Navbar() {
         </nav>
 
         {/* Executive Action Trigger */}
-        <div className="flex items-center gap-3 shrink-0">
+        <div className="flex items-center gap-2.5 xl:gap-3 shrink-0">
           <a
             href="https://wa.me/639165667265"
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden md:inline-flex items-center gap-1.5 px-3 py-2 rounded-lg font-medium text-xs bg-white/5 text-[#9aa89b] hover:text-[#f6f7f4] hover:bg-white/10 border border-white/10 transition-colors"
+            className="hidden xl:inline-flex items-center gap-1.5 px-3 py-2 rounded-lg font-medium text-xs bg-[#25d366]/10 text-[#25d366] hover:bg-[#25d366]/20 border border-[#25d366]/30 transition-colors whitespace-nowrap"
             aria-label="WhatsApp Dispatch"
           >
             <MessageCircle className="w-3.5 h-3.5 text-[#25d366]" />
@@ -249,9 +253,9 @@ export default function Navbar() {
 
           <Link
             href="/contact"
-            className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-semibold text-xs tracking-wider uppercase bg-linear-to-r from-[#f59e0b] to-[#d97706] hover:from-[#fbbf24] hover:to-[#f59e0b] text-[#050d07] shadow-md hover:shadow-[0_0_20px_rgba(245,158,11,0.3)] transition-all"
+            className="hidden sm:inline-flex items-center gap-1.5 px-4.5 py-2 rounded-lg font-bold text-xs tracking-wider uppercase bg-linear-to-r from-[#f59e0b] to-[#d97706] hover:from-[#fbbf24] hover:to-[#f59e0b] text-[#050d07] shadow-md hover:shadow-[0_0_20px_rgba(245,158,11,0.35)] transition-all whitespace-nowrap"
           >
-            <span>Request Tender RFP</span>
+            <span>Request RFP</span>
             <ArrowUpRight className="w-3.5 h-3.5" />
           </Link>
 
@@ -306,9 +310,9 @@ export default function Navbar() {
             <Link
               href="/contact"
               onClick={() => setMobileMenuOpen(false)}
-              className="mt-3 w-full py-3 rounded-lg text-center font-semibold text-xs uppercase tracking-wider bg-linear-to-r from-[#f59e0b] to-[#d97706] text-[#050d07] shadow-md"
+              className="mt-3 w-full py-3 rounded-lg text-center font-bold text-xs uppercase tracking-wider bg-linear-to-r from-[#f59e0b] to-[#d97706] text-[#050d07] shadow-md"
             >
-              Request Tender RFP
+              Request RFP
             </Link>
           </div>
 
