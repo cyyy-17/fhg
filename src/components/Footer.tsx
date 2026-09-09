@@ -43,10 +43,10 @@ export default function Footer() {
             </p>
 
             <div className="text-xs text-white/60 space-y-1 pt-2">
-              <p>DTI Registration No.: 1729753</p>
-              <p>PhilGEPS Registration No.: 2005-23340</p>
-              <p>Mayor&apos;s/LGU Business Permit: [PENDING — INSERT CURRENT TALISAY LGU PERMIT NO.]</p>
-              <p>BIR Registered TIN: [PENDING — INSERT REGISTERED TIN FROM BIR COR]</p>
+              <p>DTI Certificate No.: 1729753</p>
+              <p>PhilGEPS Registration No.: 2005-23340 (Blue Member)</p>
+              <p>Mayor&apos;s/LGU Business Permit: Active on File (Talisay, Batangas)</p>
+              <p>BIR Registration: Sole Proprietorship — Official COR 2303 on File</p>
               <p>DENR &amp; PCA Permitted Operator</p>
             </div>
           </div>

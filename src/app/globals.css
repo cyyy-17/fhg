@@ -25,6 +25,11 @@
     background-color: #ffd600;
     color: #050e07;
   }
+
+  :focus-visible {
+    outline: 2px solid #ffd600;
+    outline-offset: 3px;
+  }
 }
 
 /* Lenis Smooth Scroll Integration */

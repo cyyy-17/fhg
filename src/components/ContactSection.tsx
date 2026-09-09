@@ -15,6 +15,8 @@ export default function ContactSection() {
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
   const [consent, setConsent] = useState(false);
+  const [honeypot, setHoneypot] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [modalOpen, setModalOpen] = useState(false);
@@ -45,8 +47,11 @@ export default function ContactSection() {
     `Project Requirements:\n${message}\n\n` +
     `Target Recipient: edluna1971@yahoo.com / iamfeluna@yahoo.com`;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Silently drop bots
+    if (honeypot) return;
 
     const newErrors: Record<string, string> = {};
     if (!fullName.trim()) newErrors.fullName = "Please enter your full name.";
@@ -64,7 +69,28 @@ export default function ContactSection() {
     }
 
     setErrors({});
-    setModalOpen(true);
+    setIsSubmitting(true);
+
+    try {
+      await fetch("/api/inquiry", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          fullName,
+          email,
+          phone,
+          subject,
+          message,
+          consent,
+          website: honeypot,
+        }),
+      });
+    } catch {
+      // Graceful fallback
+    } finally {
+      setIsSubmitting(false);
+      setModalOpen(true);
+    }
   };
 
   const handleCopy = () => {
@@ -243,6 +269,17 @@ export default function ContactSection() {
             </p>
 
             <form onSubmit={handleSubmit} noValidate className="space-y-5">
+              {/* Anti-bot Honeypot */}
+              <div className="hidden" aria-hidden="true">
+                <input
+                  type="text"
+                  name="website"
+                  value={honeypot}
+                  onChange={(e) => setHoneypot(e.target.value)}
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+              </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div>
                   <label className="block text-xs font-bold text-forest-muted uppercase tracking-wider mb-2">
@@ -406,10 +443,11 @@ export default function ContactSection() {
 
               <button
                 type="submit"
-                className="w-full py-4 rounded-xl font-extrabold text-sm uppercase tracking-wider bg-linear-to-r from-[#2e7d32] to-[#1a5c1a] text-white hover:brightness-110 shadow-xl border border-[#4caf50]/40 flex items-center justify-center gap-2 hover:scale-[1.01] transition-all duration-200 cursor-pointer"
+                disabled={isSubmitting}
+                className="w-full py-4 rounded-xl font-extrabold text-sm uppercase tracking-wider bg-linear-to-r from-[#2e7d32] to-[#1a5c1a] text-white hover:brightness-110 shadow-xl border border-[#4caf50]/40 flex items-center justify-center gap-2 hover:scale-[1.01] transition-all duration-200 cursor-pointer disabled:opacity-50"
               >
                 <Send className="w-4 h-4" />
-                <span>Compile & Dispatch Inquiry</span>
+                <span>{isSubmitting ? "Compiling & Dispatching..." : "Compile & Dispatch Inquiry"}</span>
               </button>
             </form>
           </div>

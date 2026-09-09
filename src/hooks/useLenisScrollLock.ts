@@ -2,18 +2,26 @@
 
 import { useEffect } from "react";
 
+let lockCount = 0;
+let originalOverflow = "";
+
 export function useLenisScrollLock(isLocked: boolean) {
   useEffect(() => {
     if (!isLocked || typeof window === "undefined") return;
 
-    const lenis = (window as unknown as { __lenis?: { stop: () => void; start: () => void } }).__lenis;
-    lenis?.stop();
-    const originalOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+    if (lockCount === 0) {
+      originalOverflow = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      window.__lenis?.stop();
+    }
+    lockCount++;
 
     return () => {
-      document.body.style.overflow = originalOverflow || "";
-      lenis?.start();
+      lockCount = Math.max(0, lockCount - 1);
+      if (lockCount === 0) {
+        document.body.style.overflow = originalOverflow || "";
+        window.__lenis?.start();
+      }
     };
   }, [isLocked]);
 }
