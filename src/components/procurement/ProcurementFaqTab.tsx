@@ -14,7 +14,7 @@ export default function ProcurementFaqTab() {
         return (
           <div
             key={idx}
-            className="rounded-2xl border border-white/8 bg-[#0a150c]/80 overflow-hidden transition-all"
+            className="rounded-2xl border border-white/8 bg-[#0a170d]/80 overflow-hidden transition-all"
           >
             <button
               onClick={() => setOpenFaqIndex(isOpen ? null : idx)}
@@ -25,8 +25,8 @@ export default function ProcurementFaqTab() {
                 {faq.question}
               </span>
               <ChevronDown
-                className={`w-4 h-4 text-[#c5a059] shrink-0 transition-transform duration-300 ${
-                  isOpen ? "rotate-180" : ""
+                className={`w-4 h-4 text-[#22c55e] shrink-0 transition-transform duration-300 ${
+                  isOpen ? "rotate-180 text-[#4ade80]" : ""
                 }`}
               />
             </button>

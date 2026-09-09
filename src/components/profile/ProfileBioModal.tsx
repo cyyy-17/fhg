@@ -34,13 +34,13 @@ export default function ProfileBioModal({ isOpen, onClose, mounted }: ProfileBio
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-3xl max-h-[90vh] rounded-2xl bg-[#0a150c] border border-white/15 shadow-2xl p-6 sm:p-10 flex flex-col text-[#f6f7f4] overflow-y-auto animate-scaleIn"
+        className="relative w-full max-w-3xl max-h-[90vh] rounded-2xl bg-[#0a170d] border border-white/15 shadow-2xl p-6 sm:p-10 flex flex-col text-[#f6f7f4] overflow-y-auto animate-scaleIn"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Modal Header */}
         <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-6">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-lg bg-[#c5a059]/15 text-[#dfbe76] flex items-center justify-center">
+            <div className="w-9 h-9 rounded-lg bg-[#16a34a]/15 text-[#4ade80] flex items-center justify-center">
               <UserCheck className="w-5 h-5" />
             </div>
             <div>
@@ -62,8 +62,8 @@ export default function ProfileBioModal({ isOpen, onClose, mounted }: ProfileBio
         {/* Modal Content */}
         <div className="space-y-6 text-sm text-[#9aa89b] leading-relaxed">
           {/* Founder Memorial Section */}
-          <div className="p-6 rounded-xl bg-[#060d07] border border-white/10">
-            <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-[#dfbe76] mb-2">
+          <div className="p-6 rounded-xl bg-[#050d07] border border-white/10">
+            <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-[#4ade80] mb-2">
               <span>Founder Memorial Tribute</span>
               <span className="text-white/20">•</span>
               <span>June 10, 1998 – April 24, 2015</span>
@@ -80,8 +80,8 @@ export default function ProfileBioModal({ isOpen, onClose, mounted }: ProfileBio
           </div>
 
           {/* Current Executive Leadership */}
-          <div className="p-6 rounded-xl bg-[#060d07] border border-white/10">
-            <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-[#c5a059] mb-2">
+          <div className="p-6 rounded-xl bg-[#050d07] border border-white/10">
+            <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-[#f59e0b] mb-2">
               <span>Proprietress &amp; General Manager</span>
               <span className="text-white/20">•</span>
               <span>May 7, 2015 – Present</span>
@@ -99,16 +99,16 @@ export default function ProfileBioModal({ isOpen, onClose, mounted }: ProfileBio
 
           {/* Corporate Core Values */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-            <div className="p-4 rounded-lg bg-[#060d07] border border-white/10">
-              <h5 className="font-mono text-xs uppercase tracking-wider text-[#dfbe76] mb-1">
+            <div className="p-4 rounded-lg bg-[#050d07] border border-white/10">
+              <h5 className="font-mono text-xs uppercase tracking-wider text-[#4ade80] mb-1">
                 Direct Executive Accountability
               </h5>
               <p className="text-xs text-[#9aa89b]">
                 Clients interface directly with executive leadership for rapid decision-making on emergency felling, storm response, and critical path project milestones.
               </p>
             </div>
-            <div className="p-4 rounded-lg bg-[#060d07] border border-white/10">
-              <h5 className="font-mono text-xs uppercase tracking-wider text-[#dfbe76] mb-1">
+            <div className="p-4 rounded-lg bg-[#050d07] border border-white/10">
+              <h5 className="font-mono text-xs uppercase tracking-wider text-[#4ade80] mb-1">
                 Statutory Zero-Infraction
               </h5>
               <p className="text-xs text-[#9aa89b]">
@@ -125,7 +125,7 @@ export default function ProfileBioModal({ isOpen, onClose, mounted }: ProfileBio
           </span>
           <button
             onClick={onClose}
-            className="px-5 py-2 rounded-lg bg-[#c5a059] hover:bg-[#dfbe76] text-[#060d07] text-xs font-semibold uppercase tracking-wider transition-colors cursor-pointer"
+            className="px-5 py-2 rounded-lg bg-linear-to-r from-[#15803d] to-[#16a34a] hover:brightness-110 text-white text-xs font-bold uppercase tracking-wider transition-all cursor-pointer shadow-md shadow-[#16a34a]/20"
           >
             Close Dossier
           </button>

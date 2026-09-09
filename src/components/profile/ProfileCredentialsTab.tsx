@@ -9,14 +9,14 @@ export default function ProfileCredentialsTab() {
         {companyData.credentials.map((cred, idx) => (
           <div
             key={idx}
-            className="rounded-xl bg-[#0a150c] border border-white/10 p-7 flex flex-col justify-between group hover:border-[#c5a059]/40 transition-colors"
+            className="rounded-xl bg-[#0a170d] border border-white/10 p-7 flex flex-col justify-between group hover:border-[#22c55e]/40 hover:shadow-[0_0_20px_rgba(34,197,94,0.1)] transition-all"
           >
             <div>
-              <div className="w-10 h-10 rounded-lg bg-[#060d07] border border-white/10 flex items-center justify-center text-[#c5a059] mb-5 group-hover:border-[#c5a059]/50 transition-colors">
+              <div className="w-10 h-10 rounded-lg bg-[#050d07] border border-white/10 flex items-center justify-center text-[#f59e0b] mb-5 group-hover:border-[#22c55e]/50 transition-colors">
                 <Award className="w-5 h-5" />
               </div>
 
-              <h3 className="text-base sm:text-lg font-bold font-heading text-[#f6f7f4] mb-2 group-hover:text-[#dfbe76] transition-colors">
+              <h3 className="text-base sm:text-lg font-bold font-heading text-[#f6f7f4] mb-2 group-hover:text-[#4ade80] transition-colors">
                 {cred.title}
               </h3>
 
@@ -27,12 +27,12 @@ export default function ProfileCredentialsTab() {
 
             <div className="pt-4 border-t border-white/10 flex items-center justify-between">
               <div className="flex items-center gap-1.5 text-[11px] font-mono text-[#f6f7f4]">
-                <ShieldCheck className="w-3.5 h-3.5 text-[#c5a059]" />
+                <ShieldCheck className="w-3.5 h-3.5 text-[#22c55e]" />
                 <span>Audited Active Standing</span>
               </div>
               <Link
                 href="#vault"
-                className="text-xs font-semibold text-[#dfbe76] hover:text-[#f6f7f4] flex items-center gap-1 transition-colors"
+                className="text-xs font-semibold text-[#f59e0b] hover:text-[#4ade80] flex items-center gap-1 transition-colors"
               >
                 <span>View Dossier</span>
                 <ArrowUpRight className="w-3 h-3" />
@@ -43,9 +43,9 @@ export default function ProfileCredentialsTab() {
       </div>
 
       {/* Quick Procurement Assurance Strip */}
-      <div className="p-5 rounded-xl bg-[#0a150c] border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div className="p-5 rounded-xl bg-[#0a170d] border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
         <div className="flex items-center gap-3">
-          <FileCheck className="w-5 h-5 text-[#c5a059] shrink-0" />
+          <FileCheck className="w-5 h-5 text-[#22c55e] shrink-0" />
           <div>
             <h4 className="text-sm font-semibold text-[#f6f7f4]">Direct Tender Envelopes Pre-Qualified</h4>
             <p className="text-xs text-[#9aa89b]">All BIR, PhilGEPS, and DTI registrations are available for review in our Document Vault.</p>
@@ -53,7 +53,7 @@ export default function ProfileCredentialsTab() {
         </div>
         <Link
           href="#vault"
-          className="px-5 py-2.5 rounded-lg bg-[#c5a059] hover:bg-[#dfbe76] text-[#060d07] text-xs font-semibold uppercase tracking-wider transition-colors shrink-0"
+          className="px-5 py-2.5 rounded-lg bg-linear-to-r from-[#f59e0b] to-[#d97706] hover:from-[#fbbf24] hover:to-[#f59e0b] text-[#050d07] text-xs font-semibold uppercase tracking-wider transition-all shrink-0 font-bold shadow-md"
         >
           Inspect Official Vault
         </Link>

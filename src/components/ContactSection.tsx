@@ -104,7 +104,7 @@ export default function ContactSection() {
   )}`;
 
   return (
-    <section id="contact" className="py-24 bg-[#060d07] relative z-20 border-t border-white/5">
+    <section id="contact" className="py-24 bg-[#050d07] relative z-20 border-t border-white/5">
       <div className="w-full max-w-7xl mx-auto px-6 md:px-12">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -113,12 +113,12 @@ export default function ContactSection() {
           transition={{ duration: 0.5 }}
           className="text-center max-w-3xl mx-auto mb-16"
         >
-          <div className="inline-flex items-center gap-2 text-xs font-mono text-[#c5a059] tracking-widest uppercase mb-3">
+          <div className="inline-flex items-center gap-2 text-xs font-mono text-[#22c55e] tracking-widest uppercase mb-3">
             <span>[ 08 / DIRECT CONTRACTOR ENGAGEMENT ]</span>
           </div>
           <h2 className="text-3xl sm:text-5xl font-bold font-heading text-[#f6f7f4] tracking-tight leading-tight">
             Initiate Project Coordination &amp; <br />
-            <span className="font-editorial italic font-normal text-[#dfbe76]">
+            <span className="font-editorial italic font-normal text-[#4ade80]">
               Field Dispatch
             </span>
           </h2>
@@ -131,15 +131,15 @@ export default function ContactSection() {
           {/* Left Touchpoint Cards */}
           <div className="lg:col-span-5 flex flex-col gap-4">
             {/* Rapid Hazard & Typhoon Mobilization Notice */}
-            <div className="rounded-xl bg-[#0a150c] p-5 border border-[#c5a059]/40 bg-radial from-[#c5a059]/5 to-transparent flex flex-col gap-2.5 shadow-lg">
+            <div className="rounded-xl bg-[#0a170d] p-5 border border-[#f59e0b]/40 bg-radial from-[#f59e0b]/10 to-transparent flex flex-col gap-2.5 shadow-lg">
               <div className="flex items-center justify-between gap-2">
                 <div className="flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#dfbe76]">
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#fbbf24]">
                     Rapid Hazard &amp; Storm Dispatch
                   </span>
                 </div>
-                <span className="text-[10px] font-mono text-[#9aa89b] bg-[#060d07] px-2 py-0.5 rounded border border-white/5">4–12h SLA</span>
+                <span className="text-[10px] font-mono text-[#9aa89b] bg-[#050d07] px-2 py-0.5 rounded border border-white/5">4–12h SLA</span>
               </div>
               <p className="text-xs text-[#9aa89b] leading-relaxed">
                 Emergency sectional dismantling for fallen trees obstructing national expressways, high-voltage lines, and commercial estates across Luzon.
@@ -147,7 +147,7 @@ export default function ContactSection() {
               <div className="flex items-center gap-2 pt-2 border-t border-white/10">
                 <a
                   href="tel:09165667265"
-                  className="flex-1 py-2 rounded-lg bg-[#c5a059] text-[#060d07] text-xs font-bold text-center hover:bg-[#dfbe76] transition-colors"
+                  className="flex-1 py-2 rounded-lg bg-[#f59e0b] hover:bg-[#fbbf24] text-[#050d07] text-xs font-bold text-center transition-colors shadow-md"
                 >
                   Hotline: 0916 566 7265
                 </a>
@@ -165,25 +165,25 @@ export default function ContactSection() {
 
             <a
               href="tel:0437410603"
-              className="rounded-xl bg-[#0a150c] p-6 flex items-center gap-4 border border-white/10 group hover:border-[#c5a059]/40 transition-colors"
+              className="rounded-xl bg-[#0a170d] p-6 flex items-center gap-4 border border-white/10 group hover:border-[#22c55e]/40 transition-colors"
             >
-              <div className="w-11 h-11 rounded-lg bg-[#060d07] border border-white/10 flex items-center justify-center text-[#c5a059] group-hover:border-[#c5a059]/50 transition-colors">
+              <div className="w-11 h-11 rounded-lg bg-[#050d07] border border-white/10 flex items-center justify-center text-[#22c55e] group-hover:border-[#22c55e]/50 transition-colors">
                 <Phone className="w-5 h-5" />
               </div>
               <div>
                 <span className="text-[10px] font-mono uppercase tracking-wider text-[#9aa89b] block">
                   Telefax / Landline Desk
                 </span>
-                <span className="text-base font-semibold text-[#f6f7f4] group-hover:text-[#dfbe76] transition-colors">
+                <span className="text-base font-semibold text-[#f6f7f4] group-hover:text-[#4ade80] transition-colors">
                   {companyData.headOffice.telefax}
                 </span>
               </div>
             </a>
 
             {/* Mobile Dispatch + Viber / WhatsApp links */}
-            <div className="rounded-xl bg-[#0a150c] p-6 border border-white/10 flex flex-col gap-3">
+            <div className="rounded-xl bg-[#0a170d] p-6 border border-white/10 flex flex-col gap-3">
               <div className="flex items-center gap-4">
-                <div className="w-11 h-11 rounded-lg bg-[#060d07] border border-white/10 flex items-center justify-center text-[#c5a059]">
+                <div className="w-11 h-11 rounded-lg bg-[#050d07] border border-white/10 flex items-center justify-center text-[#22c55e]">
                   <Phone className="w-5 h-5" />
                 </div>
                 <div>
@@ -228,25 +228,25 @@ export default function ContactSection() {
 
             <a
               href="mailto:edluna1971@yahoo.com?cc=iamfeluna@yahoo.com"
-              className="rounded-xl bg-[#0a150c] p-6 flex items-center gap-4 border border-white/10 group hover:border-[#c5a059]/40 transition-colors"
+              className="rounded-xl bg-[#0a170d] p-6 flex items-center gap-4 border border-white/10 group hover:border-[#22c55e]/40 transition-colors"
             >
-              <div className="w-11 h-11 rounded-lg bg-[#060d07] border border-white/10 flex items-center justify-center text-[#c5a059] group-hover:border-[#c5a059]/50 transition-colors">
+              <div className="w-11 h-11 rounded-lg bg-[#050d07] border border-white/10 flex items-center justify-center text-[#22c55e] group-hover:border-[#22c55e]/50 transition-colors">
                 <Mail className="w-5 h-5" />
               </div>
               <div>
                 <span className="text-[10px] font-mono uppercase tracking-wider text-[#9aa89b] block">
                   Executive Email
                 </span>
-                <span className="text-sm font-semibold text-[#f6f7f4] group-hover:text-[#dfbe76] transition-colors">
+                <span className="text-sm font-semibold text-[#f6f7f4] group-hover:text-[#4ade80] transition-colors">
                   {companyData.headOffice.emails.join(" / ")}
                 </span>
               </div>
             </a>
 
             {/* Head Office Location with Waze & Google Maps */}
-            <div className="rounded-xl bg-[#0a150c] p-6 border border-white/10 flex flex-col gap-3">
+            <div className="rounded-xl bg-[#0a170d] p-6 border border-white/10 flex flex-col gap-3">
               <div className="flex items-start gap-4">
-                <div className="w-11 h-11 rounded-lg bg-[#060d07] border border-white/10 flex items-center justify-center text-[#c5a059] shrink-0">
+                <div className="w-11 h-11 rounded-lg bg-[#050d07] border border-white/10 flex items-center justify-center text-[#22c55e] shrink-0">
                   <MapPin className="w-5 h-5" />
                 </div>
                 <div>
@@ -254,7 +254,7 @@ export default function ContactSection() {
                     <span className="text-[10px] font-mono uppercase tracking-wider text-[#9aa89b] block">
                       Head Office &amp; Administration
                     </span>
-                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#060d07] text-[#dfbe76] border border-white/10">
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#050d07] text-[#4ade80] border border-[#22c55e]/30">
                       8:00 AM – 5:00 PM
                     </span>
                   </div>
@@ -273,7 +273,7 @@ export default function ContactSection() {
                   rel="noopener noreferrer"
                   className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 hover:bg-white/10 text-xs font-medium text-[#f6f7f4] border border-white/10 transition-colors"
                 >
-                  <Navigation className="w-3.5 h-3.5 text-[#c5a059]" />
+                  <Navigation className="w-3.5 h-3.5 text-[#22c55e]" />
                   <span>Waze</span>
                 </a>
                 <a
@@ -282,20 +282,20 @@ export default function ContactSection() {
                   rel="noopener noreferrer"
                   className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 hover:bg-white/10 text-xs font-medium text-[#f6f7f4] border border-white/10 transition-colors"
                 >
-                  <ExternalLink className="w-3.5 h-3.5 text-[#c5a059]" />
+                  <ExternalLink className="w-3.5 h-3.5 text-[#22c55e]" />
                   <span>Google Maps</span>
                 </a>
               </div>
             </div>
 
-            <div className="p-4 rounded-lg bg-[#0a150c] border border-white/10 flex items-center gap-3 text-xs text-[#9aa89b]">
-              <Clock className="w-4 h-4 text-[#c5a059] shrink-0" />
+            <div className="p-4 rounded-lg bg-[#0a170d] border border-white/10 flex items-center gap-3 text-xs text-[#9aa89b]">
+              <Clock className="w-4 h-4 text-[#22c55e] shrink-0" />
               <span>Operations Active: 8:00 AM – 5:00 PM (Mon–Sat) • Field &amp; Arboricultural Dispatch</span>
             </div>
           </div>
 
           {/* Right Direct Inquiry Form */}
-          <div className="lg:col-span-7 rounded-2xl bg-[#0a150c] p-8 sm:p-10 border border-white/10 shadow-2xl">
+          <div className="lg:col-span-7 rounded-2xl bg-[#0a170d] p-8 sm:p-10 border border-white/10 shadow-2xl">
             <h3 className="text-xl sm:text-2xl font-bold font-heading text-[#f6f7f4] mb-2">
               Send a Project Inquiry
             </h3>
@@ -449,7 +449,7 @@ export default function ContactSection() {
                       setConsent(e.target.checked);
                       if (errors.consent) setErrors({ ...errors, consent: "" });
                     }}
-                    className="mt-1 w-4 h-4 rounded border-white/20 bg-[#060d07] text-[#c5a059] focus:ring-[#c5a059] focus:ring-offset-0 cursor-pointer shrink-0"
+                    className="mt-1 w-4 h-4 rounded border-white/20 bg-[#050d07] text-[#16a34a] focus:ring-[#22c55e] focus:ring-offset-0 cursor-pointer shrink-0"
                   />
                   <span className="text-xs text-[#9aa89b] leading-relaxed">
                     I consent to Forest Hills Garden processing my contact details in accordance with Republic Act No. 10173 (
@@ -457,7 +457,7 @@ export default function ContactSection() {
                       href="/privacy-policy"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[#dfbe76] underline hover:text-white transition-colors"
+                      className="text-[#4ade80] underline hover:text-white transition-colors"
                     >
                       Data Privacy Policy
                     </a>
@@ -479,7 +479,7 @@ export default function ContactSection() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full py-3.5 rounded-lg font-semibold text-xs uppercase tracking-wider bg-[#c5a059] hover:bg-[#dfbe76] text-[#060d07] shadow-md flex items-center justify-center gap-2 transition-colors cursor-pointer disabled:opacity-50"
+                className="w-full py-3.5 rounded-lg font-bold text-xs uppercase tracking-wider bg-linear-to-r from-[#15803d] to-[#16a34a] hover:brightness-110 text-[#f6f7f4] shadow-lg shadow-[#16a34a]/25 flex items-center justify-center gap-2 transition-all cursor-pointer disabled:opacity-50"
               >
                 <Send className="w-4 h-4" />
                 <span>{isSubmitting ? "Dispatching..." : "Compile & Dispatch Inquiry"}</span>
@@ -498,7 +498,7 @@ export default function ContactSection() {
           onClick={() => setModalOpen(false)}
         >
           <div
-            className="relative w-full max-w-lg rounded-2xl bg-[#0a150c] border border-white/15 shadow-2xl p-6 sm:p-8 text-[#f6f7f4] my-auto animate-scaleIn"
+            className="relative w-full max-w-lg rounded-2xl bg-[#0a170d] border border-white/15 shadow-2xl p-6 sm:p-8 text-[#f6f7f4] my-auto animate-scaleIn"
             onClick={(e) => e.stopPropagation()}
           >
             <button
@@ -510,7 +510,7 @@ export default function ContactSection() {
             </button>
 
             <div className="flex items-center gap-3 mb-3">
-              <div className="w-8 h-8 rounded-lg bg-[#c5a059]/20 flex items-center justify-center text-[#dfbe76]">
+              <div className="w-8 h-8 rounded-lg bg-[#16a34a]/20 flex items-center justify-center text-[#4ade80]">
                 <Check className="w-4 h-4" />
               </div>
               <div>
@@ -523,7 +523,7 @@ export default function ContactSection() {
               Your inquiry dossier is ready. Choose your preferred dispatch channel:
             </p>
 
-            <pre className="p-3.5 rounded-lg bg-[#060d07] border border-white/10 font-mono text-xs text-[#dfbe76] max-h-36 overflow-y-auto mb-5 whitespace-pre-wrap">
+            <pre className="p-3.5 rounded-lg bg-[#050d07] border border-white/10 font-mono text-xs text-[#4ade80] max-h-36 overflow-y-auto mb-5 whitespace-pre-wrap">
               {compiledInquiry}
             </pre>
 
@@ -532,7 +532,7 @@ export default function ContactSection() {
                 onClick={handleCopy}
                 className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg font-semibold text-xs uppercase tracking-wider bg-white/5 hover:bg-white/10 border border-white/10 text-[#f6f7f4] transition-colors cursor-pointer"
               >
-                {copied ? <Check className="w-4 h-4 text-[#c5a059]" /> : <Copy className="w-4 h-4 text-[#c5a059]" />}
+                {copied ? <Check className="w-4 h-4 text-[#22c55e]" /> : <Copy className="w-4 h-4 text-[#22c55e]" />}
                 <span>{copied ? "Copied!" : "Copy Text"}</span>
               </button>
 
@@ -563,7 +563,7 @@ export default function ContactSection() {
 
               <a
                 href={`mailto:edluna1971@yahoo.com?cc=iamfeluna@yahoo.com&subject=${encodeURIComponent(`[Website Inquiry] ${subject}`)}&body=${encodeURIComponent(compiledInquiry)}`}
-                className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg font-semibold text-xs uppercase tracking-wider bg-[#c5a059] text-[#060d07] hover:bg-[#dfbe76] shadow-md transition-colors"
+                className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg font-bold text-xs uppercase tracking-wider bg-[#f59e0b] text-[#050d07] hover:bg-[#fbbf24] shadow-md transition-colors"
               >
                 <Mail className="w-4 h-4" />
                 <span>Email Client</span>

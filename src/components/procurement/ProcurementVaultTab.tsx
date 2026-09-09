@@ -64,9 +64,9 @@ export default function ProcurementVaultTab() {
   return (
     <div className="space-y-6 animate-fadeIn">
       {/* Top Banner */}
-      <div className="p-5 sm:p-6 rounded-2xl bg-[#0a150c] border border-[#c5a059]/30 shadow-xl flex flex-col md:flex-row items-center justify-between gap-4 max-w-5xl mx-auto mb-4">
+      <div className="p-5 sm:p-6 rounded-2xl bg-[#0a170d] border border-[#22c55e]/30 shadow-xl flex flex-col md:flex-row items-center justify-between gap-4 max-w-5xl mx-auto mb-4">
         <div className="flex items-center gap-3">
-          <ShieldCheck className="w-8 h-8 text-[#c5a059] shrink-0" />
+          <ShieldCheck className="w-8 h-8 text-[#22c55e] shrink-0" />
           <div>
             <h4 className="text-sm font-bold text-[#f6f7f4]">Vendor Pre-Qualification Center</h4>
             <p className="text-xs text-[#9aa89b]">
@@ -79,13 +79,13 @@ export default function ProcurementVaultTab() {
             onClick={handleCopyPacket}
             className="px-4 py-2 rounded-full bg-white/5 hover:bg-white/10 text-[#f6f7f4] border border-white/10 text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer"
           >
-            {packetCopied ? <Check className="w-3.5 h-3.5 text-[#dfbe76]" /> : <Copy className="w-3.5 h-3.5 text-[#c5a059]" />}
+            {packetCopied ? <Check className="w-3.5 h-3.5 text-[#4ade80]" /> : <Copy className="w-3.5 h-3.5 text-[#22c55e]" />}
             <span>{packetCopied ? "Packet Copied!" : "Copy B2B Accreditation Summary"}</span>
           </button>
           <a
             href="/docs/company-profile.pdf"
             download
-            className="px-5 py-2 rounded-full bg-[#c5a059] text-[#060d07] text-xs font-bold uppercase tracking-wider hover:bg-[#dfbe76] shrink-0 cursor-pointer flex items-center gap-2 shadow-lg shadow-[#c5a059]/20 transition-all"
+            className="px-5 py-2 rounded-full bg-linear-to-r from-[#f59e0b] to-[#fbbf24] text-[#050d07] text-xs font-bold uppercase tracking-wider hover:brightness-110 shrink-0 cursor-pointer flex items-center gap-2 shadow-lg shadow-[#f59e0b]/20 transition-all"
           >
             <Download className="w-3.5 h-3.5" />
             <span>Master Profile PDF</span>
@@ -94,10 +94,10 @@ export default function ProcurementVaultTab() {
       </div>
 
       {/* Pre-Qualification Envelope Checklist Strip */}
-      <div className="p-5 rounded-2xl bg-[#060d07] border border-white/10 max-w-5xl mx-auto mb-6">
+      <div className="p-5 rounded-2xl bg-[#050d07] border border-white/10 max-w-5xl mx-auto mb-6">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
           <div className="flex items-center gap-2.5">
-            <FileCheck className="w-5 h-5 text-[#dfbe76] shrink-0" />
+            <FileCheck className="w-5 h-5 text-[#4ade80] shrink-0" />
             <div>
               <span className="text-xs font-mono font-semibold text-[#f6f7f4] block">
                 Standard B2B Contractor Eligibility Checklist
@@ -109,7 +109,7 @@ export default function ProcurementVaultTab() {
           </div>
           <button
             onClick={() => setShowPacketDetails(!showPacketDetails)}
-            className="text-xs font-mono text-[#dfbe76] hover:text-[#f6f7f4] flex items-center gap-1 transition-colors cursor-pointer shrink-0"
+            className="text-xs font-mono text-[#4ade80] hover:text-[#f6f7f4] flex items-center gap-1 transition-colors cursor-pointer shrink-0"
           >
             <span>{showPacketDetails ? "Hide Checklist Details" : "View Envelope Checklist (12 Items)"}</span>
             {showPacketDetails ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
@@ -118,39 +118,39 @@ export default function ProcurementVaultTab() {
 
         {showPacketDetails && (
           <div className="mt-4 pt-4 border-t border-white/10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 text-xs animate-fadeIn">
-            <div className="p-3 rounded-lg bg-[#0a150c] border border-white/5">
+            <div className="p-3 rounded-lg bg-[#0a170d] border border-white/5">
               <strong className="text-[#f6f7f4] block text-[11px] mb-0.5">DTI Certificate 1729753</strong>
               <span className="text-[#9aa89b] text-[10px] font-mono">Valid through May 28, 2030</span>
             </div>
-            <div className="p-3 rounded-lg bg-[#0a150c] border border-white/5">
+            <div className="p-3 rounded-lg bg-[#0a170d] border border-white/5">
               <strong className="text-[#f6f7f4] block text-[11px] mb-0.5">BIR COR &amp; 2303 Exemption</strong>
               <span className="text-[#9aa89b] text-[10px] font-mono">TIN 922-166-219-00000 • RDO 059</span>
             </div>
-            <div className="p-3 rounded-lg bg-[#0a150c] border border-white/5">
+            <div className="p-3 rounded-lg bg-[#0a170d] border border-white/5">
               <strong className="text-[#f6f7f4] block text-[11px] mb-0.5">PhilGEPS Blue Registered</strong>
               <span className="text-[#9aa89b] text-[10px] font-mono">Reg. PhilGEPS-2005-23340</span>
             </div>
-            <div className="p-3 rounded-lg bg-[#0a150c] border border-white/5">
+            <div className="p-3 rounded-lg bg-[#0a170d] border border-white/5">
               <strong className="text-[#f6f7f4] block text-[11px] mb-0.5">DENR Chainsaw Authority</strong>
               <span className="text-[#9aa89b] text-[10px] font-mono">90 Units (DENR-CENRO Lipa)</span>
             </div>
-            <div className="p-3 rounded-lg bg-[#0a150c] border border-white/5">
+            <div className="p-3 rounded-lg bg-[#0a170d] border border-white/5">
               <strong className="text-[#f6f7f4] block text-[11px] mb-0.5">PCA Tree Cutter Licensure</strong>
               <span className="text-[#9aa89b] text-[10px] font-mono">RNCR-1000203, Quezon 565 &amp; 776</span>
             </div>
-            <div className="p-3 rounded-lg bg-[#0a150c] border border-white/5">
+            <div className="p-3 rounded-lg bg-[#0a170d] border border-white/5">
               <strong className="text-[#f6f7f4] block text-[11px] mb-0.5">3M Safe Manhours Plaque</strong>
               <span className="text-[#9aa89b] text-[10px] font-mono">Giga ACE 6 Conferred Jan 2026</span>
             </div>
-            <div className="p-3 rounded-lg bg-[#0a150c] border border-white/5">
+            <div className="p-3 rounded-lg bg-[#0a170d] border border-white/5">
               <strong className="text-[#f6f7f4] block text-[11px] mb-0.5">DBP Forest Partner</strong>
               <span className="text-[#9aa89b] text-[10px] font-mono">Accreditation No. 11-2005</span>
             </div>
-            <div className="p-3 rounded-lg bg-[#0a150c] border border-white/5">
+            <div className="p-3 rounded-lg bg-[#0a170d] border border-white/5">
               <strong className="text-[#f6f7f4] block text-[11px] mb-0.5">Statutory SSS/PHIC/HDMF</strong>
               <span className="text-[#9aa89b] text-[10px] font-mono">Fully Compliant &amp; Active</span>
             </div>
-            <div className="p-3 rounded-lg bg-[#0a150c] border border-white/5">
+            <div className="p-3 rounded-lg bg-[#0a170d] border border-white/5">
               <strong className="text-[#f6f7f4] block text-[11px] mb-0.5">3 Batangas Nurseries</strong>
               <span className="text-[#9aa89b] text-[10px] font-mono">230,000+ Native Stocks Reserve</span>
             </div>
@@ -163,20 +163,20 @@ export default function ProcurementVaultTab() {
         {documents.map((doc) => (
           <div
             key={doc.id}
-            className="bg-[#0a150c]/80 rounded-2xl p-6 flex flex-col justify-between border border-white/8 hover:border-[#c5a059]/40 transition-all duration-300 group"
+            className="bg-[#0a170d]/80 rounded-2xl p-6 flex flex-col justify-between border border-white/8 hover:border-[#22c55e]/40 transition-all duration-300 group"
           >
             <div>
               <div className="flex items-center justify-between gap-2 mb-3">
-                <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-[#c5a059]/10 text-[#dfbe76] border border-[#c5a059]/20">
+                <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-[#16a34a]/15 text-[#4ade80] border border-[#16a34a]/30">
                   {doc.docNumber}
                 </span>
-                <span className="text-[10px] font-mono text-[#81c784] flex items-center gap-1">
-                  <CheckCircle2 className="w-3.5 h-3.5" />
+                <span className="text-[10px] font-mono text-[#4ade80] flex items-center gap-1">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-[#22c55e]" />
                   {doc.status}
                 </span>
               </div>
 
-              <h3 className="text-base font-bold text-[#f6f7f4] mb-2 group-hover:text-[#dfbe76] transition-colors leading-snug">
+              <h3 className="text-base font-bold text-[#f6f7f4] mb-2 group-hover:text-[#4ade80] transition-colors leading-snug">
                 {doc.title}
               </h3>
               <p className="text-xs text-[#9aa89b] leading-relaxed mb-4">
@@ -192,13 +192,13 @@ export default function ProcurementVaultTab() {
                   className="px-3 py-1.5 rounded-lg bg-white/4 hover:bg-white/8 text-[#f6f7f4] text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer border border-white/8"
                   title="Preview document"
                 >
-                  <Eye className="w-3.5 h-3.5 text-[#c5a059]" />
+                  <Eye className="w-3.5 h-3.5 text-[#22c55e]" />
                   <span>Preview</span>
                 </button>
                 <a
                   href={doc.fileUrl}
                   download
-                  className="px-3 py-1.5 rounded-lg bg-[#c5a059] hover:bg-[#dfbe76] text-[#060d07] text-xs font-bold flex items-center gap-1.5 transition-colors shadow-sm"
+                  className="px-3 py-1.5 rounded-lg bg-linear-to-r from-[#15803d] to-[#16a34a] hover:brightness-110 text-white text-xs font-bold flex items-center gap-1.5 transition-all shadow-sm"
                 >
                   <Download className="w-3.5 h-3.5" />
                   <span>PDF</span>
@@ -222,12 +222,12 @@ export default function ProcurementVaultTab() {
           onClick={() => setPreviewDoc(null)}
         >
           <div
-            className="relative w-full max-w-5xl h-[90vh] rounded-3xl bg-[#060d07] border border-white/10 shadow-2xl p-4 sm:p-6 flex flex-col text-[#f6f7f4] my-auto animate-scaleIn"
+            className="relative w-full max-w-5xl h-[90vh] rounded-3xl bg-[#050d07] border border-white/10 shadow-2xl p-4 sm:p-6 flex flex-col text-[#f6f7f4] my-auto animate-scaleIn"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between pb-4 border-b border-white/8 gap-4">
               <div className="flex items-center gap-3">
-                <div className="p-2 rounded-xl bg-[#c5a059]/10 text-[#dfbe76] border border-[#c5a059]/20">
+                <div className="p-2 rounded-xl bg-[#16a34a]/15 text-[#4ade80] border border-[#16a34a]/30">
                   <FileText className="w-5 h-5" />
                 </div>
                 <div>
@@ -240,14 +240,14 @@ export default function ProcurementVaultTab() {
                 <a
                   href={previewDoc.fileUrl}
                   download
-                  className="px-4 py-2 rounded-xl bg-[#c5a059] hover:bg-[#dfbe76] text-[#060d07] text-xs font-bold flex items-center gap-1.5 transition-colors"
+                  className="px-4 py-2 rounded-xl bg-linear-to-r from-[#f59e0b] to-[#fbbf24] text-[#050d07] text-xs font-bold flex items-center gap-1.5 transition-all hover:brightness-110 shadow-md"
                 >
                   <Download className="w-4 h-4" />
                   <span className="hidden sm:inline">Download PDF</span>
                 </a>
                 <button
                   onClick={() => setPreviewDoc(null)}
-                  className="w-9 h-9 rounded-full bg-white/6 hover:bg-[#c5a059] hover:text-[#060d07] flex items-center justify-center transition-colors cursor-pointer"
+                  className="w-9 h-9 rounded-full bg-white/6 hover:bg-[#16a34a] hover:text-white flex items-center justify-center transition-colors cursor-pointer"
                   aria-label="Close modal"
                 >
                   <X className="w-4 h-4" />

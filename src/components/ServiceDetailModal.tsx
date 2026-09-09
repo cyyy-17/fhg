@@ -44,13 +44,13 @@ export default function ServiceDetailModal({ service, onClose }: ServiceDetailMo
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-xl h-full bg-[#0a150c] border-l border-white/15 shadow-2xl p-6 sm:p-8 flex flex-col justify-between overflow-y-auto text-[#f6f7f4] animate-drawerSlide"
+        className="relative w-full max-w-xl h-full bg-[#0a170d] border-l border-white/15 shadow-2xl p-6 sm:p-8 flex flex-col justify-between overflow-y-auto text-[#f6f7f4] animate-drawerSlide"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Drawer Header */}
         <div>
           <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-6">
-            <span className="text-[10px] font-mono uppercase font-semibold tracking-wider px-2.5 py-1 rounded bg-[#060d07] text-[#dfbe76] border border-white/10">
+            <span className="text-[10px] font-mono uppercase font-semibold tracking-wider px-2.5 py-1 rounded bg-[#050d07] text-[#4ade80] border border-[#16a34a]/30">
               {service.category} Dossier
             </span>
             <button
@@ -71,14 +71,14 @@ export default function ServiceDetailModal({ service, onClose }: ServiceDetailMo
 
           {/* Scope Deliverables Checklist */}
           <div className="mb-6">
-            <h4 className="text-xs font-mono uppercase tracking-wider text-[#dfbe76] font-semibold mb-3 flex items-center gap-1.5">
-              <FileCheck2 className="w-4 h-4 text-[#c5a059]" />
+            <h4 className="text-xs font-mono uppercase tracking-wider text-[#4ade80] font-semibold mb-3 flex items-center gap-1.5">
+              <FileCheck2 className="w-4 h-4 text-[#22c55e]" />
               <span>Turnkey Scope Deliverables</span>
             </h4>
             <ul className="space-y-2">
               {service.specs.deliverables.map((item, idx) => (
-                <li key={idx} className="flex items-start gap-2.5 text-xs text-[#f6f7f4] bg-[#060d07] p-3 rounded-lg border border-white/5">
-                  <CheckCircle2 className="w-4 h-4 text-[#c5a059] shrink-0 mt-0.5" />
+                <li key={idx} className="flex items-start gap-2.5 text-xs text-[#f6f7f4] bg-[#050d07] p-3 rounded-lg border border-white/5">
+                  <CheckCircle2 className="w-4 h-4 text-[#22c55e] shrink-0 mt-0.5" />
                   <span>{item}</span>
                 </li>
               ))}
@@ -87,9 +87,9 @@ export default function ServiceDetailModal({ service, onClose }: ServiceDetailMo
 
           {/* Machinery & Permitting Matrix */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-            <div className="p-4 rounded-lg bg-[#060d07] border border-white/10">
+            <div className="p-4 rounded-lg bg-[#050d07] border border-white/10">
               <div className="flex items-center gap-2 text-xs font-semibold text-[#f6f7f4] uppercase tracking-wider mb-2">
-                <Truck className="w-4 h-4 text-[#c5a059]" />
+                <Truck className="w-4 h-4 text-[#22c55e]" />
                 <span>Fleet Required</span>
               </div>
               <ul className="text-xs text-[#9aa89b] space-y-1 list-disc list-inside">
@@ -99,9 +99,9 @@ export default function ServiceDetailModal({ service, onClose }: ServiceDetailMo
               </ul>
             </div>
 
-            <div className="p-4 rounded-lg bg-[#060d07] border border-white/10">
-              <div className="flex items-center gap-2 text-xs font-semibold text-[#dfbe76] uppercase tracking-wider mb-2">
-                <ShieldCheck className="w-4 h-4 text-[#c5a059]" />
+            <div className="p-4 rounded-lg bg-[#050d07] border border-white/10">
+              <div className="flex items-center gap-2 text-xs font-semibold text-[#4ade80] uppercase tracking-wider mb-2">
+                <ShieldCheck className="w-4 h-4 text-[#22c55e]" />
                 <span>Statutory Permits</span>
               </div>
               <ul className="text-xs text-[#9aa89b] space-y-1 list-disc list-inside">
@@ -124,7 +124,7 @@ export default function ServiceDetailModal({ service, onClose }: ServiceDetailMo
             <Link
               href="/contact"
               onClick={onClose}
-              className="w-full sm:w-auto px-6 py-2.5 rounded-lg bg-[#c5a059] hover:bg-[#dfbe76] text-[#060d07] text-xs font-semibold uppercase tracking-wider flex items-center justify-center gap-1.5 shadow-md transition-colors"
+              className="w-full sm:w-auto px-6 py-2.5 rounded-lg bg-linear-to-r from-[#f59e0b] to-[#fbbf24] hover:brightness-110 text-[#050d07] text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 shadow-md shadow-[#f59e0b]/20 transition-all"
             >
               <span>Request Tender RFP</span>
               <ArrowUpRight className="w-4 h-4" />

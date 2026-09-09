@@ -39,7 +39,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative min-h-[92vh] flex flex-col justify-center items-center pt-32 pb-16 overflow-hidden bg-[#060d07]"
+      className="relative min-h-[92vh] flex flex-col justify-center items-center pt-32 pb-16 overflow-hidden bg-[#050d07]"
     >
       {/* Background Architectural Canvas & Depth Vignette */}
       <div className="absolute inset-0 z-0 pointer-events-none">
@@ -51,8 +51,14 @@ export default function Hero() {
           className="object-cover object-center opacity-20 filter saturate-[0.8] brightness-75 scale-100"
           priority
         />
-        <div className="absolute inset-0 bg-radial-gradient-hero" />
-        <div className="absolute inset-0 bg-linear-to-b from-[#060d07]/60 via-transparent to-[#060d07]" />
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(ellipse 80% 50% at 50% -10%, rgba(245, 158, 11, 0.16) 0%, rgba(22, 163, 74, 0.12) 40%, transparent 75%)",
+          }}
+        />
+        <div className="absolute inset-0 bg-linear-to-b from-[#050d07]/70 via-transparent to-[#050d07]" />
       </div>
 
       {/* Hero Content Container */}
@@ -62,16 +68,16 @@ export default function Hero() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="inline-flex items-center gap-3 px-4 py-1.5 rounded-md bg-[#0a150c] border border-white/10 text-[11px] font-mono tracking-widest text-[#9aa89b] mb-8"
+          className="inline-flex items-center gap-3 px-4 py-1.5 rounded-md bg-[#0a170d] border border-white/10 text-[11px] font-mono tracking-widest text-[#9aa89b] mb-8"
         >
-          <span className="w-1.5 h-1.5 rounded-full bg-[#c5a059]" />
+          <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e] shadow-[0_0_8px_#22c55e]" />
           <span className="text-[#f6f7f4] font-semibold">EST. 1998</span>
           <span className="text-white/20">|</span>
           <span>TALISAY, BATANGAS</span>
           <span className="text-white/20 hidden sm:inline">|</span>
-          <span className="text-[#dfbe76] font-medium hidden sm:inline">PHILGEPS BLUE MEMBER</span>
+          <span className="text-[#f59e0b] font-medium hidden sm:inline font-semibold">WE DO IT RIGHT AND FAST</span>
           <span className="text-white/20 hidden md:inline">|</span>
-          <span className="hidden md:inline">DTI 1729753</span>
+          <span className="text-[#4ade80] hidden md:inline">PHILGEPS BLUE MEMBER</span>
         </motion.div>
 
         {/* H1 Main Capability Statement with Editorial Serif Accent */}
@@ -84,7 +90,7 @@ export default function Hero() {
           Philippines’ Industrial{" "}
           <br className="hidden sm:inline" />
           Tree Services{" "}
-          <span className="font-editorial italic font-normal text-[#dfbe76]">
+          <span className="font-editorial italic font-normal text-[#4ade80]">
             Authority
           </span>
         </motion.h1>
@@ -106,29 +112,29 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.25 }}
           className="grid grid-cols-2 sm:grid-cols-4 gap-3 w-full max-w-4xl mb-10"
         >
-          <div className="flex items-center gap-2.5 p-3 rounded-lg bg-[#0b160e] border border-white/5 text-xs text-[#f6f7f4]">
-            <ShieldCheck className="w-4 h-4 text-[#c5a059] shrink-0" />
+          <div className="flex items-center gap-2.5 p-3 rounded-lg bg-[#0a170d] border border-white/5 text-xs text-[#f6f7f4]">
+            <ShieldCheck className="w-4 h-4 text-[#4ade80] shrink-0" />
             <span className="leading-tight text-[11px] text-[#9aa89b]">
               <strong className="text-[#f6f7f4] block">DENR &amp; PCA</strong>
               Registered Contractor
             </span>
           </div>
-          <div className="flex items-center gap-2.5 p-3 rounded-lg bg-[#0b160e] border border-white/5 text-xs text-[#f6f7f4]">
-            <Award className="w-4 h-4 text-[#c5a059] shrink-0" />
+          <div className="flex items-center gap-2.5 p-3 rounded-lg bg-[#0a170d] border border-white/5 text-xs text-[#f6f7f4]">
+            <Award className="w-4 h-4 text-[#f59e0b] shrink-0" />
             <span className="leading-tight text-[11px] text-[#9aa89b]">
               <strong className="text-[#f6f7f4] block">90-Unit Fleet</strong>
               Heavy Chainsaw Docket
             </span>
           </div>
-          <div className="flex items-center gap-2.5 p-3 rounded-lg bg-[#0b160e] border border-white/5 text-xs text-[#f6f7f4]">
-            <Clock className="w-4 h-4 text-[#c5a059] shrink-0" />
+          <div className="flex items-center gap-2.5 p-3 rounded-lg bg-[#0a170d] border border-white/5 text-xs text-[#f6f7f4]">
+            <Clock className="w-4 h-4 text-[#f59e0b] shrink-0" />
             <span className="leading-tight text-[11px] text-[#9aa89b]">
               <strong className="text-[#f6f7f4] block">48–72h SLA</strong>
               Rapid Luzon Mobilization
             </span>
           </div>
-          <div className="flex items-center gap-2.5 p-3 rounded-lg bg-[#0b160e] border border-white/5 text-xs text-[#f6f7f4]">
-            <CheckCircle2 className="w-4 h-4 text-[#dfbe76] shrink-0" />
+          <div className="flex items-center gap-2.5 p-3 rounded-lg bg-[#0a170d] border border-white/5 text-xs text-[#f6f7f4]">
+            <CheckCircle2 className="w-4 h-4 text-[#4ade80] shrink-0" />
             <span className="leading-tight text-[11px] text-[#9aa89b]">
               <strong className="text-[#f6f7f4] block">Zero Infractions</strong>
               28-Year Statutory Record
@@ -145,7 +151,7 @@ export default function Hero() {
         >
           <Link
             href="/contact"
-            className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-lg font-semibold text-sm tracking-wide bg-[#c5a059] hover:bg-[#dfbe76] text-[#060d07] shadow-lg shadow-black/40 transition-colors"
+            className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-lg font-semibold text-sm tracking-wide bg-linear-to-r from-[#f59e0b] to-[#d97706] hover:from-[#fbbf24] hover:to-[#f59e0b] text-[#050d07] shadow-lg shadow-black/40 hover:shadow-[0_0_25px_rgba(245,158,11,0.3)] transition-all font-bold"
           >
             <span>Request Tender RFP</span>
             <ArrowRight className="w-4 h-4" />
@@ -153,16 +159,16 @@ export default function Hero() {
 
           <Link
             href="/projects"
-            className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-lg font-medium text-sm text-[#f6f7f4] bg-[#0b160e] hover:bg-[#122014] border border-white/10 hover:border-[#c5a059]/40 transition-colors"
+            className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-lg font-medium text-sm text-[#f6f7f4] bg-[#0a170d] hover:bg-[#122416] border border-white/10 hover:border-[#22c55e]/40 transition-colors"
           >
             <span>Review Signature Projects</span>
           </Link>
 
           <Link
             href="/#vault"
-            className="inline-flex items-center gap-2 px-4 py-3.5 text-xs font-mono tracking-wider text-[#9aa89b] hover:text-[#dfbe76] transition-colors"
+            className="inline-flex items-center gap-2 px-4 py-3.5 text-xs font-mono tracking-wider text-[#9aa89b] hover:text-[#4ade80] transition-colors"
           >
-            <FileText className="w-4 h-4 text-[#c5a059]" />
+            <FileText className="w-4 h-4 text-[#f59e0b]" />
             <span>DOWNLOAD CREDENTIALS PDF</span>
           </Link>
         </motion.div>
@@ -172,7 +178,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.35 }}
-          className="w-full rounded-xl bg-[#0a150c]/95 border border-white/10 p-6 sm:p-8 shadow-2xl"
+          className="w-full rounded-xl bg-[#0a170d]/95 border border-white/10 p-6 sm:p-8 shadow-2xl"
         >
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 divide-y lg:divide-y-0 lg:divide-x divide-white/10">
             {companyData.stats.map((stat, idx) => (
@@ -182,7 +188,7 @@ export default function Hero() {
               >
                 <div className="text-3xl sm:text-4xl md:text-5xl font-bold font-heading text-[#f6f7f4] tracking-tight mb-1 flex items-baseline">
                   <StatCounter target={stat.value} />
-                  <span className="text-[#dfbe76] font-editorial italic ml-1 font-normal text-2xl sm:text-3xl md:text-4xl">
+                  <span className="text-[#f59e0b] font-editorial italic ml-1 font-normal text-2xl sm:text-3xl md:text-4xl">
                     {stat.suffix}
                   </span>
                 </div>
@@ -202,7 +208,7 @@ export default function Hero() {
       <div className="relative z-20 mt-10 flex justify-center">
         <Link
           href="#why-choose"
-          className="text-[#9aa89b] hover:text-[#dfbe76] transition-colors p-2"
+          className="text-[#9aa89b] hover:text-[#4ade80] transition-colors p-2"
           aria-label="Scroll Down to Value Pillars"
         >
           <ChevronDown className="w-5 h-5 animate-bounce" />

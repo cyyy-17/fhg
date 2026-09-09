@@ -1,5 +1,6 @@
 export default function Marquee() {
   const items = [
+    "WE DO IT RIGHT AND FAST — OFFICIAL CONTRACTOR MOTTO",
     "PHILGEPS BLUE MEMBER CERTIFIED",
     "90 REGISTERED CHAINSAW INDUSTRIAL FLEET",
     "3,000,000 SAFE MANHOURS WITHOUT LTI",
@@ -20,10 +21,10 @@ export default function Marquee() {
         <div className="animate-marquee flex items-center gap-8 whitespace-nowrap">
           {[...items, ...items].map((text, idx) => (
             <div key={idx} className="flex items-center gap-8">
-              <span className="text-[11px] sm:text-xs font-mono font-medium tracking-[0.2em] text-[#9aa89b] uppercase hover:text-[#dfbe76] transition-colors">
+              <span className="text-[11px] sm:text-xs font-mono font-medium tracking-[0.2em] text-[#9aa89b] uppercase hover:text-[#4ade80] transition-colors">
                 {text}
               </span>
-              <span className="text-[#c5a059] text-[8px] select-none">◆</span>
+              <span className="text-[#22c55e] text-[8px] select-none shadow-[0_0_6px_#22c55e]">◆</span>
             </div>
           ))}
         </div>

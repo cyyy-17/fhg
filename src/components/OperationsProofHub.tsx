@@ -48,7 +48,7 @@ export default function OperationsProofHub() {
   return (
     <section
       id="operations-hub"
-      className="py-20 md:py-28 bg-[#060d07] relative z-20 overflow-hidden border-t border-white/5 scroll-mt-20"
+      className="py-20 md:py-28 bg-[#050d07] relative z-20 overflow-hidden border-t border-white/5 scroll-mt-20"
       aria-label="Operations Track Record and Field Execution Hub"
     >
       {/* Anchor targets for direct hash routing */}
@@ -65,12 +65,12 @@ export default function OperationsProofHub() {
           transition={{ duration: 0.5 }}
           className="text-center max-w-3xl mx-auto mb-10"
         >
-          <div className="inline-flex items-center gap-2 text-xs font-mono text-[#c5a059] tracking-widest uppercase mb-3">
+          <div className="inline-flex items-center gap-2 text-xs font-mono text-[#22c55e] tracking-widest uppercase mb-3">
             <span>[ 04 / FIELD EXECUTION &amp; DOCKETS ]</span>
           </div>
           <h2 className="text-3xl sm:text-5xl font-bold font-heading text-[#f6f7f4] tracking-tight leading-tight">
             Execution Proof, Mobilization &amp; <br />
-            <span className="font-editorial italic font-normal text-[#dfbe76]">
+            <span className="font-editorial italic font-normal text-[#4ade80]">
               Industrial Fleet
             </span>
           </h2>
@@ -83,7 +83,7 @@ export default function OperationsProofHub() {
         <div className="flex justify-center mb-10 -mx-4 px-4 sm:mx-0 sm:px-0">
           <div
             data-lenis-prevent="true"
-            className="inline-flex items-center gap-1 p-1.5 rounded-xl bg-[#0a150c] border border-white/10 shadow-xl max-w-full overflow-x-auto scrollbar-none touch-pan-x overscroll-x-contain"
+            className="inline-flex items-center gap-1 p-1.5 rounded-xl bg-[#0a170d] border border-white/10 shadow-xl max-w-full overflow-x-auto scrollbar-none touch-pan-x overscroll-x-contain"
             style={{ WebkitOverflowScrolling: "touch", touchAction: "pan-x pan-y" }}
           >
             {hubTabs.map((tab) => {
@@ -93,19 +93,19 @@ export default function OperationsProofHub() {
                 <button
                   key={tab.key}
                   onClick={() => setActiveTab(tab.key)}
-                  className={`px-4 py-2.5 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-200 flex items-center gap-2 shrink-0 cursor-pointer ${
+                  className={`px-4 py-2.5 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-200 flex items-center gap-2 shrink-0 cursor-pointer select-none ${
                     isActive
-                      ? "bg-[#c5a059] text-[#060d07] shadow-md scale-100"
-                      : "text-[#9aa89b] hover:text-[#f6f7f4] hover:bg-white/5"
+                      ? "bg-linear-to-r from-[#15803d] to-[#16a34a] text-[#f6f7f4] shadow-[0_2px_14px_rgba(22,163,74,0.35)] scale-100"
+                      : "text-[#9aa89b] hover:text-[#f6f7f4] hover:bg-white/5 active:bg-white/10"
                   }`}
                 >
-                  <Icon className={`w-4 h-4 ${isActive ? "text-[#060d07]" : "text-[#c5a059]"}`} />
+                  <Icon className={`w-4 h-4 ${isActive ? "text-[#f6f7f4]" : "text-[#22c55e]"}`} />
                   <span>{tab.label}</span>
                   {tab.badge && (
                     <span
                       className={`text-[10px] font-mono px-2 py-0.5 rounded font-medium ${
                         isActive
-                          ? "bg-[#060d07] text-[#dfbe76]"
+                          ? "bg-[#f59e0b] text-[#050d07] font-bold"
                           : "bg-white/5 text-[#9aa89b]"
                       }`}
                     >

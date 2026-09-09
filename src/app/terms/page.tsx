@@ -76,7 +76,7 @@ export default function TermsPage() {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#060d07] text-[#f6f7f4] selection:bg-[#c5a059] selection:text-[#060d07] overflow-x-hidden">
+    <div className="relative min-h-screen bg-[#050d07] text-[#f6f7f4] selection:bg-[#22c55e] selection:text-[#050d07] overflow-x-hidden">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -84,7 +84,7 @@ export default function TermsPage() {
       <Navbar />
 
       {/* Header Banner & Breadcrumbs */}
-      <section className="pt-32 pb-12 bg-linear-to-b from-[#0a150c] via-[#060d07] to-[#060d07] border-b border-white/8">
+      <section className="pt-32 pb-12 bg-linear-to-b from-[#0a170d] via-[#050d07] to-[#050d07] border-b border-white/8">
         <div className="w-full max-w-[1720px] mx-auto px-6 md:px-12">
           {/* Breadcrumbs */}
           <nav aria-label="Breadcrumb" className="mb-6">
@@ -94,18 +94,18 @@ export default function TermsPage() {
                   Home
                 </Link>
               </li>
-              <ChevronRight className="w-3.5 h-3.5 text-[#c5a059]" />
+              <ChevronRight className="w-3.5 h-3.5 text-[#22c55e]" />
               <li className="text-white font-semibold">Terms of Use</li>
             </ol>
           </nav>
 
           <div className="max-w-4xl">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#0a150c] border border-[#c5a059]/30 text-xs font-mono uppercase tracking-wider text-[#dfbe76] mb-4">
-              <Scale className="w-3.5 h-3.5 text-[#c5a059]" />
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#0a170d] border border-[#22c55e]/30 text-xs font-mono uppercase tracking-wider text-[#4ade80] mb-4">
+              <Scale className="w-3.5 h-3.5 text-[#22c55e]" />
               <span>Commercial Terms & Disclaimers</span>
             </div>
             <h1 className="text-4xl sm:text-6xl font-bold font-heading text-[#f6f7f4] tracking-tight leading-tight">
-              Terms of Use & <span className="font-editorial italic font-normal text-[#dfbe76]">Disclaimers</span>
+              Terms of Use & <span className="font-editorial italic font-normal text-[#4ade80]">Disclaimers</span>
             </h1>
             <p className="mt-4 text-base sm:text-lg text-[#9aa89b] leading-relaxed">
               These terms govern the use of the Forest Hills Garden website, RFP configurator, and corporate document repository under Philippine commercial statutes.
@@ -115,7 +115,7 @@ export default function TermsPage() {
               <span>•</span>
               <span>Last Revised: September 2026</span>
               <span>•</span>
-              <span className="text-[#dfbe76]">Republic of the Philippines</span>
+              <span className="text-[#4ade80]">Republic of the Philippines</span>
             </div>
           </div>
         </div>
@@ -125,8 +125,8 @@ export default function TermsPage() {
       <main className="py-16 md:py-24">
         <div className="w-full max-w-5xl mx-auto px-6 md:px-12 space-y-12">
           {/* 1. General Agreement */}
-          <section className="bg-[#0a150c]/80 rounded-3xl p-8 sm:p-10 border border-white/8 space-y-4">
-            <div className="flex items-center gap-3 text-[#c5a059]">
+          <section className="bg-[#0a170d]/80 rounded-3xl p-8 sm:p-10 border border-white/8 space-y-4">
+            <div className="flex items-center gap-3 text-[#22c55e]">
               <FileCheck2 className="w-6 h-6" />
               <h2 className="text-xl sm:text-2xl font-bold font-heading text-[#f6f7f4]">
                 1. Acceptance of Terms & B2B Commercial Scope
@@ -141,8 +141,8 @@ export default function TermsPage() {
           </section>
 
           {/* 2. RFP Estimator & Scope Builder Disclaimer */}
-          <section className="bg-[#0a150c]/80 rounded-3xl p-8 sm:p-10 border border-[#c5a059]/30 space-y-4">
-            <div className="flex items-center gap-3 text-[#c5a059]">
+          <section className="bg-[#0a170d]/80 rounded-3xl p-8 sm:p-10 border border-[#22c55e]/30 space-y-4">
+            <div className="flex items-center gap-3 text-[#22c55e]">
               <Calculator className="w-6 h-6" />
               <h2 className="text-xl sm:text-2xl font-bold font-heading text-[#f6f7f4]">
                 2. RFP Estimator & Mobilization Calculator Disclaimer
@@ -151,15 +151,15 @@ export default function TermsPage() {
             <p className="text-sm text-[#9aa89b] leading-relaxed">
               The interactive Request for Proposal (RFP) Configurator, fleet mobilization projections, and timeline calculators provided on this website are automated engineering heuristics intended strictly for preliminary planning, budget guidance, and B2B inquiry drafting.
             </p>
-            <div className="p-4 rounded-xl bg-[#060d07]/80 border border-white/8 text-xs space-y-2 text-[#9aa89b]">
+            <div className="p-4 rounded-xl bg-[#050d07]/80 border border-white/8 text-xs space-y-2 text-[#9aa89b]">
               <p className="flex items-start gap-2">
-                <AlertCircle className="w-4 h-4 text-[#c5a059] shrink-0 mt-0.5" />
+                <AlertCircle className="w-4 h-4 text-[#22c55e] shrink-0 mt-0.5" />
                 <span>
                   <strong className="text-[#f6f7f4]">Non-Binding Estimates:</strong> Calculations regarding crew size, machinery allocation, and execution windows do NOT constitute a binding commercial quotation, formal tender bid, or guaranteed mobilization timeline.
                 </span>
               </p>
               <p className="flex items-start gap-2">
-                <AlertCircle className="w-4 h-4 text-[#c5a059] shrink-0 mt-0.5" />
+                <AlertCircle className="w-4 h-4 text-[#22c55e] shrink-0 mt-0.5" />
                 <span>
                   <strong className="text-[#f6f7f4]">Site-Specific Verification Required:</strong> Binding contractual commitments require on-site caliper inspection, root zone assessment, terrain evaluation, and execution of a signed contract or formal Purchase Order (PO) with authorized FHG management.
                 </span>
@@ -168,8 +168,8 @@ export default function TermsPage() {
           </section>
 
           {/* 3. Statistical & Metric Claims Substantiation */}
-          <section className="bg-[#0a150c]/80 rounded-3xl p-8 sm:p-10 border border-white/8 space-y-4">
-            <div className="flex items-center gap-3 text-[#c5a059]">
+          <section className="bg-[#0a170d]/80 rounded-3xl p-8 sm:p-10 border border-white/8 space-y-4">
+            <div className="flex items-center gap-3 text-[#22c55e]">
               <ShieldCheck className="w-6 h-6" />
               <h2 className="text-xl sm:text-2xl font-bold font-heading text-[#f6f7f4]">
                 3. Performance Metrics & Statistical Claim Substantiations
@@ -179,19 +179,19 @@ export default function TermsPage() {
               In adherence to fair trade practices under Republic Act No. 7394 (Consumer Act of the Philippines) and the Department of Trade and Industry (DTI) advertising guidelines, the quantitative performance metrics displayed on this site are substantiated as follows:
             </p>
             <div className="space-y-3 pt-2 text-xs">
-              <div className="p-4 rounded-xl bg-[#060d07]/60 border border-white/8">
+              <div className="p-4 rounded-xl bg-[#050d07]/60 border border-white/8">
                 <strong className="text-[#f6f7f4] block mb-1">98.7% Certified Tree Survival Rate</strong>
                 <p className="text-[#9aa89b]">
                   Derived from historical survival audits conducted across contracted tree earthballing, root-pruning, and transplanting projects between June 1998 and December 2024. Survival is contingent upon adherence to recommended 180-day micro-irrigation, anti-desiccant application, and scheduled canopy conditioning.
                 </p>
               </div>
-              <div className="p-4 rounded-xl bg-[#060d07]/60 border border-white/8">
+              <div className="p-4 rounded-xl bg-[#050d07]/60 border border-white/8">
                 <strong className="text-[#f6f7f4] block mb-1">3,000,000 Safe Man-Hours without Lost-Time Incident (LTI)</strong>
                 <p className="text-[#9aa89b]">
                   Reflects accumulated field operational hours without lost-time incidents (LTI), culminating in the Plaque of Special Recognition conferred on January 21, 2026 by Giga ACE 6, Inc. for the Quezon North Wind Project, monitored pursuant to Department of Labor and Employment (DOLE) Construction Occupational Safety and Health (COSH) guidelines (DO 198-18).
                 </p>
               </div>
-              <div className="p-4 rounded-xl bg-[#060d07]/60 border border-white/8">
+              <div className="p-4 rounded-xl bg-[#050d07]/60 border border-white/8">
                 <strong className="text-[#f6f7f4] block mb-1">100% Statutory Safety & Environmental Compliance Rating</strong>
                 <p className="text-[#9aa89b]">
                   Substantiated by zero regulatory infractions, stop-work notices, or administrative penalties across DENR, PCA, DPWH, and DOLE project audits throughout the firm&apos;s active contracting history.
@@ -201,8 +201,8 @@ export default function TermsPage() {
           </section>
 
           {/* 4. 12-Month Tree Survival Warranty Terms */}
-          <section className="bg-[#0a150c]/80 rounded-3xl p-8 sm:p-10 border border-white/8 space-y-4">
-            <div className="flex items-center gap-3 text-[#c5a059]">
+          <section className="bg-[#0a170d]/80 rounded-3xl p-8 sm:p-10 border border-white/8 space-y-4">
+            <div className="flex items-center gap-3 text-[#22c55e]">
               <ShieldCheck className="w-6 h-6" />
               <h2 className="text-xl sm:text-2xl font-bold font-heading text-[#f6f7f4]">
                 4. 12-Month Tree Survival Warranty Terms
@@ -212,8 +212,8 @@ export default function TermsPage() {
               Forest Hills Garden provides a twelve (12) month post-transplantation survival warranty for balled and relocated trees, subject to the following standard operating conditions:
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
-              <div className="p-5 rounded-2xl bg-[#060d07]/60 border border-white/8 space-y-2">
-                <span className="text-xs font-bold uppercase tracking-wider text-[#81c784] block">
+              <div className="p-5 rounded-2xl bg-[#050d07]/60 border border-white/8 space-y-2">
+                <span className="text-xs font-bold uppercase tracking-wider text-[#4ade80] block">
                   Warranty Inclusions
                 </span>
                 <ul className="list-disc list-inside text-xs text-[#9aa89b] space-y-1.5">
@@ -222,8 +222,8 @@ export default function TermsPage() {
                   <li>Equally sized or caliper-equivalent acclimatized replacement sapling/specimen.</li>
                 </ul>
               </div>
-              <div className="p-5 rounded-2xl bg-[#060d07]/60 border border-white/8 space-y-2">
-                <span className="text-xs font-bold uppercase tracking-wider text-[#df7676] block">
+              <div className="p-5 rounded-2xl bg-[#050d07]/60 border border-white/8 space-y-2">
+                <span className="text-xs font-bold uppercase tracking-wider text-[#ef4444] block">
                   Standard Warranty Exclusions
                 </span>
                 <ul className="list-disc list-inside text-xs text-[#9aa89b] space-y-1.5">
@@ -237,8 +237,8 @@ export default function TermsPage() {
           </section>
 
           {/* 5. Chainsaw Act Compliance (RA 9175) */}
-          <section className="bg-[#0a150c]/80 rounded-3xl p-8 sm:p-10 border border-white/8 space-y-4">
-            <div className="flex items-center gap-3 text-[#c5a059]">
+          <section className="bg-[#0a170d]/80 rounded-3xl p-8 sm:p-10 border border-white/8 space-y-4">
+            <div className="flex items-center gap-3 text-[#22c55e]">
               <Building className="w-6 h-6" />
               <h2 className="text-xl sm:text-2xl font-bold font-heading text-[#f6f7f4]">
                 5. Heavy Forestry Equipment & Chainsaw Act Compliance (RA 9175)
@@ -253,8 +253,8 @@ export default function TermsPage() {
           </section>
 
           {/* 6. Document Vault & Tender Inclusions */}
-          <section className="bg-[#0a150c]/80 rounded-3xl p-8 sm:p-10 border border-white/8 space-y-4">
-            <div className="flex items-center gap-3 text-[#c5a059]">
+          <section className="bg-[#0a170d]/80 rounded-3xl p-8 sm:p-10 border border-white/8 space-y-4">
+            <div className="flex items-center gap-3 text-[#22c55e]">
               <FileCheck2 className="w-6 h-6" />
               <h2 className="text-xl sm:text-2xl font-bold font-heading text-[#f6f7f4]">
                 6. Document Vault & Tender Submissions
@@ -269,8 +269,8 @@ export default function TermsPage() {
           </section>
 
           {/* 7. Intellectual Property & Project References */}
-          <section className="bg-[#0a150c]/80 rounded-3xl p-8 sm:p-10 border border-white/8 space-y-4">
-            <div className="flex items-center gap-3 text-[#c5a059]">
+          <section className="bg-[#0a170d]/80 rounded-3xl p-8 sm:p-10 border border-white/8 space-y-4">
+            <div className="flex items-center gap-3 text-[#22c55e]">
               <HelpCircle className="w-6 h-6" />
               <h2 className="text-xl sm:text-2xl font-bold font-heading text-[#f6f7f4]">
                 7. Intellectual Property & Client Scope References
@@ -285,8 +285,8 @@ export default function TermsPage() {
           </section>
 
           {/* 8. Anti-Bribery, Anti-Corruption & Procurement Integrity */}
-          <section className="bg-[#0a150c]/80 rounded-3xl p-8 sm:p-10 border border-[#c5a059]/30 space-y-4">
-            <div className="flex items-center gap-3 text-[#c5a059]">
+          <section className="bg-[#0a170d]/80 rounded-3xl p-8 sm:p-10 border border-[#22c55e]/30 space-y-4">
+            <div className="flex items-center gap-3 text-[#22c55e]">
               <Handshake className="w-6 h-6" />
               <h2 className="text-xl sm:text-2xl font-bold font-heading text-[#f6f7f4]">
                 8. Anti-Bribery, Procurement Integrity &amp; Fair Dealing
@@ -301,8 +301,8 @@ export default function TermsPage() {
           </section>
 
           {/* 9. DOLE Labor Standards & Hazardous Operations (RA 9231) */}
-          <section className="bg-[#0a150c]/80 rounded-3xl p-8 sm:p-10 border border-white/8 space-y-4">
-            <div className="flex items-center gap-3 text-[#c5a059]">
+          <section className="bg-[#0a170d]/80 rounded-3xl p-8 sm:p-10 border border-white/8 space-y-4">
+            <div className="flex items-center gap-3 text-[#22c55e]">
               <HardHat className="w-6 h-6" />
               <h2 className="text-xl sm:text-2xl font-bold font-heading text-[#f6f7f4]">
                 9. Labor Standards, Safety Officers &amp; Zero Child-Labor
@@ -319,8 +319,8 @@ export default function TermsPage() {
           </section>
 
           {/* 10. Taal Volcano & Climate Contingency Continuity (RA 10121) */}
-          <section className="bg-[#0a150c]/80 rounded-3xl p-8 sm:p-10 border border-white/8 space-y-4">
-            <div className="flex items-center gap-3 text-[#c5a059]">
+          <section className="bg-[#0a170d]/80 rounded-3xl p-8 sm:p-10 border border-white/8 space-y-4">
+            <div className="flex items-center gap-3 text-[#22c55e]">
               <ShieldAlert className="w-6 h-6" />
               <h2 className="text-xl sm:text-2xl font-bold font-heading text-[#f6f7f4]">
                 10. Taal Volcano &amp; Environmental Contingency Continuity
@@ -336,8 +336,8 @@ export default function TermsPage() {
           </section>
 
           {/* 11. Governing Law & Venue */}
-          <section className="bg-[#0a150c]/80 rounded-3xl p-8 sm:p-10 border border-[#c5a059]/40 space-y-4">
-            <div className="flex items-center gap-3 text-[#c5a059]">
+          <section className="bg-[#0a170d]/80 rounded-3xl p-8 sm:p-10 border border-[#22c55e]/40 space-y-4">
+            <div className="flex items-center gap-3 text-[#22c55e]">
               <Gavel className="w-6 h-6" />
               <h2 className="text-xl sm:text-2xl font-bold font-heading text-[#f6f7f4]">
                 11. Governing Law &amp; Jurisdiction
@@ -352,13 +352,13 @@ export default function TermsPage() {
             <div className="pt-4 border-t border-white/8 flex items-center justify-between">
               <Link
                 href="/privacy-policy"
-                className="text-xs font-semibold text-[#dfbe76] hover:text-[#f6f7f4] transition-colors"
+                className="text-xs font-semibold text-[#4ade80] hover:text-[#f6f7f4] transition-colors"
               >
                 ← Read our Data Privacy Policy (RA 10173)
               </Link>
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#c5a059] hover:bg-[#dfbe76] text-[#060d07] text-xs font-bold uppercase tracking-wider transition-colors shadow-sm"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#f59e0b] hover:bg-[#fbbf24] text-[#050d07] text-xs font-bold uppercase tracking-wider transition-colors shadow-sm"
               >
                 <span>Contact Legal / Administration</span>
               </Link>

@@ -34,8 +34,8 @@ export default function OperationsFleetTab() {
             onClick={() => setEquipmentFilter(cat.key)}
             className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
               equipmentFilter === cat.key
-                ? "bg-[#c5a059] text-[#060d07] shadow-md shadow-black/30"
-                : "bg-[#0a150c] text-[#9aa89b] hover:bg-[#122014] hover:text-[#f6f7f4] border border-white/10"
+                ? "bg-linear-to-r from-[#15803d] to-[#16a34a] text-[#f6f7f4] shadow-md shadow-[#16a34a]/25 border border-[#22c55e]/40 font-bold"
+                : "bg-[#0a170d] text-[#9aa89b] hover:bg-[#0f2413] hover:text-[#f6f7f4] border border-white/10"
             }`}
           >
             {cat.label}
@@ -48,7 +48,7 @@ export default function OperationsFleetTab() {
         {filteredEquipment.map((eq) => (
           <div
             key={eq.id}
-            className="rounded-xl bg-[#0a150c] border border-white/10 p-6 flex flex-col justify-between group hover:border-[#c5a059]/40 transition-colors"
+            className="rounded-xl bg-[#0a170d] border border-white/10 p-6 flex flex-col justify-between group hover:border-[#22c55e]/40 transition-colors"
           >
             <div>
               <div className="mb-4 rounded-lg overflow-hidden border border-white/10">
@@ -63,16 +63,16 @@ export default function OperationsFleetTab() {
               </div>
 
               <div className="flex items-center justify-between gap-2 mb-2">
-                <span className="text-[10px] font-mono font-semibold px-2 py-0.5 rounded bg-[#c5a059]/15 text-[#dfbe76] border border-[#c5a059]/30">
+                <span className="text-[10px] font-mono font-semibold px-2 py-0.5 rounded bg-[#16a34a]/15 text-[#4ade80] border border-[#16a34a]/30">
                   {eq.quantity}
                 </span>
                 <span className="text-[10px] font-mono text-[#f6f7f4] flex items-center gap-1">
-                  <CheckCircle2 className="w-3 h-3 text-[#c5a059]" />
+                  <CheckCircle2 className="w-3 h-3 text-[#22c55e]" />
                   {eq.status}
                 </span>
               </div>
 
-              <h3 className="text-base sm:text-lg font-bold font-heading text-[#f6f7f4] group-hover:text-[#dfbe76] transition-colors mb-1">
+              <h3 className="text-base sm:text-lg font-bold font-heading text-[#f6f7f4] group-hover:text-[#4ade80] transition-colors mb-1">
                 {eq.name}
               </h3>
               <span className="text-xs font-mono text-[#9aa89b] block mb-3">
@@ -89,8 +89,8 @@ export default function OperationsFleetTab() {
                 <span className="text-[10px] font-mono uppercase text-[#9aa89b]/80">Capacity:</span>
                 <span className="font-mono text-[#f6f7f4] text-right">{eq.capacity}</span>
               </div>
-              <div className="flex items-center gap-1.5 text-[#dfbe76] text-[11px]">
-                <ShieldCheck className="w-3.5 h-3.5 shrink-0 text-[#c5a059]" />
+              <div className="flex items-center gap-1.5 text-[#4ade80] text-[11px]">
+                <ShieldCheck className="w-3.5 h-3.5 shrink-0 text-[#f59e0b]" />
                 <span className="truncate">{eq.compliance}</span>
               </div>
             </div>

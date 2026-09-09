@@ -41,17 +41,17 @@ export default function ValuePillars() {
   ];
 
   return (
-    <section id="why-choose" className="py-24 bg-[#060d07] relative z-20 border-t border-white/5">
+    <section id="why-choose" className="py-24 bg-[#050d07] relative z-20 border-t border-white/5">
       <div className="w-full max-w-7xl mx-auto px-6 md:px-12">
         {/* Section Header: Monograph Format */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
           <div>
-            <div className="inline-flex items-center gap-2 text-xs font-mono text-[#c5a059] tracking-widest uppercase mb-3">
+            <div className="inline-flex items-center gap-2 text-xs font-mono text-[#22c55e] tracking-widest uppercase mb-3">
               <span>[ 01 / CORE PILLARS ]</span>
             </div>
             <h2 className="text-3xl sm:text-5xl font-bold font-heading text-[#f6f7f4] tracking-tight leading-tight max-w-2xl">
               Engineered for Scale, <br />
-              <span className="font-editorial italic font-normal text-[#dfbe76]">
+              <span className="font-editorial italic font-normal text-[#4ade80]">
                 Rooted in Discipline.
               </span>
             </h2>
@@ -72,21 +72,21 @@ export default function ValuePillars() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ duration: 0.5, delay: idx * 0.08 }}
-                className="rounded-xl bg-[#0a150c] border border-white/10 p-7 flex flex-col justify-between group hover:border-[#c5a059]/40 transition-all duration-300"
+                className="rounded-xl bg-[#0a170d] border border-white/10 p-7 flex flex-col justify-between group hover:border-[#22c55e]/40 transition-all duration-300"
               >
                 <div>
                   {/* Ledger Index & Icon Row */}
                   <div className="flex items-center justify-between pb-5 border-b border-white/10 mb-6">
-                    <span className="font-editorial italic font-normal text-3xl text-[#dfbe76]">
+                    <span className="font-editorial italic font-normal text-3xl text-[#4ade80]">
                       {pillar.num}
                     </span>
-                    <div className="w-10 h-10 rounded-lg bg-[#060d07] border border-white/10 flex items-center justify-center text-[#c5a059] group-hover:border-[#c5a059]/50 transition-colors">
+                    <div className="w-10 h-10 rounded-lg bg-[#050d07] border border-white/10 flex items-center justify-center text-[#22c55e] group-hover:border-[#22c55e]/50 transition-colors">
                       <Icon className="w-5 h-5" />
                     </div>
                   </div>
 
                   {/* Title & Description */}
-                  <h3 className="text-lg font-bold font-heading text-[#f6f7f4] mb-3 leading-snug group-hover:text-[#dfbe76] transition-colors">
+                  <h3 className="text-lg font-bold font-heading text-[#f6f7f4] mb-3 leading-snug group-hover:text-[#4ade80] transition-colors">
                     {pillar.title}
                   </h3>
                   <p className="text-xs sm:text-sm text-[#9aa89b] leading-relaxed mb-6">
@@ -101,7 +101,7 @@ export default function ValuePillars() {
                   </span>
                   <Link
                     href={pillar.action}
-                    className="text-[#dfbe76] hover:text-[#f6f7f4] transition-colors p-1"
+                    className="text-[#f59e0b] hover:text-[#4ade80] transition-colors p-1"
                     aria-label={`Learn more about ${pillar.title}`}
                   >
                     <ArrowUpRight className="w-4 h-4" />

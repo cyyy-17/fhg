@@ -85,9 +85,9 @@ export default function ProfileTimelineTab() {
   return (
     <div className="space-y-6 animate-fadeIn">
       {/* Horizontal Timeline Track Bar */}
-      <div className="rounded-2xl bg-[#0a150c] p-5 border border-white/10">
+      <div className="rounded-2xl bg-[#0a170d] p-5 border border-white/10">
         <div className="flex items-center justify-between mb-3">
-          <span className="text-xs font-mono uppercase tracking-wider text-[#c5a059] font-medium">
+          <span className="text-xs font-mono uppercase tracking-wider text-[#4ade80] font-medium">
             Select Era to Inspect Milestone (1998 — 2026)
           </span>
           <div className="flex items-center gap-1.5">
@@ -116,15 +116,15 @@ export default function ProfileTimelineTab() {
               <button
                 key={m.year}
                 onClick={() => setSelectedMilestone(idx)}
-                className={`p-2.5 rounded-xl flex flex-col items-center justify-center transition-colors cursor-pointer border ${
+                className={`p-2.5 rounded-xl flex flex-col items-center justify-center transition-all cursor-pointer border ${
                   isSelected
-                    ? "bg-[#060d07] border-[#c5a059] shadow-sm"
-                    : "bg-[#060d07] border-white/5 hover:border-white/15 text-[#9aa89b]"
+                    ? "bg-[#050d07] border-[#22c55e] shadow-[0_0_15px_rgba(34,197,94,0.25)]"
+                    : "bg-[#050d07] border-white/5 hover:border-white/15 text-[#9aa89b]"
                 }`}
               >
                 <span
                   className={`text-base sm:text-lg font-bold font-heading ${
-                    isSelected ? "text-[#dfbe76]" : "text-[#f6f7f4]"
+                    isSelected ? "text-[#4ade80]" : "text-[#f6f7f4]"
                   }`}
                 >
                   {m.year}
@@ -139,21 +139,21 @@ export default function ProfileTimelineTab() {
       </div>
 
       {/* Dynamic Milestone Card */}
-      <div className="rounded-2xl bg-[#0a150c] p-8 sm:p-12 border border-white/10 shadow-2xl relative overflow-hidden">
+      <div className="rounded-2xl bg-[#0a170d] p-8 sm:p-12 border border-white/10 shadow-2xl relative overflow-hidden">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
           <div className="flex items-center gap-3">
-            <span className="text-4xl sm:text-6xl font-editorial italic font-normal text-[#dfbe76]">
+            <span className="text-4xl sm:text-6xl font-editorial italic font-normal text-[#f59e0b]">
               {current.year}
             </span>
             <div className="flex flex-col">
-              <span className="text-xs font-mono text-[#c5a059]">{current.date}</span>
+              <span className="text-xs font-mono text-[#4ade80] font-medium">{current.date}</span>
               <span className="text-xs font-mono uppercase tracking-widest text-[#9aa89b]">
                 {current.tag}
               </span>
             </div>
           </div>
 
-          <span className="text-xs font-mono px-3 py-1 rounded bg-[#060d07] text-[#9aa89b] border border-white/10 self-start md:self-auto">
+          <span className="text-xs font-mono px-3 py-1 rounded bg-[#050d07] text-[#9aa89b] border border-white/10 self-start md:self-auto">
             Milestone {selectedMilestone + 1} of {milestones.length}
           </span>
         </div>
@@ -166,10 +166,10 @@ export default function ProfileTimelineTab() {
           {current.description}
         </p>
 
-        <div className="p-4 rounded-xl bg-[#060d07] border border-white/10 flex items-start sm:items-center gap-3">
-          <CheckCircle2 className="w-4 h-4 text-[#c5a059] shrink-0 mt-0.5 sm:mt-0" />
+        <div className="p-4 rounded-xl bg-[#050d07] border border-white/10 flex items-start sm:items-center gap-3">
+          <CheckCircle2 className="w-4 h-4 text-[#22c55e] shrink-0 mt-0.5 sm:mt-0" />
           <div>
-            <span className="text-[10px] font-mono uppercase tracking-wider text-[#dfbe76] font-semibold block mb-0.5">
+            <span className="text-[10px] font-mono uppercase tracking-wider text-[#f59e0b] font-semibold block mb-0.5">
               Verified Institutional Impact:
             </span>
             <span className="text-xs sm:text-sm text-[#f6f7f4]">{current.impact}</span>

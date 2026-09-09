@@ -87,7 +87,7 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#060d07] text-[#f6f7f4] selection:bg-[#c5a059] selection:text-[#060d07] overflow-x-hidden">
+    <div className="relative min-h-screen bg-[#050d07] text-[#f6f7f4] selection:bg-[#22c55e] selection:text-[#050d07] overflow-x-hidden">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -95,7 +95,7 @@ export default function ContactPage() {
       <Navbar />
 
       {/* Header Banner & Breadcrumbs */}
-      <section className="pt-32 pb-12 bg-linear-to-b from-[#0a180d] via-[#060d07] to-[#060d07] border-b border-white/5">
+      <section className="pt-32 pb-12 bg-linear-to-b from-[#0a1f10] via-[#050d07] to-[#050d07] border-b border-white/5">
         <div className="w-full max-w-7xl mx-auto px-6 md:px-12">
           {/* Breadcrumb Navigation */}
           <nav aria-label="Breadcrumb" className="mb-6">
@@ -105,18 +105,18 @@ export default function ContactPage() {
                   Home
                 </Link>
               </li>
-              <ChevronRight className="w-3.5 h-3.5 text-[#c5a059]" />
+              <ChevronRight className="w-3.5 h-3.5 text-[#22c55e]" />
               <li className="text-[#f6f7f4] font-semibold">Contact &amp; Dispatch</li>
             </ol>
           </nav>
 
           <div className="max-w-4xl">
-            <div className="inline-flex items-center gap-2 text-xs font-mono text-[#c5a059] tracking-widest uppercase mb-3">
+            <div className="inline-flex items-center gap-2 text-xs font-mono text-[#22c55e] tracking-widest uppercase mb-3">
               <span>[ DIRECT DISPATCH &amp; REGULATORY DESK ]</span>
             </div>
             <h1 className="text-4xl sm:text-6xl font-bold font-heading text-[#f6f7f4] tracking-tight leading-tight">
               Contact &amp;{" "}
-              <span className="font-editorial italic font-normal text-[#dfbe76]">
+              <span className="font-editorial italic font-normal text-[#4ade80]">
                 Dispatch Operations
               </span>
             </h1>

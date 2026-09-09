@@ -147,7 +147,7 @@ export default function Navbar() {
     <header
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
         scrolled
-          ? "py-3 bg-[#060d07]/95 backdrop-blur-xl border-b border-white/10 shadow-2xl"
+          ? "py-3 bg-[#050d07]/95 backdrop-blur-xl border-b border-white/10 shadow-2xl"
           : "py-5 bg-transparent border-b border-transparent"
       }`}
     >
@@ -158,7 +158,7 @@ export default function Navbar() {
           className="flex items-center gap-3.5 group cursor-pointer shrink-0"
           aria-label="Forest Hills Garden Home"
         >
-          <div className="h-10 sm:h-11 bg-white px-2.5 py-1 rounded-lg flex items-center justify-center border border-white/20 group-hover:border-[#c5a059]/60 transition-colors shadow-sm">
+          <div className="h-10 sm:h-11 bg-white px-2.5 py-1 rounded-lg flex items-center justify-center border border-white/20 group-hover:border-[#22c55e]/60 transition-all shadow-sm group-hover:shadow-[0_0_15px_rgba(34,197,94,0.3)]">
             <Image
               src="/images/logo.png"
               alt="Forest Hills Garden Official Logo"
@@ -170,11 +170,11 @@ export default function Navbar() {
             />
           </div>
           <div className="flex flex-col">
-            <span className="font-bold text-[#f6f7f4] text-sm sm:text-base tracking-wider font-heading leading-tight group-hover:text-[#dfbe76] transition-colors">
+            <span className="font-bold text-[#f6f7f4] text-sm sm:text-base tracking-wider font-heading leading-tight group-hover:text-[#4ade80] transition-colors">
               FOREST HILLS GARDEN
             </span>
-            <span className="text-[10px] font-mono tracking-widest text-[#c5a059] uppercase">
-              EST. 1998 • TALISAY, BATANGAS
+            <span className="text-[9px] sm:text-[10px] font-mono tracking-widest text-[#f59e0b] uppercase font-medium">
+              EST. 1998 • WE DO IT RIGHT AND FAST
             </span>
           </div>
         </Link>
@@ -193,22 +193,22 @@ export default function Navbar() {
                 <Link
                   href={item.href}
                   className={`text-xs xl:text-sm font-medium transition-colors duration-200 flex items-center gap-1 py-1 ${
-                    active ? "text-[#dfbe76]" : "text-[#9aa89b] hover:text-[#f6f7f4]"
+                    active ? "text-[#4ade80]" : "text-[#9aa89b] hover:text-[#f6f7f4]"
                   }`}
                 >
                   <span>{item.label}</span>
                   {active && (
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#c5a059] ml-0.5" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e] ml-0.5 shadow-[0_0_8px_#22c55e]" />
                   )}
                   {item.subItems && (
-                    <ChevronDown className="w-3 h-3 text-[#9aa89b] group-hover:rotate-180 group-hover:text-[#dfbe76] transition-transform duration-200" />
+                    <ChevronDown className="w-3 h-3 text-[#9aa89b] group-hover:rotate-180 group-hover:text-[#4ade80] transition-transform duration-200" />
                   )}
                 </Link>
 
                 {/* Sleek Slate Dropdown Flyout */}
                 {item.subItems && activeDropdown === item.label && (
                   <div className="absolute top-full left-0 pt-2 z-50 animate-fadeIn min-w-64">
-                    <div className="p-2 rounded-xl bg-[#0a150c]/95 backdrop-blur-2xl border border-white/10 shadow-2xl space-y-1">
+                    <div className="p-2 rounded-xl bg-[#0a170d]/95 backdrop-blur-2xl border border-white/10 shadow-2xl space-y-1">
                       {item.subItems.map((sub) => (
                         <Link
                           key={sub.label}
@@ -216,11 +216,11 @@ export default function Navbar() {
                           onClick={() => setActiveDropdown(null)}
                           className="p-2.5 rounded-lg text-xs font-medium text-[#9aa89b] hover:text-[#f6f7f4] hover:bg-white/5 transition-all flex items-center justify-between group/sub"
                         >
-                          <span className="group-hover/sub:text-[#dfbe76] transition-colors">
+                          <span className="group-hover/sub:text-[#4ade80] transition-colors">
                             {sub.label}
                           </span>
                           {sub.badge && (
-                            <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-[#c5a059]/15 text-[#dfbe76] border border-[#c5a059]/30">
+                            <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-[#16a34a]/15 text-[#4ade80] border border-[#16a34a]/30">
                               {sub.badge}
                             </span>
                           )}
@@ -249,7 +249,7 @@ export default function Navbar() {
 
           <Link
             href="/contact"
-            className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-semibold text-xs tracking-wider uppercase bg-[#c5a059] hover:bg-[#dfbe76] text-[#060d07] shadow-md transition-colors"
+            className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-semibold text-xs tracking-wider uppercase bg-linear-to-r from-[#f59e0b] to-[#d97706] hover:from-[#fbbf24] hover:to-[#f59e0b] text-[#050d07] shadow-md hover:shadow-[0_0_20px_rgba(245,158,11,0.3)] transition-all"
           >
             <span>Request Tender RFP</span>
             <ArrowUpRight className="w-3.5 h-3.5" />
@@ -271,7 +271,7 @@ export default function Navbar() {
       {mobileMenuOpen && (
         <div
           id="mobile-nav"
-          className="lg:hidden fixed top-16.25 left-0 w-full h-[calc(100vh-65px)] bg-[#060d07]/95 backdrop-blur-2xl p-6 sm:p-8 flex flex-col justify-between overflow-y-auto border-t border-white/10 animate-slideDown shadow-2xl"
+          className="lg:hidden fixed top-16.25 left-0 w-full h-[calc(100vh-65px)] bg-[#050d07]/95 backdrop-blur-2xl p-6 sm:p-8 flex flex-col justify-between overflow-y-auto border-t border-white/10 animate-slideDown shadow-2xl"
         >
           <div className="flex flex-col gap-3">
             {navItems.map((item) => (
@@ -279,10 +279,10 @@ export default function Navbar() {
                 <Link
                   href={item.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="text-base font-semibold text-[#f6f7f4] py-1 flex items-center justify-between hover:text-[#dfbe76] transition-colors"
+                  className="text-base font-semibold text-[#f6f7f4] py-1 flex items-center justify-between hover:text-[#4ade80] transition-colors"
                 >
                   <span>{item.label}</span>
-                  <span className="text-xs text-[#c5a059]">→</span>
+                  <span className="text-xs text-[#f59e0b]">→</span>
                 </Link>
 
                 {item.subItems && (
@@ -292,7 +292,7 @@ export default function Navbar() {
                         key={sub.label}
                         href={sub.href}
                         onClick={() => setMobileMenuOpen(false)}
-                        className="text-[11px] font-medium text-[#9aa89b] hover:text-[#dfbe76] py-1 transition-colors flex items-center gap-1"
+                        className="text-[11px] font-medium text-[#9aa89b] hover:text-[#4ade80] py-1 transition-colors flex items-center gap-1"
                       >
                         <span>•</span>
                         <span className="truncate">{sub.label}</span>
@@ -306,7 +306,7 @@ export default function Navbar() {
             <Link
               href="/contact"
               onClick={() => setMobileMenuOpen(false)}
-              className="mt-3 w-full py-3 rounded-lg text-center font-semibold text-xs uppercase tracking-wider bg-[#c5a059] text-[#060d07]"
+              className="mt-3 w-full py-3 rounded-lg text-center font-semibold text-xs uppercase tracking-wider bg-linear-to-r from-[#f59e0b] to-[#d97706] text-[#050d07] shadow-md"
             >
               Request Tender RFP
             </Link>
@@ -326,7 +326,7 @@ export default function Navbar() {
               href="tel:09165667265"
               className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-xs font-medium text-[#9aa89b] hover:text-[#f6f7f4]"
             >
-              <Phone className="w-3.5 h-3.5 text-[#c5a059]" />
+              <Phone className="w-3.5 h-3.5 text-[#f59e0b]" />
               <span>0916 566 7265</span>
             </a>
           </div>

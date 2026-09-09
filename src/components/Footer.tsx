@@ -7,7 +7,7 @@ import { companyData } from "@/data/company";
 
 export default function Footer() {
   return (
-    <footer className="bg-[#040905] border-t border-white/10 pt-20 pb-12 relative z-20 text-[#9aa89b]">
+    <footer className="bg-[#030904] border-t border-white/10 pt-20 pb-12 relative z-20 text-[#9aa89b]">
       <div className="w-full max-w-7xl mx-auto px-6 md:px-12">
         {/* Main 4-Column Matrix */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 mb-16">
@@ -28,13 +28,13 @@ export default function Footer() {
                 <span className="font-bold text-[#f6f7f4] text-base tracking-wider font-heading leading-tight">
                   FOREST HILLS GARDEN
                 </span>
-                <span className="text-[10px] font-mono tracking-widest text-[#c5a059] uppercase">
-                  EST. 1998 • TALISAY, BATANGAS
+                <span className="text-[10px] font-mono tracking-widest text-[#22c55e] uppercase font-semibold">
+                  EST. 1998 • WE DO IT RIGHT AND FAST
                 </span>
               </div>
             </div>
 
-            <p className="text-sm text-[#dfbe76] font-editorial italic font-normal mt-1">
+            <p className="text-sm text-[#4ade80] font-editorial italic font-normal mt-1">
               &ldquo;{companyData.tagline}&rdquo;
             </p>
 
@@ -55,16 +55,16 @@ export default function Footer() {
           <div className="lg:col-span-3 flex flex-col gap-3">
             <h4 className="text-xs font-mono font-semibold uppercase tracking-widest text-[#f6f7f4] mb-2 flex items-center gap-1.5">
               <span>Core Capabilities</span>
-              <span className="text-[#c5a059]">→</span>
+              <span className="text-[#22c55e]">→</span>
             </h4>
             <ul className="space-y-2 text-xs">
-              <li><Link href="/services#earthballing" className="hover:text-[#f6f7f4] transition-colors">Large-Scale Tree Earthballing</Link></li>
-              <li><Link href="/services#tree-cutting" className="hover:text-[#f6f7f4] transition-colors">Certified Tree Cutting (90 Chainsaws)</Link></li>
-              <li><Link href="/services#pca-cutting" className="hover:text-[#f6f7f4] transition-colors">PCA Coconut Tree Felling &amp; Salvage</Link></li>
-              <li><Link href="/nurseries" className="hover:text-[#f6f7f4] transition-colors">Native Seedling Propagation &amp; Supply</Link></li>
-              <li><Link href="/services#commercial-landscaping" className="hover:text-[#f6f7f4] transition-colors">Commercial Greening &amp; Landscaping</Link></li>
-              <li><Link href="/services#tree-inventory" className="hover:text-[#f6f7f4] transition-colors">DENR Tree Inventory &amp; Caliper Tagging</Link></li>
-              <li><Link href="/services#reforestation" className="hover:text-[#f6f7f4] transition-colors">Watershed Reforestation &amp; NGP</Link></li>
+              <li><Link href="/services#earthballing" className="hover:text-[#4ade80] transition-colors">Large-Scale Tree Earthballing</Link></li>
+              <li><Link href="/services#tree-cutting" className="hover:text-[#4ade80] transition-colors">Certified Tree Cutting (90 Chainsaws)</Link></li>
+              <li><Link href="/services#pca-cutting" className="hover:text-[#4ade80] transition-colors">PCA Coconut Tree Felling &amp; Salvage</Link></li>
+              <li><Link href="/nurseries" className="hover:text-[#4ade80] transition-colors">Native Seedling Propagation &amp; Supply</Link></li>
+              <li><Link href="/services#commercial-landscaping" className="hover:text-[#4ade80] transition-colors">Commercial Greening &amp; Landscaping</Link></li>
+              <li><Link href="/services#tree-inventory" className="hover:text-[#4ade80] transition-colors">DENR Tree Inventory &amp; Caliper Tagging</Link></li>
+              <li><Link href="/services#reforestation" className="hover:text-[#4ade80] transition-colors">Watershed Reforestation &amp; NGP</Link></li>
             </ul>
           </div>
 
@@ -72,16 +72,16 @@ export default function Footer() {
           <div className="lg:col-span-3 flex flex-col gap-3">
             <h4 className="text-xs font-mono font-semibold uppercase tracking-widest text-[#f6f7f4] mb-2 flex items-center gap-1.5">
               <span>Signature Corridors</span>
-              <span className="text-[#c5a059]">→</span>
+              <span className="text-[#22c55e]">→</span>
             </h4>
             <ul className="space-y-2 text-xs">
-              <li><Link href="/projects#projects" className="hover:text-[#f6f7f4] transition-colors">SLEX TR4 Expressway Expansion</Link></li>
-              <li><Link href="/projects#projects" className="hover:text-[#f6f7f4] transition-colors">Metro Manila Subway Project CP101</Link></li>
-              <li><Link href="/projects#projects" className="hover:text-[#f6f7f4] transition-colors">Isla Wind Farm High-Voltage Corridors</Link></li>
-              <li><Link href="/projects#projects" className="hover:text-[#f6f7f4] transition-colors">NLEX-SLEX Connector Road</Link></li>
-              <li><Link href="/projects#projects" className="hover:text-[#f6f7f4] transition-colors">Nuvali &amp; Vermosa Estates (Ayala Land)</Link></li>
-              <li><Link href="/projects#projects" className="hover:text-[#f6f7f4] transition-colors">SM Prime Commercial Developments</Link></li>
-              <li><Link href="/projects#projects" className="hover:text-[#f6f7f4] transition-colors">Zambales 2,627-Ha NGP Plantation</Link></li>
+              <li><Link href="/projects#projects" className="hover:text-[#4ade80] transition-colors">SLEX TR4 Expressway Expansion</Link></li>
+              <li><Link href="/projects#projects" className="hover:text-[#4ade80] transition-colors">Metro Manila Subway Project CP101</Link></li>
+              <li><Link href="/projects#projects" className="hover:text-[#4ade80] transition-colors">Isla Wind Farm High-Voltage Corridors</Link></li>
+              <li><Link href="/projects#projects" className="hover:text-[#4ade80] transition-colors">NLEX-SLEX Connector Road</Link></li>
+              <li><Link href="/projects#projects" className="hover:text-[#4ade80] transition-colors">Nuvali &amp; Vermosa Estates (Ayala Land)</Link></li>
+              <li><Link href="/projects#projects" className="hover:text-[#4ade80] transition-colors">SM Prime Commercial Developments</Link></li>
+              <li><Link href="/projects#projects" className="hover:text-[#4ade80] transition-colors">Zambales 2,627-Ha NGP Plantation</Link></li>
             </ul>
           </div>
 
@@ -89,30 +89,30 @@ export default function Footer() {
           <div className="lg:col-span-2 flex flex-col gap-3">
             <h4 className="text-xs font-mono font-semibold uppercase tracking-widest text-[#f6f7f4] mb-2 flex items-center gap-1.5">
               <span>Locations &amp; Dispatch</span>
-              <span className="text-[#c5a059]">→</span>
+              <span className="text-[#22c55e]">→</span>
             </h4>
             <address className="not-italic text-xs space-y-3">
               <div>
-                <Link href="/contact" className="text-[#f6f7f4] font-medium block hover:text-[#dfbe76] transition-colors">
+                <Link href="/contact" className="text-[#f6f7f4] font-medium block hover:text-[#4ade80] transition-colors">
                   Head Office &amp; Operations Hub
                 </Link>
                 <span className="text-[#9aa89b] text-[11px]">Sitio Sto. Niño, Banga &amp; Malvar St., Talisay, Batangas</span>
               </div>
 
               <div>
-                <Link href="/nurseries#nurseries" className="text-[#f6f7f4] font-medium block hover:text-[#dfbe76] transition-colors">
+                <Link href="/nurseries#nurseries" className="text-[#f6f7f4] font-medium block hover:text-[#4ade80] transition-colors">
                   Sitio Latag Nursery Facility
                 </Link>
                 <span className="text-[#9aa89b] text-[11px]">Sitio Latag, Tumaway, Talisay, Batangas (100K+)</span>
               </div>
               <div>
-                <Link href="/nurseries#nurseries" className="text-[#f6f7f4] font-medium block hover:text-[#dfbe76] transition-colors">
+                <Link href="/nurseries#nurseries" className="text-[#f6f7f4] font-medium block hover:text-[#4ade80] transition-colors">
                   Tumaway Plant Propagation Farm
                 </Link>
                 <span className="text-[#9aa89b] text-[11px]">Brgy. Tumaway, Talisay, Batangas (80K+)</span>
               </div>
               <div>
-                <Link href="/nurseries#nurseries" className="text-[#f6f7f4] font-medium block hover:text-[#dfbe76] transition-colors">
+                <Link href="/nurseries#nurseries" className="text-[#f6f7f4] font-medium block hover:text-[#4ade80] transition-colors">
                   Aya Ecological Reserve
                 </Link>
                 <span className="text-[#9aa89b] text-[11px]">Brgy. Aya, Talisay, Batangas (50K+)</span>
@@ -123,7 +123,7 @@ export default function Footer() {
                   href="https://www.facebook.com/forest.hills.garden.2024/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-xs text-[#dfbe76] hover:text-[#f6f7f4] transition-colors"
+                  className="inline-flex items-center gap-1.5 text-xs text-[#f59e0b] hover:text-[#4ade80] transition-colors font-medium"
                 >
                   <span>Official Facebook Page ↗</span>
                 </a>
@@ -138,11 +138,11 @@ export default function Footer() {
             <p>© {new Date().getFullYear()} Forest Hills Garden. All Rights Reserved. Talisay, Batangas, Philippines.</p>
             <span className="hidden sm:inline text-white/20">•</span>
             <div className="flex items-center gap-3">
-              <Link href="/privacy-policy" className="text-[#dfbe76] hover:underline">
+              <Link href="/privacy-policy" className="text-[#f59e0b] hover:underline">
                 Privacy Policy (RA 10173)
               </Link>
               <span className="text-white/20">•</span>
-              <Link href="/terms" className="text-[#dfbe76] hover:underline">
+              <Link href="/terms" className="text-[#f59e0b] hover:underline">
                 Terms of Use &amp; Disclaimers
               </Link>
               <span className="text-white/20">•</span>
@@ -153,7 +153,7 @@ export default function Footer() {
                     window.dispatchEvent(new CustomEvent("fhg_open_cookie_settings"));
                   }
                 }}
-                className="text-[#dfbe76] hover:underline cursor-pointer bg-transparent border-0 p-0 text-xs inline-block"
+                className="text-[#f59e0b] hover:underline cursor-pointer bg-transparent border-0 p-0 text-xs inline-block"
               >
                 Cookie Preferences
               </button>

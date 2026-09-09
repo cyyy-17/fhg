@@ -41,7 +41,7 @@ export default function FloatingActions() {
       {showScrollTop && (
         <button
           onClick={scrollToTop}
-          className="w-9 h-9 rounded-lg bg-[#0a150c] hover:bg-[#122014] border border-white/10 hover:border-[#c5a059]/50 text-[#dfbe76] flex items-center justify-center shadow-lg transition-colors animate-fadeIn cursor-pointer"
+          className="w-9 h-9 rounded-lg bg-[#0a170d] hover:bg-[#0f2413] border border-white/10 hover:border-[#22c55e]/50 text-[#4ade80] flex items-center justify-center shadow-lg transition-colors animate-fadeIn cursor-pointer"
           aria-label="Smooth scroll to top"
         >
           <ChevronUp className="w-4 h-4" />
@@ -77,11 +77,11 @@ export default function FloatingActions() {
           {/* Direct Phone Call */}
           <a
             href="tel:09165667265"
-            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#0a150c] text-[#f6f7f4] border border-white/10 hover:border-[#c5a059]/50 text-xs font-semibold shadow-xl transition-colors"
+            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#0a170d] text-[#f6f7f4] border border-white/10 hover:border-[#22c55e]/50 text-xs font-semibold shadow-xl transition-colors"
             aria-label="Call Mobile Dispatch"
           >
             <span>Call 0916 566 7265</span>
-            <Phone className="w-3.5 h-3.5 text-[#c5a059]" />
+            <Phone className="w-3.5 h-3.5 text-[#22c55e]" />
           </a>
 
           {/* Download Official Company Profile PDF */}
@@ -89,7 +89,7 @@ export default function FloatingActions() {
             href="/docs/company-profile.pdf"
             download
             rel="noopener"
-            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-[#c5a059] text-[#060d07] text-xs font-semibold uppercase tracking-wider shadow-xl hover:bg-[#dfbe76] transition-colors cursor-pointer"
+            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-linear-to-r from-[#15803d] to-[#16a34a] hover:brightness-110 text-white text-xs font-bold uppercase tracking-wider shadow-xl transition-all cursor-pointer"
             aria-label="Download Official Company Profile PDF"
           >
             <span>Download Company Dossier (PDF)</span>
@@ -101,13 +101,13 @@ export default function FloatingActions() {
       {/* Main Trigger Button */}
       <button
         onClick={() => setExpanded(!expanded)}
-        className="w-12 h-12 rounded-xl bg-[#c5a059] hover:bg-[#dfbe76] text-[#060d07] flex items-center justify-center shadow-2xl transition-colors border border-black/20 cursor-pointer group"
+        className="w-12 h-12 rounded-xl bg-linear-to-r from-[#f59e0b] to-[#fbbf24] hover:brightness-110 text-[#050d07] flex items-center justify-center shadow-2xl transition-all border border-black/20 cursor-pointer group shadow-[#f59e0b]/25"
         aria-label={expanded ? "Close Quick Actions" : "Open Quick Contact"}
       >
         {expanded ? (
           <X className="w-5 h-5" />
         ) : (
-          <MessageCircle className="w-5 h-5" />
+          <MessageCircle className="w-5 h-5 fill-current" />
         )}
       </button>
     </div>

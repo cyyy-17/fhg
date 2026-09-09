@@ -55,7 +55,7 @@ export default function OperationsProjectsTab() {
             value={searchProject}
             onChange={(e) => setSearchProject(e.target.value)}
             placeholder="Search project, client, or site..."
-            className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#060d07]/80 border border-white/8 text-xs text-[#f6f7f4] placeholder-[#9aa89b]/50 focus:outline-none focus:border-[#c5a059] transition-colors"
+            className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#050d07]/80 border border-white/8 text-xs text-[#f6f7f4] placeholder-[#9aa89b]/50 focus:outline-none focus:border-[#22c55e] transition-colors"
           />
         </div>
 
@@ -64,9 +64,9 @@ export default function OperationsProjectsTab() {
             <button
               key={cat.key}
               onClick={() => setProjectFilter(cat.key)}
-              className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold tracking-wide transition-colors shrink-0 cursor-pointer ${
+              className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold tracking-wide transition-all shrink-0 cursor-pointer ${
                 projectFilter === cat.key
-                  ? "bg-[#c5a059] text-[#060d07] font-bold shadow-md shadow-[#c5a059]/20"
+                  ? "bg-linear-to-r from-[#15803d] to-[#16a34a] text-[#f6f7f4] font-bold shadow-md shadow-[#16a34a]/20 border border-[#22c55e]/40"
                   : "bg-white/4 text-[#9aa89b] hover:bg-white/8 hover:text-[#f6f7f4]"
               }`}
             >
@@ -91,7 +91,7 @@ export default function OperationsProjectsTab() {
             <div
               key={project.id}
               onClick={() => setSelectedProject(project)}
-              className="bg-[#0a150c]/80 rounded-2xl p-5 sm:p-6 flex flex-col justify-between group cursor-pointer border border-white/8 hover:border-[#c5a059]/40 transition-all duration-300"
+              className="bg-[#0a170d]/80 rounded-2xl p-5 sm:p-6 flex flex-col justify-between group cursor-pointer border border-white/8 hover:border-[#22c55e]/40 transition-all duration-300"
             >
               <div>
                 <div className="mb-4 rounded-xl overflow-hidden border border-white/8">
@@ -106,13 +106,13 @@ export default function OperationsProjectsTab() {
                 </div>
 
                 <div className="flex items-center justify-between gap-2 mb-2">
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-[#dfbe76] bg-[#c5a059]/10 px-2 py-0.5 rounded-full border border-[#c5a059]/20">
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-[#4ade80] bg-[#16a34a]/15 px-2 py-0.5 rounded-full border border-[#16a34a]/30">
                     {project.client}
                   </span>
                   <span
                     className={`text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1 ${
                       project.badge === "Ongoing"
-                        ? "bg-[#2e7d32]/20 text-[#81c784] border border-[#2e7d32]/30"
+                        ? "bg-[#16a34a]/20 text-[#4ade80] border border-[#16a34a]/30"
                         : "bg-white/6 text-[#9aa89b]"
                     }`}
                   >
@@ -121,12 +121,12 @@ export default function OperationsProjectsTab() {
                   </span>
                 </div>
 
-                <h3 className="text-base sm:text-lg font-bold font-heading text-[#f6f7f4] group-hover:text-[#dfbe76] transition-colors leading-snug mb-2">
+                <h3 className="text-base sm:text-lg font-bold font-heading text-[#f6f7f4] group-hover:text-[#4ade80] transition-colors leading-snug mb-2">
                   {project.title}
                 </h3>
 
                 <div className="flex items-center gap-1.5 text-xs text-[#9aa89b] mb-3">
-                  <MapPin className="w-3.5 h-3.5 text-[#c5a059] shrink-0" />
+                  <MapPin className="w-3.5 h-3.5 text-[#22c55e] shrink-0" />
                   <span className="line-clamp-1">{project.location}</span>
                 </div>
 
@@ -135,7 +135,7 @@ export default function OperationsProjectsTab() {
                 </p>
               </div>
 
-              <div className="pt-3 border-t border-white/8 flex items-center justify-between text-xs font-semibold text-[#dfbe76] group-hover:text-[#f6f7f4] transition-colors">
+              <div className="pt-3 border-t border-white/8 flex items-center justify-between text-xs font-semibold text-[#f59e0b] group-hover:text-[#4ade80] transition-colors">
                 <span>View Scope Dossier</span>
                 <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </div>
@@ -155,7 +155,7 @@ export default function OperationsProjectsTab() {
         <div className="flex justify-center pt-4">
           <button
             onClick={() => setShowAllProjects(!showAllProjects)}
-            className="px-6 py-2.5 rounded-full bg-[#0a150c] hover:bg-[#0e1d11] border border-[#c5a059]/30 hover:border-[#c5a059] text-xs font-semibold tracking-wider text-[#f6f7f4] transition-all cursor-pointer shadow-sm"
+            className="px-6 py-2.5 rounded-full bg-[#0a170d] hover:bg-[#0f2413] border border-[#22c55e]/30 hover:border-[#22c55e] text-xs font-semibold tracking-wider text-[#f6f7f4] transition-all cursor-pointer shadow-sm"
           >
             {showAllProjects
               ? `Show Less (Top 6)`

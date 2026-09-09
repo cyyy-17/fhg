@@ -98,11 +98,11 @@ export default function CookieBanner() {
       aria-label="Cookie Consent Banner"
       className="fixed bottom-4 left-4 right-4 sm:left-6 sm:right-auto sm:max-w-md z-50 animate-fadeIn"
     >
-      <div className="rounded-2xl bg-[#0a150c]/98 backdrop-blur-xl border border-white/15 shadow-2xl p-5 text-[#f6f7f4] text-xs">
+      <div className="rounded-2xl bg-[#0a170d]/98 backdrop-blur-xl border border-white/15 shadow-2xl p-5 text-[#f6f7f4] text-xs">
         {/* Header */}
         <div className="flex items-start justify-between gap-3 mb-2.5">
           <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-[#c5a059]/15 text-[#dfbe76] flex items-center justify-center shrink-0">
+            <div className="w-7 h-7 rounded-lg bg-[#16a34a]/15 text-[#4ade80] flex items-center justify-center shrink-0">
               <Cookie className="w-3.5 h-3.5" />
             </div>
             <div>
@@ -130,7 +130,7 @@ export default function CookieBanner() {
           We use essential technical cookies to remember RFP parameters and ensure operational security. No third-party behavioral ads. Details in our{" "}
           <Link
             href="/privacy-policy#cookies"
-            className="text-[#dfbe76] underline hover:text-white transition-colors"
+            className="text-[#4ade80] underline hover:text-white transition-colors"
           >
             Privacy Policy
           </Link>
@@ -139,7 +139,7 @@ export default function CookieBanner() {
 
         {/* Detailed Settings Modal */}
         {showSettings && (
-          <div className="mb-3.5 p-3 rounded-xl bg-[#060d07] border border-white/10 space-y-2.5">
+          <div className="mb-3.5 p-3 rounded-xl bg-[#050d07] border border-white/10 space-y-2.5">
             {/* Essential */}
             <div className="flex items-center justify-between gap-3">
               <div>
@@ -150,7 +150,7 @@ export default function CookieBanner() {
                   Navigation, security &amp; basic functions.
                 </span>
               </div>
-              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#0a150c] text-[#dfbe76] border border-white/10 font-medium shrink-0">
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#0a170d] text-[#4ade80] border border-[#16a34a]/30 font-medium shrink-0">
                 Always Active
               </span>
             </div>
@@ -171,7 +171,7 @@ export default function CookieBanner() {
                 aria-checked={functional}
                 onClick={() => setFunctional((prev) => !prev)}
                 className={`w-8 h-4.5 rounded-full transition-colors cursor-pointer shrink-0 p-0.5 flex items-center ${
-                  functional ? "bg-[#c5a059]" : "bg-white/20"
+                  functional ? "bg-[#16a34a]" : "bg-white/20"
                 }`}
                 aria-label="Toggle Preferences and Form Cache Cookies"
               >
@@ -199,7 +199,7 @@ export default function CookieBanner() {
                 aria-checked={analytics}
                 onClick={() => setAnalytics((prev) => !prev)}
                 className={`w-8 h-4.5 rounded-full transition-colors cursor-pointer shrink-0 p-0.5 flex items-center ${
-                  analytics ? "bg-[#c5a059]" : "bg-white/20"
+                  analytics ? "bg-[#16a34a]" : "bg-white/20"
                 }`}
                 aria-label="Toggle Operational Analytics Cookies"
               >
@@ -219,7 +219,7 @@ export default function CookieBanner() {
             <button
               type="button"
               onClick={handleSaveCustom}
-              className="flex-1 py-2 px-3 rounded-lg font-semibold uppercase tracking-wider text-[11px] bg-[#c5a059] hover:bg-[#dfbe76] text-[#060d07] flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+              className="flex-1 py-2 px-3 rounded-lg font-bold uppercase tracking-wider text-[11px] bg-linear-to-r from-[#15803d] to-[#16a34a] hover:brightness-110 text-white flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-md shadow-[#16a34a]/20"
             >
               <Check className="w-3.5 h-3.5" />
               <span>Save Preferences</span>
@@ -229,7 +229,7 @@ export default function CookieBanner() {
               <button
                 type="button"
                 onClick={handleAcceptAll}
-                className="flex-1 py-2 px-3 rounded-lg font-semibold uppercase tracking-wider text-[11px] bg-[#c5a059] hover:bg-[#dfbe76] text-[#060d07] flex items-center justify-center gap-1.5 transition-colors cursor-pointer shadow-sm"
+                className="flex-1 py-2 px-3 rounded-lg font-bold uppercase tracking-wider text-[11px] bg-linear-to-r from-[#15803d] to-[#16a34a] hover:brightness-110 text-white flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-md shadow-[#16a34a]/20"
               >
                 <ShieldCheck className="w-3.5 h-3.5" />
                 <span>Accept All</span>

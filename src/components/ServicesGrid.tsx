@@ -91,7 +91,7 @@ export default function ServicesGrid() {
   };
 
   return (
-    <section id="services" className="py-24 bg-[#060d07] relative z-20 overflow-hidden border-t border-white/5">
+    <section id="services" className="py-24 bg-[#050d07] relative z-20 overflow-hidden border-t border-white/5">
       {/* Anchor targets for subservice deep linking */}
       <span id="earthballing" className="absolute -top-24 pointer-events-none" />
       <span id="tree-cutting" className="absolute -top-24 pointer-events-none" />
@@ -110,12 +110,12 @@ export default function ServicesGrid() {
             transition={{ duration: 0.5 }}
             className="max-w-2xl"
           >
-            <div className="inline-flex items-center gap-2 text-xs font-mono text-[#c5a059] tracking-widest uppercase mb-3">
+            <div className="inline-flex items-center gap-2 text-xs font-mono text-[#22c55e] tracking-widest uppercase mb-3">
               <span>[ 02 / CONTRACTING CAPABILITIES ]</span>
             </div>
             <h2 className="text-3xl sm:text-5xl font-bold font-heading text-[#f6f7f4] tracking-tight leading-tight">
               Industrial Tree Care &amp; <br />
-              <span className="font-editorial italic font-normal text-[#dfbe76]">
+              <span className="font-editorial italic font-normal text-[#4ade80]">
                 Civil Corridor Operations
               </span>
             </h2>
@@ -131,8 +131,8 @@ export default function ServicesGrid() {
               disabled={!canScrollLeft}
               className={`w-10 h-10 rounded-lg border flex items-center justify-center transition-all ${
                 canScrollLeft
-                  ? "border-white/15 bg-[#0a150c] text-[#f6f7f4] hover:border-[#c5a059] hover:text-[#dfbe76] cursor-pointer"
-                  : "border-white/5 bg-[#060d07] text-[#9aa89b]/40 cursor-not-allowed"
+                  ? "border-white/15 bg-[#0a170d] text-[#f6f7f4] hover:border-[#22c55e] hover:text-[#4ade80] cursor-pointer"
+                  : "border-white/5 bg-[#050d07] text-[#9aa89b]/40 cursor-not-allowed"
               }`}
               aria-label="Scroll services left"
             >
@@ -143,8 +143,8 @@ export default function ServicesGrid() {
               disabled={!canScrollRight}
               className={`w-10 h-10 rounded-lg border flex items-center justify-center transition-all ${
                 canScrollRight
-                  ? "border-white/15 bg-[#0a150c] text-[#f6f7f4] hover:border-[#c5a059] hover:text-[#dfbe76] cursor-pointer"
-                  : "border-white/5 bg-[#060d07] text-[#9aa89b]/40 cursor-not-allowed"
+                  ? "border-white/15 bg-[#0a170d] text-[#f6f7f4] hover:border-[#22c55e] hover:text-[#4ade80] cursor-pointer"
+                  : "border-white/5 bg-[#050d07] text-[#9aa89b]/40 cursor-not-allowed"
               }`}
               aria-label="Scroll services right"
             >
@@ -175,7 +175,7 @@ export default function ServicesGrid() {
               <article
                 key={service.id}
                 id={`card-${service.id}`}
-                className="w-[85vw] sm:w-95 lg:w-100 shrink-0 snap-start rounded-xl bg-[#0a150c] border border-white/10 p-6 flex flex-col justify-between group cursor-pointer hover:border-[#c5a059]/40 transition-colors"
+                className="w-[85vw] sm:w-95 lg:w-100 shrink-0 snap-start rounded-xl bg-[#0a170d] border border-white/10 p-6 flex flex-col justify-between group cursor-pointer hover:border-[#22c55e]/40 transition-colors"
                 onClick={() => setSelectedService(service)}
               >
                 <div>
@@ -191,15 +191,15 @@ export default function ServicesGrid() {
                   </div>
 
                   <div className="flex items-center justify-between gap-4 mb-4">
-                    <div className="w-10 h-10 rounded-lg bg-[#060d07] border border-white/10 flex items-center justify-center text-[#c5a059] group-hover:border-[#c5a059]/50 transition-colors">
+                    <div className="w-10 h-10 rounded-lg bg-[#050d07] border border-white/10 flex items-center justify-center text-[#22c55e] group-hover:border-[#22c55e]/50 transition-colors">
                       <Icon className="w-5 h-5" />
                     </div>
-                    <span className="text-[10px] font-mono tracking-wider px-2.5 py-0.5 rounded bg-[#060d07] border border-white/10 text-[#dfbe76] uppercase">
+                    <span className="text-[10px] font-mono tracking-wider px-2.5 py-0.5 rounded bg-[#16a34a]/15 border border-[#16a34a]/30 text-[#4ade80] uppercase">
                       {service.category}
                     </span>
                   </div>
 
-                  <h3 className="text-lg font-bold font-heading text-[#f6f7f4] group-hover:text-[#dfbe76] transition-colors leading-snug mb-2">
+                  <h3 className="text-lg font-bold font-heading text-[#f6f7f4] group-hover:text-[#4ade80] transition-colors leading-snug mb-2">
                     {service.title}
                   </h3>
 
@@ -211,7 +211,7 @@ export default function ServicesGrid() {
                     {service.metrics.map((m, idx) => (
                       <span
                         key={idx}
-                        className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#060d07] border border-white/10 text-[#9aa89b]"
+                        className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#050d07] border border-white/10 text-[#9aa89b]"
                       >
                         {m}
                       </span>
@@ -223,7 +223,7 @@ export default function ServicesGrid() {
                   <span className="text-[11px] font-mono text-[#9aa89b]">SLA Certified</span>
                   <button
                     onClick={() => setSelectedService(service)}
-                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#dfbe76] hover:text-[#f6f7f4] transition-colors cursor-pointer group/btn"
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#f59e0b] hover:text-[#4ade80] transition-colors cursor-pointer group/btn"
                     aria-haspopup="dialog"
                   >
                     <span>Technical Dossier</span>
@@ -241,7 +241,7 @@ export default function ServicesGrid() {
             <span
               key={idx}
               className={`h-1 rounded-full transition-all duration-300 ${
-                activeSlideIndex === idx ? "w-6 bg-[#c5a059]" : "w-1.5 bg-white/20"
+                activeSlideIndex === idx ? "w-6 bg-[#22c55e]" : "w-1.5 bg-white/20"
               }`}
             />
           ))}
@@ -250,7 +250,7 @@ export default function ServicesGrid() {
         {/* Technical Inquiries Accordion */}
         <div className="mt-16 max-w-4xl mx-auto">
           <div className="text-center mb-6">
-            <span className="text-xs font-mono uppercase tracking-widest text-[#c5a059]">
+            <span className="text-xs font-mono uppercase tracking-widest text-[#22c55e]">
               [ COMMON STATUTORY &amp; PROCUREMENT INQUIRIES ]
             </span>
           </div>
@@ -261,7 +261,7 @@ export default function ServicesGrid() {
               return (
                 <div
                   key={idx}
-                  className="rounded-xl border border-white/10 bg-[#0a150c] overflow-hidden transition-colors"
+                  className="rounded-xl border border-white/10 bg-[#0a170d] overflow-hidden transition-colors"
                 >
                   <button
                     onClick={() => setOpenFaqIndex(isOpen ? null : idx)}
@@ -272,8 +272,8 @@ export default function ServicesGrid() {
                       {faq.question}
                     </span>
                     <ChevronDown
-                      className={`w-4 h-4 text-[#c5a059] shrink-0 transition-transform duration-300 ${
-                        isOpen ? "rotate-180 text-[#dfbe76]" : ""
+                      className={`w-4 h-4 text-[#22c55e] shrink-0 transition-transform duration-300 ${
+                        isOpen ? "rotate-180 text-[#4ade80]" : ""
                       }`}
                     />
                   </button>

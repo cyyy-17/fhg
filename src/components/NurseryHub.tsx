@@ -34,7 +34,7 @@ export default function NurseryHub() {
   return (
     <section
       id="nurseries"
-      className="py-20 md:py-28 bg-[#060d07] relative z-20 overflow-hidden border-t border-white/5 scroll-mt-20"
+      className="py-20 md:py-28 bg-[#050d07] relative z-20 overflow-hidden border-t border-white/5 scroll-mt-20"
       aria-label="Batangas Propagation Nurseries & Ecological Species Inventory"
     >
       {/* Anchor targets */}
@@ -50,12 +50,12 @@ export default function NurseryHub() {
           transition={{ duration: 0.5 }}
           className="text-center max-w-3xl mx-auto mb-10"
         >
-          <div className="inline-flex items-center gap-2 text-xs font-mono text-[#c5a059] tracking-widest uppercase mb-3">
+          <div className="inline-flex items-center gap-2 text-xs font-mono text-[#22c55e] tracking-widest uppercase mb-3">
             <span>[ 06 / NURSERY BASE &amp; SPECIES DOCKET ]</span>
           </div>
           <h2 className="text-3xl sm:text-5xl font-bold font-heading text-[#f6f7f4] tracking-tight leading-tight">
             Batangas Propagation Nurseries &amp; <br />
-            <span className="font-editorial italic font-normal text-[#dfbe76]">
+            <span className="font-editorial italic font-normal text-[#4ade80]">
               Species Inventory
             </span>
           </h2>
@@ -65,10 +65,10 @@ export default function NurseryHub() {
         </motion.div>
 
         {/* Unified 3-Facility Nursery Capacity Banner */}
-        <div className="rounded-2xl bg-[#0a150c] p-6 sm:p-10 border border-white/10 shadow-2xl mb-12">
+        <div className="rounded-2xl bg-[#0a170d] p-6 sm:p-10 border border-white/10 shadow-2xl mb-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-7 flex flex-col gap-4">
-              <div className="inline-flex items-center gap-2 text-xs font-mono font-semibold uppercase tracking-wider text-[#dfbe76]">
+              <div className="inline-flex items-center gap-2 text-xs font-mono font-semibold uppercase tracking-wider text-[#4ade80]">
                 <span>Micro-Climate Controlled Acclimatization</span>
                 <span className="text-white/20">•</span>
                 <span>Talisay, Batangas (12+ Hectares)</span>
@@ -84,37 +84,37 @@ export default function NurseryHub() {
 
               {/* Three Facilities Metric Cards Grid */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-4 border-t border-white/10">
-                <div className="p-3 rounded-xl bg-[#060d07] border border-white/5">
+                <div className="p-3 rounded-xl bg-[#050d07] border border-white/5">
                   <div className="flex items-baseline gap-1 mb-1">
                     <span className="text-xl sm:text-2xl font-bold font-heading text-[#f6f7f4]">100K</span>
-                    <span className="text-xs font-editorial italic text-[#dfbe76]">+</span>
+                    <span className="text-xs font-editorial italic text-[#4ade80]">+</span>
                   </div>
                   <strong className="text-xs font-semibold text-[#f6f7f4] block truncate">Sitio Latag</strong>
                   <span className="text-[10px] font-mono text-[#9aa89b]">Native hardwoods</span>
                 </div>
 
-                <div className="p-3 rounded-xl bg-[#060d07] border border-white/5">
+                <div className="p-3 rounded-xl bg-[#050d07] border border-white/5">
                   <div className="flex items-baseline gap-1 mb-1">
                     <span className="text-xl sm:text-2xl font-bold font-heading text-[#f6f7f4]">80K</span>
-                    <span className="text-xs font-editorial italic text-[#dfbe76]">+</span>
+                    <span className="text-xs font-editorial italic text-[#4ade80]">+</span>
                   </div>
                   <strong className="text-xs font-semibold text-[#f6f7f4] block truncate">Tumaway Farm</strong>
                   <span className="text-[10px] font-mono text-[#9aa89b]">Heavy balled stocks</span>
                 </div>
 
-                <div className="p-3 rounded-xl bg-[#060d07] border border-white/5">
+                <div className="p-3 rounded-xl bg-[#050d07] border border-white/5">
                   <div className="flex items-baseline gap-1 mb-1">
-                    <span className="text-xl sm:text-2xl font-bold font-heading text-[#dfbe76]">50K</span>
-                    <span className="text-xs font-editorial italic text-[#c5a059]">+</span>
+                    <span className="text-xl sm:text-2xl font-bold font-heading text-[#4ade80]">50K</span>
+                    <span className="text-xs font-editorial italic text-[#22c55e]">+</span>
                   </div>
                   <strong className="text-xs font-semibold text-[#f6f7f4] block truncate">Aya Nursery</strong>
                   <span className="text-[10px] font-mono text-[#9aa89b]">Endemic &amp; ornamentals</span>
                 </div>
 
-                <div className="p-3 rounded-xl bg-[#060d07] border border-white/5">
+                <div className="p-3 rounded-xl bg-[#050d07] border border-white/5">
                   <div className="flex items-baseline gap-1 mb-1">
-                    <span className="text-xl sm:text-2xl font-bold font-heading text-[#c5a059]">230K</span>
-                    <span className="text-xs font-editorial italic text-[#dfbe76]">+</span>
+                    <span className="text-xl sm:text-2xl font-bold font-heading text-[#f59e0b]">230K</span>
+                    <span className="text-xs font-editorial italic text-[#fbbf24]">+</span>
                   </div>
                   <strong className="text-xs font-semibold text-[#f6f7f4] block truncate">Total Reserve</strong>
                   <span className="text-[10px] font-mono text-[#9aa89b]">DENR 1:50 / 1:100</span>
@@ -141,7 +141,7 @@ export default function NurseryHub() {
                   rel="noopener noreferrer"
                   className="px-2.5 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-[#f6f7f4] flex items-center justify-center gap-1 transition-colors"
                 >
-                  <MapPin className="w-3 h-3 text-[#c5a059] shrink-0" />
+                  <MapPin className="w-3 h-3 text-[#22c55e] shrink-0" />
                   <span className="truncate">Sitio Latag</span>
                 </a>
                 <a
@@ -150,7 +150,7 @@ export default function NurseryHub() {
                   rel="noopener noreferrer"
                   className="px-2.5 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-[#f6f7f4] flex items-center justify-center gap-1 transition-colors"
                 >
-                  <MapPin className="w-3 h-3 text-[#c5a059] shrink-0" />
+                  <MapPin className="w-3 h-3 text-[#22c55e] shrink-0" />
                   <span className="truncate">Tumaway Farm</span>
                 </a>
                 <a
@@ -159,7 +159,7 @@ export default function NurseryHub() {
                   rel="noopener noreferrer"
                   className="px-2.5 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-[#f6f7f4] flex items-center justify-center gap-1 transition-colors"
                 >
-                  <MapPin className="w-3 h-3 text-[#dfbe76] shrink-0" />
+                  <MapPin className="w-3 h-3 text-[#4ade80] shrink-0" />
                   <span className="truncate">Aya Nursery</span>
                 </a>
               </div>
@@ -168,7 +168,7 @@ export default function NurseryHub() {
         </div>
 
         {/* Live Species Catalog Explorer Bar */}
-        <div className="p-4 rounded-xl bg-[#0a150c] border border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 mb-8">
+        <div className="p-4 rounded-xl bg-[#0a170d] border border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 mb-8">
           <div className="flex flex-wrap items-center gap-2 w-full md:w-auto">
             {[
               { key: "all", label: "All Species" },
@@ -182,8 +182,8 @@ export default function NurseryHub() {
                 onClick={() => setActiveCategory(cat.key as CategoryFilter)}
                 className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
                   activeCategory === cat.key
-                    ? "bg-[#c5a059] text-[#060d07] shadow-md"
-                    : "bg-[#060d07] text-[#9aa89b] hover:text-[#f6f7f4] border border-white/5"
+                    ? "bg-linear-to-r from-[#15803d] to-[#16a34a] text-[#f6f7f4] shadow-md shadow-[#16a34a]/20 border border-[#22c55e]/40"
+                    : "bg-[#050d07] text-[#9aa89b] hover:text-[#f6f7f4] border border-white/5"
                 }`}
               >
                 {cat.label}
@@ -205,7 +205,7 @@ export default function NurseryHub() {
 
         {/* Species Cards Grid or Empty Search State */}
         {filteredSpecies.length === 0 ? (
-          <div className="text-center py-16 px-6 rounded-2xl bg-[#0a150c] border border-white/10 max-w-xl mx-auto">
+          <div className="text-center py-16 px-6 rounded-2xl bg-[#0a170d] border border-white/10 max-w-xl mx-auto">
             <h4 className="text-base font-semibold text-[#f6f7f4] mb-1">
               No Species Matching &ldquo;{searchQuery}&rdquo;
             </h4>
@@ -218,7 +218,7 @@ export default function NurseryHub() {
                 setSearchQuery("");
                 setActiveCategory("all");
               }}
-              className="px-5 py-2 rounded-lg bg-[#c5a059] text-[#060d07] text-xs font-semibold uppercase tracking-wider hover:bg-[#dfbe76] transition-colors cursor-pointer"
+              className="px-5 py-2 rounded-lg bg-linear-to-r from-[#15803d] to-[#16a34a] text-[#f6f7f4] text-xs font-semibold uppercase tracking-wider hover:brightness-110 transition-all cursor-pointer shadow-md shadow-[#16a34a]/20"
             >
               Reset Filter &amp; Search
             </button>
@@ -228,25 +228,25 @@ export default function NurseryHub() {
             {filteredSpecies.map((item) => (
               <div
                 key={item.id}
-                className="rounded-xl bg-[#0a150c] border border-white/10 p-5 flex flex-col justify-between group hover:border-[#c5a059]/40 transition-colors"
+                className="rounded-xl bg-[#0a170d] border border-white/10 p-5 flex flex-col justify-between group hover:border-[#22c55e]/40 transition-colors"
               >
                 <div>
                   <div className="flex items-center justify-between gap-2 mb-3">
-                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#060d07] text-[#9aa89b] font-medium border border-white/5">
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#050d07] text-[#9aa89b] font-medium border border-white/5">
                       {item.facility.split(" ")[0]}
                     </span>
                     <span
                       className={`text-[10px] font-mono px-2 py-0.5 rounded ${
                         item.stockStatus === "Immediate Bulk Delivery"
-                          ? "bg-[#060d07] text-[#dfbe76] border border-[#c5a059]/30"
-                          : "bg-[#060d07] text-[#9aa89b] border border-white/10"
+                          ? "bg-[#050d07] text-[#4ade80] border border-[#22c55e]/30"
+                          : "bg-[#050d07] text-[#9aa89b] border border-white/10"
                       }`}
                     >
                       {item.stockStatus}
                     </span>
                   </div>
 
-                  <h4 className="text-base font-bold font-heading text-[#f6f7f4] mb-1 group-hover:text-[#dfbe76] transition-colors leading-snug">
+                  <h4 className="text-base font-bold font-heading text-[#f6f7f4] mb-1 group-hover:text-[#4ade80] transition-colors leading-snug">
                     {item.commonName}
                   </h4>
                   <p className="text-xs font-mono text-[#9aa89b] italic mb-3">
@@ -260,7 +260,7 @@ export default function NurseryHub() {
                     </div>
                     <div className="flex justify-between text-[11px]">
                       <span className="text-[#9aa89b]/70">Compliance:</span>
-                      <span className="text-[#dfbe76] text-right line-clamp-1">{item.offsetCompliance.split(" ")[0]} Ready</span>
+                      <span className="text-[#4ade80] text-right line-clamp-1">{item.offsetCompliance.split(" ")[0]} Ready</span>
                     </div>
                   </div>
                 </div>
@@ -269,7 +269,7 @@ export default function NurseryHub() {
                   <span className="text-[10px] font-mono text-[#9aa89b]">{item.growthRate}</span>
                   <Link
                     href="/contact"
-                    className="text-xs font-semibold text-[#dfbe76] hover:text-[#f6f7f4] flex items-center gap-1 transition-colors"
+                    className="text-xs font-semibold text-[#f59e0b] hover:text-[#4ade80] flex items-center gap-1 transition-colors"
                   >
                     <span>Request Lot</span>
                     <ArrowUpRight className="w-3.5 h-3.5" />

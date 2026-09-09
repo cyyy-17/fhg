@@ -108,18 +108,18 @@ export default function ProcurementEstimatorTab() {
   };
 
   return (
-    <div className="rounded-2xl p-6 sm:p-10 bg-[#0a150c] border border-white/10 shadow-2xl animate-fadeIn max-w-5xl mx-auto">
+    <div className="rounded-2xl p-6 sm:p-10 bg-[#0a170d] border border-white/10 shadow-2xl animate-fadeIn max-w-5xl mx-auto">
       <div className="flex items-center justify-between gap-4 pb-6 border-b border-white/10 mb-8">
         <div>
-          <span className="text-xs font-mono uppercase tracking-wider text-[#dfbe76] font-semibold block mb-1">
+          <span className="text-xs font-mono uppercase tracking-wider text-[#4ade80] font-semibold block mb-1">
             Step 1 of 2: Technical Project Scope
           </span>
           <h3 className="text-xl sm:text-2xl font-bold font-heading text-[#f6f7f4]">
             Commercial Tender &amp; Mobilization Estimator
           </h3>
         </div>
-        <span className="hidden sm:inline-flex items-center gap-1.5 text-xs font-mono text-[#dfbe76] bg-[#060d07] px-3 py-1 rounded border border-white/10">
-          <CheckCircle2 className="w-3.5 h-3.5 text-[#c5a059]" />
+        <span className="hidden sm:inline-flex items-center gap-1.5 text-xs font-mono text-[#4ade80] bg-[#050d07] px-3 py-1 rounded border border-white/10">
+          <CheckCircle2 className="w-3.5 h-3.5 text-[#22c55e]" />
           <span>Instant Mobilization SLA</span>
         </span>
       </div>
@@ -148,22 +148,22 @@ export default function ProcurementEstimatorTab() {
               onChange={(e) => setService(e.target.value)}
               className="w-full p-3 rounded-lg form-input custom-select text-xs cursor-pointer"
             >
-              <option value="Tree Earthballing & Relocation" className="bg-[#0a150c]">
+              <option value="Tree Earthballing & Relocation" className="bg-[#0a170d]">
                 Tree Earthballing &amp; Relocation
               </option>
-              <option value="Certified Chainsaw Tree Cutting (90 Units)" className="bg-[#0a150c]">
+              <option value="Certified Chainsaw Tree Cutting (90 Units)" className="bg-[#0a170d]">
                 Chainsaw Tree Cutting (90 Saws)
               </option>
-              <option value="PCA Coconut Tree Cutting & Trading" className="bg-[#0a150c]">
+              <option value="PCA Coconut Tree Cutting & Trading" className="bg-[#0a170d]">
                 PCA Coconut Tree Removal
               </option>
-              <option value="Tree Inventory, Calipering & DENR Permitting" className="bg-[#0a150c]">
+              <option value="Tree Inventory, Calipering & DENR Permitting" className="bg-[#0a170d]">
                 Tree Census &amp; GPS Tagging
               </option>
-              <option value="Compensatory Seedling Supply & Delivery" className="bg-[#0a150c]">
+              <option value="Compensatory Seedling Supply & Delivery" className="bg-[#0a170d]">
                 Compensatory Nursery Seedlings
               </option>
-              <option value="Watershed Reforestation & Greening" className="bg-[#0a150c]">
+              <option value="Watershed Reforestation & Greening" className="bg-[#0a170d]">
                 Watershed Reforestation
               </option>
             </select>
@@ -179,19 +179,19 @@ export default function ProcurementEstimatorTab() {
               onChange={(e) => setRegion(e.target.value)}
               className="w-full p-3 rounded-lg form-input custom-select text-xs cursor-pointer"
             >
-              <option value="Batangas / Region IV-A (Calabarzon)" className="bg-[#0a150c]">
+              <option value="Batangas / Region IV-A (Calabarzon)" className="bg-[#0a170d]">
                 Batangas / Region IV-A (Calabarzon)
               </option>
-              <option value="Metro Manila (NCR)" className="bg-[#0a150c]">
+              <option value="Metro Manila (NCR)" className="bg-[#0a170d]">
                 Metro Manila (NCR)
               </option>
-              <option value="Cavite / Laguna / Rizal / Quezon" className="bg-[#0a150c]">
+              <option value="Cavite / Laguna / Rizal / Quezon" className="bg-[#0a170d]">
                 Cavite / Laguna / Rizal / Quezon
               </option>
-              <option value="Central Luzon (Bulacan / Pampanga)" className="bg-[#0a150c]">
+              <option value="Central Luzon (Bulacan / Pampanga)" className="bg-[#0a170d]">
                 Central Luzon (Bulacan / Pampanga)
               </option>
-              <option value="National / Inter-Island" className="bg-[#0a150c]">
+              <option value="National / Inter-Island" className="bg-[#0a170d]">
                 National / Inter-Island
               </option>
             </select>
@@ -207,16 +207,16 @@ export default function ProcurementEstimatorTab() {
               onChange={(e) => setVolume(e.target.value)}
               className="w-full p-3 rounded-lg form-input custom-select text-xs cursor-pointer"
             >
-              <option value="1 to 10 trees / Initial assessment" className="bg-[#0a150c]">
+              <option value="1 to 10 trees / Initial assessment" className="bg-[#0a170d]">
                 1 to 10 trees (Initial Site Assessment)
               </option>
-              <option value="11 to 50 trees / Commercial lot" className="bg-[#0a150c]">
+              <option value="11 to 50 trees / Commercial lot" className="bg-[#0a170d]">
                 11 to 50 trees (Commercial Lot)
               </option>
-              <option value="51 to 200 trees / Highway corridor" className="bg-[#0a150c]">
+              <option value="51 to 200 trees / Highway corridor" className="bg-[#0a170d]">
                 51 to 200 trees (Highway Corridor)
               </option>
-              <option value="200+ trees / Mega concession" className="bg-[#0a150c]">
+              <option value="200+ trees / Mega concession" className="bg-[#0a170d]">
                 200+ trees (Concession / Mining)
               </option>
             </select>
@@ -300,7 +300,7 @@ export default function ProcurementEstimatorTab() {
                 setConsent(e.target.checked);
                 if (errors.consent) setErrors({ ...errors, consent: "" });
               }}
-              className="mt-1 w-4 h-4 rounded border-white/20 bg-[#060d07] text-[#c5a059] focus:ring-[#c5a059] focus:ring-offset-0 cursor-pointer shrink-0"
+              className="mt-1 w-4 h-4 rounded border-white/20 bg-[#050d07] text-[#16a34a] focus:ring-[#22c55e] focus:ring-offset-0 cursor-pointer shrink-0"
             />
             <span className="text-xs text-[#9aa89b] leading-relaxed">
               I consent to Forest Hills Garden processing my contact details for this project assessment in accordance with Republic Act No. 10173 (
@@ -308,7 +308,7 @@ export default function ProcurementEstimatorTab() {
                 href="/privacy-policy"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[#dfbe76] underline hover:text-white transition-colors"
+                className="text-[#4ade80] underline hover:text-white transition-colors"
               >
                 Data Privacy Policy
               </a>
@@ -324,7 +324,7 @@ export default function ProcurementEstimatorTab() {
               href="/terms"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#dfbe76] underline hover:text-white transition-colors"
+              className="text-[#4ade80] underline hover:text-white transition-colors"
             >
               Terms of Use &amp; Disclaimers
             </a>
@@ -335,13 +335,13 @@ export default function ProcurementEstimatorTab() {
         {/* Action Buttons */}
         <div className="pt-4 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2 text-xs text-[#9aa89b]">
-            <ShieldCheck className="w-4 h-4 text-[#c5a059]" />
+            <ShieldCheck className="w-4 h-4 text-[#22c55e]" />
             <span>PhilGEPS Blue Member &amp; DTI 1729753 Verified Contractor</span>
           </div>
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full sm:w-auto px-8 py-3 rounded-lg bg-[#c5a059] hover:bg-[#dfbe76] text-[#060d07] text-xs font-semibold uppercase tracking-wider shadow-md transition-colors cursor-pointer flex items-center justify-center gap-2 disabled:opacity-50"
+            className="w-full sm:w-auto px-8 py-3 rounded-lg bg-linear-to-r from-[#f59e0b] to-[#fbbf24] hover:brightness-110 text-[#050d07] text-xs font-bold uppercase tracking-wider shadow-lg shadow-[#f59e0b]/20 transition-all cursor-pointer flex items-center justify-center gap-2 disabled:opacity-50"
           >
             <Send className="w-4 h-4" />
             <span>{isSubmitting ? "Submitting..." : "Generate Tender Dossier"}</span>
@@ -358,12 +358,12 @@ export default function ProcurementEstimatorTab() {
           onClick={() => setRfpModalOpen(false)}
         >
           <div
-            className="relative w-full max-w-lg rounded-2xl bg-[#0a150c] border border-white/15 shadow-2xl p-6 sm:p-8 text-[#f6f7f4] animate-scaleIn"
+            className="relative w-full max-w-lg rounded-2xl bg-[#0a170d] border border-white/15 shadow-2xl p-6 sm:p-8 text-[#f6f7f4] animate-scaleIn"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-4">
               <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-lg bg-[#c5a059]/20 text-[#dfbe76] flex items-center justify-center">
+                <div className="w-8 h-8 rounded-lg bg-[#16a34a]/20 text-[#4ade80] flex items-center justify-center">
                   <CheckCircle2 className="w-4 h-4" />
                 </div>
                 <div>
@@ -384,7 +384,7 @@ export default function ProcurementEstimatorTab() {
               Your project parameters have been structured. Dispatch directly to FHG administration via WhatsApp, Email, or Print:
             </p>
 
-            <pre className="p-3.5 rounded-lg bg-[#060d07] border border-white/10 text-[11px] font-mono text-[#dfbe76] overflow-x-auto mb-6 whitespace-pre-wrap">
+            <pre className="p-3.5 rounded-lg bg-[#050d07] border border-white/10 text-[11px] font-mono text-[#4ade80] overflow-x-auto mb-6 whitespace-pre-wrap">
               {compiledRfpDossier}
             </pre>
 
@@ -401,8 +401,8 @@ export default function ProcurementEstimatorTab() {
                           <title>Forest Hills Garden - RFP Specification Dossier</title>
                           <style>
                             body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; padding: 40px; color: #111; line-height: 1.5; }
-                            .header { border-bottom: 2px solid #c5a059; padding-bottom: 15px; margin-bottom: 25px; }
-                            h1 { color: #060d07; margin: 0 0 5px 0; font-size: 24px; letter-spacing: 0.05em; }
+                            .header { border-bottom: 2px solid #16a34a; padding-bottom: 15px; margin-bottom: 25px; }
+                            h1 { color: #050d07; margin: 0 0 5px 0; font-size: 24px; letter-spacing: 0.05em; }
                             .sub { color: #555; font-size: 13px; }
                             .box { background: #fbfbfa; border: 1px solid #ddd; border-radius: 6px; padding: 20px; font-family: monospace; font-size: 13px; white-space: pre-wrap; margin-bottom: 25px; }
                             .footer { border-top: 1px solid #ddd; padding-top: 15px; font-size: 11px; color: #777; }
@@ -411,7 +411,7 @@ export default function ProcurementEstimatorTab() {
                         <body>
                           <div class="header">
                             <h1>FOREST HILLS GARDEN</h1>
-                            <div class="sub">Industrial Tree Earthballing, Precision Chainsaw Felling &amp; Batangas Plant Nurseries • Est. 1998</div>
+                            <div class="sub">Industrial Tree Earthballing, Precision Chainsaw Felling &amp; Batangas Plant Nurseries • Est. 1998 • WE DO IT RIGHT AND FAST</div>
                             <div class="sub">Sitio Sto. Niño, Banga, Talisay, Batangas • DTI Reg. 1729753 (Valid to 2030) • PhilGEPS 2005-23340</div>
                           </div>
                           <div class="box">${compiledRfpDossier.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</div>
@@ -428,7 +428,7 @@ export default function ProcurementEstimatorTab() {
                 }}
                 className="w-full py-2.5 rounded-lg bg-white/5 hover:bg-white/10 text-[#f6f7f4] border border-white/10 text-xs font-semibold flex items-center justify-center gap-2 transition-colors cursor-pointer"
               >
-                <FileText className="w-4 h-4 text-[#c5a059]" />
+                <FileText className="w-4 h-4 text-[#22c55e]" />
                 <span>Print / Save as PDF Quotation Sheet</span>
               </button>
 
@@ -444,9 +444,9 @@ export default function ProcurementEstimatorTab() {
 
               <a
                 href={`mailto:edluna1971@yahoo.com,iamfeluna@yahoo.com?subject=${encodeURIComponent(`[RFP] ${service} - ${name}`)}&body=${encodeURIComponent(compiledRfpDossier)}`}
-                className="w-full py-3 rounded-lg bg-[#060d07] hover:bg-[#122014] text-[#f6f7f4] border border-white/10 text-xs font-semibold uppercase tracking-wider flex items-center justify-center gap-2 transition-all"
+                className="w-full py-3 rounded-lg bg-[#050d07] hover:bg-[#0f2413] text-[#f6f7f4] border border-white/10 text-xs font-semibold uppercase tracking-wider flex items-center justify-center gap-2 transition-all"
               >
-                <Mail className="w-4 h-4 text-[#c5a059]" />
+                <Mail className="w-4 h-4 text-[#22c55e]" />
                 <span>Send via Email Client</span>
               </a>
 
@@ -458,7 +458,7 @@ export default function ProcurementEstimatorTab() {
                 }}
                 className="w-full py-2.5 rounded-lg bg-white/5 hover:bg-white/10 text-[#9aa89b] hover:text-[#f6f7f4] border border-white/10 text-xs font-semibold flex items-center justify-center gap-2 transition-colors cursor-pointer"
               >
-                {copied ? <Check className="w-4 h-4 text-[#c5a059]" /> : <Copy className="w-4 h-4" />}
+                {copied ? <Check className="w-4 h-4 text-[#22c55e]" /> : <Copy className="w-4 h-4" />}
                 <span>{copied ? "Copied to Clipboard!" : "Copy Dossier Text"}</span>
               </button>
             </div>
