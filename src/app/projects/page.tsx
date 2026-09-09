@@ -4,7 +4,7 @@ import Navbar from "@/components/Navbar";
 import OperationsProofHub from "@/components/OperationsProofHub";
 import Footer from "@/components/Footer";
 import FloatingActions from "@/components/FloatingActions";
-import { ChevronRight, ArrowRight, FolderKanban, FileCheck } from "lucide-react";
+import { ChevronRight, ArrowRight, FileCheck } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Signature Infrastructure Projects & Heavy Fleet Proof | Forest Hills Garden",
@@ -100,7 +100,7 @@ export default function ProjectsPage() {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#050e07] text-[#f0fbf0] selection:bg-[#ffd600] selection:text-[#050e07] overflow-x-hidden">
+    <div className="relative min-h-screen bg-[#060d07] text-[#f6f7f4] selection:bg-[#c5a059] selection:text-[#060d07] overflow-x-hidden">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -108,32 +108,33 @@ export default function ProjectsPage() {
       <Navbar />
 
       {/* Header Banner & Breadcrumbs */}
-      <section className="pt-32 pb-12 bg-linear-to-b from-[#0b2010] via-[#050e07] to-[#050e07] border-b border-[#4caf50]/15">
-        <div className="w-full max-w-[1720px] mx-auto px-6 md:px-12">
+      <section className="pt-32 pb-12 bg-linear-to-b from-[#0a180d] via-[#060d07] to-[#060d07] border-b border-white/5">
+        <div className="w-full max-w-7xl mx-auto px-6 md:px-12">
           {/* Breadcrumb Navigation */}
           <nav aria-label="Breadcrumb" className="mb-6">
-            <ol className="flex items-center gap-2 text-xs sm:text-sm text-[#a8d5a8]">
+            <ol className="flex items-center gap-2 text-xs font-mono text-[#9aa89b]">
               <li>
-                <Link href="/" className="hover:text-white transition-colors">
+                <Link href="/" className="hover:text-[#f6f7f4] transition-colors">
                   Home
                 </Link>
               </li>
-              <ChevronRight className="w-3.5 h-3.5 text-[#ffd600]" />
-              <li className="text-white font-semibold">Projects & Operations</li>
+              <ChevronRight className="w-3.5 h-3.5 text-[#c5a059]" />
+              <li className="text-[#f6f7f4] font-semibold">Projects &amp; Operations</li>
             </ol>
           </nav>
 
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
             <div className="max-w-4xl">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#102414] border border-[#ffd600]/30 text-xs font-bold text-[#ffd600] uppercase tracking-wider mb-4">
-                <FolderKanban className="w-3.5 h-3.5" />
-                <span>Verified Major Infrastructure Portfolios</span>
+              <div className="inline-flex items-center gap-2 text-xs font-mono text-[#c5a059] tracking-widest uppercase mb-3">
+                <span>[ VERIFIED INFRASTRUCTURE PORTFOLIOS ]</span>
               </div>
-              <h1 className="text-4xl sm:text-6xl font-black font-display text-white tracking-tight leading-tight">
-                Signature Projects &{" "}
-                <span className="text-gradient-gold">Fleet Authority</span>
+              <h1 className="text-4xl sm:text-6xl font-bold font-heading text-[#f6f7f4] tracking-tight leading-tight">
+                Signature Projects &amp;{" "}
+                <span className="font-editorial italic font-normal text-[#dfbe76]">
+                  Fleet Authority
+                </span>
               </h1>
-              <p className="mt-4 text-base sm:text-lg text-[#a8d5a8] leading-relaxed">
+              <p className="mt-4 text-sm sm:text-base text-[#9aa89b] leading-relaxed">
                 Explore our project dossier across high-consequence tollways, subway alignments, and estate developments. Complete with interactive before/after proof, heavy fleet specifications, and client trust verification.
               </p>
             </div>
@@ -141,17 +142,17 @@ export default function ProjectsPage() {
             <div className="flex flex-wrap items-center gap-3 shrink-0">
               <Link
                 href="/contact"
-                className="flex items-center gap-2 px-6 py-3.5 rounded-full font-bold text-xs uppercase tracking-wider bg-linear-to-r from-[#ffd600] to-[#f9c923] text-[#061008] hover:brightness-110 shadow-lg shadow-[#ffd600]/20 hover:scale-105 transition-all"
+                className="flex items-center gap-2 px-6 py-3 rounded-lg font-semibold text-xs uppercase tracking-wider bg-[#c5a059] hover:bg-[#dfbe76] text-[#060d07] shadow-md transition-colors"
               >
                 <span>Tender Subcontractor RFP</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <Link
                 href="/#vault"
-                className="flex items-center gap-2 px-5 py-3.5 rounded-full font-semibold text-xs text-white bg-white/5 hover:bg-white/10 border border-white/15 transition-all"
+                className="flex items-center gap-2 px-5 py-3 rounded-lg font-medium text-xs text-[#f6f7f4] bg-white/5 hover:bg-white/10 border border-white/10 transition-colors"
               >
-                <FileCheck className="w-3.5 h-3.5 text-[#ffd600]" />
-                <span>View Compliance Vault</span>
+                <FileCheck className="w-3.5 h-3.5 text-[#c5a059]" />
+                <span>Compliance Vault</span>
               </Link>
             </div>
           </div>

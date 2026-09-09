@@ -6,7 +6,6 @@ import {
   FileText,
   Calculator,
   HelpCircle,
-  Sparkles,
 } from "lucide-react";
 import ProcurementEstimatorTab from "./procurement/ProcurementEstimatorTab";
 import ProcurementVaultTab from "./procurement/ProcurementVaultTab";
@@ -52,7 +51,7 @@ export default function ProcurementHub() {
   return (
     <section
       id="procurement-hub"
-      className="py-20 md:py-28 bg-[#020702] relative z-20 overflow-hidden border-t border-[#4caf50]/15 scroll-mt-20 text-white"
+      className="py-20 md:py-28 bg-[#060d07] relative z-20 overflow-hidden border-t border-white/5 scroll-mt-20 text-[#f6f7f4]"
       aria-label="Procurement, Estimator, Document Vault and Direct Dispatch Hub"
     >
       {/* Anchor targets */}
@@ -61,26 +60,25 @@ export default function ProcurementHub() {
       <span id="dispatch" className="absolute -top-24 pointer-events-none" />
       <span id="faq" className="absolute -top-24 pointer-events-none" />
 
-      {/* Subtle ambient lighting */}
-      <div className="absolute top-1/4 left-10 w-96 h-96 bg-[#ffd600]/5 rounded-full blur-[140px] pointer-events-none" />
-
-      <div className="w-full max-w-[1720px] mx-auto px-6 md:px-12 relative z-10">
+      <div className="w-full max-w-7xl mx-auto px-6 md:px-12 relative z-10">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 25 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.6 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5 }}
           className="text-center max-w-3xl mx-auto mb-10"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest text-[#ffd600] bg-[#ffd600]/10 border border-[#ffd600]/20 mb-3">
-            <Sparkles className="w-3.5 h-3.5 text-[#ffd600]" />
-            <span>Commercial Onboarding &amp; Rapid Procurement</span>
+          <div className="inline-flex items-center gap-2 text-xs font-mono text-[#c5a059] tracking-widest uppercase mb-3">
+            <span>[ 05 / PROCUREMENT &amp; STATUTORY VAULT ]</span>
           </div>
-          <h2 className="text-3xl sm:text-5xl font-black font-display text-white tracking-tight leading-tight">
-            Tender Estimator, Legal Vault &amp; Office Dispatch
+          <h2 className="text-3xl sm:text-5xl font-bold font-heading text-[#f6f7f4] tracking-tight leading-tight">
+            Tender Estimator, Legal Vault &amp; <br />
+            <span className="font-editorial italic font-normal text-[#dfbe76]">
+              Office Dispatch
+            </span>
           </h2>
-          <p className="mt-3 text-sm sm:text-base text-[#a8d5a8]">
+          <p className="mt-3 text-sm sm:text-base text-[#9aa89b]">
             Configure commercial arboricultural tenders, download verified statutory clearances, or reach our Talisay main office (8:00 AM – 5:00 PM).
           </p>
         </motion.div>
@@ -89,7 +87,7 @@ export default function ProcurementHub() {
         <div className="flex justify-center mb-10 -mx-4 px-4 sm:mx-0 sm:px-0">
           <div
             data-lenis-prevent="true"
-            className="inline-flex items-center gap-1.5 p-1.5 rounded-2xl bg-[#0a1b0d]/90 border border-white/10 backdrop-blur-xl shadow-2xl max-w-full overflow-x-auto scrollbar-none touch-pan-x overscroll-x-contain"
+            className="inline-flex items-center gap-1 p-1.5 rounded-xl bg-[#0a150c] border border-white/10 shadow-xl max-w-full overflow-x-auto scrollbar-none touch-pan-x overscroll-x-contain"
             style={{ WebkitOverflowScrolling: "touch", touchAction: "pan-x pan-y" }}
           >
             {tabs.map((tab) => {
@@ -99,18 +97,18 @@ export default function ProcurementHub() {
                 <button
                   key={tab.key}
                   onClick={() => setActiveTab(tab.key)}
-                  className={`px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all duration-200 flex items-center gap-2 shrink-0 cursor-pointer ${
+                  className={`px-4 py-2.5 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-200 flex items-center gap-2 shrink-0 cursor-pointer ${
                     isActive
-                      ? "bg-linear-to-r from-[#ffd600] to-[#f9c923] text-[#050e07] shadow-lg shadow-[#ffd600]/25 scale-[1.02]"
-                      : "text-[#a8d5a8] hover:text-white hover:bg-white/5"
+                      ? "bg-[#c5a059] text-[#060d07] shadow-md scale-100"
+                      : "text-[#9aa89b] hover:text-[#f6f7f4] hover:bg-white/5"
                   }`}
                 >
-                  <Icon className={`w-4 h-4 ${isActive ? "text-[#050e07]" : "text-[#76c442]"}`} />
+                  <Icon className={`w-4 h-4 ${isActive ? "text-[#060d07]" : "text-[#c5a059]"}`} />
                   <span>{tab.label}</span>
                   {tab.badge && (
                     <span
-                      className={`text-[10px] font-mono px-1.5 py-0.5 rounded-md ${
-                        isActive ? "bg-[#050e07]/20 text-[#050e07] font-extrabold" : "bg-white/10 text-[#ffd600]"
+                      className={`text-[10px] font-mono px-1.5 py-0.5 rounded font-medium ${
+                        isActive ? "bg-[#060d07] text-[#dfbe76]" : "bg-white/5 text-[#9aa89b]"
                       }`}
                     >
                       {tab.badge}
@@ -131,14 +129,14 @@ export default function ProcurementHub() {
       </div>
 
       {/* Cross-Section Navigation Bridge to Operations & Contact */}
-      <div className="w-full max-w-[1720px] mx-auto px-6 md:px-12 mt-12">
-        <div className="p-4 rounded-2xl bg-white/5 border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#a8d5a8]">
+      <div className="w-full max-w-7xl mx-auto px-6 md:px-12 mt-12">
+        <div className="p-4 rounded-xl bg-[#0a150c] border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#9aa89b]">
           <span>
             Looking for our physical dispatch office, Waze coordinates, or wishing to meet in person?
           </span>
           <a
             href="#contact"
-            className="text-[#ffd600] font-bold hover:underline shrink-0 flex items-center gap-1.5"
+            className="text-[#dfbe76] font-semibold hover:underline shrink-0 flex items-center gap-1.5"
           >
             <span>Proceed to Operations &amp; Dispatch Desk ↓</span>
           </a>

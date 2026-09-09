@@ -91,7 +91,7 @@ export default function ServicesGrid() {
   };
 
   return (
-    <section id="services" className="py-24 bg-[#050e07] relative z-20 overflow-hidden">
+    <section id="services" className="py-24 bg-[#060d07] relative z-20 overflow-hidden border-t border-white/5">
       {/* Anchor targets for subservice deep linking */}
       <span id="earthballing" className="absolute -top-24 pointer-events-none" />
       <span id="tree-cutting" className="absolute -top-24 pointer-events-none" />
@@ -100,56 +100,55 @@ export default function ServicesGrid() {
       <span id="commercial-landscaping" className="absolute -top-24 pointer-events-none" />
       <span id="reforestation" className="absolute -top-24 pointer-events-none" />
 
-      {/* Subtle ambient background aura */}
-      <div className="absolute top-1/4 right-0 w-96 h-96 bg-[#2e7d32]/10 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute bottom-1/4 left-0 w-96 h-96 bg-[#ffd600]/5 rounded-full blur-[140px] pointer-events-none" />
-
-      <div className="w-full max-w-[1720px] mx-auto px-6 md:px-12">
+      <div className="w-full max-w-7xl mx-auto px-6 md:px-12">
         {/* Section Header with Carousel Navigation */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <motion.div
-            initial={{ opacity: 0, y: 25 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.6 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.5 }}
             className="max-w-2xl"
           >
-            <div className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest text-[#ffd600] bg-[#ffd600]/10 border border-[#ffd600]/20 mb-4">
-              Heavy Mechanized Arboricultural Scopes
+            <div className="inline-flex items-center gap-2 text-xs font-mono text-[#c5a059] tracking-widest uppercase mb-3">
+              <span>[ 02 / CONTRACTING CAPABILITIES ]</span>
             </div>
-            <h2 className="text-3xl sm:text-5xl font-black font-display text-white tracking-tight leading-tight">
-              Enterprise Contracting Capabilities
+            <h2 className="text-3xl sm:text-5xl font-bold font-heading text-[#f6f7f4] tracking-tight leading-tight">
+              Industrial Tree Care &amp; <br />
+              <span className="font-editorial italic font-normal text-[#dfbe76]">
+                Civil Corridor Operations
+              </span>
             </h2>
-            <p className="mt-4 text-base sm:text-lg text-forest-muted">
-              Precision tree handling, heavy mobile rigging, and complete DENR statutory compliance since 1998.
+            <p className="mt-4 text-sm sm:text-base text-[#9aa89b]">
+              Precision arboricultural engineering, heavy mobile rigging, and complete statutory DENR compliance dockets since 1998.
             </p>
           </motion.div>
 
           {/* Desktop Carousel Arrow Triggers */}
-          <div className="hidden md:flex items-center gap-3 shrink-0">
+          <div className="hidden md:flex items-center gap-2 shrink-0">
             <button
               onClick={() => scrollByAmount("left")}
               disabled={!canScrollLeft}
-              className={`w-11 h-11 rounded-full border flex items-center justify-center transition-all ${
+              className={`w-10 h-10 rounded-lg border flex items-center justify-center transition-all ${
                 canScrollLeft
-                  ? "border-[#4caf50]/40 text-white hover:bg-[#2e7d32] hover:border-[#ffd600] cursor-pointer"
-                  : "border-white/10 text-white/20 cursor-not-allowed"
+                  ? "border-white/15 bg-[#0a150c] text-[#f6f7f4] hover:border-[#c5a059] hover:text-[#dfbe76] cursor-pointer"
+                  : "border-white/5 bg-[#060d07] text-[#9aa89b]/40 cursor-not-allowed"
               }`}
               aria-label="Scroll services left"
             >
-              <ChevronLeft className="w-5 h-5" />
+              <ChevronLeft className="w-4 h-4" />
             </button>
             <button
               onClick={() => scrollByAmount("right")}
               disabled={!canScrollRight}
-              className={`w-11 h-11 rounded-full border flex items-center justify-center transition-all ${
+              className={`w-10 h-10 rounded-lg border flex items-center justify-center transition-all ${
                 canScrollRight
-                  ? "border-[#4caf50]/40 text-white hover:bg-[#2e7d32] hover:border-[#ffd600] cursor-pointer"
-                  : "border-white/10 text-white/20 cursor-not-allowed"
+                  ? "border-white/15 bg-[#0a150c] text-[#f6f7f4] hover:border-[#c5a059] hover:text-[#dfbe76] cursor-pointer"
+                  : "border-white/5 bg-[#060d07] text-[#9aa89b]/40 cursor-not-allowed"
               }`}
               aria-label="Scroll services right"
             >
-              <ChevronRight className="w-5 h-5" />
+              <ChevronRight className="w-4 h-4" />
             </button>
           </div>
         </div>
@@ -176,11 +175,11 @@ export default function ServicesGrid() {
               <article
                 key={service.id}
                 id={`card-${service.id}`}
-                className="w-[85vw] sm:w-95 lg:w-100 shrink-0 snap-start glass-panel glass-panel-hover rounded-2xl p-6 flex flex-col justify-between group cursor-pointer border border-[#4caf50]/20"
+                className="w-[85vw] sm:w-95 lg:w-100 shrink-0 snap-start rounded-xl bg-[#0a150c] border border-white/10 p-6 flex flex-col justify-between group cursor-pointer hover:border-[#c5a059]/40 transition-colors"
                 onClick={() => setSelectedService(service)}
               >
                 <div>
-                  <div className="mb-4 rounded-xl overflow-hidden border border-white/10">
+                  <div className="mb-4 rounded-lg overflow-hidden border border-white/10">
                     <MediaPlaceholder
                       variant={placeholderVariant}
                       aspect="16/9"
@@ -192,27 +191,27 @@ export default function ServicesGrid() {
                   </div>
 
                   <div className="flex items-center justify-between gap-4 mb-4">
-                    <div className="w-12 h-12 rounded-xl bg-[#2e7d32]/20 border border-[#4caf50]/30 flex items-center justify-center text-[#76c442] group-hover:scale-110 group-hover:bg-[#2e7d32] group-hover:text-white transition-all duration-300">
-                      <Icon className="w-6 h-6" />
+                    <div className="w-10 h-10 rounded-lg bg-[#060d07] border border-white/10 flex items-center justify-center text-[#c5a059] group-hover:border-[#c5a059]/50 transition-colors">
+                      <Icon className="w-5 h-5" />
                     </div>
-                    <span className="text-[10px] font-mono font-bold tracking-wider px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-[#ffd600] uppercase">
+                    <span className="text-[10px] font-mono tracking-wider px-2.5 py-0.5 rounded bg-[#060d07] border border-white/10 text-[#dfbe76] uppercase">
                       {service.category}
                     </span>
                   </div>
 
-                  <h3 className="text-xl font-bold font-heading text-white group-hover:text-[#ffd600] transition-colors leading-snug mb-2.5">
+                  <h3 className="text-lg font-bold font-heading text-[#f6f7f4] group-hover:text-[#dfbe76] transition-colors leading-snug mb-2">
                     {service.title}
                   </h3>
 
-                  <p className="text-xs sm:text-sm text-forest-muted leading-relaxed line-clamp-3 mb-5">
+                  <p className="text-xs sm:text-sm text-[#9aa89b] leading-relaxed line-clamp-3 mb-4">
                     {service.shortDesc}
                   </p>
 
-                  <div className="flex flex-wrap gap-1.5 mb-6">
+                  <div className="flex flex-wrap gap-1.5 mb-5">
                     {service.metrics.map((m, idx) => (
                       <span
                         key={idx}
-                        className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-[#102414] border border-[#4caf50]/30 text-[#a8d5a8]"
+                        className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#060d07] border border-white/10 text-[#9aa89b]"
                       >
                         {m}
                       </span>
@@ -221,13 +220,13 @@ export default function ServicesGrid() {
                 </div>
 
                 <div className="pt-4 border-t border-white/10 flex items-center justify-between">
-                  <span className="text-[11px] font-mono text-[#a8d5a8]">SLA Certified</span>
+                  <span className="text-[11px] font-mono text-[#9aa89b]">SLA Certified</span>
                   <button
                     onClick={() => setSelectedService(service)}
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-[#ffd600] hover:text-white transition-colors cursor-pointer group/btn"
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#dfbe76] hover:text-[#f6f7f4] transition-colors cursor-pointer group/btn"
                     aria-haspopup="dialog"
                   >
-                    <span>View Technical Specs</span>
+                    <span>Technical Dossier</span>
                     <ArrowRight className="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform" />
                   </button>
                 </div>
@@ -241,18 +240,18 @@ export default function ServicesGrid() {
           {servicesData.map((_, idx) => (
             <span
               key={idx}
-              className={`h-1.5 rounded-full transition-all duration-300 ${
-                activeSlideIndex === idx ? "w-6 bg-[#ffd600]" : "w-1.5 bg-white/20"
+              className={`h-1 rounded-full transition-all duration-300 ${
+                activeSlideIndex === idx ? "w-6 bg-[#c5a059]" : "w-1.5 bg-white/20"
               }`}
             />
           ))}
         </div>
 
-        {/* Accordion: Common Technical & Procurement Inquiries */}
-        <div className="mt-14 max-w-4xl mx-auto">
+        {/* Technical Inquiries Accordion */}
+        <div className="mt-16 max-w-4xl mx-auto">
           <div className="text-center mb-6">
-            <span className="text-xs font-mono uppercase tracking-widest text-[#76c442] font-bold">
-              Common Technical &amp; Procurement Inquiries
+            <span className="text-xs font-mono uppercase tracking-widest text-[#c5a059]">
+              [ COMMON STATUTORY &amp; PROCUREMENT INQUIRIES ]
             </span>
           </div>
 
@@ -262,19 +261,19 @@ export default function ServicesGrid() {
               return (
                 <div
                   key={idx}
-                  className="rounded-2xl border border-white/10 bg-[#08150a] overflow-hidden transition-all"
+                  className="rounded-xl border border-white/10 bg-[#0a150c] overflow-hidden transition-colors"
                 >
                   <button
                     onClick={() => setOpenFaqIndex(isOpen ? null : idx)}
                     className="w-full px-6 py-4 text-left flex items-center justify-between gap-4 cursor-pointer hover:bg-white/5 transition-colors"
                     aria-expanded={isOpen}
                   >
-                    <span className="text-sm sm:text-base font-bold text-white">
+                    <span className="text-sm sm:text-base font-semibold text-[#f6f7f4]">
                       {faq.question}
                     </span>
                     <ChevronDown
-                      className={`w-4 h-4 text-[#ffd600] shrink-0 transition-transform duration-300 ${
-                        isOpen ? "rotate-180" : ""
+                      className={`w-4 h-4 text-[#c5a059] shrink-0 transition-transform duration-300 ${
+                        isOpen ? "rotate-180 text-[#dfbe76]" : ""
                       }`}
                     />
                   </button>
@@ -285,7 +284,7 @@ export default function ServicesGrid() {
                     }`}
                   >
                     <div className="overflow-hidden">
-                      <p className="px-6 pb-5 pt-1 text-xs sm:text-sm text-[#a8d5a8] leading-relaxed border-t border-white/5">
+                      <p className="px-6 pb-5 pt-1 text-xs sm:text-sm text-[#9aa89b] leading-relaxed border-t border-white/5">
                         {faq.answer}
                       </p>
                     </div>

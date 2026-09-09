@@ -14,18 +14,18 @@ export default function ProcurementFaqTab() {
         return (
           <div
             key={idx}
-            className="rounded-2xl border border-white/10 bg-[#061409] overflow-hidden transition-all"
+            className="rounded-2xl border border-white/8 bg-[#0a150c]/80 overflow-hidden transition-all"
           >
             <button
               onClick={() => setOpenFaqIndex(isOpen ? null : idx)}
-              className="w-full px-6 py-4 text-left flex items-center justify-between gap-4 cursor-pointer hover:bg-white/5 transition-colors"
+              className="w-full px-6 py-4 text-left flex items-center justify-between gap-4 cursor-pointer hover:bg-white/4 transition-colors"
               aria-expanded={isOpen}
             >
-              <span className="text-sm sm:text-base font-bold text-white">
+              <span className="text-sm sm:text-base font-bold text-[#f6f7f4]">
                 {faq.question}
               </span>
               <ChevronDown
-                className={`w-4 h-4 text-[#ffd600] shrink-0 transition-transform duration-300 ${
+                className={`w-4 h-4 text-[#c5a059] shrink-0 transition-transform duration-300 ${
                   isOpen ? "rotate-180" : ""
                 }`}
               />
@@ -37,7 +37,7 @@ export default function ProcurementFaqTab() {
               }`}
             >
               <div className="overflow-hidden">
-                <p className="px-6 pb-5 pt-1 text-xs sm:text-sm text-[#a8d5a8] leading-relaxed border-t border-white/5">
+                <p className="px-6 pb-5 pt-1 text-xs sm:text-sm text-[#9aa89b] leading-relaxed border-t border-white/6">
                   {faq.answer}
                 </p>
               </div>

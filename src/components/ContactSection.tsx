@@ -104,57 +104,60 @@ export default function ContactSection() {
   )}`;
 
   return (
-    <section id="contact" className="py-24 bg-[#050e07] relative z-20">
-      <div className="w-full max-w-[1720px] mx-auto px-6 md:px-12">
+    <section id="contact" className="py-24 bg-[#060d07] relative z-20 border-t border-white/5">
+      <div className="w-full max-w-7xl mx-auto px-6 md:px-12">
         <motion.div
-          initial={{ opacity: 0, y: 25 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.6 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5 }}
           className="text-center max-w-3xl mx-auto mb-16"
         >
-          <div className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest text-[#76c442] bg-[#4caf50]/10 border border-[#4caf50]/20 mb-4">
-            Operations & Inquiries Desk
+          <div className="inline-flex items-center gap-2 text-xs font-mono text-[#c5a059] tracking-widest uppercase mb-3">
+            <span>[ 08 / DIRECT CONTRACTOR ENGAGEMENT ]</span>
           </div>
-          <h2 className="text-3xl sm:text-5xl font-black font-display text-white tracking-tight leading-tight">
-            Initiate Project Coordination
+          <h2 className="text-3xl sm:text-5xl font-bold font-heading text-[#f6f7f4] tracking-tight leading-tight">
+            Initiate Project Coordination &amp; <br />
+            <span className="font-editorial italic font-normal text-[#dfbe76]">
+              Field Dispatch
+            </span>
           </h2>
-          <p className="mt-4 text-base sm:text-lg text-forest-muted">
+          <p className="mt-4 text-sm sm:text-base text-[#9aa89b]">
             Direct lines to senior arboricultural project managers, heavy equipment dispatchers, and administrative compliance officers.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Left Touchpoint Cards */}
-          <div className="lg:col-span-5 flex flex-col gap-5">
+          <div className="lg:col-span-5 flex flex-col gap-4">
             <a
               href="tel:0437410603"
-              className="glass-panel glass-panel-hover rounded-2xl p-6 flex items-center gap-5 group"
+              className="rounded-xl bg-[#0a150c] p-6 flex items-center gap-4 border border-white/10 group hover:border-[#c5a059]/40 transition-colors"
             >
-              <div className="w-12 h-12 rounded-xl bg-[#2e7d32]/20 border border-[#4caf50]/30 flex items-center justify-center text-[#76c442] group-hover:scale-110 group-hover:bg-[#2e7d32] group-hover:text-white transition-all">
-                <Phone className="w-6 h-6" />
+              <div className="w-11 h-11 rounded-lg bg-[#060d07] border border-white/10 flex items-center justify-center text-[#c5a059] group-hover:border-[#c5a059]/50 transition-colors">
+                <Phone className="w-5 h-5" />
               </div>
               <div>
-                <span className="text-[11px] font-bold text-[#ffd600] uppercase tracking-wider block">
+                <span className="text-[10px] font-mono uppercase tracking-wider text-[#9aa89b] block">
                   Telefax / Landline Desk
                 </span>
-                <span className="text-base font-bold text-white group-hover:text-[#ffd600] transition-colors">
+                <span className="text-base font-semibold text-[#f6f7f4] group-hover:text-[#dfbe76] transition-colors">
                   {companyData.headOffice.telefax}
                 </span>
               </div>
             </a>
 
             {/* Mobile Dispatch + Viber / WhatsApp links */}
-            <div className="glass-panel rounded-2xl p-6 flex flex-col gap-3">
-              <div className="flex items-center gap-5">
-                <div className="w-12 h-12 rounded-xl bg-[#2e7d32]/20 border border-[#4caf50]/30 flex items-center justify-center text-[#76c442]">
-                  <Phone className="w-6 h-6" />
+            <div className="rounded-xl bg-[#0a150c] p-6 border border-white/10 flex flex-col gap-3">
+              <div className="flex items-center gap-4">
+                <div className="w-11 h-11 rounded-lg bg-[#060d07] border border-white/10 flex items-center justify-center text-[#c5a059]">
+                  <Phone className="w-5 h-5" />
                 </div>
                 <div>
-                  <span className="text-[11px] font-bold text-[#ffd600] uppercase tracking-wider block">
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-[#9aa89b] block">
                     Mobile Operations Dispatch
                   </span>
-                  <span className="text-base font-bold text-white">
+                  <span className="text-sm font-semibold text-[#f6f7f4]">
                     {companyData.headOffice.mobiles.join(" • ")}
                   </span>
                 </div>
@@ -164,7 +167,7 @@ export default function ContactSection() {
                   href="https://wa.me/639165667265"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#25d366]/20 text-[#25d366] hover:bg-[#25d366] hover:text-white text-xs font-bold transition-colors"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#25d366]/15 text-[#25d366] hover:bg-[#25d366] hover:text-white text-xs font-semibold transition-colors"
                 >
                   <MessageCircle className="w-3.5 h-3.5" />
                   <span>WhatsApp</span>
@@ -176,14 +179,14 @@ export default function ContactSection() {
                       navigator.clipboard.writeText("+639165667265");
                     }
                   }}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#7360f2]/20 text-[#a899ff] hover:bg-[#7360f2] hover:text-white text-xs font-bold transition-colors"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 text-[#9aa89b] hover:text-[#f6f7f4] border border-white/10 text-xs font-semibold transition-colors"
                 >
                   <MessageCircle className="w-3.5 h-3.5" />
                   <span>Viber</span>
                 </a>
                 <a
                   href="tel:09165667265"
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/10 text-white hover:bg-[#2e7d32] text-xs font-bold transition-colors"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 text-[#9aa89b] hover:text-[#f6f7f4] border border-white/10 text-xs font-semibold transition-colors"
                 >
                   <span>Call 0916 566 7265</span>
                 </a>
@@ -192,41 +195,41 @@ export default function ContactSection() {
 
             <a
               href="mailto:edluna1971@yahoo.com?cc=iamfeluna@yahoo.com"
-              className="glass-panel glass-panel-hover rounded-2xl p-6 flex items-center gap-5 group"
+              className="rounded-xl bg-[#0a150c] p-6 flex items-center gap-4 border border-white/10 group hover:border-[#c5a059]/40 transition-colors"
             >
-              <div className="w-12 h-12 rounded-xl bg-[#2e7d32]/20 border border-[#4caf50]/30 flex items-center justify-center text-[#76c442] group-hover:scale-110 group-hover:bg-[#2e7d32] group-hover:text-white transition-all">
-                <Mail className="w-6 h-6" />
+              <div className="w-11 h-11 rounded-lg bg-[#060d07] border border-white/10 flex items-center justify-center text-[#c5a059] group-hover:border-[#c5a059]/50 transition-colors">
+                <Mail className="w-5 h-5" />
               </div>
               <div>
-                <span className="text-[11px] font-bold text-[#ffd600] uppercase tracking-wider block">
+                <span className="text-[10px] font-mono uppercase tracking-wider text-[#9aa89b] block">
                   Executive Email
                 </span>
-                <span className="text-sm font-bold text-white group-hover:text-[#ffd600] transition-colors">
+                <span className="text-sm font-semibold text-[#f6f7f4] group-hover:text-[#dfbe76] transition-colors">
                   {companyData.headOffice.emails.join(" / ")}
                 </span>
               </div>
             </a>
 
             {/* Head Office Location with Waze & Google Maps */}
-            <div className="glass-panel rounded-2xl p-6 flex flex-col gap-3">
+            <div className="rounded-xl bg-[#0a150c] p-6 border border-white/10 flex flex-col gap-3">
               <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-xl bg-[#2e7d32]/20 border border-[#4caf50]/30 flex items-center justify-center text-[#76c442] shrink-0">
-                  <MapPin className="w-6 h-6" />
+                <div className="w-11 h-11 rounded-lg bg-[#060d07] border border-white/10 flex items-center justify-center text-[#c5a059] shrink-0">
+                  <MapPin className="w-5 h-5" />
                 </div>
                 <div>
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="text-[11px] font-bold text-[#ffd600] uppercase tracking-wider block">
-                      Head Office & Administration
+                    <span className="text-[10px] font-mono uppercase tracking-wider text-[#9aa89b] block">
+                      Head Office &amp; Administration
                     </span>
-                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#76c442]/20 text-[#76c442]">
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#060d07] text-[#dfbe76] border border-white/10">
                       8:00 AM – 5:00 PM
                     </span>
                   </div>
-                  <span className="text-xs sm:text-sm font-bold text-white block">
+                  <span className="text-xs sm:text-sm font-medium text-[#f6f7f4] block">
                     {companyData.headOffice.address}
                   </span>
-                  <span className="text-[11px] font-mono text-[#a8d5a8] block mt-0.5">
-                    Plus Code: {companyData.headOffice.plusCode} • Agricultural Service
+                  <span className="text-[11px] font-mono text-[#9aa89b] block mt-0.5">
+                    Plus Code: {companyData.headOffice.plusCode}
                   </span>
                 </div>
               </div>
@@ -235,40 +238,39 @@ export default function ContactSection() {
                   href={companyData.headOffice.wazeUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 hover:bg-[#33ccff] hover:text-[#050e07] text-xs font-bold text-white transition-colors"
+                  className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 hover:bg-white/10 text-xs font-medium text-[#f6f7f4] border border-white/10 transition-colors"
                 >
-                  <Navigation className="w-3.5 h-3.5" />
-                  <span>Waze Navigation</span>
+                  <Navigation className="w-3.5 h-3.5 text-[#c5a059]" />
+                  <span>Waze</span>
                 </a>
                 <a
                   href={companyData.headOffice.googleMapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 hover:bg-[#4285f4] hover:text-white text-xs font-bold text-white transition-colors"
+                  className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 hover:bg-white/10 text-xs font-medium text-[#f6f7f4] border border-white/10 transition-colors"
                 >
-                  <ExternalLink className="w-3.5 h-3.5" />
+                  <ExternalLink className="w-3.5 h-3.5 text-[#c5a059]" />
                   <span>Google Maps</span>
                 </a>
               </div>
             </div>
 
-            <div className="p-4 rounded-xl bg-white/5 border border-white/10 flex items-center gap-3 text-xs text-forest-muted">
-              <Clock className="w-4 h-4 text-[#ffd600] shrink-0" />
-              <span>Operations Active: 8:00 AM – 5:00 PM (Mon–Sat) • Office & Arboricultural Dispatch</span>
+            <div className="p-4 rounded-lg bg-[#0a150c] border border-white/10 flex items-center gap-3 text-xs text-[#9aa89b]">
+              <Clock className="w-4 h-4 text-[#c5a059] shrink-0" />
+              <span>Operations Active: 8:00 AM – 5:00 PM (Mon–Sat) • Field &amp; Arboricultural Dispatch</span>
             </div>
-
           </div>
 
           {/* Right Direct Inquiry Form */}
-          <div className="lg:col-span-7 glass-panel rounded-3xl p-8 sm:p-12 border border-[#4caf50]/30 shadow-2xl">
-            <h3 className="text-2xl font-bold font-heading text-white mb-2">
-              Send Us a Direct Message
+          <div className="lg:col-span-7 rounded-2xl bg-[#0a150c] p-8 sm:p-10 border border-white/10 shadow-2xl">
+            <h3 className="text-xl sm:text-2xl font-bold font-heading text-[#f6f7f4] mb-2">
+              Send a Project Inquiry
             </h3>
-            <p className="text-sm text-forest-muted mb-8">
-              We reply promptly during active operations hours with verified project feasibility advice.
+            <p className="text-xs sm:text-sm text-[#9aa89b] mb-6">
+              Inquiries are processed directly by our Batangas operations desk within official business hours.
             </p>
 
-            <form onSubmit={handleSubmit} noValidate className="space-y-5">
+            <form onSubmit={handleSubmit} noValidate className="space-y-4">
               {/* Anti-bot Honeypot */}
               <div className="hidden" aria-hidden="true">
                 <input
@@ -280,9 +282,9 @@ export default function ContactSection() {
                   autoComplete="off"
                 />
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-forest-muted uppercase tracking-wider mb-2">
+                  <label className="block text-xs font-semibold text-[#9aa89b] uppercase tracking-wider mb-1.5">
                     Full Name
                   </label>
                   <input
@@ -293,12 +295,12 @@ export default function ContactSection() {
                       if (errors.fullName) setErrors({ ...errors, fullName: "" });
                     }}
                     placeholder="e.g. Engr. Juan Dela Cruz"
-                    className={`w-full px-4 py-3 rounded-xl form-input text-sm ${
+                    className={`w-full px-3.5 py-2.5 rounded-lg form-input text-xs ${
                       errors.fullName ? "form-input-error" : ""
                     }`}
                   />
                   {errors.fullName && (
-                    <span className="flex items-center gap-1 text-xs text-red-400 mt-1.5">
+                    <span className="flex items-center gap-1 text-[11px] text-red-400 mt-1">
                       <AlertCircle className="w-3.5 h-3.5" />
                       {errors.fullName}
                     </span>
@@ -306,7 +308,7 @@ export default function ContactSection() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-forest-muted uppercase tracking-wider mb-2">
+                  <label className="block text-xs font-semibold text-[#9aa89b] uppercase tracking-wider mb-1.5">
                     Email Address
                   </label>
                   <input
@@ -317,12 +319,12 @@ export default function ContactSection() {
                       if (errors.email) setErrors({ ...errors, email: "" });
                     }}
                     placeholder="name@company.com"
-                    className={`w-full px-4 py-3 rounded-xl form-input text-sm ${
+                    className={`w-full px-3.5 py-2.5 rounded-lg form-input text-xs ${
                       errors.email ? "form-input-error" : ""
                     }`}
                   />
                   {errors.email && (
-                    <span className="flex items-center gap-1 text-xs text-red-400 mt-1.5">
+                    <span className="flex items-center gap-1 text-[11px] text-red-400 mt-1">
                       <AlertCircle className="w-3.5 h-3.5" />
                       {errors.email}
                     </span>
@@ -330,9 +332,9 @@ export default function ContactSection() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold text-forest-muted uppercase tracking-wider mb-2">
+                  <label className="block text-xs font-semibold text-[#9aa89b] uppercase tracking-wider mb-1.5">
                     Contact Phone Number
                   </label>
                   <input
@@ -343,12 +345,12 @@ export default function ContactSection() {
                       if (errors.phone) setErrors({ ...errors, phone: "" });
                     }}
                     placeholder="0917 XXX XXXX"
-                    className={`w-full px-4 py-3 rounded-xl form-input text-sm ${
+                    className={`w-full px-3.5 py-2.5 rounded-lg form-input text-xs ${
                       errors.phone ? "form-input-error" : ""
                     }`}
                   />
                   {errors.phone && (
-                    <span className="flex items-center gap-1 text-xs text-red-400 mt-1.5">
+                    <span className="flex items-center gap-1 text-[11px] text-red-400 mt-1">
                       <AlertCircle className="w-3.5 h-3.5" />
                       {errors.phone}
                     </span>
@@ -356,7 +358,7 @@ export default function ContactSection() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold text-forest-muted uppercase tracking-wider mb-2">
+                  <label className="block text-xs font-semibold text-[#9aa89b] uppercase tracking-wider mb-1.5">
                     Project Subject / Scope
                   </label>
                   <input
@@ -366,13 +368,13 @@ export default function ContactSection() {
                       setSubject(e.target.value);
                       if (errors.subject) setErrors({ ...errors, subject: "" });
                     }}
-                    placeholder="e.g. SLEX TR4 Tree Cutting Tender"
-                    className={`w-full px-4 py-3 rounded-xl form-input text-sm ${
+                    placeholder="e.g. Expressway Tree Cutting Tender"
+                    className={`w-full px-3.5 py-2.5 rounded-lg form-input text-xs ${
                       errors.subject ? "form-input-error" : ""
                     }`}
                   />
                   {errors.subject && (
-                    <span className="flex items-center gap-1 text-xs text-red-400 mt-1.5">
+                    <span className="flex items-center gap-1 text-[11px] text-red-400 mt-1">
                       <AlertCircle className="w-3.5 h-3.5" />
                       {errors.subject}
                     </span>
@@ -381,8 +383,8 @@ export default function ContactSection() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-forest-muted uppercase tracking-wider mb-2">
-                  Project Details & Requirements
+                <label className="block text-xs font-semibold text-[#9aa89b] uppercase tracking-wider mb-1.5">
+                  Project Details &amp; Requirements
                 </label>
                 <textarea
                   rows={4}
@@ -392,12 +394,12 @@ export default function ContactSection() {
                     if (errors.message) setErrors({ ...errors, message: "" });
                   }}
                   placeholder="Describe project location, estimated tree count, target start date, and any DENR permitting status..."
-                  className={`w-full px-4 py-3 rounded-xl form-input text-sm resize-none ${
+                  className={`w-full px-3.5 py-2.5 rounded-lg form-input text-xs resize-none ${
                     errors.message ? "form-input-error" : ""
                   }`}
                 />
                 {errors.message && (
-                  <span className="flex items-center gap-1 text-xs text-red-400 mt-1.5">
+                  <span className="flex items-center gap-1 text-[11px] text-red-400 mt-1">
                     <AlertCircle className="w-3.5 h-3.5" />
                     {errors.message}
                   </span>
@@ -406,7 +408,7 @@ export default function ContactSection() {
 
               {/* Data Privacy Consent (RA 10173) */}
               <div className="pt-2">
-                <label className="flex items-start gap-3 cursor-pointer select-none">
+                <label className="flex items-start gap-2.5 cursor-pointer select-none">
                   <input
                     type="checkbox"
                     checked={consent}
@@ -414,15 +416,15 @@ export default function ContactSection() {
                       setConsent(e.target.checked);
                       if (errors.consent) setErrors({ ...errors, consent: "" });
                     }}
-                    className="mt-1 w-4 h-4 rounded border-[#4caf50]/40 bg-[#050e07] text-[#ffd600] focus:ring-[#ffd600] focus:ring-offset-0 cursor-pointer shrink-0"
+                    className="mt-1 w-4 h-4 rounded border-white/20 bg-[#060d07] text-[#c5a059] focus:ring-[#c5a059] focus:ring-offset-0 cursor-pointer shrink-0"
                   />
-                  <span className="text-xs text-[#a8d5a8] leading-relaxed">
-                    I consent to Forest Hills Garden processing my contact details to respond to this inquiry, in accordance with Republic Act No. 10173 (
+                  <span className="text-xs text-[#9aa89b] leading-relaxed">
+                    I consent to Forest Hills Garden processing my contact details in accordance with Republic Act No. 10173 (
                     <a
                       href="/privacy-policy"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-[#ffd600] underline hover:text-white transition-colors"
+                      className="text-[#dfbe76] underline hover:text-white transition-colors"
                     >
                       Data Privacy Policy
                     </a>
@@ -430,85 +432,85 @@ export default function ContactSection() {
                   </span>
                 </label>
                 {errors.consent && (
-                  <span className="flex items-center gap-1 text-xs text-red-400 mt-1.5">
+                  <span className="flex items-center gap-1 text-[11px] text-red-400 mt-1">
                     <AlertCircle className="w-3.5 h-3.5 shrink-0" />
                     {errors.consent}
                   </span>
                 )}
               </div>
 
-              <p className="text-[11px] text-[#a8d5a8]/70">
-                Your data is used solely to evaluate and respond to your inquiry. No information is sold or disclosed to unauthorized third parties.
+              <p className="text-[11px] text-[#9aa89b]/70">
+                Your data is used solely to evaluate and respond to your inquiry. No information is disclosed to third parties.
               </p>
 
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full py-4 rounded-xl font-extrabold text-sm uppercase tracking-wider bg-linear-to-r from-[#2e7d32] to-[#1a5c1a] text-white hover:brightness-110 shadow-xl border border-[#4caf50]/40 flex items-center justify-center gap-2 hover:scale-[1.01] transition-all duration-200 cursor-pointer disabled:opacity-50"
+                className="w-full py-3.5 rounded-lg font-semibold text-xs uppercase tracking-wider bg-[#c5a059] hover:bg-[#dfbe76] text-[#060d07] shadow-md flex items-center justify-center gap-2 transition-colors cursor-pointer disabled:opacity-50"
               >
                 <Send className="w-4 h-4" />
-                <span>{isSubmitting ? "Compiling & Dispatching..." : "Compile & Dispatch Inquiry"}</span>
+                <span>{isSubmitting ? "Dispatching..." : "Compile & Dispatch Inquiry"}</span>
               </button>
             </form>
           </div>
         </div>
       </div>
 
-      {/* Confirmation & Multi-Channel Dispatch Modal */}
+      {/* Confirmation Modal */}
       {modalOpen && mounted && createPortal(
         <div
           role="dialog"
           aria-modal="true"
-          className="fixed inset-0 z-9999 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fadeInSimple"
+          className="fixed inset-0 z-9999 flex items-center justify-center p-4 bg-black/85 backdrop-blur-xs animate-fadeInSimple"
           onClick={() => setModalOpen(false)}
         >
           <div
-            className="relative w-full max-w-xl rounded-3xl bg-[#07170a] border border-[#4caf50]/40 shadow-2xl p-6 sm:p-8 text-white my-auto animate-scaleIn"
+            className="relative w-full max-w-lg rounded-2xl bg-[#0a150c] border border-white/15 shadow-2xl p-6 sm:p-8 text-[#f6f7f4] my-auto animate-scaleIn"
             onClick={(e) => e.stopPropagation()}
           >
             <button
               onClick={() => setModalOpen(false)}
-              className="absolute top-5 right-5 w-8 h-8 rounded-full bg-white/10 hover:bg-[#ffd600] hover:text-[#050e07] flex items-center justify-center transition-colors cursor-pointer"
+              className="absolute top-5 right-5 w-7 h-7 rounded-lg bg-white/5 hover:bg-white/10 text-[#9aa89b] hover:text-[#f6f7f4] flex items-center justify-center transition-colors cursor-pointer"
               aria-label="Close Modal"
             >
               <X className="w-4 h-4" />
             </button>
 
             <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 rounded-xl bg-[#ffd600]/20 flex items-center justify-center text-[#ffd600]">
-                <Check className="w-5 h-5" />
+              <div className="w-8 h-8 rounded-lg bg-[#c5a059]/20 flex items-center justify-center text-[#dfbe76]">
+                <Check className="w-4 h-4" />
               </div>
               <div>
-                <h3 className="text-xl font-bold font-heading">Inquiry Dossier Compiled</h3>
-                <span className="text-xs text-[#76c442]">Ready for instant dispatch</span>
+                <h3 className="text-lg font-bold font-heading">Inquiry Dossier Compiled</h3>
+                <span className="text-xs text-[#9aa89b] font-mono">Ready for instant dispatch</span>
               </div>
             </div>
 
-            <p className="text-xs text-forest-muted mb-4">
-              Your inquiry dossier is ready. Choose your preferred dispatch channel or launch your email client directly below:
+            <p className="text-xs text-[#9aa89b] mb-4">
+              Your inquiry dossier is ready. Choose your preferred dispatch channel:
             </p>
 
-            <div className="p-3.5 rounded-xl bg-black/40 border border-white/10 font-mono text-xs text-[#a8d5a8] max-h-36 overflow-y-auto mb-5 whitespace-pre-wrap">
+            <pre className="p-3.5 rounded-lg bg-[#060d07] border border-white/10 font-mono text-xs text-[#dfbe76] max-h-36 overflow-y-auto mb-5 whitespace-pre-wrap">
               {compiledInquiry}
-            </div>
+            </pre>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
               <button
                 onClick={handleCopy}
-                className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-bold text-xs uppercase tracking-wider bg-white/10 hover:bg-white/20 border border-white/15 text-white transition-all cursor-pointer"
+                className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg font-semibold text-xs uppercase tracking-wider bg-white/5 hover:bg-white/10 border border-white/10 text-[#f6f7f4] transition-colors cursor-pointer"
               >
-                {copied ? <Check className="w-4 h-4 text-[#76c442]" /> : <Copy className="w-4 h-4 text-[#ffd600]" />}
-                <span>{copied ? "Copied to Clipboard!" : "Copy Inquiry Text"}</span>
+                {copied ? <Check className="w-4 h-4 text-[#c5a059]" /> : <Copy className="w-4 h-4 text-[#c5a059]" />}
+                <span>{copied ? "Copied!" : "Copy Text"}</span>
               </button>
 
               <a
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-bold text-xs uppercase tracking-wider bg-[#25d366] text-white hover:brightness-110 shadow-lg transition-all"
+                className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg font-semibold text-xs uppercase tracking-wider bg-[#25d366] text-white hover:brightness-105 shadow-md transition-all"
               >
                 <MessageCircle className="w-4 h-4 fill-white" />
-                <span>Send via WhatsApp</span>
+                <span>WhatsApp</span>
               </a>
 
               <a
@@ -520,18 +522,18 @@ export default function ContactSection() {
                     setTimeout(() => setViberCopied(false), 4000);
                   }
                 }}
-                className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-bold text-xs uppercase tracking-wider bg-[#7360f2] text-white hover:brightness-110 shadow-lg transition-all cursor-pointer"
+                className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg font-semibold text-xs uppercase tracking-wider bg-white/5 hover:bg-white/10 border border-white/10 text-[#f6f7f4] transition-colors cursor-pointer"
               >
-                <MessageCircle className="w-4 h-4 fill-white" />
-                <span>{viberCopied ? "Inquiry Copied for Viber!" : "Send via Viber"}</span>
+                <MessageCircle className="w-4 h-4" />
+                <span>{viberCopied ? "Copied for Viber!" : "Send via Viber"}</span>
               </a>
 
               <a
                 href={`mailto:edluna1971@yahoo.com?cc=iamfeluna@yahoo.com&subject=${encodeURIComponent(`[Website Inquiry] ${subject}`)}&body=${encodeURIComponent(compiledInquiry)}`}
-                className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-bold text-xs uppercase tracking-wider bg-[#ffd600] text-[#050e07] hover:brightness-110 shadow-lg transition-all"
+                className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg font-semibold text-xs uppercase tracking-wider bg-[#c5a059] text-[#060d07] hover:bg-[#dfbe76] shadow-md transition-colors"
               >
                 <Mail className="w-4 h-4" />
-                <span>Send via Email Client</span>
+                <span>Email Client</span>
               </a>
             </div>
           </div>

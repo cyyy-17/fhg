@@ -1,94 +1,111 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { TreePine, Recycle, Sprout, Award } from "lucide-react";
+import { TreePine, Recycle, Sprout, Award, ArrowUpRight } from "lucide-react";
+import Link from "next/link";
 
 export default function ValuePillars() {
   const pillars = [
     {
       num: "01",
       icon: TreePine,
-      title: "Heavy Earthballing & Tree Relocation",
-      desc: "Specialized root-ball excavation, hydraulic crane rigging, and long-distance transport preserving mature, heritage, and endangered trees with high survival rates.",
-      tag: "Arboricultural Excellence"
+      title: "Industrial Earthballing & Specimen Relocation",
+      desc: "Hydraulic root-ball excavation, certified rigging, and long-distance transport preserving mature, heritage, and endangered trees with a verified 98.7% survival rate.",
+      tag: "Arboricultural Preservation",
+      action: "/services#earthballing",
     },
     {
       num: "02",
       icon: Recycle,
-      title: "Zero-Waste Sustainable Clearing",
-      desc: "Controlled sectional felling with 89 DENR-permitted chainsaws. High-value timber salvage, eco-chipping, and seamless regulatory compliance.",
-      tag: "DENR & PCA Certified"
+      title: "Controlled Sectional Felling & Timber Salvage",
+      desc: "Controlled dismantling using our 89 DENR-permitted chainsaw fleet. High-value timber salvage, on-site chipping, and zero environmental infractions.",
+      tag: "DENR & PCA Certified",
+      action: "/services#tree-cutting",
     },
     {
       num: "03",
       icon: Sprout,
-      title: "150,000+ Plant Nursery Capacity",
-      desc: "Twin facilities in Brgy. Tumaway and Brgy. Aya, Talisay, Batangas supplying indigenous forest saplings, ornamentals, and compensatory planting stocks.",
-      tag: "Twin Batangas Nurseries"
+      title: "150,000+ Native Saplings & Nursery Reserves",
+      desc: "Twin Batangas facilities in Brgy. Tumaway and Brgy. Aya supplying indigenous forest saplings, ornamentals, and statutory compensatory planting stocks.",
+      tag: "Twin Batangas Nurseries",
+      action: "/nurseries",
     },
     {
       num: "04",
       icon: Award,
       title: "28-Year Conglomerate Track Record",
-      desc: "Trusted by San Miguel, Ayala Land, SM Prime, EEI, DMCI, and NLEX across high-stakes infrastructure corridors and commercial masterplans.",
-      tag: "Founded June 10, 1998"
-    }
+      desc: "Pre-qualified subcontractor for San Miguel, Ayala Land, SM Prime, EEI, and DMCI across premier civil infrastructure corridors and commercial masterplans.",
+      tag: "Founded June 10, 1998",
+      action: "/projects",
+    },
   ];
 
   return (
-    <section id="why-choose" className="py-24 bg-[#040d04] relative z-20">
-      <div className="w-full max-w-[1720px] mx-auto px-6 md:px-12">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.6 }}
-          className="text-center max-w-3xl mx-auto mb-16"
-        >
-          <div className="inline-flex items-center px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest text-[#76c442] bg-[#4caf50]/10 border border-[#4caf50]/20 mb-4">
-            Industrial Tree Care Pillars
+    <section id="why-choose" className="py-24 bg-[#060d07] relative z-20 border-t border-white/5">
+      <div className="w-full max-w-7xl mx-auto px-6 md:px-12">
+        {/* Section Header: Monograph Format */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+          <div>
+            <div className="inline-flex items-center gap-2 text-xs font-mono text-[#c5a059] tracking-widest uppercase mb-3">
+              <span>[ 01 / CORE PILLARS ]</span>
+            </div>
+            <h2 className="text-3xl sm:text-5xl font-bold font-heading text-[#f6f7f4] tracking-tight leading-tight max-w-2xl">
+              Engineered for Scale, <br />
+              <span className="font-editorial italic font-normal text-[#dfbe76]">
+                Rooted in Discipline.
+              </span>
+            </h2>
           </div>
-          <h2 className="text-3xl sm:text-5xl font-extrabold font-display text-white tracking-tight leading-tight">
-            Why Enterprise Builders Choose Forest Hills Garden
-          </h2>
-          <p className="mt-4 text-base sm:text-lg text-[#a8d5a8]">
-            Built on arboricultural discipline, massive mechanized capacity, and unwavering statutory compliance.
+          <p className="text-sm sm:text-base text-[#9aa89b] max-w-md leading-relaxed">
+            Every operation is executed with industrial precision, certified arborists, and compliance dockets verified with regional environmental bureaus.
           </p>
-        </motion.div>
+        </div>
 
-        {/* Broad 4-Column Grid with Staggered Fade-Up */}
-        <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-4 gap-8">
+        {/* 4-Column Monograph Ledger */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {pillars.map((pillar, idx) => {
             const Icon = pillar.icon;
             return (
               <motion.div
                 key={pillar.num}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
-                className="glass-panel glass-panel-hover rounded-2xl p-8 relative flex flex-col justify-between overflow-hidden group"
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.5, delay: idx * 0.08 }}
+                className="rounded-xl bg-[#0a150c] border border-white/10 p-7 flex flex-col justify-between group hover:border-[#c5a059]/40 transition-all duration-300"
               >
-                <div className="absolute top-6 right-6 font-display font-black text-3xl text-[#ffd600]/20 group-hover:text-[#ffd600]/40 transition-colors">
-                  {pillar.num}
-                </div>
-
                 <div>
-                  <div className="w-14 h-14 rounded-xl bg-[#4caf50]/15 border border-[#4caf50]/25 flex items-center justify-center text-[#76c442] mb-6 group-hover:scale-110 group-hover:bg-[#2e7d32] group-hover:text-white transition-all duration-300">
-                    <Icon className="w-7 h-7" />
+                  {/* Ledger Index & Icon Row */}
+                  <div className="flex items-center justify-between pb-5 border-b border-white/10 mb-6">
+                    <span className="font-editorial italic font-normal text-3xl text-[#dfbe76]">
+                      {pillar.num}
+                    </span>
+                    <div className="w-10 h-10 rounded-lg bg-[#060d07] border border-white/10 flex items-center justify-center text-[#c5a059] group-hover:border-[#c5a059]/50 transition-colors">
+                      <Icon className="w-5 h-5" />
+                    </div>
                   </div>
-                  <h3 className="text-xl font-bold font-heading text-white mb-3">
+
+                  {/* Title & Description */}
+                  <h3 className="text-lg font-bold font-heading text-[#f6f7f4] mb-3 leading-snug group-hover:text-[#dfbe76] transition-colors">
                     {pillar.title}
                   </h3>
-                  <p className="text-sm text-[#a8d5a8] leading-relaxed mb-6">
+                  <p className="text-xs sm:text-sm text-[#9aa89b] leading-relaxed mb-6">
                     {pillar.desc}
                   </p>
                 </div>
 
-                <div className="pt-4 border-t border-white/10">
-                  <span className="text-xs font-bold text-[#ffd600] uppercase tracking-wider">
+                {/* Footer Tag & Action */}
+                <div className="pt-4 border-t border-white/10 flex items-center justify-between">
+                  <span className="text-[11px] font-mono uppercase tracking-wider text-[#9aa89b]">
                     {pillar.tag}
                   </span>
+                  <Link
+                    href={pillar.action}
+                    className="text-[#dfbe76] hover:text-[#f6f7f4] transition-colors p-1"
+                    aria-label={`Learn more about ${pillar.title}`}
+                  >
+                    <ArrowUpRight className="w-4 h-4" />
+                  </Link>
                 </div>
               </motion.div>
             );

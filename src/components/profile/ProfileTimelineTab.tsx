@@ -83,24 +83,24 @@ export default function ProfileTimelineTab() {
   const current = milestones[selectedMilestone];
 
   return (
-    <div className="space-y-8 animate-fadeIn">
+    <div className="space-y-6 animate-fadeIn">
       {/* Horizontal Timeline Track Bar */}
-      <div className="glass-panel rounded-3xl p-6 border border-white/10">
-        <div className="flex items-center justify-between mb-4">
-          <span className="text-xs font-mono uppercase tracking-wider text-[#ffd600] font-bold">
+      <div className="rounded-2xl bg-[#0a150c] p-5 border border-white/10">
+        <div className="flex items-center justify-between mb-3">
+          <span className="text-xs font-mono uppercase tracking-wider text-[#c5a059] font-medium">
             Select Era to Inspect Milestone (1998 — 2026)
           </span>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5">
             <button
               onClick={prevMilestone}
-              className="p-2 rounded-xl bg-white/10 hover:bg-white/20 text-white transition-colors cursor-pointer"
+              className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-[#9aa89b] hover:text-[#f6f7f4] transition-colors cursor-pointer"
               aria-label="Previous Milestone"
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
             <button
               onClick={nextMilestone}
-              className="p-2 rounded-xl bg-white/10 hover:bg-white/20 text-white transition-colors cursor-pointer"
+              className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-[#9aa89b] hover:text-[#f6f7f4] transition-colors cursor-pointer"
               aria-label="Next Milestone"
             >
               <ChevronRight className="w-4 h-4" />
@@ -116,20 +116,20 @@ export default function ProfileTimelineTab() {
               <button
                 key={m.year}
                 onClick={() => setSelectedMilestone(idx)}
-                className={`p-3 rounded-2xl flex flex-col items-center justify-center transition-all cursor-pointer border ${
+                className={`p-2.5 rounded-xl flex flex-col items-center justify-center transition-colors cursor-pointer border ${
                   isSelected
-                    ? "bg-linear-to-b from-[#ffd600]/25 to-[#ffd600]/10 border-[#ffd600] shadow-lg shadow-[#ffd600]/20 scale-105"
-                    : "bg-white/5 border-white/10 hover:bg-white/10 text-[#a8d5a8]"
+                    ? "bg-[#060d07] border-[#c5a059] shadow-sm"
+                    : "bg-[#060d07] border-white/5 hover:border-white/15 text-[#9aa89b]"
                 }`}
               >
                 <span
-                  className={`text-base sm:text-lg font-black font-display ${
-                    isSelected ? "text-[#ffd600]" : "text-white"
+                  className={`text-base sm:text-lg font-bold font-heading ${
+                    isSelected ? "text-[#dfbe76]" : "text-[#f6f7f4]"
                   }`}
                 >
                   {m.year}
                 </span>
-                <span className="text-[10px] font-mono text-[#a8d5a8] truncate max-w-full">
+                <span className="text-[10px] font-mono text-[#9aa89b] truncate max-w-full">
                   {m.tag}
                 </span>
               </button>
@@ -139,40 +139,40 @@ export default function ProfileTimelineTab() {
       </div>
 
       {/* Dynamic Milestone Card */}
-      <div className="glass-panel rounded-3xl p-8 sm:p-12 border border-[#4caf50]/30 shadow-2xl relative overflow-hidden">
+      <div className="rounded-2xl bg-[#0a150c] p-8 sm:p-12 border border-white/10 shadow-2xl relative overflow-hidden">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
           <div className="flex items-center gap-3">
-            <span className="text-4xl sm:text-6xl font-black font-display text-[#ffd600]">
+            <span className="text-4xl sm:text-6xl font-editorial italic font-normal text-[#dfbe76]">
               {current.year}
             </span>
             <div className="flex flex-col">
-              <span className="text-xs font-mono text-[#ffd600]">{current.date}</span>
-              <span className="text-xs uppercase tracking-widest font-bold text-[#76c442]">
+              <span className="text-xs font-mono text-[#c5a059]">{current.date}</span>
+              <span className="text-xs font-mono uppercase tracking-widest text-[#9aa89b]">
                 {current.tag}
               </span>
             </div>
           </div>
 
-          <span className="text-xs font-mono px-3 py-1.5 rounded-full bg-white/10 text-[#a8d5a8] self-start md:self-auto">
+          <span className="text-xs font-mono px-3 py-1 rounded bg-[#060d07] text-[#9aa89b] border border-white/10 self-start md:self-auto">
             Milestone {selectedMilestone + 1} of {milestones.length}
           </span>
         </div>
 
-        <h3 className="text-2xl sm:text-4xl font-black font-display text-white mb-4 leading-snug">
+        <h3 className="text-2xl sm:text-3xl font-bold font-heading text-[#f6f7f4] mb-4 leading-snug">
           {current.title}
         </h3>
 
-        <p className="text-sm sm:text-lg text-[#a8d5a8] leading-relaxed mb-8 max-w-4xl">
+        <p className="text-sm sm:text-base text-[#9aa89b] leading-relaxed mb-6 max-w-4xl">
           {current.description}
         </p>
 
-        <div className="p-5 rounded-2xl bg-[#102414]/90 border border-[#76c442]/30 flex items-start sm:items-center gap-3">
-          <CheckCircle2 className="w-5 h-5 text-[#76c442] shrink-0 mt-0.5 sm:mt-0" />
+        <div className="p-4 rounded-xl bg-[#060d07] border border-white/10 flex items-start sm:items-center gap-3">
+          <CheckCircle2 className="w-4 h-4 text-[#c5a059] shrink-0 mt-0.5 sm:mt-0" />
           <div>
-            <span className="text-[11px] font-mono uppercase tracking-wider text-[#ffd600] font-bold block">
+            <span className="text-[10px] font-mono uppercase tracking-wider text-[#dfbe76] font-semibold block mb-0.5">
               Verified Institutional Impact:
             </span>
-            <span className="text-sm text-white font-medium">{current.impact}</span>
+            <span className="text-xs sm:text-sm text-[#f6f7f4]">{current.impact}</span>
           </div>
         </div>
       </div>

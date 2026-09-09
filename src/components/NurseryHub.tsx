@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import {
-  Sprout,
   Search,
   MapPin,
   ArrowUpRight,
@@ -35,86 +34,88 @@ export default function NurseryHub() {
   return (
     <section
       id="nurseries"
-      className="py-20 md:py-28 bg-[#030903] relative z-20 overflow-hidden border-t border-[#4caf50]/15 scroll-mt-20"
+      className="py-20 md:py-28 bg-[#060d07] relative z-20 overflow-hidden border-t border-white/5 scroll-mt-20"
       aria-label="Batangas Propagation Nurseries & Ecological Species Inventory"
     >
       {/* Anchor targets */}
       <span id="catalog" className="absolute -top-24 pointer-events-none" />
       <span id="nursery" className="absolute -top-24 pointer-events-none" />
 
-      <div className="w-full max-w-[1720px] mx-auto px-6 md:px-12">
+      <div className="w-full max-w-7xl mx-auto px-6 md:px-12">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 25 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.6 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5 }}
           className="text-center max-w-3xl mx-auto mb-10"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest text-[#76c442] bg-[#4caf50]/10 border border-[#4caf50]/20 mb-3">
-            <Sprout className="w-3.5 h-3.5 text-[#76c442]" />
-            <span>Batangas Production Base • 150,000+ Reserve Capacity</span>
+          <div className="inline-flex items-center gap-2 text-xs font-mono text-[#c5a059] tracking-widest uppercase mb-3">
+            <span>[ 06 / NURSERY BASE &amp; SPECIES DOCKET ]</span>
           </div>
-          <h2 className="text-3xl sm:text-5xl font-black font-display text-white tracking-tight leading-tight">
-            Twin Propagation Nurseries & Species Inventory
+          <h2 className="text-3xl sm:text-5xl font-bold font-heading text-[#f6f7f4] tracking-tight leading-tight">
+            Twin Propagation Nurseries &amp; <br />
+            <span className="font-editorial italic font-normal text-[#dfbe76]">
+              Species Inventory
+            </span>
           </h2>
-          <p className="mt-3 text-sm sm:text-base text-[#a8d5a8]">
-            Direct supplier of hardened native forest saplings, mature balled trees, and DENR compensatory planting stocks.
+          <p className="mt-3 text-sm sm:text-base text-[#9aa89b]">
+            Direct contractor supplier of hardened native forest saplings, mature balled specimens, and statutory DENR compensatory planting stocks.
           </p>
         </motion.div>
 
         {/* Unified Twin Nursery Capacity Banner */}
-        <div className="glass-panel rounded-3xl p-6 sm:p-10 border border-[#4caf50]/25 shadow-2xl mb-12">
+        <div className="rounded-2xl bg-[#0a150c] p-6 sm:p-10 border border-white/10 shadow-2xl mb-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-7 flex flex-col gap-4">
-              <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#ffd600]">
+              <div className="inline-flex items-center gap-2 text-xs font-mono font-semibold uppercase tracking-wider text-[#dfbe76]">
                 <span>Micro-Climate Controlled Acclimatization</span>
-                <span>•</span>
+                <span className="text-white/20">•</span>
                 <span>Talisay, Batangas</span>
               </div>
 
-              <h3 className="text-2xl sm:text-3xl font-black font-display text-white leading-snug">
+              <h3 className="text-2xl sm:text-3xl font-bold font-heading text-[#f6f7f4] leading-snug">
                 Guaranteed Sapling Survival for Infrastructure Offsets
               </h3>
 
-              <p className="text-xs sm:text-sm text-[#a8d5a8] leading-relaxed">
+              <p className="text-xs sm:text-sm text-[#9aa89b] leading-relaxed">
                 Operating under rigorous root conditioning and micro-irrigation schedules. Every sapling designated for DENR 1:50 or 1:100 compensatory compliance is nursery-hardened for superior root establishment before site deployment.
               </p>
 
               {/* Dual Facility Metric Cards */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-4 border-t border-white/10">
-                <div className="p-3.5 rounded-2xl bg-white/5 border border-white/10">
+                <div className="p-3.5 rounded-xl bg-[#060d07] border border-white/5">
                   <div className="flex items-baseline gap-1 mb-1">
-                    <span className="text-2xl font-black font-display text-white">100K</span>
-                    <span className="text-sm font-bold text-[#ffd600]">+</span>
+                    <span className="text-2xl font-bold font-heading text-[#f6f7f4]">100K</span>
+                    <span className="text-sm font-editorial italic text-[#dfbe76]">+</span>
                   </div>
-                  <strong className="text-xs font-bold text-white block">Tumaway Facility</strong>
-                  <span className="text-[10px] text-[#a8d5a8]">Native forest hardwoods</span>
+                  <strong className="text-xs font-semibold text-[#f6f7f4] block">Tumaway Facility</strong>
+                  <span className="text-[10px] font-mono text-[#9aa89b]">Native forest hardwoods</span>
                 </div>
 
-                <div className="p-3.5 rounded-2xl bg-white/5 border border-white/10">
+                <div className="p-3.5 rounded-xl bg-[#060d07] border border-white/5">
                   <div className="flex items-baseline gap-1 mb-1">
-                    <span className="text-2xl font-black font-display text-[#ffd600]">50K</span>
-                    <span className="text-sm font-bold text-[#76c442]">+</span>
+                    <span className="text-2xl font-bold font-heading text-[#dfbe76]">50K</span>
+                    <span className="text-sm font-editorial italic text-[#c5a059]">+</span>
                   </div>
-                  <strong className="text-xs font-bold text-white block">Aya Facility</strong>
-                  <span className="text-[10px] text-[#a8d5a8]">Ornamental & balled stocks</span>
+                  <strong className="text-xs font-semibold text-[#f6f7f4] block">Aya Facility</strong>
+                  <span className="text-[10px] font-mono text-[#9aa89b]">Ornamental &amp; balled stocks</span>
                 </div>
 
-                <div className="p-3.5 rounded-2xl bg-white/5 border border-white/10">
+                <div className="p-3.5 rounded-xl bg-[#060d07] border border-white/5">
                   <div className="flex items-baseline gap-1 mb-1">
-                    <span className="text-2xl font-black font-display text-[#76c442]">1:50</span>
-                    <span className="text-xs font-bold text-white">/ 1:100</span>
+                    <span className="text-2xl font-bold font-heading text-[#f6f7f4]">1:50</span>
+                    <span className="text-xs font-mono text-[#dfbe76]">/ 1:100</span>
                   </div>
-                  <strong className="text-xs font-bold text-white block">DENR Ratio</strong>
-                  <span className="text-[10px] text-[#a8d5a8]">Compensatory compliance</span>
+                  <strong className="text-xs font-semibold text-[#f6f7f4] block">DENR Ratio</strong>
+                  <span className="text-[10px] font-mono text-[#9aa89b]">Compensatory compliance</span>
                 </div>
               </div>
             </div>
 
             {/* Right Image Asset with Location Guide Chips */}
             <div className="lg:col-span-5 flex flex-col gap-3">
-              <div className="relative h-56 sm:h-64 rounded-2xl overflow-hidden border border-white/15 shadow-xl">
+              <div className="relative h-56 sm:h-64 rounded-xl overflow-hidden border border-white/10 shadow-xl">
                 <Image
                   src="/images/nursery.jpg"
                   alt="Forest Hills Garden Plant Nursery in Talisay Batangas"
@@ -129,18 +130,18 @@ export default function NurseryHub() {
                   href={companyData.nurseries[0].googleMapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white flex items-center gap-1.5 transition-colors"
+                  className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-[#f6f7f4] flex items-center gap-1.5 transition-colors"
                 >
-                  <MapPin className="w-3.5 h-3.5 text-[#ffd600]" />
+                  <MapPin className="w-3.5 h-3.5 text-[#c5a059]" />
                   <span>Tumaway Farm Directions</span>
                 </a>
                 <a
                   href={companyData.nurseries[1].googleMapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-3 py-1.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white flex items-center gap-1.5 transition-colors"
+                  className="px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-[#f6f7f4] flex items-center gap-1.5 transition-colors"
                 >
-                  <MapPin className="w-3.5 h-3.5 text-[#76c442]" />
+                  <MapPin className="w-3.5 h-3.5 text-[#dfbe76]" />
                   <span>Aya Farm Directions</span>
                 </a>
               </div>
@@ -149,7 +150,7 @@ export default function NurseryHub() {
         </div>
 
         {/* Live Species Catalog Explorer Bar */}
-        <div className="glass-panel p-4 rounded-2xl border border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 mb-8">
+        <div className="p-4 rounded-xl bg-[#0a150c] border border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 mb-8">
           <div className="flex flex-wrap items-center gap-2 w-full md:w-auto">
             {[
               { key: "all", label: "All Species" },
@@ -161,10 +162,10 @@ export default function NurseryHub() {
               <button
                 key={cat.key}
                 onClick={() => setActiveCategory(cat.key as CategoryFilter)}
-                className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
                   activeCategory === cat.key
-                    ? "bg-[#ffd600] text-[#050e07] shadow-md shadow-[#ffd600]/20"
-                    : "bg-white/5 text-[#a8d5a8] hover:text-white hover:bg-white/10"
+                    ? "bg-[#c5a059] text-[#060d07] shadow-md"
+                    : "bg-[#060d07] text-[#9aa89b] hover:text-[#f6f7f4] border border-white/5"
                 }`}
               >
                 {cat.label}
@@ -173,25 +174,24 @@ export default function NurseryHub() {
           </div>
 
           <div className="relative w-full md:w-72">
-            <Search className="w-4 h-4 text-[#a8d5a8] absolute left-3 top-1/2 -translate-y-1/2" />
+            <Search className="w-4 h-4 text-[#9aa89b] absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               placeholder="Search species name..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-4 py-2 rounded-xl form-input text-xs"
+              className="w-full pl-9 pr-4 py-2 rounded-lg form-input text-xs"
             />
           </div>
         </div>
 
         {/* Species Cards Grid or Empty Search State */}
         {filteredSpecies.length === 0 ? (
-          <div className="text-center py-16 px-6 glass-panel rounded-3xl border border-white/10 max-w-xl mx-auto">
-            <Sprout className="w-10 h-10 text-[#ffd600] mx-auto mb-3 opacity-60" />
-            <h4 className="text-base font-bold text-white mb-1">
+          <div className="text-center py-16 px-6 rounded-2xl bg-[#0a150c] border border-white/10 max-w-xl mx-auto">
+            <h4 className="text-base font-semibold text-[#f6f7f4] mb-1">
               No Species Matching &ldquo;{searchQuery}&rdquo;
             </h4>
-            <p className="text-xs text-[#a8d5a8] leading-relaxed mb-5">
+            <p className="text-xs text-[#9aa89b] leading-relaxed mb-5">
               We propagate over 150,000+ native and exotic saplings across our twin Batangas farms. Contact our nursery coordinators directly for custom contract propagation or rare native stocks.
             </p>
             <button
@@ -200,7 +200,7 @@ export default function NurseryHub() {
                 setSearchQuery("");
                 setActiveCategory("all");
               }}
-              className="px-5 py-2 rounded-full bg-[#ffd600] text-[#050e07] text-xs font-bold uppercase tracking-wider hover:brightness-110 transition-all cursor-pointer"
+              className="px-5 py-2 rounded-lg bg-[#c5a059] text-[#060d07] text-xs font-semibold uppercase tracking-wider hover:bg-[#dfbe76] transition-colors cursor-pointer"
             >
               Reset Filter &amp; Search
             </button>
@@ -210,48 +210,48 @@ export default function NurseryHub() {
             {filteredSpecies.map((item) => (
               <div
                 key={item.id}
-                className="glass-panel glass-panel-hover rounded-2xl p-5 flex flex-col justify-between border border-white/10 group"
+                className="rounded-xl bg-[#0a150c] border border-white/10 p-5 flex flex-col justify-between group hover:border-[#c5a059]/40 transition-colors"
               >
                 <div>
                   <div className="flex items-center justify-between gap-2 mb-3">
-                    <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-white/10 text-white font-bold">
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#060d07] text-[#9aa89b] font-medium border border-white/5">
                       {item.facility.split(" ")[0]}
                     </span>
                     <span
-                      className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                      className={`text-[10px] font-mono px-2 py-0.5 rounded ${
                         item.stockStatus === "Immediate Bulk Delivery"
-                          ? "bg-[#2e7d32]/30 text-[#76c442] border border-[#76c442]/30"
-                          : "bg-[#ffd600]/15 text-[#ffd600] border border-[#ffd600]/30"
+                          ? "bg-[#060d07] text-[#dfbe76] border border-[#c5a059]/30"
+                          : "bg-[#060d07] text-[#9aa89b] border border-white/10"
                       }`}
                     >
                       {item.stockStatus}
                     </span>
                   </div>
 
-                  <h4 className="text-base font-bold text-white mb-1 group-hover:text-[#ffd600] transition-colors leading-snug">
+                  <h4 className="text-base font-bold font-heading text-[#f6f7f4] mb-1 group-hover:text-[#dfbe76] transition-colors leading-snug">
                     {item.commonName}
                   </h4>
-                  <p className="text-xs font-mono text-[#a8d5a8] italic mb-3">
+                  <p className="text-xs font-mono text-[#9aa89b] italic mb-3">
                     {item.scientificName}
                   </p>
 
-                  <div className="space-y-1.5 text-xs text-white/80 pt-3 border-t border-white/10">
+                  <div className="space-y-1.5 text-xs text-[#9aa89b] pt-3 border-t border-white/10">
                     <div className="flex justify-between text-[11px]">
-                      <span className="text-[#a8d5a8]">Specs:</span>
-                      <span className="text-white text-right line-clamp-1">{item.availableSizes.split("•")[0]}</span>
+                      <span className="text-[#9aa89b]/70">Specs:</span>
+                      <span className="text-[#f6f7f4] text-right line-clamp-1">{item.availableSizes.split("•")[0]}</span>
                     </div>
                     <div className="flex justify-between text-[11px]">
-                      <span className="text-[#a8d5a8]">Compliance:</span>
-                      <span className="text-[#76c442] text-right line-clamp-1">{item.offsetCompliance.split(" ")[0]} Ready</span>
+                      <span className="text-[#9aa89b]/70">Compliance:</span>
+                      <span className="text-[#dfbe76] text-right line-clamp-1">{item.offsetCompliance.split(" ")[0]} Ready</span>
                     </div>
                   </div>
                 </div>
 
                 <div className="pt-4 mt-4 border-t border-white/10 flex items-center justify-between">
-                  <span className="text-[10px] font-mono text-[#ffd600]">{item.growthRate}</span>
+                  <span className="text-[10px] font-mono text-[#9aa89b]">{item.growthRate}</span>
                   <Link
-                    href="#estimate"
-                    className="text-xs font-bold text-white hover:text-[#ffd600] flex items-center gap-1 transition-colors"
+                    href="/contact"
+                    className="text-xs font-semibold text-[#dfbe76] hover:text-[#f6f7f4] flex items-center gap-1 transition-colors"
                   >
                     <span>Request Lot</span>
                     <ArrowUpRight className="w-3.5 h-3.5" />

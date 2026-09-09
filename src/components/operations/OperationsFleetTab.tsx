@@ -16,7 +16,7 @@ export default function OperationsFleetTab() {
   }, [equipmentFilter]);
 
   const categories: { key: EquipmentFilter; label: string }[] = [
-    { key: "all", label: "Entire Fleet" },
+    { key: "all", label: "Entire Fleet Docket" },
     { key: "chainsaws", label: "Chainsaws (89 Units)" },
     { key: "heavy-lift", label: "Cranes & Boom Trucks" },
     { key: "excavation", label: "Hydraulic Excavators" },
@@ -26,16 +26,16 @@ export default function OperationsFleetTab() {
 
   return (
     <div className="space-y-8 animate-fadeIn">
-      {/* Category Pills */}
+      {/* Category Docket Pills */}
       <div className="flex flex-wrap items-center justify-center gap-2">
         {categories.map((cat) => (
           <button
             key={cat.key}
             onClick={() => setEquipmentFilter(cat.key)}
-            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+            className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
               equipmentFilter === cat.key
-                ? "bg-[#2e7d32] text-white shadow-lg shadow-[#2e7d32]/25 scale-105"
-                : "bg-white/5 text-[#a8d5a8] hover:bg-white/10 hover:text-white border border-white/10"
+                ? "bg-[#c5a059] text-[#060d07] shadow-md shadow-black/30"
+                : "bg-[#0a150c] text-[#9aa89b] hover:bg-[#122014] hover:text-[#f6f7f4] border border-white/10"
             }`}
           >
             {cat.label}
@@ -43,15 +43,15 @@ export default function OperationsFleetTab() {
         ))}
       </div>
 
-      {/* Fleet Grid */}
+      {/* Heavy Civil Fleet Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredEquipment.map((eq) => (
           <div
             key={eq.id}
-            className="glass-panel glass-panel-hover rounded-2xl p-6 flex flex-col justify-between group border border-[#4caf50]/20"
+            className="rounded-xl bg-[#0a150c] border border-white/10 p-6 flex flex-col justify-between group hover:border-[#c5a059]/40 transition-colors"
           >
             <div>
-              <div className="mb-4 rounded-xl overflow-hidden border border-white/10">
+              <div className="mb-4 rounded-lg overflow-hidden border border-white/10">
                 <MediaPlaceholder
                   variant="heavy-equipment"
                   aspect="16/9"
@@ -63,34 +63,34 @@ export default function OperationsFleetTab() {
               </div>
 
               <div className="flex items-center justify-between gap-2 mb-2">
-                <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-[#ffd600]/15 text-[#ffd600] border border-[#ffd600]/25">
+                <span className="text-[10px] font-mono font-semibold px-2 py-0.5 rounded bg-[#c5a059]/15 text-[#dfbe76] border border-[#c5a059]/30">
                   {eq.quantity}
                 </span>
-                <span className="text-[10px] font-bold text-[#76c442] flex items-center gap-1">
-                  <CheckCircle2 className="w-3 h-3" />
+                <span className="text-[10px] font-mono text-[#f6f7f4] flex items-center gap-1">
+                  <CheckCircle2 className="w-3 h-3 text-[#c5a059]" />
                   {eq.status}
                 </span>
               </div>
 
-              <h3 className="text-base sm:text-lg font-bold font-heading text-white group-hover:text-[#ffd600] transition-colors mb-1">
+              <h3 className="text-base sm:text-lg font-bold font-heading text-[#f6f7f4] group-hover:text-[#dfbe76] transition-colors mb-1">
                 {eq.name}
               </h3>
-              <span className="text-xs font-mono text-[#a8d5a8] block mb-3">
+              <span className="text-xs font-mono text-[#9aa89b] block mb-3">
                 {eq.model}
               </span>
 
-              <p className="text-xs text-[#a8d5a8] leading-relaxed mb-4">
+              <p className="text-xs text-[#9aa89b] leading-relaxed mb-4">
                 {eq.primaryRole}
               </p>
             </div>
 
             <div className="pt-3 border-t border-white/10 space-y-2 text-xs">
-              <div className="flex items-center justify-between text-[#a8d5a8]/90">
-                <span className="text-[11px] font-bold uppercase text-white/60">Capacity:</span>
-                <span className="font-mono text-white text-right">{eq.capacity}</span>
+              <div className="flex items-center justify-between text-[#9aa89b]">
+                <span className="text-[10px] font-mono uppercase text-[#9aa89b]/80">Capacity:</span>
+                <span className="font-mono text-[#f6f7f4] text-right">{eq.capacity}</span>
               </div>
-              <div className="flex items-center gap-1.5 text-[#ffd600] text-[11px]">
-                <ShieldCheck className="w-3.5 h-3.5 shrink-0" />
+              <div className="flex items-center gap-1.5 text-[#dfbe76] text-[11px]">
+                <ShieldCheck className="w-3.5 h-3.5 shrink-0 text-[#c5a059]" />
                 <span className="truncate">{eq.compliance}</span>
               </div>
             </div>

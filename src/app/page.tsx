@@ -13,7 +13,7 @@ import FloatingActions from "@/components/FloatingActions";
 
 export default function Home() {
   return (
-    <div className="relative min-h-screen bg-[#050e07] text-[#f0fbf0] selection:bg-[#ffd600] selection:text-[#050e07] overflow-x-hidden">
+    <div className="relative min-h-screen bg-[#060d07] text-[#f6f7f4] selection:bg-[#c5a059] selection:text-[#060d07] overflow-x-hidden">
       <Navbar />
       <main>
         <Hero />

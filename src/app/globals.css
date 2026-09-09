@@ -2,19 +2,25 @@
 
 @layer base {
   :root {
-    --brand-forest: #050e07;
-    --brand-surface: #0a190d;
-    --brand-elevated: #112414;
-    --brand-green: #2e7d32;
-    --brand-bright: #4caf50;
-    --brand-lime: #76c442;
-    --brand-gold: #ffd600;
-    --brand-brown: #5d4037;
+    --brand-forest: #060d07;
+    --brand-surface: #0a150c;
+    --brand-elevated: #112014;
+    --brand-green: #1e4624;
+    --brand-bright: #2e7d32;
+    --brand-lime: #4caf50;
+    --brand-gold: #c5a059;
+    --brand-brass: #c5a059;
+    --brand-brass-light: #dfbe76;
+    --brand-brass-dark: #9e7d3b;
+    --brand-brass-glow: rgba(197, 160, 89, 0.14);
+    --brand-cream: #f6f7f4;
+    --brand-sage: #9aa89b;
+    --brand-brown: #4a3528;
   }
 
   html {
-    background-color: #050e07;
-    color: #f0fbf0;
+    background-color: #060d07;
+    color: #f6f7f4;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
@@ -22,12 +28,12 @@
   }
 
   ::selection {
-    background-color: #ffd600;
-    color: #050e07;
+    background-color: #c5a059;
+    color: #060d07;
   }
 
   :focus-visible {
-    outline: 2px solid #ffd600;
+    outline: 2px solid #c5a059;
     outline-offset: 3px;
   }
 }
@@ -50,13 +56,6 @@ html.lenis, html.lenis body {
 }
 
 /* Cross-Browser Scrollbar Hiding & Native Mobile Touch Panning */
-.no-scrollbar::-webkit-scrollbar,
-.scrollbar-none::-webkit-scrollbar {
-  display: none !important;
-  width: 0 !important;
-  height: 0 !important;
-}
-
 .no-scrollbar,
 .scrollbar-none {
   -ms-overflow-style: none !important;
@@ -145,20 +144,20 @@ html.lenis, html.lenis body {
 
 /* Custom Smooth Dark Scrollbar */
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 9px;
+  height: 9px;
 }
 ::-webkit-scrollbar-track {
-  background: #030804;
+  background: #040905;
 }
 ::-webkit-scrollbar-thumb {
-  background: #143019;
+  background: #142617;
   border-radius: 9999px;
-  border: 2px solid #030804;
+  border: 2px solid #040905;
   transition: background-color 0.25s ease;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #2e7d32;
+  background: #c5a059;
 }
 
 /* Universal Smooth Micro-Interactions */
@@ -169,40 +168,60 @@ button, a {
               box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Custom Gradients & Utilities */
+/* Custom Gradients & Architectural Utilities */
 .bg-radial-gradient-hero {
-  background: radial-gradient(circle at 50% 20%, rgba(46, 125, 50, 0.35) 0%, rgba(5, 14, 7, 0.85) 65%, #050e07 100%);
+  background: radial-gradient(circle at 50% 15%, rgba(30, 70, 36, 0.28) 0%, rgba(6, 13, 7, 0.92) 70%, #060d07 100%);
 }
 
 .text-gradient-gold {
-  background: linear-gradient(135deg, #ffffff 0%, #ffd600 50%, #ffab00 100%);
+  background: linear-gradient(135deg, #ffffff 15%, #dfbe76 65%, #c5a059 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .text-gradient-emerald {
-  background: linear-gradient(135deg, #ffffff 0%, #76c442 45%, #2e7d32 100%);
+  background: linear-gradient(135deg, #ffffff 15%, #9ecf9e 60%, #388e3c 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
+.font-editorial {
+  font-family: var(--font-display), "Playfair Display", Georgia, serif;
+}
+
+.surface-elevated {
+  background-color: #0b160e;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.6);
+}
+
+.surface-card {
+  background: linear-gradient(180deg, rgba(16, 32, 20, 0.75) 0%, rgba(10, 21, 13, 0.88) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 12px 32px -4px rgba(0, 0, 0, 0.5);
+}
+
+.editorial-rule {
+  border-color: rgba(197, 160, 89, 0.2);
+}
+
 .glass-panel {
-  background: rgba(16, 36, 20, 0.65);
+  background: rgba(10, 21, 12, 0.72);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(76, 175, 80, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .glass-panel-hover {
   transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .glass-panel-hover:hover {
-  background: rgba(22, 50, 28, 0.82);
-  border-color: rgba(76, 175, 80, 0.45);
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45), 0 0 20px rgba(76, 175, 80, 0.15);
-  transform: translateY(-3px);
+  background: rgba(16, 32, 20, 0.88);
+  border-color: rgba(197, 160, 89, 0.35);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55), 0 0 24px rgba(197, 160, 89, 0.08);
+  transform: translateY(-2px);
 }
 
 /* Custom Select Dropdown Arrow */
@@ -210,7 +229,7 @@ button, a {
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2376c442' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23c5a059' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 16px center;
   background-size: 16px 16px;
@@ -218,7 +237,7 @@ button, a {
 }
 
 .custom-select:focus {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23ffd600' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23dfbe76' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
 }
 
 /* Infinite Marquee Animation */
@@ -238,30 +257,30 @@ button, a {
 
 /* Form Input Control Utility */
 .form-input {
-  background-color: #112414;
-  border: 1px solid rgba(76, 175, 80, 0.3);
-  color: #ffffff;
+  background-color: #0a150c;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #f6f7f4;
   outline: none;
-  transition: all 0.2s ease-in-out;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .form-input::placeholder {
-  color: rgba(168, 213, 168, 0.6);
+  color: rgba(154, 168, 155, 0.55);
 }
 .form-input:focus {
-  border-color: #ffd600;
-  box-shadow: 0 0 0 2px rgba(255, 214, 0, 0.2);
+  border-color: #c5a059;
+  box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.18);
 }
 .form-input-error {
   border-color: #ef4444;
 }
 .form-input-error:focus {
   border-color: #ef4444;
-  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2);
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
 }
 
 /* Accessible text contrast token */
 .text-forest-muted {
-  color: #c4e1c4;
+  color: #9aa89b;
 }
 
 /* High-Contrast Print Styles for B2B Bid Packages */

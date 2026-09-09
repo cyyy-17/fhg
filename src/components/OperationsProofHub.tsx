@@ -7,7 +7,6 @@ import {
   ArrowLeftRight,
   Truck,
   Building2,
-  Sparkles,
 } from "lucide-react";
 import { projectsData } from "@/data/projects";
 import { clientsData } from "@/data/clients";
@@ -53,7 +52,7 @@ export default function OperationsProofHub() {
   return (
     <section
       id="operations-hub"
-      className="py-20 md:py-28 bg-[#040e06] relative z-20 overflow-hidden border-t border-[#4caf50]/15 scroll-mt-20"
+      className="py-20 md:py-28 bg-[#060d07] relative z-20 overflow-hidden border-t border-white/5 scroll-mt-20"
       aria-label="Operations Track Record and Field Execution Hub"
     >
       {/* Anchor targets for direct hash routing */}
@@ -62,27 +61,25 @@ export default function OperationsProofHub() {
       <span id="fleet" className="absolute -top-24 pointer-events-none" />
       <span id="clients" className="absolute -top-24 pointer-events-none" />
 
-      {/* Subtle ambient lighting */}
-      <div className="absolute top-1/3 right-10 w-96 h-96 bg-[#2e7d32]/10 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute bottom-10 left-10 w-80 h-80 bg-[#ffd600]/5 rounded-full blur-[120px] pointer-events-none" />
-
-      <div className="w-full max-w-[1720px] mx-auto px-6 md:px-12 relative z-10">
+      <div className="w-full max-w-7xl mx-auto px-6 md:px-12 relative z-10">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 25 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.6 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5 }}
           className="text-center max-w-3xl mx-auto mb-10"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest text-[#ffd600] bg-[#ffd600]/10 border border-[#ffd600]/20 mb-3">
-            <Sparkles className="w-3.5 h-3.5 text-[#ffd600]" />
-            <span>Operational Authority &amp; Field Execution Proof</span>
+          <div className="inline-flex items-center gap-2 text-xs font-mono text-[#c5a059] tracking-widest uppercase mb-3">
+            <span>[ 04 / FIELD EXECUTION &amp; DOCKETS ]</span>
           </div>
-          <h2 className="text-3xl sm:text-5xl font-black font-display text-white tracking-tight leading-tight">
-            Projects, Proof &amp; Mechanized Fleet Hub
+          <h2 className="text-3xl sm:text-5xl font-bold font-heading text-[#f6f7f4] tracking-tight leading-tight">
+            Execution Proof, Mobilization &amp; <br />
+            <span className="font-editorial italic font-normal text-[#dfbe76]">
+              Industrial Fleet
+            </span>
           </h2>
-          <p className="mt-3 text-sm sm:text-base text-[#a8d5a8]">
+          <p className="mt-3 text-sm sm:text-base text-[#9aa89b]">
             Explore verified project portfolios, interactive before/after site transformations, 89-chainsaw registered fleet specifications, and conglomerate client trust.
           </p>
         </motion.div>
@@ -91,7 +88,7 @@ export default function OperationsProofHub() {
         <div className="flex justify-center mb-10 -mx-4 px-4 sm:mx-0 sm:px-0">
           <div
             data-lenis-prevent="true"
-            className="inline-flex items-center gap-1.5 p-1.5 rounded-2xl bg-[#091b0c]/90 border border-white/10 backdrop-blur-xl shadow-2xl max-w-full overflow-x-auto scrollbar-none touch-pan-x overscroll-x-contain"
+            className="inline-flex items-center gap-1 p-1.5 rounded-xl bg-[#0a150c] border border-white/10 shadow-xl max-w-full overflow-x-auto scrollbar-none touch-pan-x overscroll-x-contain"
             style={{ WebkitOverflowScrolling: "touch", touchAction: "pan-x pan-y" }}
           >
             {hubTabs.map((tab) => {
@@ -101,20 +98,20 @@ export default function OperationsProofHub() {
                 <button
                   key={tab.key}
                   onClick={() => setActiveTab(tab.key)}
-                  className={`px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all duration-200 flex items-center gap-2 shrink-0 cursor-pointer ${
+                  className={`px-4 py-2.5 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-200 flex items-center gap-2 shrink-0 cursor-pointer ${
                     isActive
-                      ? "bg-linear-to-r from-[#ffd600] to-[#f9c923] text-[#050e07] shadow-lg shadow-[#ffd600]/25 scale-[1.02]"
-                      : "text-[#a8d5a8] hover:text-white hover:bg-white/5"
+                      ? "bg-[#c5a059] text-[#060d07] shadow-md scale-100"
+                      : "text-[#9aa89b] hover:text-[#f6f7f4] hover:bg-white/5"
                   }`}
                 >
-                  <Icon className={`w-4 h-4 ${isActive ? "text-[#050e07]" : "text-[#76c442]"}`} />
+                  <Icon className={`w-4 h-4 ${isActive ? "text-[#060d07]" : "text-[#c5a059]"}`} />
                   <span>{tab.label}</span>
                   {tab.badge && (
                     <span
-                      className={`text-[10px] font-mono px-1.5 py-0.5 rounded-md ${
+                      className={`text-[10px] font-mono px-2 py-0.5 rounded font-medium ${
                         isActive
-                          ? "bg-[#050e07]/20 text-[#050e07]"
-                          : "bg-[#ffd600]/15 text-[#ffd600] border border-[#ffd600]/30"
+                          ? "bg-[#060d07] text-[#dfbe76]"
+                          : "bg-white/5 text-[#9aa89b]"
                       }`}
                     >
                       {tab.badge}

@@ -40,45 +40,45 @@ export default function ServiceDetailModal({ service, onClose }: ServiceDetailMo
       role="dialog"
       aria-modal="true"
       aria-labelledby="drawer-title"
-      className="fixed inset-0 z-9999 flex justify-end bg-black/80 backdrop-blur-sm animate-fadeInSimple"
+      className="fixed inset-0 z-9999 flex justify-end bg-black/80 backdrop-blur-xs animate-fadeInSimple"
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-xl h-full bg-[#061409] border-l border-[#4caf50]/40 shadow-2xl p-6 sm:p-8 flex flex-col justify-between overflow-y-auto text-white animate-drawerSlide"
+        className="relative w-full max-w-xl h-full bg-[#0a150c] border-l border-white/15 shadow-2xl p-6 sm:p-8 flex flex-col justify-between overflow-y-auto text-[#f6f7f4] animate-drawerSlide"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Drawer Header */}
         <div>
           <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-6">
-            <span className="text-[11px] font-mono uppercase font-bold tracking-wider px-3 py-1 rounded-full bg-[#ffd600]/15 text-[#ffd600] border border-[#ffd600]/30">
+            <span className="text-[10px] font-mono uppercase font-semibold tracking-wider px-2.5 py-1 rounded bg-[#060d07] text-[#dfbe76] border border-white/10">
               {service.category} Dossier
             </span>
             <button
               onClick={onClose}
-              className="w-9 h-9 rounded-full bg-white/10 hover:bg-[#ffd600] hover:text-[#050e07] flex items-center justify-center transition-colors cursor-pointer"
+              className="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 text-[#9aa89b] hover:text-[#f6f7f4] flex items-center justify-center transition-colors cursor-pointer"
               aria-label="Close Specification Drawer"
             >
               <X className="w-4 h-4" />
             </button>
           </div>
 
-          <h3 id="drawer-title" className="text-2xl sm:text-3xl font-black font-display text-white mb-2">
+          <h3 id="drawer-title" className="text-2xl sm:text-3xl font-bold font-heading text-[#f6f7f4] mb-2">
             {service.title}
           </h3>
-          <p className="text-xs sm:text-sm text-[#a8d5a8] leading-relaxed mb-6">
+          <p className="text-xs sm:text-sm text-[#9aa89b] leading-relaxed mb-6">
             {service.shortDesc}
           </p>
 
           {/* Scope Deliverables Checklist */}
           <div className="mb-6">
-            <h4 className="text-xs font-mono uppercase tracking-wider text-[#ffd600] font-bold mb-3 flex items-center gap-1.5">
-              <FileCheck2 className="w-4 h-4" />
+            <h4 className="text-xs font-mono uppercase tracking-wider text-[#dfbe76] font-semibold mb-3 flex items-center gap-1.5">
+              <FileCheck2 className="w-4 h-4 text-[#c5a059]" />
               <span>Turnkey Scope Deliverables</span>
             </h4>
             <ul className="space-y-2">
               {service.specs.deliverables.map((item, idx) => (
-                <li key={idx} className="flex items-start gap-2.5 text-xs text-[#f0fbf0] bg-white/5 p-3 rounded-xl border border-white/5">
-                  <CheckCircle2 className="w-4 h-4 text-[#76c442] shrink-0 mt-0.5" />
+                <li key={idx} className="flex items-start gap-2.5 text-xs text-[#f6f7f4] bg-[#060d07] p-3 rounded-lg border border-white/5">
+                  <CheckCircle2 className="w-4 h-4 text-[#c5a059] shrink-0 mt-0.5" />
                   <span>{item}</span>
                 </li>
               ))}
@@ -87,24 +87,24 @@ export default function ServiceDetailModal({ service, onClose }: ServiceDetailMo
 
           {/* Machinery & Permitting Matrix */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-            <div className="p-4 rounded-xl bg-[#102414] border border-[#4caf50]/20">
-              <div className="flex items-center gap-2 text-xs font-bold text-[#76c442] uppercase tracking-wider mb-2">
-                <Truck className="w-4 h-4" />
+            <div className="p-4 rounded-lg bg-[#060d07] border border-white/10">
+              <div className="flex items-center gap-2 text-xs font-semibold text-[#f6f7f4] uppercase tracking-wider mb-2">
+                <Truck className="w-4 h-4 text-[#c5a059]" />
                 <span>Fleet Required</span>
               </div>
-              <ul className="text-xs text-[#a8d5a8] space-y-1 list-disc list-inside">
+              <ul className="text-xs text-[#9aa89b] space-y-1 list-disc list-inside">
                 {service.specs.equipment.map((eq, i) => (
                   <li key={i}>{eq}</li>
                 ))}
               </ul>
             </div>
 
-            <div className="p-4 rounded-xl bg-[#102414] border border-[#4caf50]/20">
-              <div className="flex items-center gap-2 text-xs font-bold text-[#ffd600] uppercase tracking-wider mb-2">
-                <ShieldCheck className="w-4 h-4" />
+            <div className="p-4 rounded-lg bg-[#060d07] border border-white/10">
+              <div className="flex items-center gap-2 text-xs font-semibold text-[#dfbe76] uppercase tracking-wider mb-2">
+                <ShieldCheck className="w-4 h-4 text-[#c5a059]" />
                 <span>Statutory Permits</span>
               </div>
-              <ul className="text-xs text-[#a8d5a8] space-y-1 list-disc list-inside">
+              <ul className="text-xs text-[#9aa89b] space-y-1 list-disc list-inside">
                 {service.specs.permits.map((pm, i) => (
                   <li key={i}>{pm}</li>
                 ))}
@@ -116,17 +116,17 @@ export default function ServiceDetailModal({ service, onClose }: ServiceDetailMo
         {/* Drawer Bottom Actions */}
         <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="text-left w-full sm:w-auto">
-            <span className="text-[10px] font-mono text-[#a8d5a8] block uppercase">Mobilization SLA</span>
-            <strong className="text-sm font-bold text-white">{service.specs.turnaround}</strong>
+            <span className="text-[10px] font-mono text-[#9aa89b] block uppercase">Mobilization SLA</span>
+            <strong className="text-sm font-semibold text-[#f6f7f4]">{service.specs.turnaround}</strong>
           </div>
 
           <div className="flex items-center gap-3 w-full sm:w-auto justify-end">
             <Link
-              href="#estimate"
+              href="/contact"
               onClick={onClose}
-              className="w-full sm:w-auto px-6 py-2.5 rounded-full bg-[#ffd600] text-[#050e07] text-xs font-bold uppercase tracking-wider hover:brightness-110 flex items-center justify-center gap-1.5 shadow-lg shadow-[#ffd600]/20"
+              className="w-full sm:w-auto px-6 py-2.5 rounded-lg bg-[#c5a059] hover:bg-[#dfbe76] text-[#060d07] text-xs font-semibold uppercase tracking-wider flex items-center justify-center gap-1.5 shadow-md transition-colors"
             >
-              <span>Request Proposal</span>
+              <span>Request Tender RFP</span>
               <ArrowUpRight className="w-4 h-4" />
             </Link>
           </div>

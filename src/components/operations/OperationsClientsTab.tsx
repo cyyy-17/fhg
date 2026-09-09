@@ -36,10 +36,10 @@ export default function OperationsClientsTab() {
           <button
             key={sec}
             onClick={() => setClientSector(sec)}
-            className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+            className={`px-4 py-2 rounded-xl text-xs font-semibold tracking-wide transition-all cursor-pointer ${
               clientSector === sec
-                ? "bg-[#ffd600] text-[#050e07] shadow-lg shadow-[#ffd600]/20 scale-105"
-                : "bg-[#102414] text-[#a8d5a8] hover:text-white hover:bg-[#1a3820] border border-white/10"
+                ? "bg-[#c5a059] text-[#060d07] font-bold shadow-lg shadow-[#c5a059]/20 scale-102"
+                : "bg-[#0a150c] text-[#9aa89b] hover:text-[#f6f7f4] hover:bg-[#0e1d11] border border-white/8"
             }`}
           >
             {sec}
@@ -52,22 +52,22 @@ export default function OperationsClientsTab() {
         {filteredClients.map((client) => (
           <div
             key={client.id}
-            className="glass-panel glass-panel-hover rounded-2xl p-5 flex flex-col justify-between group border border-white/10"
+            className="bg-[#0a150c]/80 rounded-2xl p-5 flex flex-col justify-between group border border-white/8 hover:border-[#c5a059]/40 transition-all duration-300"
           >
             <div className="mb-3">
-              <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-[#76c442] mb-3 group-hover:scale-110 group-hover:bg-[#2e7d32] group-hover:text-white transition-all">
+              <div className="w-10 h-10 rounded-xl bg-white/4 border border-white/8 flex items-center justify-center text-[#dfbe76] mb-3 group-hover:scale-105 group-hover:bg-[#c5a059] group-hover:text-[#060d07] transition-all">
                 <Building2 className="w-5 h-5" />
               </div>
-              <h4 className="text-sm font-bold text-white group-hover:text-[#ffd600] transition-colors leading-snug">
+              <h4 className="text-sm font-bold text-[#f6f7f4] group-hover:text-[#dfbe76] transition-colors leading-snug">
                 {client.name}
               </h4>
             </div>
 
-            <div className="pt-2 border-t border-white/10">
-              <span className="text-[10px] text-[#ffd600] font-mono block mb-1">
+            <div className="pt-2 border-t border-white/8">
+              <span className="text-[10px] text-[#dfbe76] font-mono block mb-1">
                 {client.projectSample}
               </span>
-              <span className="text-[10px] text-[#a8d5a8]/70 block truncate">
+              <span className="text-[10px] text-[#9aa89b]/80 block truncate">
                 {client.sector}
               </span>
             </div>
@@ -76,16 +76,16 @@ export default function OperationsClientsTab() {
       </div>
 
       {/* Subcontractor RFP CTA */}
-      <div className="p-8 rounded-3xl bg-linear-to-r from-[#102414] via-[#07160a] to-[#102414] border border-[#4caf50]/30 shadow-2xl text-center max-w-4xl mx-auto flex flex-col items-center">
-        <h3 className="text-xl sm:text-2xl font-bold font-heading text-white mb-2">
+      <div className="p-8 rounded-3xl bg-[#0a150c] border border-[#c5a059]/30 shadow-2xl text-center max-w-4xl mx-auto flex flex-col items-center">
+        <h3 className="text-xl sm:text-2xl font-bold font-heading text-[#f6f7f4] mb-2">
           Partner With the Subcontractor Trusted by San Miguel, Ayala & EEI
         </h3>
-        <p className="text-xs sm:text-sm text-[#a8d5a8] max-w-2xl mb-6 leading-relaxed">
+        <p className="text-xs sm:text-sm text-[#9aa89b] max-w-2xl mb-6 leading-relaxed">
           From turnkey DENR compliance submissions to heavy crane relocations and corridor clearing, Forest Hills Garden mobilizes within 48 to 72 hours across Luzon.
         </p>
         <Link
           href="/#estimate"
-          className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full font-bold text-xs uppercase tracking-wider bg-linear-to-r from-[#ffd600] to-[#f9c923] text-[#061008] hover:brightness-110 shadow-lg shadow-[#ffd600]/20 hover:scale-105 transition-all"
+          className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full font-bold text-xs uppercase tracking-wider bg-[#c5a059] text-[#060d07] hover:bg-[#dfbe76] shadow-lg shadow-[#c5a059]/20 hover:scale-105 transition-all"
         >
           <span>Initiate Tender Assessment</span>
           <ArrowRight className="w-4 h-4" />

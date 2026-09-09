@@ -10,7 +10,6 @@ import {
   Award,
   ClipboardList,
   ShieldCheck,
-  Sparkles,
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
@@ -140,7 +139,7 @@ export default function CompanyProfileHub() {
   ];
 
   return (
-    <section id="about" className="py-20 md:py-28 bg-[#040e06] relative z-20 overflow-hidden border-t border-[#4caf50]/15 scroll-mt-20">
+    <section id="about" className="py-20 md:py-28 bg-[#060d07] relative z-20 overflow-hidden border-t border-white/5 scroll-mt-20">
       {/* Anchor targets for deep navigation */}
       <span id="timeline" className="absolute -top-24 pointer-events-none" />
       <span id="credentials" className="absolute -top-24 pointer-events-none" />
@@ -149,32 +148,30 @@ export default function CompanyProfileHub() {
       <span id="safety" className="absolute -top-24 pointer-events-none" />
       <span id="milestones" className="absolute -top-24 pointer-events-none" />
 
-      {/* Subtle ambient lighting */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-3/4 max-w-4xl h-96 bg-[#2e7d32]/10 rounded-full blur-[140px] pointer-events-none" />
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#ffd600]/5 rounded-full blur-[120px] pointer-events-none" />
-
-      <div className="w-full max-w-[1720px] mx-auto px-6 md:px-12 relative z-10">
+      <div className="w-full max-w-7xl mx-auto px-6 md:px-12 relative z-10">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 25 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.6 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5 }}
           className="text-center max-w-3xl mx-auto mb-10 md:mb-12"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest text-[#76c442] bg-[#4caf50]/10 border border-[#4caf50]/20 mb-4">
-            <Sparkles className="w-3.5 h-3.5 text-[#ffd600]" />
-            <span>Executive Corporate Dossier • Est. 1998</span>
+          <div className="inline-flex items-center gap-2 text-xs font-mono text-[#c5a059] tracking-widest uppercase mb-3">
+            <span>[ 03 / CORPORATE DOSSIER ]</span>
           </div>
-          <h2 className="text-3xl sm:text-5xl font-black font-display text-white tracking-tight leading-tight">
-            Rooted in Integrity, Proven Across Philippine Infrastructure
+          <h2 className="text-3xl sm:text-5xl font-bold font-heading text-[#f6f7f4] tracking-tight leading-tight">
+            Rooted in Integrity, Proven Across <br />
+            <span className="font-editorial italic font-normal text-[#dfbe76]">
+              Philippine Infrastructure
+            </span>
           </h2>
-          <p className="mt-4 text-sm sm:text-base text-[#a8d5a8] leading-relaxed">
+          <p className="mt-4 text-sm sm:text-base text-[#9aa89b] leading-relaxed">
             Twenty-eight years of continuous single-proprietorship excellence in large-scale tree earthballing, precision chainsaw operations, and statutory environmental compliance.
           </p>
         </motion.div>
 
-        {/* Dynamic Hub Navigation Bar (5 Hub Tabs) with Full Mobile Edge Touch Panning */}
+        {/* Dynamic Hub Navigation Bar (5 Hub Tabs) */}
         <div className="relative mb-10 -mx-6 px-6 sm:mx-0 sm:px-0">
           {/* Mobile Left Arrow Cue */}
           {canScrollLeft && (
@@ -182,7 +179,7 @@ export default function CompanyProfileHub() {
               type="button"
               onClick={() => scrollByAmount(-180)}
               aria-label="Scroll left tabs"
-              className="absolute left-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-[#061409]/95 border border-[#4caf50]/40 text-[#ffd600] flex items-center justify-center shadow-lg sm:hidden backdrop-blur-md transition-all active:scale-95 cursor-pointer"
+              className="absolute left-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-[#0a150c] border border-white/10 text-[#dfbe76] flex items-center justify-center shadow-lg sm:hidden backdrop-blur-xs transition-all active:scale-95 cursor-pointer"
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
@@ -194,7 +191,7 @@ export default function CompanyProfileHub() {
               type="button"
               onClick={() => scrollByAmount(180)}
               aria-label="Scroll right tabs"
-              className="absolute right-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-[#061409]/95 border border-[#4caf50]/40 text-[#ffd600] flex items-center justify-center shadow-lg sm:hidden backdrop-blur-md transition-all active:scale-95 cursor-pointer"
+              className="absolute right-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-[#0a150c] border border-white/10 text-[#dfbe76] flex items-center justify-center shadow-lg sm:hidden backdrop-blur-xs transition-all active:scale-95 cursor-pointer"
             >
               <ChevronRight className="w-4 h-4" />
             </button>
@@ -210,7 +207,7 @@ export default function CompanyProfileHub() {
               touchAction: "pan-x pan-y",
             }}
           >
-            <div className="inline-flex p-1.5 rounded-2xl bg-[#061409]/90 border border-[#4caf50]/20 backdrop-blur-xl shadow-xl gap-1 shrink-0">
+            <div className="inline-flex p-1.5 rounded-xl bg-[#0a150c] border border-white/10 shadow-xl gap-1 shrink-0">
               {tabs.map((tab) => {
                 const Icon = tab.icon;
                 const isActive = activeTab === tab.key;
@@ -222,21 +219,21 @@ export default function CompanyProfileHub() {
                     }}
                     type="button"
                     onClick={() => setActiveTab(tab.key)}
-                    className={`flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all whitespace-nowrap shrink-0 cursor-pointer select-none ${
+                    className={`flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-lg text-xs sm:text-sm font-semibold transition-all whitespace-nowrap shrink-0 cursor-pointer select-none ${
                       isActive
-                        ? "bg-linear-to-r from-[#ffd600] to-[#f9c923] text-[#050e07] shadow-lg shadow-[#ffd600]/20 scale-100"
-                        : "text-[#a8d5a8] hover:text-white hover:bg-white/5 active:bg-white/10"
+                        ? "bg-[#c5a059] text-[#060d07] shadow-md scale-100"
+                        : "text-[#9aa89b] hover:text-[#f6f7f4] hover:bg-white/5 active:bg-white/10"
                     }`}
                     style={{ touchAction: "manipulation" }}
                   >
-                    <Icon className={`w-4 h-4 ${isActive ? "text-[#050e07]" : "text-[#76c442]"}`} />
+                    <Icon className={`w-4 h-4 ${isActive ? "text-[#060d07]" : "text-[#c5a059]"}`} />
                     <span>{tab.label}</span>
                     {tab.badge && (
                       <span
-                        className={`text-[10px] font-mono px-2 py-0.5 rounded-full font-bold uppercase tracking-wider ${
+                        className={`text-[10px] font-mono px-2 py-0.5 rounded font-medium uppercase tracking-wider ${
                           isActive
-                            ? "bg-[#050e07] text-[#ffd600]"
-                            : "bg-white/10 text-[#a8d5a8]"
+                            ? "bg-[#060d07] text-[#dfbe76]"
+                            : "bg-white/5 text-[#9aa89b]"
                         }`}
                       >
                         {tab.badge}
