@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect, useCallback } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import {
   TreePine,
@@ -19,6 +20,25 @@ import {
 import { servicesData, type ServiceItem } from "@/data/services";
 import MediaPlaceholder from "./MediaPlaceholder";
 import ServiceDetailModal from "./ServiceDetailModal";
+
+const serviceRealImages: Record<string, { src: string; alt: string }> = {
+  earthballing: {
+    src: "/images/earthballing.jpg",
+    alt: "Commercial tree earthballing and hydraulic crane rigging operations in the Philippines",
+  },
+  "tree-cutting": {
+    src: "/images/fleet_chainsaws.jpg",
+    alt: "Registered 90-chainsaw fleet and precision tree felling operations",
+  },
+  reforestation: {
+    src: "/images/watershed_reforestation.jpg",
+    alt: "Watershed reforestation and native tree sapling plantation in Zambales",
+  },
+  "commercial-landscaping": {
+    src: "/images/transplanted_trees.jpg",
+    alt: "Specimen tree transplanting and corporate greening installation",
+  },
+};
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   TreePine,
@@ -185,14 +205,34 @@ export default function ServicesGrid({ initialServices }: ServicesGridProps = {}
               >
                 <div>
                   <div className="mb-4 rounded-lg overflow-hidden border border-white/10">
-                    <MediaPlaceholder
-                      variant={placeholderVariant}
-                      aspect="16/9"
-                      title={service.title}
-                      subtitle={service.category}
-                      badge={service.metrics[0]}
-                      tag={service.id.toUpperCase()}
-                    />
+                    {serviceRealImages[service.id] ? (
+                      <div className="relative aspect-16/9 w-full overflow-hidden">
+                        <Image
+                          src={serviceRealImages[service.id].src}
+                          alt={serviceRealImages[service.id].alt}
+                          fill
+                          sizes="(max-width: 640px) 85vw, (max-width: 1024px) 380px, 400px"
+                          className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#050d07] via-transparent to-[#050d07]/40 pointer-events-none" />
+                        <div className="absolute top-2.5 left-2.5 px-2 py-0.5 rounded bg-[#050d07]/90 border border-white/10 text-[10px] font-mono font-semibold text-[#f6f7f4] uppercase tracking-wider flex items-center gap-1.5">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e]" />
+                          <span>{service.metrics[0]}</span>
+                        </div>
+                        <div className="absolute bottom-2.5 right-2.5 px-2 py-0.5 rounded bg-[#050d07]/90 border border-white/10 text-[10px] font-mono text-[#4ade80] uppercase tracking-wider">
+                          {service.id.toUpperCase()}
+                        </div>
+                      </div>
+                    ) : (
+                      <MediaPlaceholder
+                        variant={placeholderVariant}
+                        aspect="16/9"
+                        title={service.title}
+                        subtitle={service.category}
+                        badge={service.metrics[0]}
+                        tag={service.id.toUpperCase()}
+                      />
+                    )}
                   </div>
 
                   <div className="flex items-center justify-between gap-4 mb-4">

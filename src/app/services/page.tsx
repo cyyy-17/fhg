@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     locale: "en_PH",
     images: [
       {
-        url: "/images/og_image.jpg",
+        url: "/images/og_services.jpg",
         width: 1200,
         height: 630,
         alt: "Forest Hills Garden - Industrial Tree Services Authority",
@@ -106,6 +106,44 @@ export default async function ServicesPage() {
         },
         description:
           "Turnkey arborist GPS tree census, caliper tagging, and statutory Special Tree Cutting Permit processing with DENR and LGUs.",
+      },
+      {
+        "@type": "FAQPage",
+        "@id": `${SITE_URL}/services#faq`,
+        mainEntity: [
+          {
+            "@type": "Question",
+            name: "How fast can heavy chainsaws and crane crews mobilize?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Emergency hazards within Calabarzon and Metro Manila mobilize within 4 to 12 hours. Planned commercial infrastructure projects mobilize within 24 to 48 hours following statutory permit clearance.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Do you handle complete DENR and PCA statutory permits?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Yes. Full turnkey compliance covers tree inventory census, CENRO/PENRO application preparation, LGU public hearings, and issuance of official STCP (Special Tree Cutting Permit) or Earthballing Clearances.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "What is your survival warranty on mature earthballed trees?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "We provide a 12-Month Post-Transplantation Warranty targeting a 98.7% survival rate. If a tree succumbs to root shock, we provide 100% free specimen replacement from our three Batangas nursery reserves (230,000+ saplings in stock).",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Can your heavy chainsaws operate in high-voltage utility lines?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Yes. Our senior rigging team is certified for energized transmission corridors, utilizing non-conductive rigging blocks, hydraulic cranes, and sectional dismantle techniques to guarantee zero outage risk.",
+            },
+          },
+        ],
       },
     ],
   };

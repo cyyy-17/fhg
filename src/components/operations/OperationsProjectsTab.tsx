@@ -1,10 +1,34 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import Image from "next/image";
 import { Search, MapPin, CheckCircle2, ArrowUpRight } from "lucide-react";
 import { projectsData, type ProjectItem } from "@/data/projects";
 import MediaPlaceholder from "@/components/MediaPlaceholder";
 import ProjectModal from "@/components/ProjectModal";
+
+const projectImages: Record<string, { src: string; alt: string }> = {
+  "slex-tr4": {
+    src: "/images/corridor_cleared.jpg",
+    alt: "SLEX Toll Road 4 Expressway tree clearing and corridor widening operations",
+  },
+  "subway-cp101": {
+    src: "/images/fleet_chainsaws.jpg",
+    alt: "Metro Manila Subway Project CP101 arborist felling and chainsaw fleet",
+  },
+  "mdc-sereneo-nuvali": {
+    src: "/images/transplanted_trees.jpg",
+    alt: "Nuvali Estate large-scale tree earthballing and specimen transplanting",
+  },
+  "giga-ace-6-isla-wind": {
+    src: "/images/earthballing.jpg",
+    alt: "Quezon North Wind Farm access road clearing and tree relocation",
+  },
+  "zambales-reforestation": {
+    src: "/images/watershed_reforestation.jpg",
+    alt: "Zambales 2,627 hectare DENR National Greening Program watershed reforestation",
+  },
+};
 
 type ProjectFilter = "all" | "ongoing" | "infrastructure" | "commercial" | "reforestation";
 
@@ -100,14 +124,34 @@ export default function OperationsProjectsTab({ initialProjects }: OperationsPro
             >
               <div>
                 <div className="mb-4 rounded-xl overflow-hidden border border-white/8">
-                  <MediaPlaceholder
-                    variant={placeholderVariant}
-                    aspect="16/9"
-                    title={project.title}
-                    subtitle={project.client}
-                    badge={project.badge}
-                    tag={project.category.toUpperCase()}
-                  />
+                  {projectImages[project.id] ? (
+                    <div className="relative aspect-16/9 w-full overflow-hidden">
+                      <Image
+                        src={projectImages[project.id].src}
+                        alt={projectImages[project.id].alt}
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#050d07] via-transparent to-[#050d07]/40 pointer-events-none" />
+                      <div className="absolute top-2.5 left-2.5 px-2 py-0.5 rounded bg-[#050d07]/90 border border-white/10 text-[10px] font-mono font-semibold text-[#f6f7f4] uppercase tracking-wider flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e]" />
+                        <span>{project.badge}</span>
+                      </div>
+                      <div className="absolute bottom-2.5 right-2.5 px-2 py-0.5 rounded bg-[#050d07]/90 border border-white/10 text-[10px] font-mono text-[#4ade80] uppercase tracking-wider">
+                        {project.category.toUpperCase()}
+                      </div>
+                    </div>
+                  ) : (
+                    <MediaPlaceholder
+                      variant={placeholderVariant}
+                      aspect="16/9"
+                      title={project.title}
+                      subtitle={project.client}
+                      badge={project.badge}
+                      tag={project.category.toUpperCase()}
+                    />
+                  )}
                 </div>
 
                 <div className="flex items-center justify-between gap-2 mb-2">

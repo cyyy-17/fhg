@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     locale: "en_PH",
     images: [
       {
-        url: "/images/og_image.jpg",
+        url: "/images/og_projects.jpg",
         width: 1200,
         height: 630,
         alt: "Forest Hills Garden - Signature Projects",

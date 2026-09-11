@@ -292,50 +292,11 @@ export default function RootLayout({
           },
         ],
       },
-      {
-        "@type": "FAQPage",
-        "@id": `${SITE_URL}/#faq`,
-        mainEntity: [
-          {
-            "@type": "Question",
-            name: "What is the typical lead time for DENR Special Tree Cutting Permit (STCP) processing?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "STCP processing generally spans 30 to 60 working days depending on jurisdiction. Forest Hills Garden handles turnkey compliance: arborist GPS tree inventory, caliper measurements, risk tagging, and LGU clearances."
-            }
-          },
-          {
-            "@type": "Question",
-            name: "How fast can your 90-chainsaw fleet and heavy crane machinery mobilize?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "For projects across Metro Manila, Batangas, Laguna, Cavite, and Rizal, crews mobilize within 48 to 72 hours following Notice to Proceed and permit verification."
-            }
-          },
-          {
-            "@type": "Question",
-            name: "What are your tree survival warranty terms for commercial earthballing?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "We provide a 12-Month Post-Transplantation Warranty with a 98.7% survival rate. Should a transplanted tree fail due to shock, Forest Hills Garden provides 100% free specimen replacement from Batangas nursery reserves."
-            }
-          },
-          {
-            "@type": "Question",
-            name: "What is the standard DENR compensatory seedling replacement ratio?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "Under DENR guidelines, developers must typically turn over 50 to 100 indigenous seedlings for every tree removed. Forest Hills Garden supplies certified native hard species with official inspection certificates."
-            }
-          }
-        ]
-      },
     ],
   };
 
-
   return (
-    <html lang="en" className="dark">
+    <html lang="en-PH" className="dark">
       <head>
         <script
           type="application/ld+json"

@@ -153,7 +153,7 @@ export default function NurseryHub({ initialSpecies, initialCompany }: NurseryHu
               <div className="relative h-56 sm:h-64 rounded-xl overflow-hidden border border-white/10 shadow-xl">
                 <Image
                   src="/images/nursery.jpg"
-                  alt="Forest Hills Garden Plant Nursery in Talisay Batangas"
+                  alt="Forest Hills Garden Plant Nursery in Talisay Batangas - 230,000+ native tree seedlings and compensatory planting stocks"
                   fill
                   sizes="(max-width: 1024px) 100vw, 500px"
                   className="object-cover object-center"

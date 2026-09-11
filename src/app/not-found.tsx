@@ -1,5 +1,15 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { TreePine, Home, Phone, Compass } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "Page Not Found | Forest Hills Garden",
+  description: "The requested page could not be found on Forest Hills Garden.",
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 export default function NotFound() {
   return (
