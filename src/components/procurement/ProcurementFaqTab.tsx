@@ -9,7 +9,7 @@ interface ProcurementFaqTabProps {
 }
 
 export default function ProcurementFaqTab({ initialFaqs }: ProcurementFaqTabProps = {}) {
-  const faqs = initialFaqs && initialFaqs.length > 0 ? initialFaqs : generalFaqs;
+  const faqs = Array.isArray(initialFaqs) && initialFaqs.length > 0 ? initialFaqs : generalFaqs;
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
 
   return (

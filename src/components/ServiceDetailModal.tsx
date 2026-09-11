@@ -76,7 +76,7 @@ export default function ServiceDetailModal({ service, onClose }: ServiceDetailMo
               <span>Turnkey Scope Deliverables</span>
             </h4>
             <ul className="space-y-2">
-              {service.specs.deliverables.map((item, idx) => (
+              {(Array.isArray(service.specs?.deliverables) ? service.specs.deliverables : []).map((item, idx) => (
                 <li key={idx} className="flex items-start gap-2.5 text-xs text-[#f6f7f4] bg-[#050d07] p-3 rounded-lg border border-white/5">
                   <CheckCircle2 className="w-4 h-4 text-[#22c55e] shrink-0 mt-0.5" />
                   <span>{item}</span>
@@ -93,7 +93,7 @@ export default function ServiceDetailModal({ service, onClose }: ServiceDetailMo
                 <span>Fleet Required</span>
               </div>
               <ul className="text-xs text-[#9aa89b] space-y-1 list-disc list-inside">
-                {service.specs.equipment.map((eq, i) => (
+                {(Array.isArray(service.specs?.equipment) ? service.specs.equipment : []).map((eq, i) => (
                   <li key={i}>{eq}</li>
                 ))}
               </ul>
@@ -105,7 +105,7 @@ export default function ServiceDetailModal({ service, onClose }: ServiceDetailMo
                 <span>Statutory Permits</span>
               </div>
               <ul className="text-xs text-[#9aa89b] space-y-1 list-disc list-inside">
-                {service.specs.permits.map((pm, i) => (
+                {(Array.isArray(service.specs?.permits) ? service.specs.permits : []).map((pm, i) => (
                   <li key={i}>{pm}</li>
                 ))}
               </ul>

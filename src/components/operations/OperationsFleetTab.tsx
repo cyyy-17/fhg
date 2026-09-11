@@ -14,7 +14,7 @@ interface OperationsFleetTabProps {
 }
 
 export default function OperationsFleetTab({ initialEquipment }: OperationsFleetTabProps = {}) {
-  const equipment = initialEquipment && initialEquipment.length > 0 ? initialEquipment : equipmentFleet;
+  const equipment = Array.isArray(initialEquipment) && initialEquipment.length > 0 ? initialEquipment : equipmentFleet;
   const [equipmentFilter, setEquipmentFilter] = useState<EquipmentFilter>("all");
 
   const filteredEquipment = useMemo(() => {

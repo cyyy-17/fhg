@@ -55,7 +55,7 @@ interface ServicesGridProps {
 }
 
 export default function ServicesGrid({ initialServices }: ServicesGridProps = {}) {
-  const services = initialServices && initialServices.length > 0 ? initialServices : servicesData;
+  const services = Array.isArray(initialServices) && initialServices.length > 0 ? initialServices : servicesData;
   const [selectedService, setSelectedService] = useState<ServiceItem | null>(null);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);

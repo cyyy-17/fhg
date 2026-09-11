@@ -9,7 +9,7 @@ interface ProfileProtocolTabProps {
 }
 
 export default function ProfileProtocolTab({ initialProtocol }: ProfileProtocolTabProps = {}) {
-  const steps = initialProtocol && initialProtocol.length > 0 ? initialProtocol : protocolSteps;
+  const steps = Array.isArray(initialProtocol) && initialProtocol.length > 0 ? initialProtocol : protocolSteps;
   const [selectedProtocol, setSelectedProtocol] = useState(0);
   const p = steps[selectedProtocol] || steps[0];
 

@@ -89,7 +89,17 @@ async function kvGet<T>(key: string): Promise<T | null> {
     if (!res.ok) return null;
     const data = await res.json();
     if (data?.result !== null && data?.result !== undefined) {
-      return typeof data.result === "string" ? JSON.parse(data.result) : (data.result as T);
+      let parsed: unknown = data.result;
+      // Recursively unwrap stringified JSON in case of nested stringification in Redis/KV
+      while (typeof parsed === "string") {
+        try {
+          const next = JSON.parse(parsed);
+          parsed = next;
+        } catch {
+          break;
+        }
+      }
+      return parsed as T;
     }
     return null;
   } catch (err) {
@@ -110,14 +120,14 @@ async function kvSet<T>(key: string, value: T): Promise<boolean> {
   const cfg = getKvConfig();
   if (!cfg) return false;
   try {
-    const payload = JSON.stringify(value);
+    const payload = typeof value === "string" ? value : JSON.stringify(value);
     const res = await fetch(`${cfg.url}/set/${encodeURIComponent(key)}`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${cfg.token}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(payload),
+      body: payload,
     });
     return res.ok;
   } catch (err) {
@@ -168,27 +178,36 @@ async function getDomainData<T>(
   domain: keyof typeof DOMAIN_KEYS,
   defaultVal: T
 ): Promise<T> {
+  const isDefaultArray = Array.isArray(defaultVal);
+  const isValid = (candidate: unknown): candidate is T => {
+    if (candidate === null || candidate === undefined) return false;
+    if (isDefaultArray) return Array.isArray(candidate);
+    return typeof candidate === "object" && !Array.isArray(candidate);
+  };
+
   const cfg = getKvConfig();
   if (cfg) {
     // 1. Check atomic per-domain key
-    const val = await kvGet<T>(DOMAIN_KEYS[domain]);
-    if (val !== null && val !== undefined) {
+    const val = await kvGet<unknown>(DOMAIN_KEYS[domain]);
+    if (isValid(val)) {
       return val;
     }
 
     // 2. Migration fallback: check legacy monolithic store in KV
     const monolith = await kvGet<Record<string, unknown>>(MONOLITHIC_KEY);
     if (monolith && monolith[domain] !== undefined && monolith[domain] !== null) {
-      const migrated = monolith[domain] as T;
-      // Self-heal: seed per-domain key asynchronously
-      void kvSet(DOMAIN_KEYS[domain], migrated);
-      return migrated;
+      const candidate = monolith[domain];
+      if (isValid(candidate)) {
+        // Self-heal: seed per-domain key asynchronously
+        void kvSet(DOMAIN_KEYS[domain], candidate);
+        return candidate;
+      }
     }
 
     // 3. Fall back to local file or default baseline
     const local = readLocalDb();
-    const localVal = local ? (local[domain as keyof AdminStore] as T | undefined) : undefined;
-    const finalVal = localVal !== undefined && localVal !== null ? localVal : defaultVal;
+    const localVal = local ? (local[domain as keyof AdminStore] as unknown) : undefined;
+    const finalVal = isValid(localVal) ? localVal : defaultVal;
 
     // Seed per-domain key so future reads are instantaneous
     void kvSet(DOMAIN_KEYS[domain], finalVal);
@@ -197,8 +216,9 @@ async function getDomainData<T>(
 
   // Local filesystem mode
   const local = readLocalDb();
-  if (local && local[domain as keyof AdminStore] !== undefined && local[domain as keyof AdminStore] !== null) {
-    return local[domain as keyof AdminStore] as T;
+  const candidate = local ? (local[domain as keyof AdminStore] as unknown) : undefined;
+  if (isValid(candidate)) {
+    return candidate;
   }
   return defaultVal;
 }

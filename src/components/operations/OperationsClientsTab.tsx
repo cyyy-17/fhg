@@ -19,7 +19,7 @@ interface OperationsClientsTabProps {
 }
 
 export default function OperationsClientsTab({ initialClients }: OperationsClientsTabProps = {}) {
-  const clients = initialClients && initialClients.length > 0 ? initialClients : clientsData;
+  const clients = Array.isArray(initialClients) && initialClients.length > 0 ? initialClients : clientsData;
   const [clientSector, setClientSector] = useState<ClientSector>("All");
 
   const filteredClients = useMemo(() => {

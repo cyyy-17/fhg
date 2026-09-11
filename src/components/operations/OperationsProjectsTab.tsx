@@ -13,7 +13,7 @@ interface OperationsProjectsTabProps {
 }
 
 export default function OperationsProjectsTab({ initialProjects }: OperationsProjectsTabProps = {}) {
-  const projects = initialProjects && initialProjects.length > 0 ? initialProjects : projectsData;
+  const projects = Array.isArray(initialProjects) && initialProjects.length > 0 ? initialProjects : projectsData;
   const [projectFilter, setProjectFilter] = useState<ProjectFilter>("all");
   const [searchProject, setSearchProject] = useState("");
   const [showAllProjects, setShowAllProjects] = useState(false);

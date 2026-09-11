@@ -21,7 +21,7 @@ interface NurseryHubProps {
 }
 
 export default function NurseryHub({ initialSpecies, initialCompany }: NurseryHubProps = {}) {
-  const species = initialSpecies && initialSpecies.length > 0 ? initialSpecies : speciesData;
+  const species = Array.isArray(initialSpecies) && initialSpecies.length > 0 ? initialSpecies : speciesData;
   const company = initialCompany || companyData;
   const [activeCategory, setActiveCategory] = useState<CategoryFilter>("all");
   const [searchQuery, setSearchQuery] = useState("");

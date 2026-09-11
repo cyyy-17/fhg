@@ -31,8 +31,8 @@ export default function OperationsProofHub({
   initialEquipment,
 }: OperationsProofHubProps = {}) {
   const [activeTab, setActiveTab] = useState<HubTab>("projects");
-  const projects = initialProjects && initialProjects.length > 0 ? initialProjects : projectsData;
-  const clients = initialClients && initialClients.length > 0 ? initialClients : clientsData;
+  const projects = Array.isArray(initialProjects) && initialProjects.length > 0 ? initialProjects : projectsData;
+  const clients = Array.isArray(initialClients) && initialClients.length > 0 ? initialClients : clientsData;
 
   // Deep-link hash listener
   useEffect(() => {

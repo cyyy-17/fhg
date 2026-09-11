@@ -8,7 +8,7 @@ interface ComplianceProtocolProps {
 }
 
 export default function ComplianceProtocol({ initialProtocol }: ComplianceProtocolProps = {}) {
-  const steps = initialProtocol && initialProtocol.length > 0 ? initialProtocol : protocolSteps;
+  const steps = Array.isArray(initialProtocol) && initialProtocol.length > 0 ? initialProtocol : protocolSteps;
 
   return (
     <section id="protocol" className="py-24 bg-[#050d07] relative z-20 border-t border-white/5">

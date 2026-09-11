@@ -24,7 +24,7 @@ interface ProcurementVaultTabProps {
 }
 
 export default function ProcurementVaultTab({ initialDocuments }: ProcurementVaultTabProps = {}) {
-  const docs = initialDocuments && initialDocuments.length > 0 ? initialDocuments : documents;
+  const docs = Array.isArray(initialDocuments) && initialDocuments.length > 0 ? initialDocuments : documents;
   const [previewDoc, setPreviewDoc] = useState<DocumentItem | null>(null);
   const [packetCopied, setPacketCopied] = useState(false);
   const [showPacketDetails, setShowPacketDetails] = useState(false);
