@@ -128,6 +128,45 @@ export default function AdminDocumentsPage() {
     return matchesSearch && matchesCategory;
   });
 
+  const [lastUploadedFile, setLastUploadedFile] = useState<{
+    url: string;
+    fileName: string;
+    fileSize: string;
+  } | null>(null);
+
+  function handleCreateFromUploaded(uploaded: { url: string; fileName: string; fileSize: string }) {
+    const cleanName = uploaded.fileName
+      .replace(/_[0-9]+(\.[^.]+)?$/, "")
+      .replace(/[-_]+/g, " ")
+      .trim();
+
+    const title = cleanName
+      ? cleanName.charAt(0).toUpperCase() + cleanName.slice(1)
+      : "Uploaded Document";
+
+    const isPdf = uploaded.url.toLowerCase().endsWith(".pdf");
+
+    const newItem: DocumentItem = {
+      id: `doc-${Date.now()}`,
+      title,
+      category: "Legal Registration",
+      docNumber: `FILE-${Date.now().toString().slice(-6)}`,
+      fileUrl: uploaded.url,
+      fileSize: `${uploaded.fileSize} ${isPdf ? "PDF" : "Asset"}`,
+      description: `Uploaded document asset: ${uploaded.fileName}`,
+      status: "Official Certified",
+    };
+
+    setEditingItem(newItem);
+    setIsCreating(true);
+  }
+
+  function handleTopUploadComplete(url: string, fileName: string, fileSize: string) {
+    const fileInfo = { url, fileName, fileSize };
+    setLastUploadedFile(fileInfo);
+    handleCreateFromUploaded(fileInfo);
+  }
+
   return (
     <div className="space-y-6">
       <AdminHeader
@@ -160,22 +199,42 @@ export default function AdminDocumentsPage() {
       )}
 
       {/* Upload Zone Card */}
-      <div className="p-5 rounded-2xl bg-[#0a170d] border border-white/10 space-y-2">
+      <div className="p-5 rounded-2xl bg-[#0a170d] border border-white/10 space-y-3">
         <h2 className="text-sm font-bold font-heading text-[#f6f7f4] flex items-center gap-2">
           <FileText className="w-4 h-4 text-[#22c55e]" />
           <span>Direct Document & Asset Uploader</span>
         </h2>
         <p className="text-xs text-[#9aa89b]">
-          Upload PDF capability statements, BIR filings, or site plan images directly. Uploaded files
-          receive permanent public URLs and can be immediately assigned to documents below.
+          Upload PDF capability statements, BIR filings, or site plan images directly. Once uploaded,
+          they can be automatically added as an entry in the Document Vault below.
         </p>
-        <div className="pt-2">
+        <div>
           <FileUploadWidget
             label="Upload New PDF or Media Asset"
             accept=".pdf,.png,.jpg,.jpeg,.webp"
-            helperText="Permanent upload to /public/uploads/. Use generated URL in document entries."
+            helperText="Permanent upload to Vercel Blob cloud storage. Automatically creates a document entry."
+            onUploadComplete={handleTopUploadComplete}
           />
         </div>
+
+        {lastUploadedFile && (
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 p-3 rounded-xl bg-emerald-950/30 border border-emerald-500/30 text-xs">
+            <div className="flex items-center gap-2 text-emerald-300 min-w-0">
+              <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+              <span className="truncate">
+                Uploaded: <strong className="text-white">{lastUploadedFile.fileName}</strong> ({lastUploadedFile.fileSize})
+              </span>
+            </div>
+            <button
+              type="button"
+              onClick={() => handleCreateFromUploaded(lastUploadedFile)}
+              className="px-3 py-1.5 rounded-lg bg-linear-to-r from-[#15803d] to-[#16a34a] hover:from-[#16a34a] hover:to-[#22c55e] text-[#f6f7f4] font-semibold flex items-center gap-1.5 transition cursor-pointer text-xs shrink-0"
+            >
+              <Plus className="w-3.5 h-3.5" />
+              <span>Add to Document Vault Table</span>
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Filter and Search Bar */}
