@@ -206,7 +206,7 @@ export default function ServicesGrid({ initialServices }: ServicesGridProps = {}
                 <div>
                   <div className="mb-4 rounded-lg overflow-hidden border border-white/10">
                     {serviceRealImages[service.id] ? (
-                      <div className="relative aspect-16/9 w-full overflow-hidden">
+                      <div className="relative aspect-video w-full overflow-hidden">
                         <Image
                           src={serviceRealImages[service.id].src}
                           alt={serviceRealImages[service.id].alt}
@@ -214,7 +214,7 @@ export default function ServicesGrid({ initialServices }: ServicesGridProps = {}
                           sizes="(max-width: 640px) 85vw, (max-width: 1024px) 380px, 400px"
                           className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#050d07] via-transparent to-[#050d07]/40 pointer-events-none" />
+                        <div className="absolute inset-0 bg-linear-to-t from-[#050d07] via-transparent to-[#050d07]/40 pointer-events-none" />
                         <div className="absolute top-2.5 left-2.5 px-2 py-0.5 rounded bg-[#050d07]/90 border border-white/10 text-[10px] font-mono font-semibold text-[#f6f7f4] uppercase tracking-wider flex items-center gap-1.5">
                           <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e]" />
                           <span>{service.metrics[0]}</span>
