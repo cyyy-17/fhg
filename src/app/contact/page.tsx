@@ -42,6 +42,8 @@ export const metadata: Metadata = {
 
 import { getCompanyData } from "@/lib/storage";
 
+export const dynamic = "force-dynamic";
+
 export default async function ContactPage() {
   const liveCompany = await getCompanyData();
   const jsonLd = {

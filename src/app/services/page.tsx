@@ -44,6 +44,8 @@ export const metadata: Metadata = {
 
 import { getServicesData, getProtocolData, getCompanyData } from "@/lib/storage";
 
+export const dynamic = "force-dynamic";
+
 export default async function ServicesPage() {
   const [liveServices, liveProtocol, liveCompany] = await Promise.all([
     getServicesData(),

@@ -30,6 +30,8 @@ import {
   adminSettingsSchema,
 } from "@/lib/schemas";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(request: Request) {
   const session = await getAdminSession();
   if (!session?.authenticated) {

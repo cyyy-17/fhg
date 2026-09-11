@@ -93,6 +93,14 @@ async function kvGet<T>(key: string): Promise<T | null> {
     }
     return null;
   } catch (err) {
+    if (
+      typeof err === "object" &&
+      err !== null &&
+      "digest" in err &&
+      (err as { digest?: string }).digest === "DYNAMIC_SERVER_USAGE"
+    ) {
+      throw err;
+    }
     console.warn(`Vercel KV get error for [${key}], falling back:`, err);
     return null;
   }
@@ -113,6 +121,14 @@ async function kvSet<T>(key: string, value: T): Promise<boolean> {
     });
     return res.ok;
   } catch (err) {
+    if (
+      typeof err === "object" &&
+      err !== null &&
+      "digest" in err &&
+      (err as { digest?: string }).digest === "DYNAMIC_SERVER_USAGE"
+    ) {
+      throw err;
+    }
     console.warn(`Vercel KV set error for [${key}]:`, err);
     return false;
   }

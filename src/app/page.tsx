@@ -12,6 +12,8 @@ import Footer from "@/components/Footer";
 import FloatingActions from "@/components/FloatingActions";
 import { getAdminStore } from "@/lib/storage";
 
+export const dynamic = "force-dynamic";
+
 export default async function Home() {
   const store = await getAdminStore();
 

@@ -43,6 +43,8 @@ export const metadata: Metadata = {
 
 import { getSpeciesData, getCompanyData } from "@/lib/storage";
 
+export const dynamic = "force-dynamic";
+
 export default async function NurseriesPage() {
   const [liveSpecies, liveCompany] = await Promise.all([
     getSpeciesData(),
