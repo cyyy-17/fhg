@@ -23,11 +23,12 @@
 # misc
 .DS_Store
 *.pem
-Company Details/
+/Company Details/
 *.pdf
 !public/docs/*.pdf
-26-27 PROPOSAL/
-Documents/
+/26-27 PROPOSAL/
+/Documents/
+!src/app/admin/documents/
 *.docx
 
 # debug
