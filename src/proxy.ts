@@ -47,7 +47,7 @@ function getClientIp(request: NextRequest): string {
   return request.headers.get("x-real-ip") || "127.0.0.1";
 }
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const ip = getClientIp(request);
   pruneRateLimitMap();
