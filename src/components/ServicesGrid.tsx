@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
 import {
   TreePine,
@@ -50,7 +50,12 @@ const faqs = [
   },
 ];
 
-export default function ServicesGrid() {
+interface ServicesGridProps {
+  initialServices?: ServiceItem[];
+}
+
+export default function ServicesGrid({ initialServices }: ServicesGridProps = {}) {
+  const services = initialServices && initialServices.length > 0 ? initialServices : servicesData;
   const [selectedService, setSelectedService] = useState<ServiceItem | null>(null);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
@@ -59,15 +64,15 @@ export default function ServicesGrid() {
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
 
-  const checkScroll = () => {
+  const checkScroll = useCallback(() => {
     if (!scrollRef.current) return;
     const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
     setCanScrollLeft(scrollLeft > 10);
     setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
 
     const index = Math.round(scrollLeft / (clientWidth * 0.85));
-    setActiveSlideIndex(Math.min(index, servicesData.length - 1));
-  };
+    setActiveSlideIndex(Math.min(index, services.length - 1));
+  }, [services.length]);
 
   useEffect(() => {
     const el = scrollRef.current;
@@ -79,7 +84,7 @@ export default function ServicesGrid() {
       el.removeEventListener("scroll", checkScroll);
       window.removeEventListener("resize", checkScroll);
     };
-  }, []);
+  }, [checkScroll]);
 
   const scrollByAmount = (direction: "left" | "right") => {
     if (!scrollRef.current) return;
@@ -160,7 +165,7 @@ export default function ServicesGrid() {
           className="flex gap-6 overflow-x-auto pb-6 scrollbar-none snap-x snap-mandatory -mx-6 px-6 md:-mx-12 md:px-12 touch-pan-x overscroll-x-contain"
           style={{ WebkitOverflowScrolling: "touch" }}
         >
-          {servicesData.map((service) => {
+          {services.map((service) => {
             const Icon = iconMap[service.icon] || TreePine;
             const placeholderVariant =
               service.id === "earthballing"

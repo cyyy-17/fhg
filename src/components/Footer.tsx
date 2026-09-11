@@ -4,8 +4,15 @@ import Image from "next/image";
 import Link from "next/link";
 import ScrollTopButton from "./ScrollTopButton";
 import { companyData } from "@/data/company";
+import type { CompanyData } from "@/types/admin";
 
-export default function Footer() {
+interface FooterProps {
+  initialCompany?: CompanyData;
+}
+
+export default function Footer({ initialCompany }: FooterProps = {}) {
+  const company = initialCompany || companyData;
+
   return (
     <footer className="bg-[#030904] border-t border-white/10 pt-20 pb-12 relative z-20 text-[#9aa89b]">
       <div className="w-full max-w-7xl mx-auto px-6 md:px-12">
@@ -26,28 +33,28 @@ export default function Footer() {
               </div>
               <div className="flex flex-col">
                 <span className="font-bold text-[#f6f7f4] text-base tracking-wider font-heading leading-tight">
-                  FOREST HILLS GARDEN
+                  {company.name || "FOREST HILLS GARDEN"}
                 </span>
                 <span className="text-[10px] font-mono tracking-widest text-[#22c55e] uppercase font-semibold">
-                  EST. 1998 • WE DO IT RIGHT AND FAST
+                  EST. {company.established?.includes("1998") ? "1998" : company.established || "1998"} • {company.tagline || "WE DO IT RIGHT AND FAST"}
                 </span>
               </div>
             </div>
 
             <p className="text-sm text-[#4ade80] font-editorial italic font-normal mt-1">
-              &ldquo;{companyData.tagline}&rdquo;
+              &ldquo;{company.tagline}&rdquo;
             </p>
 
             <p className="text-xs text-[#9aa89b] leading-relaxed max-w-sm">
-              Sole proprietorship operated by <strong className="text-[#f6f7f4] font-medium">{companyData.manager}</strong>. Leading enterprise contractor for commercial tree earthballing, precision chainsaw felling, plant nurseries, and Philippine environmental compliance since 1998.
+              Sole proprietorship operated by <strong className="text-[#f6f7f4] font-medium">{company.manager}</strong>. Leading enterprise contractor for commercial tree earthballing, precision chainsaw felling, plant nurseries, and Philippine environmental compliance since {company.established || "1998"}.
             </p>
 
             <div className="text-[11px] font-mono text-[#9aa89b]/80 space-y-1 pt-2 border-t border-white/5">
-              <p>DTI Certificate No.: 1729753 (Valid to May 28, 2030)</p>
-              <p>PhilGEPS Registration: 2005-23340 (Blue Member)</p>
-              <p>BIR Registration: OCN 059RC20230000016326 (RDO 059)</p>
+              <p>DTI Certificate No.: {company.legal?.dtiCertNo || "1729753"} (Valid to {company.legal?.dtiExpiry || "May 28, 2030"})</p>
+              <p>PhilGEPS Registration: {company.legal?.philgepsCertNo || "2005-23340"} ({company.legal?.philgepsMembership || "Blue Member"})</p>
+              <p>BIR Registration: OCN {company.legal?.birOcn || "059RC20230000016326"} (TIN {company.legal?.tin || "922-166-219-00000"})</p>
               <p>DENR Lipa 90-Chainsaw Fleet &amp; PCA Permitted</p>
-              <p>Transition: Forest Hills Ventures Inc. (SEC 2023060103408-45)</p>
+              <p>Transition: {company.corporateTransition?.corporateEntity || "Forest Hills Ventures Inc."} (SEC {company.corporateTransition?.secRegNo || "2023060103408-45"})</p>
             </div>
           </div>
 

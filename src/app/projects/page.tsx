@@ -5,6 +5,7 @@ import OperationsProofHub from "@/components/OperationsProofHub";
 import Footer from "@/components/Footer";
 import FloatingActions from "@/components/FloatingActions";
 import { ChevronRight, ArrowRight, FileCheck } from "lucide-react";
+import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Signature Infrastructure Projects & Heavy Fleet Proof | Forest Hills Garden",
@@ -19,13 +20,13 @@ export const metadata: Metadata = {
     "90 chainsaw heavy fleet Philippines",
   ],
   alternates: {
-    canonical: "https://fhg-two.vercel.app/projects",
+    canonical: `${SITE_URL}/projects`,
   },
   openGraph: {
     title: "Signature Infrastructure Projects & Fleet Proof | Forest Hills Garden",
     description:
       "Verified infrastructure portfolios, technical equipment specifications, and contracting dockets trusted by the Philippines' leading infrastructure conglomerates.",
-    url: "https://fhg-two.vercel.app/projects",
+    url: `${SITE_URL}/projects`,
     type: "website",
     locale: "en_PH",
     images: [
@@ -39,7 +40,15 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ProjectsPage() {
+import { getProjectsData, getClientsData, getEquipmentData, getCompanyData } from "@/lib/storage";
+
+export default async function ProjectsPage() {
+  const [liveProjects, liveClients, liveEquipment, liveCompany] = await Promise.all([
+    getProjectsData(),
+    getClientsData(),
+    getEquipmentData(),
+    getCompanyData(),
+  ]);
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -50,13 +59,13 @@ export default function ProjectsPage() {
             "@type": "ListItem",
             position: 1,
             name: "Home",
-            item: "https://fhg-two.vercel.app",
+            item: SITE_URL,
           },
           {
             "@type": "ListItem",
             position: 2,
             name: "Projects & Fleet",
-            item: "https://fhg-two.vercel.app/projects",
+            item: `${SITE_URL}/projects`,
           },
         ],
       },
@@ -161,10 +170,14 @@ export default function ProjectsPage() {
 
       {/* Main Operations Hub Component */}
       <main>
-        <OperationsProofHub />
+        <OperationsProofHub
+          initialProjects={liveProjects}
+          initialClients={liveClients}
+          initialEquipment={liveEquipment}
+        />
       </main>
 
-      <Footer />
+      <Footer initialCompany={liveCompany} />
       <FloatingActions />
     </div>
   );

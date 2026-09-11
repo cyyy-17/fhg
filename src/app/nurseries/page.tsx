@@ -5,6 +5,7 @@ import NurseryHub from "@/components/NurseryHub";
 import Footer from "@/components/Footer";
 import FloatingActions from "@/components/FloatingActions";
 import { ChevronRight, ArrowRight, Phone } from "lucide-react";
+import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Plant Nursery Talisay Batangas | 230,000+ Native Seedlings | Forest Hills Garden",
@@ -20,13 +21,13 @@ export const metadata: Metadata = {
     "commercial plant nursery Calabarzon",
   ],
   alternates: {
-    canonical: "https://fhg-two.vercel.app/nurseries",
+    canonical: `${SITE_URL}/nurseries`,
   },
   openGraph: {
     title: "Plant Nurseries Talisay Batangas | Forest Hills Garden",
     description:
       "230,000+ native forest saplings and landscape-grade trees across three specialized propagation facilities in Talisay, Batangas.",
-    url: "https://fhg-two.vercel.app/nurseries",
+    url: `${SITE_URL}/nurseries`,
     type: "website",
     locale: "en_PH",
     images: [
@@ -40,7 +41,13 @@ export const metadata: Metadata = {
   },
 };
 
-export default function NurseriesPage() {
+import { getSpeciesData, getCompanyData } from "@/lib/storage";
+
+export default async function NurseriesPage() {
+  const [liveSpecies, liveCompany] = await Promise.all([
+    getSpeciesData(),
+    getCompanyData(),
+  ]);
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -51,21 +58,21 @@ export default function NurseriesPage() {
             "@type": "ListItem",
             position: 1,
             name: "Home",
-            item: "https://fhg-two.vercel.app",
+            item: SITE_URL,
           },
           {
             "@type": "ListItem",
             position: 2,
             name: "Plant Nurseries",
-            item: "https://fhg-two.vercel.app/nurseries",
+            item: `${SITE_URL}/nurseries`,
           },
         ],
       },
       {
         "@type": "GardenStore",
-        "@id": "https://fhg-two.vercel.app/nurseries#facility-latag",
+        "@id": `${SITE_URL}/nurseries#facility-latag`,
         name: "Forest Hills Garden - Sitio Latag Nursery Facility",
-        url: "https://fhg-two.vercel.app/nurseries",
+        url: `${SITE_URL}/nurseries`,
         telephone: "+63-916-566-7265",
         address: {
           "@type": "PostalAddress",
@@ -85,9 +92,9 @@ export default function NurseriesPage() {
       },
       {
         "@type": "GardenStore",
-        "@id": "https://fhg-two.vercel.app/nurseries#facility-tumaway",
+        "@id": `${SITE_URL}/nurseries#facility-tumaway`,
         name: "Forest Hills Garden - Tumaway Nursery Facility",
-        url: "https://fhg-two.vercel.app/nurseries",
+        url: `${SITE_URL}/nurseries`,
         telephone: "+63-916-566-7265",
         address: {
           "@type": "PostalAddress",
@@ -102,9 +109,9 @@ export default function NurseriesPage() {
       },
       {
         "@type": "GardenStore",
-        "@id": "https://fhg-two.vercel.app/nurseries#facility-aya",
+        "@id": `${SITE_URL}/nurseries#facility-aya`,
         name: "Forest Hills Garden - Aya Nursery Facility",
-        url: "https://fhg-two.vercel.app/nurseries",
+        url: `${SITE_URL}/nurseries`,
         telephone: "+63-916-566-7265",
         address: {
           "@type": "PostalAddress",
@@ -182,10 +189,10 @@ export default function NurseriesPage() {
 
       {/* Main Nursery Hub Component */}
       <main>
-        <NurseryHub />
+        <NurseryHub initialSpecies={liveSpecies} initialCompany={liveCompany} />
       </main>
 
-      <Footer />
+      <Footer initialCompany={liveCompany} />
       <FloatingActions />
     </div>
   );

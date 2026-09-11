@@ -12,13 +12,20 @@ type ClientSector =
   | "Energy & Industrial"
   | "Government & Financial";
 
-export default function OperationsClientsTab() {
+import type { ClientItem } from "@/data/clients";
+
+interface OperationsClientsTabProps {
+  initialClients?: ClientItem[];
+}
+
+export default function OperationsClientsTab({ initialClients }: OperationsClientsTabProps = {}) {
+  const clients = initialClients && initialClients.length > 0 ? initialClients : clientsData;
   const [clientSector, setClientSector] = useState<ClientSector>("All");
 
   const filteredClients = useMemo(() => {
-    if (clientSector === "All") return clientsData;
-    return clientsData.filter((c) => c.sector === clientSector);
-  }, [clientSector]);
+    if (clientSector === "All") return clients;
+    return clients.filter((c) => c.sector === clientSector);
+  }, [clients, clientSector]);
 
   const sectors: ClientSector[] = [
     "All",

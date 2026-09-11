@@ -3,6 +3,7 @@ import { Outfit, Playfair_Display, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/components/SmoothScroll";
 import CookieBanner from "@/components/CookieBanner";
+import { SITE_URL } from "@/lib/site";
 
 const outfit = Outfit({
   variable: "--font-heading",
@@ -26,7 +27,7 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://fhg-two.vercel.app"),
+  metadataBase: new URL(SITE_URL),
   title: "Forest Hills Garden | Industrial Tree Services Philippines",
   description:
     "Philippines' premier contractor for tree earthballing, precision chainsaw felling, DENR permits, and plant nurseries since 1998. Trusted by SMC, Ayala & EEI.",
@@ -45,7 +46,7 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Forest Hills Garden" }],
   alternates: {
-    canonical: "https://fhg-two.vercel.app",
+    canonical: SITE_URL,
   },
   verification: {
     google: "85t1JuUj8lLOWuWFYqwNk79r8NNBJSovLkpZYjoLQno",
@@ -66,7 +67,7 @@ export const metadata: Metadata = {
     title: "Forest Hills Garden | Industrial Tree Services Philippines",
     description:
       "Philippines' premier contractor for tree earthballing, precision chainsaw felling, DENR permits, and plant nurseries since 1998. Trusted by SMC, Ayala & EEI.",
-    url: "https://fhg-two.vercel.app",
+    url: SITE_URL,
     type: "website",
     locale: "en_PH",
     images: [
@@ -112,8 +113,8 @@ export default function RootLayout({
     "@graph": [
       {
         "@type": "WebSite",
-        "@id": "https://fhg-two.vercel.app/#website",
-        url: "https://fhg-two.vercel.app",
+        "@id": `${SITE_URL}/#website`,
+        url: SITE_URL,
         name: "Forest Hills Garden",
         alternateName: [
           "Forest Hill Garden",
@@ -125,14 +126,14 @@ export default function RootLayout({
         description:
           "Official website of Forest Hills Garden. Industrial tree earthballing, precision felling, plant nursery supply, and environmental compliance contractor since 1998.",
         publisher: {
-          "@id": "https://fhg-two.vercel.app/#organization",
+          "@id": `${SITE_URL}/#organization`,
         },
         inLanguage: "en-PH",
         sameAs: ["https://www.facebook.com/forest.hills.garden.2024/"],
       },
       {
         "@type": "HomeAndConstructionBusiness",
-        "@id": "https://fhg-two.vercel.app/#organization",
+        "@id": `${SITE_URL}/#organization`,
         name: "Forest Hills Garden",
         alternateName: [
           "Forest Hill Garden",
@@ -141,9 +142,9 @@ export default function RootLayout({
           "Forest Hill Garden Batangas",
           "Forest Hills Garden Talisay",
         ],
-        url: "https://fhg-two.vercel.app",
-        image: "https://fhg-two.vercel.app/images/logo.png",
-        logo: "https://fhg-two.vercel.app/images/logo.png",
+        url: SITE_URL,
+        image: `${SITE_URL}/images/logo.png`,
+        logo: `${SITE_URL}/images/logo.png`,
         slogan: "We Do It Right and Fast",
         foundingDate: "1998-06-10",
         sameAs: [
@@ -257,43 +258,43 @@ export default function RootLayout({
       },
       {
         "@type": "BreadcrumbList",
-        "@id": "https://fhg-two.vercel.app/#breadcrumbs",
+        "@id": `${SITE_URL}/#breadcrumbs`,
         itemListElement: [
           {
             "@type": "ListItem",
             position: 1,
             name: "Home",
-            item: "https://fhg-two.vercel.app",
+            item: SITE_URL,
           },
           {
             "@type": "ListItem",
             position: 2,
             name: "Services",
-            item: "https://fhg-two.vercel.app/services",
+            item: `${SITE_URL}/services`,
           },
           {
             "@type": "ListItem",
             position: 3,
             name: "Nurseries",
-            item: "https://fhg-two.vercel.app/nurseries",
+            item: `${SITE_URL}/nurseries`,
           },
           {
             "@type": "ListItem",
             position: 4,
             name: "Projects",
-            item: "https://fhg-two.vercel.app/projects",
+            item: `${SITE_URL}/projects`,
           },
           {
             "@type": "ListItem",
             position: 5,
             name: "Contact",
-            item: "https://fhg-two.vercel.app/contact",
+            item: `${SITE_URL}/contact`,
           },
         ],
       },
       {
         "@type": "FAQPage",
-        "@id": "https://fhg-two.vercel.app/#faq",
+        "@id": `${SITE_URL}/#faq`,
         mainEntity: [
           {
             "@type": "Question",

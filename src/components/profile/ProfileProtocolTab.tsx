@@ -2,17 +2,22 @@
 
 import { useState } from "react";
 import { CheckCircle2 } from "lucide-react";
-import { protocolSteps } from "@/data/protocol";
+import { protocolSteps, type ProtocolStep } from "@/data/protocol";
 
-export default function ProfileProtocolTab() {
+interface ProfileProtocolTabProps {
+  initialProtocol?: ProtocolStep[];
+}
+
+export default function ProfileProtocolTab({ initialProtocol }: ProfileProtocolTabProps = {}) {
+  const steps = initialProtocol && initialProtocol.length > 0 ? initialProtocol : protocolSteps;
   const [selectedProtocol, setSelectedProtocol] = useState(0);
-  const p = protocolSteps[selectedProtocol];
+  const p = steps[selectedProtocol] || steps[0];
 
   return (
     <div className="space-y-6 animate-fadeIn">
       {/* Stage Selector Pills */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        {protocolSteps.map((step, idx) => {
+        {steps.map((step, idx) => {
           const isSelected = selectedProtocol === idx;
           return (
             <button
@@ -47,7 +52,7 @@ export default function ProfileProtocolTab() {
             <span>{p.badge}</span>
           </div>
           <span className="text-xs font-mono text-[#9aa89b]">
-            Stage {selectedProtocol + 1} of 4 Turnkey Sequence
+            Stage {selectedProtocol + 1} of {steps.length} Turnkey Sequence
           </span>
         </div>
 

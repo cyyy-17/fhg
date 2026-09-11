@@ -2,11 +2,15 @@ import Link from "next/link";
 import { Clock, UserCheck, ChevronRight, FileText, ArrowUpRight, Building2, MapPin, ExternalLink } from "lucide-react";
 import { companyData } from "@/data/company";
 
+import type { CompanyData } from "@/types/admin";
+
 interface ProfileOverviewTabProps {
   onOpenBioModal: () => void;
+  company?: CompanyData;
 }
 
-export default function ProfileOverviewTab({ onOpenBioModal }: ProfileOverviewTabProps) {
+export default function ProfileOverviewTab({ onOpenBioModal, company: passedCompany }: ProfileOverviewTabProps) {
+  const company = passedCompany || companyData;
   return (
     <div className="space-y-6 animate-fadeIn">
       {/* Top Bento Row: Heritage Narrative + KPI Stats */}
@@ -29,7 +33,7 @@ export default function ProfileOverviewTab({ onOpenBioModal }: ProfileOverviewTa
             </h3>
 
             <p className="text-sm text-[#9aa89b] leading-relaxed mb-4">
-              Owned and actively managed by <strong className="text-[#f6f7f4] font-medium">{companyData.manager}</strong>, Forest Hills Garden operates from Talisay, Batangas, supported by three (3) plant nursery facilities in Sitio Latag, Brgy. Tumaway, and Brgy. Aya.
+              Owned and actively managed by <strong className="text-[#f6f7f4] font-medium">{company.manager}</strong>, Forest Hills Garden operates from Talisay, Batangas, supported by three (3) plant nursery facilities in Sitio Latag, Brgy. Tumaway, and Brgy. Aya.
             </p>
 
             <p className="text-xs sm:text-sm text-[#9aa89b] leading-relaxed mb-6">
@@ -42,7 +46,7 @@ export default function ProfileOverviewTab({ onOpenBioModal }: ProfileOverviewTa
                 &ldquo;We Do It Right and Fast. We provide developers with dependable environmental clearing and greening without sacrificing statutory compliance or tree survival.&rdquo;
               </p>
               <span className="text-[11px] font-mono text-[#f59e0b] tracking-wider uppercase font-semibold">
-                — {companyData.manager}, Proprietress &amp; General Manager
+                — {company.manager}, Proprietress &amp; General Manager
               </span>
             </div>
           </div>

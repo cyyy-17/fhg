@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { addInquiryRecord, getSettingsData } from "@/lib/storage";
 
 interface InquiryPayload {
   fullName?: string;
@@ -60,6 +61,9 @@ export async function POST(request: Request) {
       );
     }
 
+    const settings = await getSettingsData().catch(() => null);
+    const destinationEmail = settings?.contactEmail || process.env.CONTACT_EMAIL || "edluna1971@yahoo.com";
+
     // 3. Compile Standard Technical Dossier
     const timestamp = new Date().toISOString();
     const compiledDossier =
@@ -70,10 +74,25 @@ export async function POST(request: Request) {
       `Phone: ${phone}\n` +
       `Subject: ${subject}\n\n` +
       `Details / Requirements:\n${message}\n\n` +
-      `Destination: edluna1971@yahoo.com / iamfeluna@yahoo.com`;
+      `Destination: ${destinationEmail}`;
 
-    // 4. Optional external dispatch (e.g. if RESEND_API_KEY or SMTP is configured)
-    if (process.env.RESEND_API_KEY) {
+    // 4. Register into Admin Storage Inbox
+    try {
+      await addInquiryRecord({
+        clientName,
+        email,
+        phone,
+        company: company || undefined,
+        subject,
+        message,
+        dossierText: compiledDossier,
+      });
+    } catch (storeErr) {
+      console.warn("Failed to persist inquiry in admin inbox:", storeErr);
+    }
+
+    // 5. Optional external dispatch (e.g. if RESEND_API_KEY or SMTP is configured)
+    if (process.env.RESEND_API_KEY && destinationEmail) {
       try {
         await fetch("https://api.resend.com/emails", {
           method: "POST",
@@ -83,7 +102,7 @@ export async function POST(request: Request) {
           },
           body: JSON.stringify({
             from: "Forest Hills Garden <onboarding@resend.dev>",
-            to: ["edluna1971@yahoo.com", "iamfeluna@yahoo.com"],
+            to: [destinationEmail],
             reply_to: email,
             subject: `[Web Inquiry] ${subject} - ${clientName}`,
             text: compiledDossier,
@@ -97,7 +116,7 @@ export async function POST(request: Request) {
     return NextResponse.json({
       success: true,
       dossier: compiledDossier,
-      message: "Inquiry successfully validated and registered.",
+      message: "Inquiry successfully validated and registered in the administrative portal.",
     });
   } catch (error) {
     console.error("Error processing inquiry:", error);

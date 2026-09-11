@@ -7,13 +7,20 @@ import MediaPlaceholder from "@/components/MediaPlaceholder";
 
 type EquipmentFilter = "all" | EquipmentCategory;
 
-export default function OperationsFleetTab() {
+import type { EquipmentItem } from "@/data/equipment";
+
+interface OperationsFleetTabProps {
+  initialEquipment?: EquipmentItem[];
+}
+
+export default function OperationsFleetTab({ initialEquipment }: OperationsFleetTabProps = {}) {
+  const equipment = initialEquipment && initialEquipment.length > 0 ? initialEquipment : equipmentFleet;
   const [equipmentFilter, setEquipmentFilter] = useState<EquipmentFilter>("all");
 
   const filteredEquipment = useMemo(() => {
-    if (equipmentFilter === "all") return equipmentFleet;
-    return equipmentFleet.filter((e) => e.category === equipmentFilter);
-  }, [equipmentFilter]);
+    if (equipmentFilter === "all") return equipment;
+    return equipment.filter((e) => e.category === equipmentFilter);
+  }, [equipment, equipmentFilter]);
 
   const categories: { key: EquipmentFilter; label: string }[] = [
     { key: "all", label: "Entire Fleet Docket" },

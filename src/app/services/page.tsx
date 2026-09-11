@@ -6,6 +6,7 @@ import ComplianceProtocol from "@/components/ComplianceProtocol";
 import Footer from "@/components/Footer";
 import FloatingActions from "@/components/FloatingActions";
 import { ChevronRight, ArrowRight, Phone } from "lucide-react";
+import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Industrial Tree Services, Earthballing & Chainsaw Felling | Forest Hills Garden",
@@ -21,13 +22,13 @@ export const metadata: Metadata = {
     "watershed reforestation Batangas",
   ],
   alternates: {
-    canonical: "https://fhg-two.vercel.app/services",
+    canonical: `${SITE_URL}/services`,
   },
   openGraph: {
     title: "Industrial Tree Services & Greening Solutions | Forest Hills Garden",
     description:
       "Enterprise tree earthballing, certified chainsaw felling, and environmental compliance contractor since 1998. 98.7% specimen survival guarantee.",
-    url: "https://fhg-two.vercel.app/services",
+    url: `${SITE_URL}/services`,
     type: "website",
     locale: "en_PH",
     images: [
@@ -41,7 +42,14 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ServicesPage() {
+import { getServicesData, getProtocolData, getCompanyData } from "@/lib/storage";
+
+export default async function ServicesPage() {
+  const [liveServices, liveProtocol, liveCompany] = await Promise.all([
+    getServicesData(),
+    getProtocolData(),
+    getCompanyData(),
+  ]);
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -52,13 +60,13 @@ export default function ServicesPage() {
             "@type": "ListItem",
             position: 1,
             name: "Home",
-            item: "https://fhg-two.vercel.app",
+            item: SITE_URL,
           },
           {
             "@type": "ListItem",
             position: 2,
             name: "Industrial Tree Services",
-            item: "https://fhg-two.vercel.app/services",
+            item: `${SITE_URL}/services`,
           },
         ],
       },
@@ -68,7 +76,7 @@ export default function ServicesPage() {
         provider: {
           "@type": "HomeAndConstructionBusiness",
           name: "Forest Hills Garden",
-          url: "https://fhg-two.vercel.app",
+          url: SITE_URL,
         },
         areaServed: ["Metro Manila", "Calabarzon", "Batangas", "Cavite", "Laguna"],
         description:
@@ -80,7 +88,7 @@ export default function ServicesPage() {
         provider: {
           "@type": "HomeAndConstructionBusiness",
           name: "Forest Hills Garden",
-          url: "https://fhg-two.vercel.app",
+          url: SITE_URL,
         },
         areaServed: ["Metro Manila", "Calabarzon", "Central Luzon"],
         description:
@@ -92,7 +100,7 @@ export default function ServicesPage() {
         provider: {
           "@type": "HomeAndConstructionBusiness",
           name: "Forest Hills Garden",
-          url: "https://fhg-two.vercel.app",
+          url: SITE_URL,
         },
         description:
           "Turnkey arborist GPS tree census, caliper tagging, and statutory Special Tree Cutting Permit processing with DENR and LGUs.",
@@ -162,11 +170,11 @@ export default function ServicesPage() {
 
       {/* Main Services Interactive Grid */}
       <main>
-        <ServicesGrid />
-        <ComplianceProtocol />
+        <ServicesGrid initialServices={liveServices} />
+        <ComplianceProtocol initialProtocol={liveProtocol} />
       </main>
 
-      <Footer />
+      <Footer initialCompany={liveCompany} />
       <FloatingActions />
     </div>
   );

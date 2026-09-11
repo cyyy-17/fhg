@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { HardHat, Award, ShieldCheck, HeartPulse, CheckCircle2, Siren } from "lucide-react";
 import { companyData } from "@/data/company";
+import type { CompanyData } from "@/types/admin";
 
 const pillars = [
   {
@@ -29,7 +30,12 @@ const pillars = [
   },
 ];
 
-export default function ProfileSafetyTab() {
+interface ProfileSafetyTabProps {
+  company?: CompanyData;
+}
+
+export default function ProfileSafetyTab({ company: passedCompany }: ProfileSafetyTabProps = {}) {
+  const company = passedCompany || companyData;
   return (
     <div className="space-y-6 animate-fadeIn">
       {/* 4 Pillars Grid */}
@@ -80,13 +86,13 @@ export default function ProfileSafetyTab() {
             <div className="inline-flex items-center gap-2 text-xs font-mono font-semibold text-[#4ade80] uppercase tracking-wider mb-1">
               <span>Formal Tree Survival Warranty</span>
               <span className="text-white/20">•</span>
-              <span>{companyData.warranty.period}</span>
+              <span>{company.warranty?.period || companyData.warranty.period}</span>
             </div>
             <h4 className="text-xl sm:text-2xl font-bold font-heading text-[#f6f7f4] mb-2">
               100% Free Specimen Replacement Guarantee
             </h4>
             <p className="text-xs sm:text-sm text-[#9aa89b] max-w-2xl leading-relaxed">
-              {companyData.warranty.coverage}. Backed by our Batangas nursery reserves and bi-weekly arborist monitoring during early acclimatization.
+              {company.warranty?.coverage || companyData.warranty.coverage}. Backed by our Batangas nursery reserves and bi-weekly arborist monitoring during early acclimatization.
             </p>
           </div>
         </div>

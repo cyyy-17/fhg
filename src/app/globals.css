@@ -264,8 +264,10 @@ button, a {
   outline: none;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
+input::placeholder,
+textarea::placeholder,
 .form-input::placeholder {
-  color: rgba(154, 168, 155, 0.55);
+  color: rgba(154, 168, 155, 0.5);
 }
 .form-input:focus {
   border-color: #22c55e;

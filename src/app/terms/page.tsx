@@ -18,6 +18,7 @@ import {
   ShieldAlert,
 } from "lucide-react";
 import { companyData } from "@/data/company";
+import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Terms of Use & Commercial Disclaimers | Forest Hills Garden",
@@ -31,13 +32,13 @@ export const metadata: Metadata = {
     "Internet Transactions Act 2023",
   ],
   alternates: {
-    canonical: "https://fhg-two.vercel.app/terms",
+    canonical: `${SITE_URL}/terms`,
   },
   openGraph: {
     title: "Terms of Use & Commercial Disclaimers | Forest Hills Garden",
     description:
       "Enterprise contracting terms, warranty scope, statistical claim substantiations, and governing law.",
-    url: "https://fhg-two.vercel.app/terms",
+    url: `${SITE_URL}/terms`,
     type: "website",
     locale: "en_PH",
   },
@@ -54,20 +55,20 @@ export default function TermsPage() {
             "@type": "ListItem",
             position: 1,
             name: "Home",
-            item: "https://fhg-two.vercel.app",
+            item: SITE_URL,
           },
           {
             "@type": "ListItem",
             position: 2,
             name: "Terms of Use",
-            item: "https://fhg-two.vercel.app/terms",
+            item: `${SITE_URL}/terms`,
           },
         ],
       },
       {
         "@type": "WebPage",
-        "@id": "https://fhg-two.vercel.app/terms#webpage",
-        url: "https://fhg-two.vercel.app/terms",
+        "@id": `${SITE_URL}/terms#webpage`,
+        url: `${SITE_URL}/terms`,
         name: "Terms of Use & Disclaimers - Forest Hills Garden",
         description:
           "Official terms of use, proposal disclaimers, and warranty parameters for Forest Hills Garden.",

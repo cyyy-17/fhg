@@ -2,14 +2,19 @@
 
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
-import { generalFaqs } from "@/data/faqs";
+import { generalFaqs, type FaqItem } from "@/data/faqs";
 
-export default function ProcurementFaqTab() {
+interface ProcurementFaqTabProps {
+  initialFaqs?: FaqItem[];
+}
+
+export default function ProcurementFaqTab({ initialFaqs }: ProcurementFaqTabProps = {}) {
+  const faqs = initialFaqs && initialFaqs.length > 0 ? initialFaqs : generalFaqs;
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
 
   return (
     <div className="max-w-4xl mx-auto space-y-4 animate-fadeIn">
-      {generalFaqs.map((faq, idx) => {
+      {faqs.map((faq, idx) => {
         const isOpen = openFaqIndex === idx;
         return (
           <div

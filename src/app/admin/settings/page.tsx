@@ -1,0 +1,689 @@
+"use client";
+
+import { useState, useEffect, useRef } from "react";
+import {
+  Save,
+  Shield,
+  KeyRound,
+  Download,
+  Upload,
+  RotateCcw,
+  CheckCircle2,
+  AlertCircle,
+  Loader2,
+  Database,
+  Cloud,
+  Mail,
+  Lock,
+  HardDrive,
+  Globe,
+  Clock,
+  AlertTriangle,
+} from "lucide-react";
+import AdminHeader from "@/components/admin/AdminHeader";
+import AdminModal from "@/components/admin/AdminModal";
+import type { AdminSettings, AdminStore } from "@/types/admin";
+
+interface SystemStatus {
+  storageType: string;
+  kvConnected: boolean;
+  blobConnected: boolean;
+  nodeEnv?: string;
+  siteUrl?: string;
+  lastUpdated?: string;
+}
+
+export default function AdminSettingsPage() {
+  const [settings, setSettings] = useState<AdminSettings>({
+    contactEmail: "info@foresthillsgarden.com",
+    notificationEnabled: true,
+  });
+  const [systemStatus, setSystemStatus] = useState<SystemStatus | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [isSavingSettings, setIsSavingSettings] = useState(false);
+  const [saveMessage, setSaveMessage] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  // Password change state
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [isChangingPassword, setIsChangingPassword] = useState(false);
+  const [passwordFeedback, setPasswordFeedback] = useState<string | null>(null);
+  const [passwordError, setPasswordError] = useState<string | null>(null);
+
+  // Reset confirmation modal
+  const [isResetModalOpen, setIsResetModalOpen] = useState(false);
+  const [isResetting, setIsResetting] = useState(false);
+
+  // Restore file input ref
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [isRestoring, setIsRestoring] = useState(false);
+
+  useEffect(() => {
+    let mounted = true;
+    Promise.all([
+      fetch("/api/admin/data?section=settings").then((r) => {
+        if (!r.ok) throw new Error("Failed to load settings.");
+        return r.json();
+      }),
+      fetch("/api/admin/data?section=system-status").then((r) => {
+        if (!r.ok) throw new Error("Failed to load system diagnostics.");
+        return r.json();
+      }),
+    ])
+      .then(([settingsJson, statusJson]) => {
+        if (mounted) {
+          if (settingsJson.data) {
+            setSettings(settingsJson.data);
+          }
+          setSystemStatus({
+            storageType: statusJson.storageType,
+            kvConnected: statusJson.kvConnected,
+            blobConnected: statusJson.blobConnected,
+            nodeEnv: statusJson.nodeEnv,
+            siteUrl: statusJson.siteUrl,
+            lastUpdated: statusJson.lastUpdated,
+          });
+        }
+      })
+      .catch((err) => {
+        if (mounted) {
+          setErrorMessage(err instanceof Error ? err.message : "Error loading system data.");
+        }
+      })
+      .finally(() => {
+        if (mounted) setLoading(false);
+      });
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  async function handleSaveSettings(e?: React.FormEvent) {
+    if (e) e.preventDefault();
+    setIsSavingSettings(true);
+    setSaveMessage(null);
+    setErrorMessage(null);
+
+    try {
+      const res = await fetch("/api/admin/data", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ section: "settings", data: settings }),
+      });
+
+      if (!res.ok) {
+        const errJson = await res.json();
+        throw new Error(errJson.error || "Failed to update settings.");
+      }
+
+      setSaveMessage("Operational settings saved successfully.");
+      setTimeout(() => setSaveMessage(null), 3500);
+    } catch (err) {
+      setErrorMessage(err instanceof Error ? err.message : "Error saving settings.");
+    } finally {
+      setIsSavingSettings(false);
+    }
+  }
+
+  async function handlePasswordChange(e: React.FormEvent) {
+    e.preventDefault();
+    setPasswordFeedback(null);
+    setPasswordError(null);
+
+    if (!currentPassword) {
+      setPasswordError("Current password is required to verify identity.");
+      return;
+    }
+    if (newPassword.length < 8) {
+      setPasswordError("New password must be at least 8 characters.");
+      return;
+    }
+    if (newPassword !== confirmPassword) {
+      setPasswordError("New password and confirmation do not match.");
+      return;
+    }
+
+    setIsChangingPassword(true);
+
+    try {
+      // 1. Verify current credentials against login endpoint
+      const verifyRes = await fetch("/api/admin/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password: currentPassword }),
+      });
+
+      if (!verifyRes.ok) {
+        throw new Error("Current password verification failed. Please enter the valid current password.");
+      }
+
+      // 2. Save new password into settings store
+      const updateRes = await fetch("/api/admin/data", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          section: "settings",
+          data: {
+            ...settings,
+            adminPassword: newPassword,
+          },
+        }),
+      });
+
+      if (!updateRes.ok) {
+        const err = await updateRes.json();
+        throw new Error(err.error || "Failed to update administrator password.");
+      }
+
+      setPasswordFeedback("Administrator password successfully updated. Future logins will require this new key.");
+      setCurrentPassword("");
+      setNewPassword("");
+      setConfirmPassword("");
+      setTimeout(() => setPasswordFeedback(null), 5000);
+    } catch (err) {
+      setPasswordError(err instanceof Error ? err.message : "Failed to change password.");
+    } finally {
+      setIsChangingPassword(false);
+    }
+  }
+
+  async function handleExportBackup() {
+    try {
+      const res = await fetch("/api/admin/data");
+      if (!res.ok) throw new Error("Failed to generate backup.");
+      const json = await res.json();
+      const store: AdminStore = json.store;
+
+      const blob = new Blob([JSON.stringify(store, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `fhg_full_backup_${new Date().toISOString().split("T")[0]}.json`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      setErrorMessage(err instanceof Error ? err.message : "Error exporting backup.");
+    }
+  }
+
+  function handleTriggerRestore() {
+    fileInputRef.current?.click();
+  }
+
+  async function handleFileSelected(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setIsRestoring(true);
+    setSaveMessage(null);
+    setErrorMessage(null);
+
+    try {
+      const text = await file.text();
+      const parsed = JSON.parse(text);
+
+      if (typeof parsed !== "object" || parsed === null) {
+        throw new Error("Invalid backup format: JSON must be an object.");
+      }
+
+      const res = await fetch("/api/admin/data", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ data: parsed }),
+      });
+
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error || "Failed to restore backup.");
+      }
+
+      setSaveMessage("Store successfully restored from uploaded JSON backup.");
+      setTimeout(() => setSaveMessage(null), 5000);
+    } catch (err) {
+      setErrorMessage(err instanceof Error ? err.message : "Failed to restore backup.");
+    } finally {
+      setIsRestoring(false);
+      if (fileInputRef.current) fileInputRef.current.value = "";
+    }
+  }
+
+  async function handleExecuteReset() {
+    setIsResetting(true);
+    setErrorMessage(null);
+
+    try {
+      const res = await fetch("/api/admin/data", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "reset" }),
+      });
+
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error || "Failed to reset system configuration.");
+      }
+
+      setIsResetModalOpen(false);
+      setSaveMessage("System configuration successfully reset to baseline factory defaults.");
+      setTimeout(() => setSaveMessage(null), 5000);
+    } catch (err) {
+      setErrorMessage(err instanceof Error ? err.message : "Failed to reset system.");
+    } finally {
+      setIsResetting(false);
+    }
+  }
+
+  if (loading) {
+    return (
+      <div className="space-y-6">
+        <AdminHeader
+          title="System Administration & Diagnostics"
+          subtitle="Loading enterprise settings and diagnostics..."
+        />
+        <div className="h-96 rounded-2xl bg-white/5 animate-pulse" />
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-6">
+      <AdminHeader
+        title="System Administration & Diagnostics"
+        subtitle="Manage platform connectivity, administrator credentials, notification dispatch, and data snapshots."
+      />
+
+      {/* Global Notifications */}
+      {saveMessage && (
+        <div className="flex items-center gap-2 p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-xs text-emerald-300">
+          <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+          <span>{saveMessage}</span>
+        </div>
+      )}
+
+      {errorMessage && (
+        <div className="flex items-center gap-2 p-3.5 rounded-xl bg-red-500/10 border border-red-500/30 text-xs text-red-300">
+          <AlertCircle className="w-4 h-4 text-red-400 shrink-0" />
+          <span>{errorMessage}</span>
+        </div>
+      )}
+
+      {/* 1. System Diagnostics & Infrastructure Status */}
+      <div className="bg-[#0a170d] border border-white/10 rounded-2xl p-6 space-y-4">
+        <div className="flex items-center justify-between border-b border-white/10 pb-3">
+          <div className="flex items-center gap-2.5">
+            <HardDrive className="w-4 h-4 text-[#22c55e]" />
+            <h3 className="text-sm font-bold font-heading text-[#f6f7f4]">
+              Storage Engine &amp; Cloud Infrastructure Diagnostics
+            </h3>
+          </div>
+          <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">
+            System Operational
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="p-3.5 rounded-xl bg-[#050e07] border border-white/10 space-y-1">
+            <div className="flex items-center gap-2 text-xs text-[#9aa89b]">
+              <Database className="w-3.5 h-3.5 text-[#22c55e]" />
+              <span>Database Backend</span>
+            </div>
+            <div className="text-xs font-semibold text-[#f6f7f4]">
+              {systemStatus?.storageType || "Local JSON / Static"}
+            </div>
+            <div className="text-[10px] font-mono text-emerald-400 flex items-center gap-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              {systemStatus?.kvConnected ? "Atomic Key KV Active" : "Local File Fallback"}
+            </div>
+          </div>
+
+          <div className="p-3.5 rounded-xl bg-[#050e07] border border-white/10 space-y-1">
+            <div className="flex items-center gap-2 text-xs text-[#9aa89b]">
+              <Cloud className="w-3.5 h-3.5 text-[#22c55e]" />
+              <span>Asset Upload Engine</span>
+            </div>
+            <div className="text-xs font-semibold text-[#f6f7f4]">
+              {systemStatus?.blobConnected ? "Vercel Blob Storage" : "Local Disk Storage"}
+            </div>
+            <div className="text-[10px] font-mono text-[#9aa89b]">
+              {systemStatus?.blobConnected ? "Read/Write Token Bound" : "/public/uploads (Dev)"}
+            </div>
+          </div>
+
+          <div className="p-3.5 rounded-xl bg-[#050e07] border border-white/10 space-y-1">
+            <div className="flex items-center gap-2 text-xs text-[#9aa89b]">
+              <Globe className="w-3.5 h-3.5 text-[#22c55e]" />
+              <span>Site Canonical Origin</span>
+            </div>
+            <div className="text-xs font-semibold text-[#f6f7f4] truncate font-mono">
+              {systemStatus?.siteUrl || "https://fhg-two.vercel.app"}
+            </div>
+            <div className="text-[10px] font-mono text-[#9aa89b]">
+              Environment: {systemStatus?.nodeEnv || "development"}
+            </div>
+          </div>
+
+          <div className="p-3.5 rounded-xl bg-[#050e07] border border-white/10 space-y-1">
+            <div className="flex items-center gap-2 text-xs text-[#9aa89b]">
+              <Clock className="w-3.5 h-3.5 text-[#22c55e]" />
+              <span>Last Synchronized</span>
+            </div>
+            <div className="text-xs font-semibold text-[#f6f7f4] truncate font-mono">
+              {systemStatus?.lastUpdated
+                ? new Date(systemStatus.lastUpdated).toLocaleDateString("en-US", {
+                    month: "short",
+                    day: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })
+                : "Just now"}
+            </div>
+            <div className="text-[10px] font-mono text-[#9aa89b]">
+              11 Independent Storage Keys
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* 2. Notification Dispatch Channels & General Settings */}
+      <form
+        onSubmit={handleSaveSettings}
+        className="bg-[#0a170d] border border-white/10 rounded-2xl p-6 space-y-4"
+      >
+        <div className="flex items-center justify-between border-b border-white/10 pb-3">
+          <div className="flex items-center gap-2.5">
+            <Mail className="w-4 h-4 text-[#22c55e]" />
+            <h3 className="text-sm font-bold font-heading text-[#f6f7f4]">
+              Public Inquiry Routing &amp; Contact Dispatch
+            </h3>
+          </div>
+          <button
+            type="submit"
+            disabled={isSavingSettings}
+            className="px-3.5 py-1.5 rounded-lg bg-linear-to-r from-[#15803d] to-[#16a34a] hover:from-[#16a34a] hover:to-[#22c55e] text-[#f6f7f4] text-xs font-semibold transition flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
+          >
+            {isSavingSettings ? (
+              <Loader2 className="w-3.5 h-3.5 animate-spin" />
+            ) : (
+              <Save className="w-3.5 h-3.5" />
+            )}
+            <span>Save Routing</span>
+          </button>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label className="block text-xs font-mono uppercase text-[#9aa89b] mb-1">
+              Primary RFP &amp; Inquiry Recipient Email
+            </label>
+            <input
+              type="email"
+              value={settings.contactEmail || ""}
+              onChange={(e) => setSettings({ ...settings, contactEmail: e.target.value })}
+              className="w-full p-2.5 rounded-lg bg-[#050e07] border border-white/15 text-xs text-[#f6f7f4] focus:ring-1 focus:ring-[#22c55e] outline-none font-mono"
+              placeholder="operations@foresthillsgarden.com"
+            />
+            <p className="text-[11px] text-[#9aa89b] mt-1">
+              Website lead dossiers from the RFP Estimator and Contact form route to this mailbox.
+            </p>
+          </div>
+
+          <div className="flex items-center gap-3 pt-4">
+            <input
+              type="checkbox"
+              id="notificationsToggle"
+              checked={settings.notificationEnabled ?? true}
+              onChange={(e) =>
+                setSettings({ ...settings, notificationEnabled: e.target.checked })
+              }
+              className="w-4 h-4 accent-[#22c55e] rounded cursor-pointer"
+            />
+            <label htmlFor="notificationsToggle" className="text-xs text-[#f6f7f4] cursor-pointer">
+              <span className="font-semibold block">Enable Live Email Lead Dispatch</span>
+              <span className="text-[11px] text-[#9aa89b] block">
+                Deliver inbound contractor and client inquiries immediately.
+              </span>
+            </label>
+          </div>
+        </div>
+      </form>
+
+      {/* 3. Administrator Password Management */}
+      <form
+        onSubmit={handlePasswordChange}
+        className="bg-[#0a170d] border border-white/10 rounded-2xl p-6 space-y-4"
+      >
+        <div className="border-b border-white/10 pb-3">
+          <div className="flex items-center gap-2.5">
+            <KeyRound className="w-4 h-4 text-[#22c55e]" />
+            <h3 className="text-sm font-bold font-heading text-[#f6f7f4]">
+              Access Control &amp; Administrator Security Key
+            </h3>
+          </div>
+          <p className="text-xs text-[#9aa89b] mt-1">
+            Update the secure key used to access this CMS back-office panel. Changes take effect immediately.
+          </p>
+        </div>
+
+        {passwordFeedback && (
+          <div className="flex items-center gap-2 p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-xs text-emerald-300">
+            <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+            <span>{passwordFeedback}</span>
+          </div>
+        )}
+
+        {passwordError && (
+          <div className="flex items-center gap-2 p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-xs text-red-300">
+            <AlertCircle className="w-4 h-4 text-red-400 shrink-0" />
+            <span>{passwordError}</span>
+          </div>
+        )}
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div>
+            <label className="block text-xs font-mono uppercase text-[#9aa89b] mb-1">
+              Current Password
+            </label>
+            <input
+              type="password"
+              value={currentPassword}
+              onChange={(e) => setCurrentPassword(e.target.value)}
+              className="w-full p-2.5 rounded-lg bg-[#050e07] border border-white/15 text-xs text-[#f6f7f4] focus:ring-1 focus:ring-[#22c55e] outline-none font-mono"
+              placeholder="••••••••••••"
+            />
+          </div>
+
+          <div>
+            <label className="block text-xs font-mono uppercase text-[#9aa89b] mb-1">
+              New Password (Min. 8 chars)
+            </label>
+            <input
+              type="password"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+              className="w-full p-2.5 rounded-lg bg-[#050e07] border border-white/15 text-xs text-[#f6f7f4] focus:ring-1 focus:ring-[#22c55e] outline-none font-mono"
+              placeholder="••••••••••••"
+            />
+          </div>
+
+          <div>
+            <label className="block text-xs font-mono uppercase text-[#9aa89b] mb-1">
+              Confirm New Password
+            </label>
+            <input
+              type="password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              className="w-full p-2.5 rounded-lg bg-[#050e07] border border-white/15 text-xs text-[#f6f7f4] focus:ring-1 focus:ring-[#22c55e] outline-none font-mono"
+              placeholder="••••••••••••"
+            />
+          </div>
+        </div>
+
+        <div className="flex items-center justify-between pt-2">
+          <div className="text-[11px] text-[#9aa89b] flex items-center gap-1.5">
+            <Lock className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+            <span>Encrypted with HMAC-SHA256 authenticated sessions.</span>
+          </div>
+          <button
+            type="submit"
+            disabled={isChangingPassword || !currentPassword || !newPassword}
+            className="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-[#f6f7f4] text-xs font-semibold transition flex items-center gap-1.5 cursor-pointer disabled:opacity-40"
+          >
+            {isChangingPassword ? (
+              <Loader2 className="w-3.5 h-3.5 animate-spin" />
+            ) : (
+              <Shield className="w-3.5 h-3.5" />
+            )}
+            <span>Update Admin Password</span>
+          </button>
+        </div>
+      </form>
+
+      {/* 4. Business Continuity & Disaster Recovery */}
+      <div className="bg-[#0a170d] border border-white/10 rounded-2xl p-6 space-y-4">
+        <div className="border-b border-white/10 pb-3">
+          <div className="flex items-center gap-2.5">
+            <Shield className="w-4 h-4 text-[#22c55e]" />
+            <h3 className="text-sm font-bold font-heading text-[#f6f7f4]">
+              Data Vault &amp; Enterprise Business Continuity
+            </h3>
+          </div>
+          <p className="text-xs text-[#9aa89b] mt-1">
+            Export complete platform JSON dossiers for offsite backup, or restore system state when migrating servers.
+          </p>
+        </div>
+
+        <input
+          type="file"
+          ref={fileInputRef}
+          onChange={handleFileSelected}
+          accept=".json,application/json"
+          className="hidden"
+        />
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+          {/* Export Full Backup */}
+          <div className="p-4 rounded-xl bg-[#050e07] border border-white/10 space-y-3 flex flex-col justify-between">
+            <div>
+              <div className="text-xs font-bold text-[#f6f7f4] flex items-center gap-2">
+                <Download className="w-4 h-4 text-emerald-400" />
+                <span>Export System Snapshot</span>
+              </div>
+              <p className="text-[11px] text-[#9aa89b] mt-1.5 leading-relaxed">
+                Download a JSON archive containing all 11 business domains (company profile, fleet, species, projects, protocol, inquiries).
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={handleExportBackup}
+              className="w-full px-3 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-xs font-medium text-[#f6f7f4] transition flex items-center justify-center gap-1.5 cursor-pointer"
+            >
+              <Download className="w-3.5 h-3.5" />
+              <span>Download JSON Backup</span>
+            </button>
+          </div>
+
+          {/* Restore from Backup */}
+          <div className="p-4 rounded-xl bg-[#050e07] border border-white/10 space-y-3 flex flex-col justify-between">
+            <div>
+              <div className="text-xs font-bold text-[#f6f7f4] flex items-center gap-2">
+                <Upload className="w-4 h-4 text-cyan-400" />
+                <span>Restore from JSON</span>
+              </div>
+              <p className="text-[11px] text-[#9aa89b] mt-1.5 leading-relaxed">
+                Upload a verified Forest Hills Garden snapshot archive to restore all records to a prior state.
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={handleTriggerRestore}
+              disabled={isRestoring}
+              className="w-full px-3 py-2 rounded-lg bg-cyan-600/20 hover:bg-cyan-600/30 text-cyan-300 border border-cyan-500/30 text-xs font-medium transition flex items-center justify-center gap-1.5 cursor-pointer disabled:opacity-50"
+            >
+              {isRestoring ? (
+                <Loader2 className="w-3.5 h-3.5 animate-spin" />
+              ) : (
+                <Upload className="w-3.5 h-3.5" />
+              )}
+              <span>Upload Backup File</span>
+            </button>
+          </div>
+
+          {/* Reset to Defaults */}
+          <div className="p-4 rounded-xl bg-red-950/20 border border-red-500/20 space-y-3 flex flex-col justify-between">
+            <div>
+              <div className="text-xs font-bold text-red-300 flex items-center gap-2">
+                <RotateCcw className="w-4 h-4 text-red-400" />
+                <span>Factory Baseline Reset</span>
+              </div>
+              <p className="text-[11px] text-red-300/80 mt-1.5 leading-relaxed">
+                Restore company profile, services, equipment, and species to the official factory baseline data.
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => setIsResetModalOpen(true)}
+              className="w-full px-3 py-2 rounded-lg bg-red-500/20 hover:bg-red-500/30 text-red-300 border border-red-500/30 text-xs font-medium transition flex items-center justify-center gap-1.5 cursor-pointer"
+            >
+              <RotateCcw className="w-3.5 h-3.5" />
+              <span>Reset to Defaults</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Confirmation Modal for Reset */}
+      <AdminModal
+        isOpen={isResetModalOpen}
+        onClose={() => setIsResetModalOpen(false)}
+        title="Confirm Factory Baseline Reset"
+        subtitle="This operation will replace all customized records with official Forest Hills Garden defaults."
+        maxWidth="md"
+      >
+        <div className="space-y-4">
+          <div className="p-3.5 rounded-xl bg-red-500/10 border border-red-500/30 flex items-start gap-3">
+            <AlertTriangle className="w-5 h-5 text-red-400 shrink-0 mt-0.5" />
+            <div className="text-xs text-red-200 leading-relaxed">
+              <span className="font-bold block mb-1">Permanent Data Replacement Warning</span>
+              Any custom projects, uploaded equipment, and edits made to company registrations will be reverted to the factory default dataset. Ensure you have downloaded a JSON backup first.
+            </div>
+          </div>
+
+          <div className="flex items-center justify-end gap-3 pt-2">
+            <button
+              type="button"
+              onClick={() => setIsResetModalOpen(false)}
+              disabled={isResetting}
+              className="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-xs text-[#f6f7f4] transition cursor-pointer"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              onClick={handleExecuteReset}
+              disabled={isResetting}
+              className="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-500 text-[#f6f7f4] text-xs font-semibold transition flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
+            >
+              {isResetting ? (
+                <>
+                  <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                  <span>Resetting...</span>
+                </>
+              ) : (
+                <>
+                  <RotateCcw className="w-3.5 h-3.5" />
+                  <span>Yes, Reset to Defaults</span>
+                </>
+              )}
+            </button>
+          </div>
+        </div>
+      </AdminModal>
+    </div>
+  );
+}

@@ -18,9 +18,17 @@ import ProfileProtocolTab from "./profile/ProfileProtocolTab";
 import ProfileSafetyTab from "./profile/ProfileSafetyTab";
 import ProfileBioModal from "./profile/ProfileBioModal";
 
+import type { CompanyData } from "@/types/admin";
+import type { ProtocolStep } from "@/data/protocol";
+
 type TabKey = "overview" | "timeline" | "credentials" | "protocol" | "safety";
 
-export default function CompanyProfileHub() {
+interface CompanyProfileHubProps {
+  initialCompany?: CompanyData;
+  initialProtocol?: ProtocolStep[];
+}
+
+export default function CompanyProfileHub({ initialCompany, initialProtocol }: CompanyProfileHubProps = {}) {
   const [activeTab, setActiveTab] = useState<TabKey>("overview");
   const [bioModalOpen, setBioModalOpen] = useState(false);
   const mounted = useIsMounted();
@@ -153,7 +161,10 @@ export default function CompanyProfileHub() {
 
         {/* Tab Panels */}
         {activeTab === "overview" && (
-          <ProfileOverviewTab onOpenBioModal={() => setBioModalOpen(true)} />
+          <ProfileOverviewTab
+            onOpenBioModal={() => setBioModalOpen(true)}
+            company={initialCompany}
+          />
         )}
 
         {activeTab === "timeline" && (
@@ -161,15 +172,15 @@ export default function CompanyProfileHub() {
         )}
 
         {activeTab === "credentials" && (
-          <ProfileCredentialsTab />
+          <ProfileCredentialsTab company={initialCompany} />
         )}
 
         {activeTab === "protocol" && (
-          <ProfileProtocolTab />
+          <ProfileProtocolTab initialProtocol={initialProtocol} />
         )}
 
         {activeTab === "safety" && (
-          <ProfileSafetyTab />
+          <ProfileSafetyTab company={initialCompany} />
         )}
       </div>
 

@@ -5,6 +5,7 @@ import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import FloatingActions from "@/components/FloatingActions";
 import { ChevronRight } from "lucide-react";
+import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Contact Forest Hills Garden | Office & Dispatch Talisay, Batangas",
@@ -19,13 +20,13 @@ export const metadata: Metadata = {
     "nursery seedling bulk inquiry",
   ],
   alternates: {
-    canonical: "https://fhg-two.vercel.app/contact",
+    canonical: `${SITE_URL}/contact`,
   },
   openGraph: {
     title: "Contact Forest Hills Garden | Office & Heavy Dispatch",
     description:
       "Rapid arborist consultation and equipment mobilization. Operating across Metro Manila, Batangas, Cavite, Laguna, Rizal, and Zambales.",
-    url: "https://fhg-two.vercel.app/contact",
+    url: `${SITE_URL}/contact`,
     type: "website",
     locale: "en_PH",
     images: [
@@ -39,7 +40,10 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ContactPage() {
+import { getCompanyData } from "@/lib/storage";
+
+export default async function ContactPage() {
+  const liveCompany = await getCompanyData();
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -50,20 +54,20 @@ export default function ContactPage() {
             "@type": "ListItem",
             position: 1,
             name: "Home",
-            item: "https://fhg-two.vercel.app",
+            item: SITE_URL,
           },
           {
             "@type": "ListItem",
             position: 2,
             name: "Contact & Dispatch",
-            item: "https://fhg-two.vercel.app/contact",
+            item: `${SITE_URL}/contact`,
           },
         ],
       },
       {
         "@type": "ContactPage",
-        "@id": "https://fhg-two.vercel.app/contact#webpage",
-        url: "https://fhg-two.vercel.app/contact",
+        "@id": `${SITE_URL}/contact#webpage`,
+        url: `${SITE_URL}/contact`,
         name: "Contact Forest Hills Garden",
         description:
           "Official contact channels for Forest Hills Garden head office, heavy equipment dispatch, and three Batangas nursery facilities.",
@@ -129,10 +133,10 @@ export default function ContactPage() {
 
       {/* Main Contact Section */}
       <main>
-        <ContactSection />
+        <ContactSection initialCompany={liveCompany} />
       </main>
 
-      <Footer />
+      <Footer initialCompany={liveCompany} />
       <FloatingActions />
     </div>
   );

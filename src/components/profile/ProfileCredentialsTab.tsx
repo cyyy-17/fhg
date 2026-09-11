@@ -1,12 +1,19 @@
 import Link from "next/link";
 import { Award, ShieldCheck, ArrowUpRight, FileCheck } from "lucide-react";
 import { companyData } from "@/data/company";
+import type { CompanyData } from "@/types/admin";
 
-export default function ProfileCredentialsTab() {
+interface ProfileCredentialsTabProps {
+  company?: CompanyData;
+}
+
+export default function ProfileCredentialsTab({ company }: ProfileCredentialsTabProps = {}) {
+  const credentials = company?.credentials && company.credentials.length > 0 ? company.credentials : companyData.credentials;
+
   return (
     <div className="space-y-6 animate-fadeIn">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {companyData.credentials.map((cred, idx) => (
+        {credentials.map((cred, idx) => (
           <div
             key={idx}
             className="rounded-xl bg-[#0a170d] border border-white/10 p-7 flex flex-col justify-between group hover:border-[#22c55e]/40 hover:shadow-[0_0_20px_rgba(34,197,94,0.1)] transition-all"

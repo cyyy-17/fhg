@@ -11,9 +11,20 @@ import ProcurementEstimatorTab from "./procurement/ProcurementEstimatorTab";
 import ProcurementVaultTab from "./procurement/ProcurementVaultTab";
 import ProcurementFaqTab from "./procurement/ProcurementFaqTab";
 
+import type { DocumentItem } from "@/data/documents";
+import type { FaqItem } from "@/data/faqs";
+
 type ProcurementTab = "estimate" | "vault" | "faq";
 
-export default function ProcurementHub() {
+interface ProcurementHubProps {
+  initialDocuments?: DocumentItem[];
+  initialFaqs?: FaqItem[];
+}
+
+export default function ProcurementHub({
+  initialDocuments,
+  initialFaqs,
+}: ProcurementHubProps = {}) {
   const [activeTab, setActiveTab] = useState<ProcurementTab>("estimate");
 
   // Deep-link hash listener
@@ -123,8 +134,8 @@ export default function ProcurementHub() {
         {/* Sub-component Views */}
         <div>
           {activeTab === "estimate" && <ProcurementEstimatorTab />}
-          {activeTab === "vault" && <ProcurementVaultTab />}
-          {activeTab === "faq" && <ProcurementFaqTab />}
+          {activeTab === "vault" && <ProcurementVaultTab initialDocuments={initialDocuments} />}
+          {activeTab === "faq" && <ProcurementFaqTab initialFaqs={initialFaqs} />}
         </div>
       </div>
 

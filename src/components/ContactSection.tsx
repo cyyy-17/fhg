@@ -7,8 +7,14 @@ import { Phone, Mail, MapPin, Send, AlertCircle, Clock, Copy, Check, MessageCirc
 import { companyData } from "@/data/company";
 import { useIsMounted } from "@/hooks/useIsMounted";
 import { useLenisScrollLock } from "@/hooks/useLenisScrollLock";
+import type { CompanyData } from "@/types/admin";
 
-export default function ContactSection() {
+interface ContactSectionProps {
+  initialCompany?: CompanyData;
+}
+
+export default function ContactSection({ initialCompany }: ContactSectionProps = {}) {
+  const company = initialCompany || companyData;
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -45,7 +51,7 @@ export default function ContactSection() {
     `Phone: ${phone}\n` +
     `Subject/Location: ${subject}\n\n` +
     `Project Requirements:\n${message}\n\n` +
-    `Target Recipient: edluna1971@yahoo.com / iamfeluna@yahoo.com`;
+    `Target Recipient: ${(company.headOffice?.emails || companyData.headOffice.emails).join(" / ")}`;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -175,7 +181,7 @@ export default function ContactSection() {
                   Telefax / Landline Desk
                 </span>
                 <span className="text-base font-semibold text-[#f6f7f4] group-hover:text-[#4ade80] transition-colors">
-                  {companyData.headOffice.telefax}
+                  {company.headOffice?.telefax || companyData.headOffice.telefax}
                 </span>
               </div>
             </a>
@@ -191,7 +197,7 @@ export default function ContactSection() {
                     Mobile Operations Dispatch
                   </span>
                   <span className="text-sm font-semibold text-[#f6f7f4]">
-                    {companyData.headOffice.mobiles.join(" • ")}
+                    {(company.headOffice?.mobiles || companyData.headOffice.mobiles).join(" • ")}
                   </span>
                 </div>
               </div>
@@ -238,7 +244,7 @@ export default function ContactSection() {
                   Executive Email
                 </span>
                 <span className="text-sm font-semibold text-[#f6f7f4] group-hover:text-[#4ade80] transition-colors">
-                  {companyData.headOffice.emails.join(" / ")}
+                  {(company.headOffice?.emails || companyData.headOffice.emails).join(" / ")}
                 </span>
               </div>
             </a>
@@ -259,16 +265,16 @@ export default function ContactSection() {
                     </span>
                   </div>
                   <span className="text-xs sm:text-sm font-medium text-[#f6f7f4] block">
-                    {companyData.headOffice.address}
+                    {company.headOffice?.address || companyData.headOffice.address}
                   </span>
                   <span className="text-[11px] font-mono text-[#9aa89b] block mt-0.5">
-                    Plus Code: {companyData.headOffice.plusCode}
+                    Plus Code: {company.headOffice?.plusCode || companyData.headOffice.plusCode}
                   </span>
                 </div>
               </div>
               <div className="pt-3 border-t border-white/10 flex items-center gap-2">
                 <a
-                  href={companyData.headOffice.wazeUrl}
+                  href={company.headOffice?.wazeUrl || companyData.headOffice.wazeUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 hover:bg-white/10 text-xs font-medium text-[#f6f7f4] border border-white/10 transition-colors"
@@ -277,7 +283,7 @@ export default function ContactSection() {
                   <span>Waze</span>
                 </a>
                 <a
-                  href={companyData.headOffice.googleMapsUrl}
+                  href={company.headOffice?.googleMapsUrl || companyData.headOffice.googleMapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 hover:bg-white/10 text-xs font-medium text-[#f6f7f4] border border-white/10 transition-colors"

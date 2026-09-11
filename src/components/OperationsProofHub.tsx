@@ -13,10 +13,26 @@ import OperationsProjectsTab from "./operations/OperationsProjectsTab";
 import OperationsFleetTab from "./operations/OperationsFleetTab";
 import OperationsClientsTab from "./operations/OperationsClientsTab";
 
+import type { ProjectItem } from "@/data/projects";
+import type { ClientItem } from "@/data/clients";
+import type { EquipmentItem } from "@/data/equipment";
+
 type HubTab = "projects" | "fleet" | "clients";
 
-export default function OperationsProofHub() {
+interface OperationsProofHubProps {
+  initialProjects?: ProjectItem[];
+  initialClients?: ClientItem[];
+  initialEquipment?: EquipmentItem[];
+}
+
+export default function OperationsProofHub({
+  initialProjects,
+  initialClients,
+  initialEquipment,
+}: OperationsProofHubProps = {}) {
   const [activeTab, setActiveTab] = useState<HubTab>("projects");
+  const projects = initialProjects && initialProjects.length > 0 ? initialProjects : projectsData;
+  const clients = initialClients && initialClients.length > 0 ? initialClients : clientsData;
 
   // Deep-link hash listener
   useEffect(() => {
@@ -40,9 +56,9 @@ export default function OperationsProofHub() {
   }, []);
 
   const hubTabs: { key: HubTab; label: string; icon: typeof FolderKanban; badge?: string }[] = [
-    { key: "projects", label: "Signature Projects", icon: FolderKanban, badge: `${projectsData.length} Works` },
+    { key: "projects", label: "Signature Projects", icon: FolderKanban, badge: `${projects.length} Works` },
     { key: "fleet", label: "Industrial Fleet", icon: Truck, badge: "90 Saws • 50T" },
-    { key: "clients", label: "Enterprise Clients", icon: Building2, badge: `${clientsData.length} Partners` },
+    { key: "clients", label: "Enterprise Clients", icon: Building2, badge: `${clients.length} Partners` },
   ];
 
   return (
@@ -120,9 +136,9 @@ export default function OperationsProofHub() {
 
         {/* Sub-component Views */}
         <div>
-          {activeTab === "projects" && <OperationsProjectsTab />}
-          {activeTab === "fleet" && <OperationsFleetTab />}
-          {activeTab === "clients" && <OperationsClientsTab />}
+          {activeTab === "projects" && <OperationsProjectsTab initialProjects={initialProjects} />}
+          {activeTab === "fleet" && <OperationsFleetTab initialEquipment={initialEquipment} />}
+          {activeTab === "clients" && <OperationsClientsTab initialClients={initialClients} />}
         </div>
       </div>
     </section>

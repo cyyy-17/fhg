@@ -6,6 +6,7 @@ import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import { ShieldCheck, CheckCircle2, Award, ArrowRight, FileText, ChevronDown, Clock } from "lucide-react";
 import { companyData } from "@/data/company";
+import type { CompanyData } from "@/types/admin";
 
 function StatCounter({ target, duration = 1.8 }: { target: number; duration?: number }) {
   const [count, setCount] = useState(0);
@@ -35,7 +36,13 @@ function StatCounter({ target, duration = 1.8 }: { target: number; duration?: nu
   return <span ref={ref}>{count}</span>;
 }
 
-export default function Hero() {
+interface HeroProps {
+  initialCompany?: CompanyData;
+}
+
+export default function Hero({ initialCompany }: HeroProps = {}) {
+  const company = initialCompany || companyData;
+  const stats = company.stats && company.stats.length > 0 ? company.stats : companyData.stats;
   return (
     <section
       id="hero"
@@ -71,11 +78,11 @@ export default function Hero() {
           className="inline-flex items-center gap-3 px-4 py-1.5 rounded-md bg-[#0a170d] border border-white/10 text-[11px] font-mono tracking-widest text-[#9aa89b] mb-8"
         >
           <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e] shadow-[0_0_8px_#22c55e]" />
-          <span className="text-[#f6f7f4] font-semibold">EST. 1998</span>
+          <span className="text-[#f6f7f4] font-semibold">EST. {company.established?.includes("1998") ? "1998" : company.established || "1998"}</span>
           <span className="text-white/20">|</span>
           <span>TALISAY, BATANGAS</span>
           <span className="text-white/20 hidden sm:inline">|</span>
-          <span className="text-[#f59e0b] hidden sm:inline font-semibold">WE DO IT RIGHT AND FAST</span>
+          <span className="text-[#f59e0b] hidden sm:inline font-semibold">{company.tagline?.toUpperCase() || "WE DO IT RIGHT AND FAST"}</span>
           <span className="text-white/20 hidden md:inline">|</span>
           <span className="text-[#4ade80] hidden md:inline">PHILGEPS BLUE MEMBER</span>
         </motion.div>
@@ -181,7 +188,7 @@ export default function Hero() {
           className="w-full rounded-xl bg-[#0a170d]/95 border border-white/10 p-6 sm:p-8 shadow-2xl"
         >
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 divide-y lg:divide-y-0 lg:divide-x divide-white/10">
-            {companyData.stats.map((stat, idx) => (
+            {stats.map((stat, idx) => (
               <div
                 key={idx}
                 className={`flex flex-col ${idx > 0 ? "pt-4 lg:pt-0 lg:pl-8" : ""}`}

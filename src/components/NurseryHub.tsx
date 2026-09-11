@@ -10,16 +10,24 @@ import {
   ArrowUpRight,
 } from "lucide-react";
 import { companyData } from "@/data/company";
-import { speciesData } from "@/data/species";
+import { speciesData, type SpeciesItem } from "@/data/species";
+import type { CompanyData } from "@/types/admin";
 
 type CategoryFilter = "all" | "native" | "ornamental" | "bamboo" | "mature-balled";
 
-export default function NurseryHub() {
+interface NurseryHubProps {
+  initialSpecies?: SpeciesItem[];
+  initialCompany?: CompanyData;
+}
+
+export default function NurseryHub({ initialSpecies, initialCompany }: NurseryHubProps = {}) {
+  const species = initialSpecies && initialSpecies.length > 0 ? initialSpecies : speciesData;
+  const company = initialCompany || companyData;
   const [activeCategory, setActiveCategory] = useState<CategoryFilter>("all");
   const [searchQuery, setSearchQuery] = useState("");
 
   const filteredSpecies = useMemo(() => {
-    return speciesData.filter((item) => {
+    return species.filter((item) => {
       const matchesCat = activeCategory === "all" || item.category === activeCategory;
       const q = searchQuery.toLowerCase().trim();
       const matchesSearch =
@@ -29,7 +37,7 @@ export default function NurseryHub() {
         item.offsetCompliance.toLowerCase().includes(q);
       return matchesCat && matchesSearch;
     });
-  }, [activeCategory, searchQuery]);
+  }, [species, activeCategory, searchQuery]);
 
   return (
     <section
@@ -86,29 +94,47 @@ export default function NurseryHub() {
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-4 border-t border-white/10">
                 <div className="p-3 rounded-xl bg-[#050d07] border border-white/5">
                   <div className="flex items-baseline gap-1 mb-1">
-                    <span className="text-xl sm:text-2xl font-bold font-heading text-[#f6f7f4]">100K</span>
+                    <span className="text-xl sm:text-2xl font-bold font-heading text-[#f6f7f4]">
+                      {company.nurseries?.[0]?.capacity?.split(" ")[0] || "100K"}
+                    </span>
                     <span className="text-xs font-editorial italic text-[#4ade80]">+</span>
                   </div>
-                  <strong className="text-xs font-semibold text-[#f6f7f4] block truncate">Sitio Latag</strong>
-                  <span className="text-[10px] font-mono text-[#9aa89b]">Native hardwoods</span>
+                  <strong className="text-xs font-semibold text-[#f6f7f4] block truncate">
+                    {company.nurseries?.[0]?.name ? company.nurseries[0].name.replace(" Plant Nursery Facility", "").replace(" Facility", "") : "Sitio Latag"}
+                  </strong>
+                  <span className="text-[10px] font-mono text-[#9aa89b] block truncate">
+                    {company.nurseries?.[0]?.location?.split(",")[0] || "Sitio Latag"}
+                  </span>
                 </div>
 
                 <div className="p-3 rounded-xl bg-[#050d07] border border-white/5">
                   <div className="flex items-baseline gap-1 mb-1">
-                    <span className="text-xl sm:text-2xl font-bold font-heading text-[#f6f7f4]">80K</span>
+                    <span className="text-xl sm:text-2xl font-bold font-heading text-[#f6f7f4]">
+                      {company.nurseries?.[1]?.capacity?.split(" ")[0] || "80K"}
+                    </span>
                     <span className="text-xs font-editorial italic text-[#4ade80]">+</span>
                   </div>
-                  <strong className="text-xs font-semibold text-[#f6f7f4] block truncate">Tumaway Farm</strong>
-                  <span className="text-[10px] font-mono text-[#9aa89b]">Heavy balled stocks</span>
+                  <strong className="text-xs font-semibold text-[#f6f7f4] block truncate">
+                    {company.nurseries?.[1]?.name ? company.nurseries[1].name.replace(" Plant Propagation Farm", "").replace(" Farm", "") : "Tumaway Farm"}
+                  </strong>
+                  <span className="text-[10px] font-mono text-[#9aa89b] block truncate">
+                    {company.nurseries?.[1]?.location?.split(",")[0] || "Brgy. Tumaway"}
+                  </span>
                 </div>
 
                 <div className="p-3 rounded-xl bg-[#050d07] border border-white/5">
                   <div className="flex items-baseline gap-1 mb-1">
-                    <span className="text-xl sm:text-2xl font-bold font-heading text-[#4ade80]">50K</span>
+                    <span className="text-xl sm:text-2xl font-bold font-heading text-[#4ade80]">
+                      {company.nurseries?.[2]?.capacity?.split(" ")[0] || "50K"}
+                    </span>
                     <span className="text-xs font-editorial italic text-[#22c55e]">+</span>
                   </div>
-                  <strong className="text-xs font-semibold text-[#f6f7f4] block truncate">Aya Nursery</strong>
-                  <span className="text-[10px] font-mono text-[#9aa89b]">Endemic &amp; ornamentals</span>
+                  <strong className="text-xs font-semibold text-[#f6f7f4] block truncate">
+                    {company.nurseries?.[2]?.name ? company.nurseries[2].name.replace(" Ecological Propagation Nursery", "").replace(" Nursery", "") : "Aya Nursery"}
+                  </strong>
+                  <span className="text-[10px] font-mono text-[#9aa89b] block truncate">
+                    {company.nurseries?.[2]?.location?.split(",")[0] || "Brgy. Aya"}
+                  </span>
                 </div>
 
                 <div className="p-3 rounded-xl bg-[#050d07] border border-white/5">
@@ -136,31 +162,31 @@ export default function NurseryHub() {
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-1 text-[11px]">
                 <a
-                  href={companyData.nurseries[0].googleMapsUrl}
+                  href={company.nurseries[0]?.googleMapsUrl || "#"}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-2.5 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-[#f6f7f4] flex items-center justify-center gap-1 transition-colors"
                 >
                   <MapPin className="w-3 h-3 text-[#22c55e] shrink-0" />
-                  <span className="truncate">Sitio Latag</span>
+                  <span className="truncate">{company.nurseries[0]?.name || "Sitio Latag"}</span>
                 </a>
                 <a
-                  href={companyData.nurseries[1].googleMapsUrl}
+                  href={company.nurseries[1]?.googleMapsUrl || "#"}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-2.5 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-[#f6f7f4] flex items-center justify-center gap-1 transition-colors"
                 >
                   <MapPin className="w-3 h-3 text-[#22c55e] shrink-0" />
-                  <span className="truncate">Tumaway Farm</span>
+                  <span className="truncate">{company.nurseries[1]?.name || "Tumaway Farm"}</span>
                 </a>
                 <a
-                  href={companyData.nurseries[2].googleMapsUrl}
+                  href={company.nurseries[2]?.googleMapsUrl || "#"}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-2.5 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-[#f6f7f4] flex items-center justify-center gap-1 transition-colors"
                 >
                   <MapPin className="w-3 h-3 text-[#4ade80] shrink-0" />
-                  <span className="truncate">Aya Nursery</span>
+                  <span className="truncate">{company.nurseries[2]?.name || "Aya Nursery"}</span>
                 </a>
               </div>
             </div>

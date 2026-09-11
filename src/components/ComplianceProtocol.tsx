@@ -1,9 +1,15 @@
 import { ClipboardList, FileCheck2, Truck, Sprout, CheckCircle } from "lucide-react";
-import { protocolSteps } from "@/data/protocol";
+import { protocolSteps, type ProtocolStep } from "@/data/protocol";
 
 const stepIcons = [ClipboardList, FileCheck2, Truck, Sprout];
 
-export default function ComplianceProtocol() {
+interface ComplianceProtocolProps {
+  initialProtocol?: ProtocolStep[];
+}
+
+export default function ComplianceProtocol({ initialProtocol }: ComplianceProtocolProps = {}) {
+  const steps = initialProtocol && initialProtocol.length > 0 ? initialProtocol : protocolSteps;
+
   return (
     <section id="protocol" className="py-24 bg-[#050d07] relative z-20 border-t border-white/5">
       <div className="w-full max-w-7xl mx-auto px-6 md:px-12">
@@ -24,7 +30,7 @@ export default function ComplianceProtocol() {
 
         {/* 4-Column Monograph Protocol Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {protocolSteps.map((step, idx) => {
+          {steps.map((step, idx) => {
             const Icon = stepIcons[idx] || ClipboardList;
             return (
               <div

@@ -16,6 +16,7 @@ import {
   Cookie,
 } from "lucide-react";
 import { companyData } from "@/data/company";
+import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Data Privacy Policy | Forest Hills Garden",
@@ -29,13 +30,13 @@ export const metadata: Metadata = {
     "tree contractor privacy policy",
   ],
   alternates: {
-    canonical: "https://fhg-two.vercel.app/privacy-policy",
+    canonical: `${SITE_URL}/privacy-policy`,
   },
   openGraph: {
     title: "Data Privacy Policy | Forest Hills Garden",
     description:
       "Statutory compliance under Republic Act No. 10173 (Data Privacy Act of 2012). How Forest Hills Garden processes and protects B2B inquiries and client data.",
-    url: "https://fhg-two.vercel.app/privacy-policy",
+    url: `${SITE_URL}/privacy-policy`,
     type: "website",
     locale: "en_PH",
   },
@@ -52,20 +53,20 @@ export default function PrivacyPolicyPage() {
             "@type": "ListItem",
             position: 1,
             name: "Home",
-            item: "https://fhg-two.vercel.app",
+            item: SITE_URL,
           },
           {
             "@type": "ListItem",
             position: 2,
             name: "Privacy Policy",
-            item: "https://fhg-two.vercel.app/privacy-policy",
+            item: `${SITE_URL}/privacy-policy`,
           },
         ],
       },
       {
         "@type": "WebPage",
-        "@id": "https://fhg-two.vercel.app/privacy-policy#webpage",
-        url: "https://fhg-two.vercel.app/privacy-policy",
+        "@id": `${SITE_URL}/privacy-policy#webpage`,
+        url: `${SITE_URL}/privacy-policy`,
         name: "Data Privacy Policy - Forest Hills Garden",
         description:
           "Official Data Privacy Policy for Forest Hills Garden under RA 10173.",

@@ -19,7 +19,12 @@ import { documents, type DocumentItem } from "@/data/documents";
 import { useIsMounted } from "@/hooks/useIsMounted";
 import { useLenisScrollLock } from "@/hooks/useLenisScrollLock";
 
-export default function ProcurementVaultTab() {
+interface ProcurementVaultTabProps {
+  initialDocuments?: DocumentItem[];
+}
+
+export default function ProcurementVaultTab({ initialDocuments }: ProcurementVaultTabProps = {}) {
+  const docs = initialDocuments && initialDocuments.length > 0 ? initialDocuments : documents;
   const [previewDoc, setPreviewDoc] = useState<DocumentItem | null>(null);
   const [packetCopied, setPacketCopied] = useState(false);
   const [showPacketDetails, setShowPacketDetails] = useState(false);
@@ -160,7 +165,7 @@ export default function ProcurementVaultTab() {
 
       {/* Document Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {documents.map((doc) => (
+        {docs.map((doc) => (
           <div
             key={doc.id}
             className="bg-[#0a170d]/80 rounded-2xl p-6 flex flex-col justify-between border border-white/8 hover:border-[#22c55e]/40 transition-all duration-300 group"

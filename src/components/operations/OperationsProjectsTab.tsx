@@ -8,14 +8,19 @@ import ProjectModal from "@/components/ProjectModal";
 
 type ProjectFilter = "all" | "ongoing" | "infrastructure" | "commercial" | "reforestation";
 
-export default function OperationsProjectsTab() {
+interface OperationsProjectsTabProps {
+  initialProjects?: ProjectItem[];
+}
+
+export default function OperationsProjectsTab({ initialProjects }: OperationsProjectsTabProps = {}) {
+  const projects = initialProjects && initialProjects.length > 0 ? initialProjects : projectsData;
   const [projectFilter, setProjectFilter] = useState<ProjectFilter>("all");
   const [searchProject, setSearchProject] = useState("");
   const [showAllProjects, setShowAllProjects] = useState(false);
   const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
 
   const filteredProjects = useMemo(() => {
-    return projectsData.filter((p) => {
+    return projects.filter((p) => {
       const matchesCat =
         projectFilter === "all"
           ? true
@@ -32,13 +37,13 @@ export default function OperationsProjectsTab() {
 
       return matchesCat && matchesSearch;
     });
-  }, [projectFilter, searchProject]);
+  }, [projects, projectFilter, searchProject]);
 
   const displayedProjects = showAllProjects ? filteredProjects : filteredProjects.slice(0, 6);
 
   const filterTabs: { key: ProjectFilter; label: string; count?: number }[] = [
-    { key: "all", label: "All Works", count: projectsData.length },
-    { key: "ongoing", label: "Active Deployments", count: projectsData.filter((p) => p.badge === "Ongoing").length },
+    { key: "all", label: "All Works", count: projects.length },
+    { key: "ongoing", label: "Active Deployments", count: projects.filter((p) => p.badge === "Ongoing").length },
     { key: "infrastructure", label: "Expressway & Rail" },
     { key: "commercial", label: "Estates & High-Rise" },
     { key: "reforestation", label: "Watershed & NGP" },
@@ -55,7 +60,7 @@ export default function OperationsProjectsTab() {
             value={searchProject}
             onChange={(e) => setSearchProject(e.target.value)}
             placeholder="Search project, client, or site..."
-            className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#050d07]/80 border border-white/8 text-xs text-[#f6f7f4] placeholder-[#9aa89b]/50 focus:outline-none focus:border-[#22c55e] transition-colors"
+            className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-[#050d07]/80 border border-white/8 text-xs text-[#f6f7f4] focus:outline-none focus:ring-1 focus:ring-[#22c55e] transition-colors"
           />
         </div>
 
