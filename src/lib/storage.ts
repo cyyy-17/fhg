@@ -70,8 +70,12 @@ function getDefaultStore(): AdminStore {
 
 // Vercel KV / Upstash Redis REST helper
 export function getKvConfig(): { url: string; token: string } | null {
-  const url = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
-  const token = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
+  const rawUrl = process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL;
+  const rawToken = process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN;
+  if (!rawUrl || !rawToken) return null;
+
+  const url = rawUrl.trim().replace(/^["']|["']$/g, "").replace(/[\r\n\s]+/g, "");
+  const token = rawToken.trim().replace(/^["']|["']$/g, "").replace(/[\r\n\s]+/g, "");
   if (url && token) {
     return { url, token };
   }

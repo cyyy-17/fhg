@@ -49,14 +49,27 @@ export async function POST(request: Request) {
     const uniqueName = `${sanitizedBase}_${Date.now()}${ext}`;
 
     // 1. Cloud Storage Provider: Vercel Blob (Production)
-    const isBlobConfigured = Boolean(process.env.BLOB_READ_WRITE_TOKEN);
-    const provider = process.env.UPLOAD_PROVIDER || (isBlobConfigured ? "blob" : "local");
+    const rawBlobToken = process.env.BLOB_READ_WRITE_TOKEN;
+    const cleanBlobToken = rawBlobToken
+      ? rawBlobToken.trim().replace(/^["']|["']$/g, "").replace(/[\r\n\s]+/g, "")
+      : undefined;
 
-    if (provider === "blob" && isBlobConfigured) {
+    const isBlobConfigured = Boolean(cleanBlobToken);
+    const provider = process.env.UPLOAD_PROVIDER || (isBlobConfigured ? "blob" : "local");
+    const isVercel = Boolean(process.env.VERCEL);
+
+    if (provider === "blob" || isBlobConfigured) {
+      if (!cleanBlobToken) {
+        return NextResponse.json(
+          { error: "Vercel Blob storage is enabled but BLOB_READ_WRITE_TOKEN is missing or empty." },
+          { status: 500 }
+        );
+      }
+
       try {
         const blobResult = await put(`uploads/${uniqueName}`, file, {
           access: "public",
-          token: process.env.BLOB_READ_WRITE_TOKEN,
+          token: cleanBlobToken,
         });
 
         return NextResponse.json({
@@ -68,11 +81,30 @@ export async function POST(request: Request) {
           mimeType: file.type,
         });
       } catch (blobErr) {
-        console.warn("Vercel Blob upload failed, attempting local fallback:", blobErr);
+        const message = blobErr instanceof Error ? blobErr.message : String(blobErr);
+        console.error("Vercel Blob upload failed:", blobErr);
+
+        // On Vercel, the local filesystem is read-only (/var/task). Local fallback will crash.
+        if (isVercel || provider === "blob") {
+          return NextResponse.json(
+            {
+              error: `Cloud upload failed: ${message}. Please check your BLOB_READ_WRITE_TOKEN in Vercel settings.`,
+            },
+            { status: 502 }
+          );
+        }
+        console.warn("Attempting local filesystem fallback in local development...");
       }
     }
 
-    // 2. Local Filesystem Provider (Development fallback)
+    // 2. Local Filesystem Provider (Local Development fallback ONLY)
+    if (isVercel) {
+      return NextResponse.json(
+        { error: "Local filesystem storage is not available in Vercel production. Please configure BLOB_READ_WRITE_TOKEN." },
+        { status: 500 }
+      );
+    }
+
     const buffer = Buffer.from(await file.arrayBuffer());
 
     if (!fs.existsSync(UPLOAD_DIR)) {
