@@ -23,13 +23,17 @@ import {
   Settings,
 } from "lucide-react";
 import Image from "next/image";
+import { useLenisScrollLock } from "@/hooks/useLenisScrollLock";
 
-interface NavItem {
-  label: string;
-  href: string;
-  icon: typeof LayoutDashboard;
-  badge?: string;
-  badgeColor?: string;
+interface NavGroup {
+  title: string;
+  items: {
+    label: string;
+    href: string;
+    icon: typeof LayoutDashboard;
+    badge?: string;
+    badgeColor?: string;
+  }[];
 }
 
 export default function AdminSidebar() {
@@ -38,6 +42,8 @@ export default function AdminSidebar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [unreadCount, setUnreadCount] = useState<number>(0);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
+
+  useLenisScrollLock(mobileOpen);
 
   // Fetch unread inquiries count
   useEffect(() => {
@@ -60,25 +66,45 @@ export default function AdminSidebar() {
     return () => clearInterval(interval);
   }, [pathname]);
 
-  const navItems: NavItem[] = [
-    { label: "Dashboard", href: "/admin", icon: LayoutDashboard },
+  const navGroups: NavGroup[] = [
     {
-      label: "Inquiries Inbox",
-      href: "/admin/inquiries",
-      icon: Mail,
-      badge: unreadCount > 0 ? `${unreadCount} New` : undefined,
-      badgeColor: "bg-emerald-500/20 text-emerald-300 border-emerald-500/30",
+      title: "Core Operations",
+      items: [
+        { label: "Dashboard", href: "/admin", icon: LayoutDashboard },
+        {
+          label: "Inquiries Inbox",
+          href: "/admin/inquiries",
+          icon: Mail,
+          badge: unreadCount > 0 ? `${unreadCount} New` : undefined,
+          badgeColor: "bg-emerald-500/20 text-emerald-300 border-emerald-500/30",
+        },
+      ],
     },
-    { label: "Company Profile", href: "/admin/company", icon: Building2 },
-    { label: "Services & Specs", href: "/admin/services", icon: Trees },
-    { label: "Signature Projects", href: "/admin/projects", icon: Briefcase },
-    { label: "Client Partners", href: "/admin/clients", icon: Users },
-    { label: "Nurseries & Species", href: "/admin/nurseries", icon: Sprout },
-    { label: "Equipment Fleet", href: "/admin/equipment", icon: Truck },
-    { label: "Turnkey Protocol", href: "/admin/protocol", icon: ClipboardList },
-    { label: "FAQ Knowledge", href: "/admin/faqs", icon: HelpCircle },
-    { label: "Document Vault", href: "/admin/documents", icon: FileText },
-    { label: "System Settings", href: "/admin/settings", icon: Settings },
+    {
+      title: "Services & Portfolio",
+      items: [
+        { label: "Services & Specs", href: "/admin/services", icon: Trees },
+        { label: "Signature Projects", href: "/admin/projects", icon: Briefcase },
+        { label: "Equipment Fleet", href: "/admin/equipment", icon: Truck },
+        { label: "Nurseries & Species", href: "/admin/nurseries", icon: Sprout },
+      ],
+    },
+    {
+      title: "Compliance & Credibility",
+      items: [
+        { label: "Client Partners", href: "/admin/clients", icon: Users },
+        { label: "Document Vault", href: "/admin/documents", icon: FileText },
+        { label: "Turnkey Protocol", href: "/admin/protocol", icon: ClipboardList },
+        { label: "FAQ Knowledge", href: "/admin/faqs", icon: HelpCircle },
+      ],
+    },
+    {
+      title: "Platform Administration",
+      items: [
+        { label: "Company Profile", href: "/admin/company", icon: Building2 },
+        { label: "System Settings", href: "/admin/settings", icon: Settings },
+      ],
+    },
   ];
 
   async function handleLogout() {
@@ -116,7 +142,7 @@ export default function AdminSidebar() {
         </Link>
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="p-2 rounded-lg bg-white/5 text-[#9aa89b] hover:text-[#f6f7f4] hover:bg-white/10 transition"
+          className="p-2 rounded-lg bg-white/5 text-[#9aa89b] hover:text-[#f6f7f4] hover:bg-white/10 transition cursor-pointer"
           aria-label="Toggle navigation menu"
         >
           {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -126,19 +152,20 @@ export default function AdminSidebar() {
       {/* Mobile Overlay */}
       {mobileOpen && (
         <div
-          className="fixed inset-0 bg-black/70 backdrop-blur-xs z-40 lg:hidden"
+          className="fixed inset-0 bg-black/75 backdrop-blur-xs z-40 lg:hidden"
           onClick={() => setMobileOpen(false)}
         />
       )}
 
       {/* Sidebar Container */}
       <aside
+        data-lenis-prevent="true"
         className={`fixed top-0 bottom-0 left-0 w-64 bg-[#08130a] border-r border-white/10 z-50 flex flex-col transition-transform duration-300 ease-in-out lg:translate-x-0 ${
           mobileOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
         {/* Brand Header */}
-        <div className="p-5 border-b border-white/10">
+        <div className="p-4 sm:p-5 border-b border-white/10">
           <Link href="/admin" className="flex items-center gap-3">
             <div className="relative w-9 h-9 shrink-0 bg-white/5 rounded-lg p-1 border border-white/10">
               <Image
@@ -163,51 +190,54 @@ export default function AdminSidebar() {
           </Link>
         </div>
 
-        {/* Navigation Items */}
-        <nav className="flex-1 overflow-y-auto px-3 py-4 space-y-1 scrollbar-none">
-          <div className="px-3 pb-2 text-[10px] font-mono uppercase tracking-widest text-[#9aa89b]/70 font-semibold">
-            Operational Modules
-          </div>
+        {/* Navigation Items (Grouped) */}
+        <nav className="flex-1 overflow-y-auto px-3 py-4 space-y-5 scrollbar-none">
+          {navGroups.map((group) => (
+            <div key={group.title} className="space-y-1">
+              <div className="px-3 pb-1.5 text-[10px] font-mono uppercase tracking-widest text-[#9aa89b]/60 font-semibold">
+                {group.title}
+              </div>
+              {group.items.map((item) => {
+                const Icon = item.icon;
+                const isActive =
+                  item.href === "/admin"
+                    ? pathname === "/admin"
+                    : pathname === item.href || pathname.startsWith(`${item.href}/`);
 
-          {navItems.map((item) => {
-            const Icon = item.icon;
-            const isActive =
-              item.href === "/admin"
-                ? pathname === "/admin"
-                : pathname === item.href || pathname.startsWith(`${item.href}/`);
-
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => setMobileOpen(false)}
-                className={`flex items-center justify-between px-3.5 py-2.5 rounded-lg text-xs sm:text-sm font-medium transition-all group ${
-                  isActive
-                    ? "bg-[#16a34a] text-[#f6f7f4] shadow-md shadow-green-900/30"
-                    : "text-[#9aa89b] hover:text-[#f6f7f4] hover:bg-white/5"
-                }`}
-              >
-                <div className="flex items-center gap-3 min-w-0">
-                  <Icon
-                    className={`w-4 h-4 shrink-0 transition ${
-                      isActive ? "text-[#f6f7f4]" : "text-[#22c55e] group-hover:scale-110"
-                    }`}
-                  />
-                  <span className="truncate">{item.label}</span>
-                </div>
-
-                {item.badge && (
-                  <span
-                    className={`text-[10px] font-mono px-2 py-0.5 rounded-full border shrink-0 font-semibold ${
-                      item.badgeColor || "bg-white/10 text-white border-white/20"
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setMobileOpen(false)}
+                    className={`flex items-center justify-between px-3.5 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all group ${
+                      isActive
+                        ? "bg-[#16a34a] text-[#f6f7f4] shadow-md shadow-green-900/30"
+                        : "text-[#9aa89b] hover:text-[#f6f7f4] hover:bg-white/5"
                     }`}
                   >
-                    {item.badge}
-                  </span>
-                )}
-              </Link>
-            );
-          })}
+                    <div className="flex items-center gap-3 min-w-0">
+                      <Icon
+                        className={`w-4 h-4 shrink-0 transition ${
+                          isActive ? "text-[#f6f7f4]" : "text-[#22c55e] group-hover:scale-110"
+                        }`}
+                      />
+                      <span className="truncate">{item.label}</span>
+                    </div>
+
+                    {item.badge && (
+                      <span
+                        className={`text-[10px] font-mono px-2 py-0.5 rounded-full border shrink-0 font-semibold ${
+                          item.badgeColor || "bg-white/10 text-white border-white/20"
+                        }`}
+                      >
+                        {item.badge}
+                      </span>
+                    )}
+                  </Link>
+                );
+              })}
+            </div>
+          ))}
         </nav>
 
         {/* Footer Actions */}

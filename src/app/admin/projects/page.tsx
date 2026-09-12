@@ -13,11 +13,16 @@ import {
   MoveUp,
   MoveDown,
   Image as ImageIcon,
+  Copy,
+  Calendar,
+  DollarSign,
 } from "lucide-react";
 import Image from "next/image";
 import AdminHeader from "@/components/admin/AdminHeader";
 import AdminModal from "@/components/admin/AdminModal";
+import DeleteConfirmModal from "@/components/admin/DeleteConfirmModal";
 import FileUploadWidget from "@/components/admin/FileUploadWidget";
+import { getAdminMutationHeaders } from "@/lib/csrf-client";
 import type { ProjectItem } from "@/data/projects";
 
 export default function AdminProjectsPage() {
@@ -31,6 +36,9 @@ export default function AdminProjectsPage() {
   const [isSaving, setIsSaving] = useState(false);
   const [feedback, setFeedback] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+
+  // Delete modal state
+  const [itemToDelete, setItemToDelete] = useState<ProjectItem | null>(null);
 
   useEffect(() => {
     let mounted = true;
@@ -61,9 +69,10 @@ export default function AdminProjectsPage() {
     setFeedback(null);
     setError(null);
     try {
+      const headers = await getAdminMutationHeaders();
       const res = await fetch("/api/admin/data", {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers,
         body: JSON.stringify({ section: "projects", data: updatedList }),
       });
 
@@ -90,8 +99,20 @@ export default function AdminProjectsPage() {
       scope: "Tree clearing, specimen earthballing, GPS tagging, and compensatory seedling supply.",
       category: "commercial",
       badge: "Ongoing",
+      year: new Date().getFullYear().toString(),
+      contractValue: "",
     };
     setEditingItem(newItem);
+    setIsCreating(true);
+  }
+
+  function handleDuplicate(item: ProjectItem) {
+    const duplicated: ProjectItem = {
+      ...JSON.parse(JSON.stringify(item)),
+      id: `project-${Date.now()}`,
+      title: `${item.title} (Copy)`,
+    };
+    setEditingItem(duplicated);
     setIsCreating(true);
   }
 
@@ -108,10 +129,11 @@ export default function AdminProjectsPage() {
     saveProjectsToApi(next);
   }
 
-  function handleDelete(id: string) {
-    if (!confirm("Are you sure you want to permanently remove this project record?")) return;
-    const next = projects.filter((p) => p.id !== id);
-    saveProjectsToApi(next);
+  async function handleConfirmDelete() {
+    if (!itemToDelete) return;
+    const next = projects.filter((p) => p.id !== itemToDelete.id);
+    await saveProjectsToApi(next);
+    setItemToDelete(null);
   }
 
   function handleMove(index: number, direction: "up" | "down") {
@@ -130,6 +152,7 @@ export default function AdminProjectsPage() {
       p.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       p.client.toLowerCase().includes(searchTerm.toLowerCase()) ||
       p.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (p.year && p.year.includes(searchTerm)) ||
       p.scope.toLowerCase().includes(searchTerm.toLowerCase());
 
     const matchesCategory = categoryFilter === "all" ? true : p.category === categoryFilter;
@@ -210,7 +233,7 @@ export default function AdminProjectsPage() {
       {loading ? (
         <div className="py-12 text-center text-xs text-[#9aa89b]">Loading project track record...</div>
       ) : (
-        <div className="bg-[#0a170d] border border-white/10 rounded-xl overflow-hidden">
+        <div className="bg-[#0a170d] border border-white/10 rounded-xl overflow-hidden shadow-xl">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs text-[#f6f7f4]">
               <thead className="border-b border-white/10 font-mono uppercase text-[10px] text-[#9aa89b] bg-[#08130a]">
@@ -218,6 +241,7 @@ export default function AdminProjectsPage() {
                   <th className="py-3 px-4">Project & Client</th>
                   <th className="py-3 px-4">Location</th>
                   <th className="py-3 px-4">Sector</th>
+                  <th className="py-3 px-4">Year / Value</th>
                   <th className="py-3 px-4">Status</th>
                   <th className="py-3 px-4 text-right">Actions</th>
                 </tr>
@@ -258,6 +282,12 @@ export default function AdminProjectsPage() {
                     <td className="py-3 px-4 capitalize font-mono text-[10px] text-[#4ade80]">
                       {item.category}
                     </td>
+                    <td className="py-3 px-4 font-mono text-[11px] text-white/80">
+                      <div>{item.year || "—"}</div>
+                      {item.contractValue && (
+                        <div className="text-[10px] text-[#22c55e]">{item.contractValue}</div>
+                      )}
+                    </td>
                     <td className="py-3 px-4">
                       <span
                         className={`text-[10px] font-mono px-2 py-0.5 rounded-full border ${
@@ -296,6 +326,14 @@ export default function AdminProjectsPage() {
                           <MoveDown className="w-3.5 h-3.5" />
                         </button>
                         <button
+                          type="button"
+                          onClick={() => handleDuplicate(item)}
+                          className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-[#9aa89b] hover:text-cyan-400 transition cursor-pointer"
+                          title="Duplicate Project"
+                        >
+                          <Copy className="w-3.5 h-3.5" />
+                        </button>
+                        <button
                           onClick={() => {
                             setEditingItem(JSON.parse(JSON.stringify(item)));
                             setIsCreating(false);
@@ -306,7 +344,7 @@ export default function AdminProjectsPage() {
                           <Edit2 className="w-3.5 h-3.5" />
                         </button>
                         <button
-                          onClick={() => handleDelete(item.id)}
+                          onClick={() => setItemToDelete(item)}
                           className="p-1.5 rounded-lg bg-white/5 hover:bg-red-500/20 text-[#9aa89b] hover:text-red-400 transition cursor-pointer"
                           title="Delete Project"
                         >
@@ -414,6 +452,38 @@ export default function AdminProjectsPage() {
                 </select>
               </div>
 
+              <div>
+                <label className="block text-xs font-mono uppercase text-[#9aa89b] mb-1">
+                  Execution Year(s)
+                </label>
+                <div className="relative">
+                  <Calendar className="w-4 h-4 text-[#9aa89b] absolute left-3 top-1/2 -translate-y-1/2" />
+                  <input
+                    type="text"
+                    value={editingItem.year || ""}
+                    onChange={(e) => setEditingItem({ ...editingItem, year: e.target.value })}
+                    placeholder="e.g. 2024–2026"
+                    className="w-full pl-9 pr-3 py-2.5 rounded-lg bg-[#050e07] border border-white/15 text-xs text-[#f6f7f4] focus:ring-1 focus:ring-[#22c55e] outline-none font-mono"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs font-mono uppercase text-[#9aa89b] mb-1">
+                  Contract Value (Optional)
+                </label>
+                <div className="relative">
+                  <DollarSign className="w-4 h-4 text-[#9aa89b] absolute left-3 top-1/2 -translate-y-1/2" />
+                  <input
+                    type="text"
+                    value={editingItem.contractValue || ""}
+                    onChange={(e) => setEditingItem({ ...editingItem, contractValue: e.target.value })}
+                    placeholder="e.g. PHP 25M or Multi-Million"
+                    className="w-full pl-9 pr-3 py-2.5 rounded-lg bg-[#050e07] border border-white/15 text-xs text-[#f6f7f4] focus:ring-1 focus:ring-[#22c55e] outline-none font-mono"
+                  />
+                </div>
+              </div>
+
               {/* Project Site Photography */}
               <div className="sm:col-span-2 space-y-2 p-3.5 rounded-xl bg-[#08130a] border border-white/10">
                 <label className="block text-xs font-mono uppercase text-[#22c55e] font-semibold">
@@ -441,7 +511,7 @@ export default function AdminProjectsPage() {
                 <FileUploadWidget
                   label={editingItem.imageUrl ? "Replace Project Image" : "Upload Project Image"}
                   accept=".jpg,.jpeg,.png,.webp"
-                  helperText="Upload a high-resolution field photograph. This replaces the default architectural placeholder on the website and project modal."
+                  helperText="Upload a high-resolution field photograph. Automatically optimizes via Vercel Blob or local storage."
                   onUploadComplete={(url) => {
                     setEditingItem({ ...editingItem, imageUrl: url });
                   }}
@@ -450,7 +520,7 @@ export default function AdminProjectsPage() {
                   type="text"
                   value={editingItem.imageUrl || ""}
                   onChange={(e) => setEditingItem({ ...editingItem, imageUrl: e.target.value })}
-                  placeholder="Or paste an image URL directly: /images/projects/my-project.jpg or https://..."
+                  placeholder="Or enter image URL: /images/projects/photo.jpg or https://..."
                   className="w-full p-2 rounded-lg bg-[#050e07] border border-white/10 text-xs text-[#f6f7f4] font-mono focus:ring-1 focus:ring-[#22c55e] outline-none"
                 />
               </div>
@@ -498,6 +568,15 @@ export default function AdminProjectsPage() {
           </form>
         </AdminModal>
       )}
+
+      {/* Delete Confirmation Modal */}
+      <DeleteConfirmModal
+        isOpen={Boolean(itemToDelete)}
+        onClose={() => setItemToDelete(null)}
+        onConfirm={handleConfirmDelete}
+        itemTitle={itemToDelete?.title || "project"}
+        itemType="project record"
+      />
     </div>
   );
 }

@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import AdminSidebar from "@/components/admin/AdminSidebar";
 
@@ -10,6 +11,13 @@ export default function AdminShell({
 }) {
   const pathname = usePathname();
   const isLoginPage = pathname === "/admin/login";
+
+  // Pre-fetch CSRF token on admin mount so mutation actions are primed immediately
+  useEffect(() => {
+    if (!isLoginPage) {
+      fetch("/api/admin/csrf").catch(() => {});
+    }
+  }, [isLoginPage]);
 
   if (isLoginPage) {
     return <>{children}</>;

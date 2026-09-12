@@ -17,7 +17,9 @@ import {
 import Image from "next/image";
 import AdminHeader from "@/components/admin/AdminHeader";
 import AdminModal from "@/components/admin/AdminModal";
+import DeleteConfirmModal from "@/components/admin/DeleteConfirmModal";
 import FileUploadWidget from "@/components/admin/FileUploadWidget";
+import { getAdminMutationHeaders } from "@/lib/csrf-client";
 import type { ServiceItem } from "@/data/services";
 
 function ListInputEditor({
@@ -115,6 +117,7 @@ export default function AdminServicesPage() {
   const [isSaving, setIsSaving] = useState(false);
   const [feedback, setFeedback] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [itemToDelete, setItemToDelete] = useState<ServiceItem | null>(null);
 
   useEffect(() => {
     let mounted = true;
@@ -145,9 +148,10 @@ export default function AdminServicesPage() {
     setFeedback(null);
     setError(null);
     try {
+      const headers = await getAdminMutationHeaders();
       const res = await fetch("/api/admin/data", {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers,
         body: JSON.stringify({ section: "services", data: updatedList }),
       });
 
@@ -197,10 +201,11 @@ export default function AdminServicesPage() {
     saveServicesToApi(next);
   }
 
-  function handleDelete(id: string) {
-    if (!confirm("Are you sure you want to remove this service from public listing?")) return;
-    const next = services.filter((s) => s.id !== id);
-    saveServicesToApi(next);
+  async function handleConfirmDelete() {
+    if (!itemToDelete) return;
+    const next = services.filter((s) => s.id !== itemToDelete.id);
+    await saveServicesToApi(next);
+    setItemToDelete(null);
   }
 
   function handleMove(index: number, direction: "up" | "down") {
@@ -365,7 +370,7 @@ export default function AdminServicesPage() {
                           <Edit2 className="w-3.5 h-3.5" />
                         </button>
                         <button
-                          onClick={() => handleDelete(item.id)}
+                          onClick={() => setItemToDelete(item)}
                           className="p-1.5 rounded-lg bg-white/5 hover:bg-red-500/20 text-[#9aa89b] hover:text-red-400 transition cursor-pointer"
                           title="Delete Service"
                         >
@@ -595,6 +600,15 @@ export default function AdminServicesPage() {
           </form>
         </AdminModal>
       )}
+
+      {/* Delete Confirmation Modal */}
+      <DeleteConfirmModal
+        isOpen={Boolean(itemToDelete)}
+        onClose={() => setItemToDelete(null)}
+        onConfirm={handleConfirmDelete}
+        itemTitle={itemToDelete?.title || "service"}
+        itemType="service item"
+      />
     </div>
   );
 }

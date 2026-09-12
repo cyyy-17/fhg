@@ -14,6 +14,7 @@ export interface ServiceItem {
   specs: ServiceSpecs;
   icon: "TreePine" | "Axe" | "Palmtree" | "ClipboardCheck" | "Sprout" | "Mountain" | "Flower2" | "Layers";
   imageUrl?: string;
+  sortOrder?: number;
 }
 
 export const servicesData: ServiceItem[] = [

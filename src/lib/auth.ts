@@ -1,26 +1,59 @@
 import { cookies } from "next/headers";
+import bcrypt from "bcryptjs";
 import type { AuthSession } from "@/types/admin";
 
 const SESSION_COOKIE_NAME = "fhg_admin_session";
 const SESSION_MAX_AGE = 60 * 60 * 24 * 7; // 7 days
 
-// Helper to retrieve the secret key for HMAC signing
+// Generated runtime fallback key to prevent forging with known hardcoded secrets in production if env is omitted
+let runtimeFallbackSecret: string | null = null;
+
 function getSessionSecret(): string {
   const secret = process.env.SESSION_SECRET || process.env.ADMIN_SESSION_SECRET;
-  if (!secret && process.env.NODE_ENV === "production") {
-    console.warn(
-      "[SECURITY WARNING] Neither SESSION_SECRET nor ADMIN_SESSION_SECRET is configured in environment variables. Using static fallback."
+  if (secret && secret.trim().length >= 16) {
+    return secret.trim();
+  }
+
+  if (process.env.NODE_ENV === "production") {
+    console.error(
+      "[SECURITY ALERT] SESSION_SECRET is not configured or too short in production! Using process-scoped ephemeral secret."
     );
   }
-  return secret || "fhg-secret-fallback-key-batch-2026-batangas";
+
+  if (!runtimeFallbackSecret) {
+    runtimeFallbackSecret = `fhg_ephemeral_${crypto.randomUUID()}_${Date.now()}`;
+  }
+  return runtimeFallbackSecret;
 }
 
-export function getAdminPassword(): string {
+export function getDefaultAdminPassword(): string {
   return process.env.ADMIN_PASSWORD || "admin1234";
 }
 
-export function isDefaultPasswordSet(): boolean {
-  return getAdminPassword() === "admin1234";
+/**
+ * Hashes a plaintext password using bcrypt with 10 salt rounds
+ */
+export async function hashPassword(plain: string): Promise<string> {
+  return await bcrypt.hash(plain, 10);
+}
+
+/**
+ * Compares plaintext against stored credential. Supports both bcrypt hashes ($2*) and legacy plaintext.
+ */
+export async function comparePassword(plain: string, storedCandidate: string): Promise<boolean> {
+  if (!storedCandidate) return false;
+  if (storedCandidate.startsWith("$2a$") || storedCandidate.startsWith("$2b$") || storedCandidate.startsWith("$2y$")) {
+    return await bcrypt.compare(plain, storedCandidate);
+  }
+  // Plaintext comparison for zero-downtime migration
+  return plain === storedCandidate;
+}
+
+/**
+ * Checks if a candidate password/hash matches the factory default "admin1234"
+ */
+export async function isDefaultPasswordMatch(candidate: string): Promise<boolean> {
+  return await comparePassword("admin1234", candidate);
 }
 
 // HMAC-SHA256 signing using standard Web Crypto API

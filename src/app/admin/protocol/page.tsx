@@ -13,6 +13,8 @@ import {
 } from "lucide-react";
 import AdminHeader from "@/components/admin/AdminHeader";
 import AdminModal from "@/components/admin/AdminModal";
+import DeleteConfirmModal from "@/components/admin/DeleteConfirmModal";
+import { getAdminMutationHeaders } from "@/lib/csrf-client";
 import type { ProtocolStep } from "@/data/protocol";
 
 export default function AdminProtocolPage() {
@@ -24,6 +26,7 @@ export default function AdminProtocolPage() {
   const [isSaving, setIsSaving] = useState(false);
   const [feedback, setFeedback] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [stepIndexToDelete, setStepIndexToDelete] = useState<number | null>(null);
 
   useEffect(() => {
     let mounted = true;
@@ -54,9 +57,10 @@ export default function AdminProtocolPage() {
     setFeedback(null);
     setError(null);
     try {
+      const headers = await getAdminMutationHeaders();
       const res = await fetch("/api/admin/data", {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers,
         body: JSON.stringify({ section: "protocol", data: updatedList }),
       });
 
@@ -104,10 +108,15 @@ export default function AdminProtocolPage() {
     saveProtocolToApi(next);
   }
 
-  function handleDelete(index: number) {
-    if (!confirm("Are you sure you want to remove this protocol step?")) return;
-    const next = steps.filter((_, i) => i !== index);
-    saveProtocolToApi(next);
+  async function handleConfirmDeleteStep() {
+    if (stepIndexToDelete === null) return;
+    const next = steps.filter((_, i) => i !== stepIndexToDelete);
+    const renumbered = next.map((s, idx) => ({
+      ...s,
+      step: (idx + 1).toString().padStart(2, "0"),
+    }));
+    await saveProtocolToApi(renumbered);
+    setStepIndexToDelete(null);
   }
 
   function handleMove(index: number, direction: "up" | "down") {
@@ -223,13 +232,13 @@ export default function AdminProtocolPage() {
                 >
                   <Edit2 className="w-3.5 h-3.5" />
                 </button>
-                <button
-                  onClick={() => handleDelete(idx)}
-                  className="p-2 rounded-lg bg-white/5 hover:bg-red-500/20 text-[#9aa89b] hover:text-red-400 cursor-pointer"
-                  title="Delete Step"
-                >
-                  <Trash2 className="w-3.5 h-3.5" />
-                </button>
+                        <button
+                          onClick={() => setStepIndexToDelete(idx)}
+                          className="p-1.5 rounded-lg bg-white/5 hover:bg-red-500/20 text-[#9aa89b] hover:text-red-400 transition cursor-pointer"
+                          title="Delete Step"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
               </div>
             </div>
           ))}
@@ -352,6 +361,15 @@ export default function AdminProtocolPage() {
           </form>
         </AdminModal>
       )}
+
+      {/* Delete Confirmation Modal */}
+      <DeleteConfirmModal
+        isOpen={stepIndexToDelete !== null}
+        onClose={() => setStepIndexToDelete(null)}
+        onConfirm={handleConfirmDeleteStep}
+        itemTitle={stepIndexToDelete !== null ? steps[stepIndexToDelete]?.title || "step" : "step"}
+        itemType="protocol step"
+      />
     </div>
   );
 }

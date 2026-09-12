@@ -138,7 +138,12 @@ export default function CompanyProfileHub({ initialCompany, initialProtocol }: C
               return (
                 <button
                   key={tab.key}
-                  onClick={() => setActiveTab(tab.key)}
+                  onClick={() => {
+                    setActiveTab(tab.key);
+                    if (typeof window !== "undefined") {
+                      window.history.replaceState(null, "", `#${tab.key}`);
+                    }
+                  }}
                   className={`px-4 py-2.5 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-200 flex items-center gap-2 shrink-0 cursor-pointer select-none ${
                     isActive
                       ? "bg-linear-to-r from-[#15803d] to-[#16a34a] text-[#f6f7f4] shadow-[0_2px_14px_rgba(22,163,74,0.35)] scale-100"

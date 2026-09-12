@@ -4,7 +4,8 @@ import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { motion } from "framer-motion";
 import { Phone, Mail, MapPin, Send, AlertCircle, Clock, Copy, Check, MessageCircle, ExternalLink, Navigation, X } from "lucide-react";
-import { companyData } from "@/data/company";
+import confetti from "canvas-confetti";
+import { companyData as defaultCompany } from "@/data/company";
 import { useIsMounted } from "@/hooks/useIsMounted";
 import { useLenisScrollLock } from "@/hooks/useLenisScrollLock";
 import type { CompanyData } from "@/types/admin";
@@ -14,10 +15,13 @@ interface ContactSectionProps {
 }
 
 export default function ContactSection({ initialCompany }: ContactSectionProps = {}) {
-  const company = initialCompany || companyData;
+  const company = initialCompany || defaultCompany;
   const [fullName, setFullName] = useState("");
+  const [companyName, setCompanyName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [inquiryType, setInquiryType] = useState<"Commercial" | "Government" | "General" | "RFP">("Commercial");
+  const [preferredContact, setPreferredContact] = useState<"email" | "phone" | "either">("either");
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
   const [consent, setConsent] = useState(false);
@@ -46,12 +50,14 @@ export default function ContactSection({ initialCompany }: ContactSectionProps =
 
   const compiledInquiry =
     `[FOREST HILLS GARDEN - INQUIRY DOSSIER]\n` +
-    `Client/Contact: ${fullName}\n` +
+    `Client/Contact: ${fullName}${companyName ? ` (${companyName})` : ""}\n` +
     `Email: ${email}\n` +
     `Phone: ${phone}\n` +
+    `Classification: ${inquiryType}\n` +
+    `Preferred Contact: ${preferredContact}\n` +
     `Subject/Location: ${subject}\n\n` +
     `Project Requirements:\n${message}\n\n` +
-    `Target Recipient: ${(company.headOffice?.emails || companyData.headOffice.emails).join(" / ")}`;
+    `Target Recipient: ${(company.headOffice?.emails || defaultCompany.headOffice.emails).join(" / ")}`;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -83,14 +89,29 @@ export default function ContactSection({ initialCompany }: ContactSectionProps =
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           fullName,
+          company: companyName,
           email,
           phone,
+          type: inquiryType,
+          preferredContactMethod: preferredContact,
           subject,
           message,
           consent,
           website: honeypot,
         }),
       });
+
+      // Trigger celebration confetti
+      try {
+        confetti({
+          particleCount: 70,
+          spread: 60,
+          origin: { y: 0.6 },
+          colors: ["#22c55e", "#4ade80", "#15803d", "#f59e0b"],
+        });
+      } catch {
+        // ignore
+      }
     } catch {
       // Graceful fallback
     } finally {
@@ -181,7 +202,7 @@ export default function ContactSection({ initialCompany }: ContactSectionProps =
                   Telefax / Landline Desk
                 </span>
                 <span className="text-base font-semibold text-[#f6f7f4] group-hover:text-[#4ade80] transition-colors">
-                  {company.headOffice?.telefax || companyData.headOffice.telefax}
+                  {company.headOffice?.telefax || defaultCompany.headOffice.telefax}
                 </span>
               </div>
             </a>
@@ -197,7 +218,7 @@ export default function ContactSection({ initialCompany }: ContactSectionProps =
                     Mobile Operations Dispatch
                   </span>
                   <span className="text-sm font-semibold text-[#f6f7f4]">
-                    {(company.headOffice?.mobiles || companyData.headOffice.mobiles).join(" • ")}
+                    {(company.headOffice?.mobiles || defaultCompany.headOffice.mobiles).join(" • ")}
                   </span>
                 </div>
               </div>
@@ -212,28 +233,40 @@ export default function ContactSection({ initialCompany }: ContactSectionProps =
                   <span>WhatsApp</span>
                 </a>
                 <a
-                  href="viber://chat?number=639165667265"
+                  href="viber://chat?number=%2B639165667265"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#7360f2]/15 text-[#9d8df8] hover:bg-[#7360f2] hover:text-white text-xs font-semibold transition-colors"
+                >
+                  <Phone className="w-3.5 h-3.5" />
+                  <span>Viber App</span>
+                </a>
+                <button
+                  type="button"
                   onClick={() => {
-                    if (typeof navigator !== "undefined" && navigator.clipboard) {
-                      navigator.clipboard.writeText("+639165667265");
-                    }
+                    navigator.clipboard.writeText("+63 916 566 7265");
+                    setViberCopied(true);
+                    setTimeout(() => setViberCopied(false), 2000);
                   }}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 text-[#9aa89b] hover:text-[#f6f7f4] border border-white/10 text-xs font-semibold transition-colors"
+                  className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-xs text-[#9aa89b] hover:text-[#f6f7f4] border border-white/10 transition-colors"
+                  title="Copy direct mobile number for Viber search"
                 >
-                  <MessageCircle className="w-3.5 h-3.5" />
-                  <span>Viber</span>
-                </a>
-                <a
-                  href="tel:09165667265"
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 text-[#9aa89b] hover:text-[#f6f7f4] border border-white/10 text-xs font-semibold transition-colors"
-                >
-                  <span>Call 0916 566 7265</span>
-                </a>
+                  {viberCopied ? (
+                    <>
+                      <Check className="w-3 h-3 text-[#22c55e]" />
+                      <span className="text-[11px] text-[#22c55e]">Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-3 h-3" />
+                      <span className="text-[11px]">Copy No.</span>
+                    </>
+                  )}
+                </button>
               </div>
             </div>
 
+            {/* Email Contact Card */}
             <a
-              href="mailto:edluna1971@yahoo.com?cc=iamfeluna@yahoo.com"
+              href={`mailto:${company.headOffice?.emails?.[0] || defaultCompany.headOffice.emails[0]}`}
               className="rounded-xl bg-[#0a170d] p-6 flex items-center gap-4 border border-white/10 group hover:border-[#22c55e]/40 transition-colors"
             >
               <div className="w-11 h-11 rounded-lg bg-[#050d07] border border-white/10 flex items-center justify-center text-[#22c55e] group-hover:border-[#22c55e]/50 transition-colors">
@@ -244,7 +277,7 @@ export default function ContactSection({ initialCompany }: ContactSectionProps =
                   Executive Email
                 </span>
                 <span className="text-sm font-semibold text-[#f6f7f4] group-hover:text-[#4ade80] transition-colors">
-                  {(company.headOffice?.emails || companyData.headOffice.emails).join(" / ")}
+                  {(company.headOffice?.emails || defaultCompany.headOffice.emails).join(" / ")}
                 </span>
               </div>
             </a>
@@ -265,16 +298,16 @@ export default function ContactSection({ initialCompany }: ContactSectionProps =
                     </span>
                   </div>
                   <span className="text-xs sm:text-sm font-medium text-[#f6f7f4] block">
-                    {company.headOffice?.address || companyData.headOffice.address}
+                    {company.headOffice?.address || defaultCompany.headOffice.address}
                   </span>
                   <span className="text-[11px] font-mono text-[#9aa89b] block mt-0.5">
-                    Plus Code: {company.headOffice?.plusCode || companyData.headOffice.plusCode}
+                    Plus Code: {company.headOffice?.plusCode || defaultCompany.headOffice.plusCode}
                   </span>
                 </div>
               </div>
               <div className="pt-3 border-t border-white/10 flex items-center gap-2">
                 <a
-                  href={company.headOffice?.wazeUrl || companyData.headOffice.wazeUrl}
+                  href={company.headOffice?.wazeUrl || defaultCompany.headOffice.wazeUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 hover:bg-white/10 text-xs font-medium text-[#f6f7f4] border border-white/10 transition-colors"
@@ -283,7 +316,7 @@ export default function ContactSection({ initialCompany }: ContactSectionProps =
                   <span>Waze</span>
                 </a>
                 <a
-                  href={company.headOffice?.googleMapsUrl || companyData.headOffice.googleMapsUrl}
+                  href={company.headOffice?.googleMapsUrl || defaultCompany.headOffice.googleMapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 hover:bg-white/10 text-xs font-medium text-[#f6f7f4] border border-white/10 transition-colors"
@@ -324,7 +357,7 @@ export default function ContactSection({ initialCompany }: ContactSectionProps =
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-semibold text-[#9aa89b] uppercase tracking-wider mb-1.5">
-                    Full Name
+                    Full Name <span className="text-red-400">*</span>
                   </label>
                   <input
                     type="text"
@@ -348,7 +381,22 @@ export default function ContactSection({ initialCompany }: ContactSectionProps =
 
                 <div>
                   <label className="block text-xs font-semibold text-[#9aa89b] uppercase tracking-wider mb-1.5">
-                    Email Address
+                    Company / Organization (Optional)
+                  </label>
+                  <input
+                    type="text"
+                    value={companyName}
+                    onChange={(e) => setCompanyName(e.target.value)}
+                    placeholder="e.g. Ayala Land, EEI, DMCI, LGU"
+                    className="w-full px-3.5 py-2.5 rounded-lg form-input text-xs"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-semibold text-[#9aa89b] uppercase tracking-wider mb-1.5">
+                    Email Address <span className="text-red-400">*</span>
                   </label>
                   <input
                     type="email"
@@ -369,12 +417,10 @@ export default function ContactSection({ initialCompany }: ContactSectionProps =
                     </span>
                   )}
                 </div>
-              </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-semibold text-[#9aa89b] uppercase tracking-wider mb-1.5">
-                    Contact Phone Number
+                    Contact Phone Number <span className="text-red-400">*</span>
                   </label>
                   <input
                     type="tel"
@@ -395,10 +441,28 @@ export default function ContactSection({ initialCompany }: ContactSectionProps =
                     </span>
                   )}
                 </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-semibold text-[#9aa89b] uppercase tracking-wider mb-1.5">
+                    Classification
+                  </label>
+                  <select
+                    value={inquiryType}
+                    onChange={(e) => setInquiryType(e.target.value as typeof inquiryType)}
+                    className="w-full px-3.5 py-2.5 rounded-lg form-input text-xs bg-[#0a170d]"
+                  >
+                    <option value="Commercial">Commercial Contractor / Developer</option>
+                    <option value="Government">Government / LGU Procurement</option>
+                    <option value="RFP">Formal RFP / Quotation Tender</option>
+                    <option value="General">General Inquiries & Nurseries</option>
+                  </select>
+                </div>
 
                 <div>
                   <label className="block text-xs font-semibold text-[#9aa89b] uppercase tracking-wider mb-1.5">
-                    Project Subject / Scope
+                    Project Subject / Scope <span className="text-red-400">*</span>
                   </label>
                   <input
                     type="text"
@@ -421,12 +485,41 @@ export default function ContactSection({ initialCompany }: ContactSectionProps =
                 </div>
               </div>
 
+              {/* Preferred Contact Method */}
+              <div className="flex flex-wrap items-center gap-2 text-xs">
+                <span className="text-xs font-semibold text-[#9aa89b] uppercase tracking-wider">
+                  Preferred Contact:
+                </span>
+                <div className="flex items-center gap-1 bg-[#050e07] p-1 rounded-lg border border-white/10">
+                  {(["either", "email", "phone"] as const).map((method) => (
+                    <button
+                      key={method}
+                      type="button"
+                      onClick={() => setPreferredContact(method)}
+                      className={`px-2.5 py-1 rounded-md text-[11px] transition cursor-pointer capitalize ${
+                        preferredContact === method
+                          ? "bg-[#22c55e] text-[#050e07] font-bold shadow-xs"
+                          : "text-[#9aa89b] hover:text-white"
+                      }`}
+                    >
+                      {method}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
               <div>
-                <label className="block text-xs font-semibold text-[#9aa89b] uppercase tracking-wider mb-1.5">
-                  Project Details &amp; Requirements
-                </label>
+                <div className="flex items-center justify-between mb-1.5">
+                  <label className="block text-xs font-semibold text-[#9aa89b] uppercase tracking-wider">
+                    Project Details &amp; Requirements <span className="text-red-400">*</span>
+                  </label>
+                  <span className={`text-[10px] font-mono ${message.length > 2800 ? "text-amber-400" : "text-[#9aa89b]"}`}>
+                    {message.length} / 3000
+                  </span>
+                </div>
                 <textarea
                   rows={4}
+                  maxLength={3000}
                   value={message}
                   onChange={(e) => {
                     setMessage(e.target.value);

@@ -7,6 +7,8 @@ export interface DocumentItem {
   fileSize: string;
   description: string;
   status: "Audited & Active" | "Official Certified";
+  issuedDate?: string;
+  expiryDate?: string;
 }
 
 const currentYears = new Date().getFullYear() - 1998;
@@ -21,6 +23,8 @@ export const documents: DocumentItem[] = [
     fileSize: "314 KB PDF",
     description: `Official corporate profile signed by Mrs. Marife B. Luna detailing ${currentYears}+ years of contracting history, corporate transition to Forest Hills Ventures Inc. (SEC Reg. 2023060103408-45), 90-unit chainsaw fleet, and signature infrastructure projects.`,
     status: "Official Certified",
+    issuedDate: "2025-05-28",
+    expiryDate: "2030-05-28",
   },
   {
     id: "bir-cor",

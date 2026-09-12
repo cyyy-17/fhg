@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { verifySessionToken } from "@/lib/auth";
+import { CSRF_COOKIE_NAME, CSRF_HEADER_NAME, generateCsrfToken, validateCsrfToken } from "@/lib/csrf";
 
 interface RateLimitEntry {
   count: number;
@@ -47,7 +48,7 @@ function getClientIp(request: NextRequest): string {
   return request.headers.get("x-real-ip") || "127.0.0.1";
 }
 
-export async function proxy(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const ip = getClientIp(request);
   pruneRateLimitMap();
@@ -63,9 +64,9 @@ export async function proxy(request: NextRequest) {
     }
   }
 
-  // 2. Rate Limiting on Admin Login Attempts (10 per 15 minutes)
+  // 2. Rate Limiting on Admin Login Attempts (5 per 15 minutes for brute-force defense)
   if (pathname === "/api/admin/auth/login" && request.method === "POST") {
-    const isLimited = checkRateLimit(`login:${ip}`, 10, 15 * 60 * 1000);
+    const isLimited = checkRateLimit(`login:${ip}`, 5, 15 * 60 * 1000);
     if (isLimited) {
       return NextResponse.json(
         { error: "Too many authentication attempts. Access locked for 15 minutes." },
@@ -74,15 +75,29 @@ export async function proxy(request: NextRequest) {
     }
   }
 
+  // Helper to ensure CSRF cookie is set on outgoing response
+  const attachCsrfCookieIfNeeded = (res: NextResponse): NextResponse => {
+    const existingCsrf = request.cookies.get(CSRF_COOKIE_NAME)?.value;
+    if (!existingCsrf) {
+      res.cookies.set(CSRF_COOKIE_NAME, generateCsrfToken(), {
+        httpOnly: false,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+        path: "/",
+      });
+    }
+    return res;
+  };
+
   // 3. Protect /admin Web Pages
   if (pathname.startsWith("/admin")) {
     if (pathname === "/admin/login") {
       // If already logged in and navigating to login, redirect to /admin dashboard
       const token = request.cookies.get("fhg_admin_session")?.value;
       if (token && (await verifySessionToken(token))) {
-        return NextResponse.redirect(new URL("/admin", request.url));
+        return attachCsrfCookieIfNeeded(NextResponse.redirect(new URL("/admin", request.url)));
       }
-      return NextResponse.next();
+      return attachCsrfCookieIfNeeded(NextResponse.next());
     }
 
     // Check authentication for all other /admin routes
@@ -94,12 +109,14 @@ export async function proxy(request: NextRequest) {
       loginUrl.searchParams.set("from", pathname);
       return NextResponse.redirect(loginUrl);
     }
+
+    return attachCsrfCookieIfNeeded(NextResponse.next());
   }
 
-  // 4. Protect /api/admin Routes (except login)
+  // 4. Protect /api/admin Routes (except login & csrf)
   if (pathname.startsWith("/api/admin")) {
-    if (pathname.startsWith("/api/admin/auth/login")) {
-      return NextResponse.next();
+    if (pathname.startsWith("/api/admin/auth/login") || pathname === "/api/admin/csrf") {
+      return attachCsrfCookieIfNeeded(NextResponse.next());
     }
 
     const token = request.cookies.get("fhg_admin_session")?.value;
@@ -108,6 +125,22 @@ export async function proxy(request: NextRequest) {
     if (!isValid) {
       return NextResponse.json({ error: "Unauthorized administrative request." }, { status: 401 });
     }
+
+    // CSRF Protection on mutating requests (POST, PUT, PATCH, DELETE)
+    const isMutatingMethod = ["POST", "PUT", "PATCH", "DELETE"].includes(request.method);
+    if (isMutatingMethod) {
+      const cookieCsrf = request.cookies.get(CSRF_COOKIE_NAME)?.value;
+      const headerCsrf = request.headers.get(CSRF_HEADER_NAME);
+
+      if (!validateCsrfToken(cookieCsrf, headerCsrf)) {
+        return NextResponse.json(
+          { error: "Security validation failed: Invalid or missing CSRF token." },
+          { status: 403 }
+        );
+      }
+    }
+
+    return attachCsrfCookieIfNeeded(NextResponse.next());
   }
 
   return NextResponse.next();

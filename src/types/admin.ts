@@ -22,12 +22,26 @@ export interface InquiryRecord {
   status: "unread" | "read" | "archived";
   dossierText?: string;
   internalNote?: string;
+  type?: "Commercial" | "Government" | "General" | "RFP";
+  estimatedValue?: string;
+  repliedAt?: string;
+  preferredContactMethod?: "email" | "phone" | "either";
+}
+
+export interface AuditLogEntry {
+  id: string;
+  timestamp: string;
+  action: string;
+  actor: string;
+  ip?: string;
+  details?: string;
 }
 
 export interface AdminSettings {
   contactEmail?: string;
   adminPassword?: string;
   notificationEnabled?: boolean;
+  sessionTimeoutMinutes?: number;
 }
 
 export interface AdminStore {
@@ -42,6 +56,7 @@ export interface AdminStore {
   documents: DocumentItem[];
   inquiries: InquiryRecord[];
   settings?: AdminSettings;
+  auditLogs?: AuditLogEntry[];
   lastUpdated: string;
 }
 

@@ -16,6 +16,8 @@ import {
 } from "lucide-react";
 import AdminHeader from "@/components/admin/AdminHeader";
 import AdminModal from "@/components/admin/AdminModal";
+import DeleteConfirmModal from "@/components/admin/DeleteConfirmModal";
+import { getAdminMutationHeaders } from "@/lib/csrf-client";
 import type { SpeciesItem } from "@/data/species";
 import type { CompanyData } from "@/types/admin";
 
@@ -30,6 +32,7 @@ export default function AdminNurseriesPage() {
   const [isSaving, setIsSaving] = useState(false);
   const [feedback, setFeedback] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [speciesToDelete, setSpeciesToDelete] = useState<SpeciesItem | null>(null);
 
   useEffect(() => {
     let mounted = true;
@@ -67,9 +70,10 @@ export default function AdminNurseriesPage() {
     setFeedback(null);
     setError(null);
     try {
+      const headers = await getAdminMutationHeaders();
       const res = await fetch("/api/admin/data", {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers,
         body: JSON.stringify({ section: "company", data: company }),
       });
 
@@ -89,9 +93,10 @@ export default function AdminNurseriesPage() {
     setFeedback(null);
     setError(null);
     try {
+      const headers = await getAdminMutationHeaders();
       const res = await fetch("/api/admin/data", {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers,
         body: JSON.stringify({ section: "species", data: updated }),
       });
 
@@ -138,10 +143,11 @@ export default function AdminNurseriesPage() {
     saveSpeciesList(next);
   }
 
-  function handleDeleteSpecies(id: string) {
-    if (!confirm("Are you sure you want to remove this species entry?")) return;
-    const next = species.filter((s) => s.id !== id);
-    saveSpeciesList(next);
+  async function handleConfirmDeleteSpecies() {
+    if (!speciesToDelete) return;
+    const next = species.filter((s) => s.id !== speciesToDelete.id);
+    await saveSpeciesList(next);
+    setSpeciesToDelete(null);
   }
 
   function handleMoveSpecies(index: number, direction: "up" | "down") {
@@ -366,7 +372,7 @@ export default function AdminNurseriesPage() {
                               <Edit2 className="w-3.5 h-3.5" />
                             </button>
                             <button
-                              onClick={() => handleDeleteSpecies(item.id)}
+                              onClick={() => setSpeciesToDelete(item)}
                               className="p-1.5 rounded-lg bg-white/5 hover:bg-red-500/20 text-[#9aa89b] hover:text-red-400 transition cursor-pointer"
                               title="Delete Species"
                             >
@@ -762,6 +768,15 @@ export default function AdminNurseriesPage() {
           </form>
         </AdminModal>
       )}
+
+      {/* Delete Confirmation Modal */}
+      <DeleteConfirmModal
+        isOpen={Boolean(speciesToDelete)}
+        onClose={() => setSpeciesToDelete(null)}
+        onConfirm={handleConfirmDeleteSpecies}
+        itemTitle={speciesToDelete?.commonName || "species"}
+        itemType="nursery species"
+      />
     </div>
   );
 }

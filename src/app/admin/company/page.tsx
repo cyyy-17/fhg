@@ -15,6 +15,7 @@ import {
   FileCheck,
 } from "lucide-react";
 import AdminHeader from "@/components/admin/AdminHeader";
+import { getAdminMutationHeaders } from "@/lib/csrf-client";
 import type { CompanyData } from "@/types/admin";
 import CompanyIdentityForm from "@/components/admin/company/CompanyIdentityForm";
 import CompanyTransitionForm from "@/components/admin/company/CompanyTransitionForm";
@@ -76,9 +77,10 @@ export default function AdminCompanyPage() {
     setErrorMessage(null);
 
     try {
+      const headers = await getAdminMutationHeaders();
       const res = await fetch("/api/admin/data", {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers,
         body: JSON.stringify({ section: "company", data }),
       });
 

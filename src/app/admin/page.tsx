@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useId, useMemo } from "react";
 import Link from "next/link";
 import {
   Building2,
@@ -12,8 +12,6 @@ import {
   FileText,
   Mail,
   ArrowUpRight,
-  Clock,
-  Download,
   AlertTriangle,
   RefreshCw,
   CheckCircle2,
@@ -22,6 +20,7 @@ import {
   ShieldCheck,
   HelpCircle,
   ClipboardList,
+  TrendingUp,
 } from "lucide-react";
 import AdminHeader from "@/components/admin/AdminHeader";
 import type { AdminStore, InquiryRecord } from "@/types/admin";
@@ -30,6 +29,7 @@ export default function AdminDashboardPage() {
   const [store, setStore] = useState<AdminStore | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const gradientId = useId();
 
   useEffect(() => {
     let mounted = true;
@@ -76,18 +76,38 @@ export default function AdminDashboardPage() {
       });
   }
 
-  function handleExportBackup() {
-    if (!store) return;
-    const blob = new Blob([JSON.stringify(store, null, 2)], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `fhg_backup_${new Date().toISOString().split("T")[0]}.json`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  }
+  // 7-day inquiry volume data computation (Decision 3)
+  const chartData = useMemo(() => {
+    const days: { day: string; dateStr: string; count: number }[] = [];
+    const now = new Date();
+
+    for (let i = 6; i >= 0; i--) {
+      const d = new Date();
+      d.setDate(now.getDate() - i);
+      const dateKey = d.toISOString().split("T")[0];
+      const dayName = d.toLocaleDateString("en-US", { weekday: "short" });
+
+      const dayInquiries = (store?.inquiries || []).filter((inq) => {
+        try {
+          return inq.timestamp.startsWith(dateKey);
+        } catch {
+          return false;
+        }
+      });
+
+      days.push({
+        day: dayName,
+        dateStr: `${d.getMonth() + 1}/${d.getDate()}`,
+        count: dayInquiries.length,
+      });
+    }
+    return days;
+  }, [store?.inquiries]);
+
+  const maxInquiries = useMemo(() => {
+    const maxVal = Math.max(...chartData.map((d) => d.count), 0);
+    return Math.max(maxVal, 5); // minimum scale height of 5
+  }, [chartData]);
 
   if (loading) {
     return (
@@ -132,7 +152,7 @@ export default function AdminDashboardPage() {
   const statCards = [
     {
       label: "Inquiry Inbox",
-      value: store.inquiries?.length || 0,
+      value: store.inquiries?.length ?? 0,
       subtext: `${unreadInquiries.length} pending review`,
       icon: Mail,
       href: "/admin/inquiries",
@@ -140,56 +160,56 @@ export default function AdminDashboardPage() {
     },
     {
       label: "Services Portfolio",
-      value: store.services?.length || 0,
+      value: store.services?.length ?? 0,
       subtext: "Industrial Arboriculture",
       icon: Trees,
       href: "/admin/services",
     },
     {
       label: "Signature Projects",
-      value: store.projects?.length || 0,
-      subtext: `${ongoingProjects.length} Active • ${(store.projects?.length || 0) - ongoingProjects.length} Completed`,
+      value: store.projects?.length ?? 0,
+      subtext: `${ongoingProjects.length} Active • ${(store.projects?.length ?? 0) - ongoingProjects.length} Completed`,
       icon: Briefcase,
       href: "/admin/projects",
     },
     {
       label: "Client Partners",
-      value: store.clients?.length || 0,
-      subtext: "SMC, Ayala, EEI, DMCI & DENR",
+      value: store.clients?.length ?? 0,
+      subtext: "Enterprise Contracting Tenders",
       icon: Users,
       href: "/admin/clients",
     },
     {
       label: "Batangas Nurseries",
-      value: store.company?.nurseries?.length || 3,
-      subtext: `${store.species?.length || 8} Cultivated Species`,
+      value: store.company?.nurseries?.length ?? 3,
+      subtext: `${store.species?.length ?? 0} Propagated Species`,
       icon: Sprout,
       href: "/admin/nurseries",
     },
     {
       label: "Equipment Fleet",
-      value: store.equipment?.length || 8,
+      value: store.equipment?.length ?? 0,
       subtext: "90 DENR Chainsaws + Cranes",
       icon: Truck,
       href: "/admin/equipment",
     },
     {
       label: "Document Vault",
-      value: store.documents?.length || 6,
+      value: store.documents?.length ?? 0,
       subtext: "Audited BIR, DTI, Dossiers",
       icon: FileText,
       href: "/admin/documents",
     },
     {
       label: "Standard Protocol",
-      value: store.protocol?.length || 6,
+      value: store.protocol?.length ?? 0,
       subtext: "Step-by-step Procedures",
       icon: ClipboardList,
       href: "/admin/protocol",
     },
     {
       label: "Knowledge & FAQs",
-      value: store.faqs?.length || 7,
+      value: store.faqs?.length ?? 0,
       subtext: "Public Q&A and Guidance",
       icon: HelpCircle,
       href: "/admin/faqs",
@@ -210,31 +230,162 @@ export default function AdminDashboardPage() {
         subtitle={`Live synchronization active • Last updated: ${new Date(
           store.lastUpdated
         ).toLocaleString()}`}
-        actionButton={
-          <button
-            type="button"
-            onClick={handleExportBackup}
-            className="px-3.5 py-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-semibold text-[#f6f7f4] transition flex items-center gap-1.5 cursor-pointer"
-          >
-            <Download className="w-3.5 h-3.5 text-[#22c55e]" />
-            <span>Export Full Backup</span>
-          </button>
-        }
+        lastUpdated={store.lastUpdated}
       />
 
-      {/* Persistence Health Banner */}
-      <div className="p-4 rounded-xl bg-[#0a170d] border border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
-        <div className="flex items-center gap-2.5">
-          <span className="w-2.5 h-2.5 rounded-full bg-[#22c55e] animate-pulse" />
-          <span className="font-semibold text-[#f6f7f4]">Data Store Status: Active</span>
-          <span className="text-white/20">•</span>
-          <span className="text-[#9aa89b]">
-            All updates made through this console take immediate effect on public client inquiries and pages.
-          </span>
+      {/* Unread Inquiries Banner (If Any) */}
+      {unreadInquiries.length > 0 && (
+        <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-between gap-3 text-xs text-amber-200">
+          <div className="flex items-center gap-2.5">
+            <span className="relative flex h-2.5 w-2.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-amber-500"></span>
+            </span>
+            <span className="font-semibold text-amber-100">
+              {unreadInquiries.length} New Unread {unreadInquiries.length === 1 ? "Inquiry" : "Inquiries"}
+            </span>
+            <span className="text-amber-500/40">•</span>
+            <span className="text-amber-200/80 hidden sm:inline">
+              Prospective clients have submitted RFPs awaiting technical qualification.
+            </span>
+          </div>
+          <Link
+            href="/admin/inquiries"
+            className="px-3 py-1.5 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 border border-amber-500/40 text-amber-200 font-semibold transition shrink-0"
+          >
+            Review Inbox →
+          </Link>
         </div>
-        <div className="flex items-center gap-2 text-[#9aa89b] font-mono text-[11px]">
-          <Clock className="w-3.5 h-3.5 text-[#4ade80]" />
-          <span>Synced: {new Date(store.lastUpdated).toLocaleTimeString()}</span>
+      )}
+
+      {/* 7-Day Inquiry Volume Activity Chart (Decision 3) */}
+      <div className="bg-[#0a170d] border border-white/10 rounded-2xl p-6 space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/10 pb-4">
+          <div>
+            <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-[#22c55e]">
+              <TrendingUp className="w-4 h-4" />
+              <span>Inquiry Velocity</span>
+            </div>
+            <h3 className="text-base font-bold font-heading text-[#f6f7f4] mt-0.5">
+              7-Day Lead & RFP Volume
+            </h3>
+          </div>
+          <div className="text-xs text-[#9aa89b] font-mono">
+            Past 7 Days: <span className="text-white font-bold">{chartData.reduce((acc, c) => acc + c.count, 0)} total inquiries</span>
+          </div>
+        </div>
+
+        {/* SVG Bar Chart with unique useId gradient */}
+        <div className="w-full pt-2">
+          <svg viewBox="0 0 700 160" className="w-full h-40 overflow-visible">
+            <defs>
+              <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#22c55e" stopOpacity="0.9" />
+                <stop offset="100%" stopColor="#15803d" stopOpacity="0.2" />
+              </linearGradient>
+            </defs>
+
+            {/* Horizontal Grid Lines */}
+            {[0, 0.5, 1].map((ratio, idx) => {
+              const y = 120 - ratio * 100;
+              return (
+                <g key={idx}>
+                  <line
+                    x1="40"
+                    y1={y}
+                    x2="680"
+                    y2={y}
+                    stroke="rgba(255,255,255,0.06)"
+                    strokeDasharray="4 4"
+                  />
+                  <text
+                    x="28"
+                    y={y + 4}
+                    fill="#9aa89b"
+                    fontSize="10"
+                    textAnchor="end"
+                    fontFamily="monospace"
+                  >
+                    {Math.round(ratio * maxInquiries)}
+                  </text>
+                </g>
+              );
+            })}
+
+            {/* Bars & Labels */}
+            {chartData.map((d, index) => {
+              const slotWidth = (640 / 7);
+              const x = 50 + index * slotWidth;
+              const barWidth = Math.min(slotWidth - 24, 48);
+              const barHeight = Math.max((d.count / maxInquiries) * 100, d.count > 0 ? 8 : 2);
+              const y = 120 - barHeight;
+
+              return (
+                <g key={d.dateStr} className="group cursor-pointer">
+                  {/* Bar Background Hover Area */}
+                  <rect
+                    x={x}
+                    y={20}
+                    width={barWidth}
+                    height={100}
+                    fill="transparent"
+                    className="hover:fill-white/5 transition"
+                  />
+
+                  {/* Count Label Above Bar */}
+                  <text
+                    x={x + barWidth / 2}
+                    y={y - 6}
+                    fill={d.count > 0 ? "#4ade80" : "#9aa89b"}
+                    fontSize="11"
+                    fontWeight={d.count > 0 ? "bold" : "normal"}
+                    textAnchor="middle"
+                    fontFamily="monospace"
+                  >
+                    {d.count}
+                  </text>
+
+                  {/* Bar */}
+                  <rect
+                    x={x}
+                    y={y}
+                    width={barWidth}
+                    height={barHeight}
+                    rx="4"
+                    fill={d.count > 0 ? `url(#${gradientId})` : "rgba(255,255,255,0.05)"}
+                    stroke={d.count > 0 ? "#4ade80" : "rgba(255,255,255,0.1)"}
+                    strokeWidth="1"
+                    className="transition-all duration-300 group-hover:brightness-125"
+                  />
+
+                  {/* Day Label */}
+                  <text
+                    x={x + barWidth / 2}
+                    y="138"
+                    fill="#f6f7f4"
+                    fontSize="11"
+                    textAnchor="middle"
+                    fontFamily="system-ui, sans-serif"
+                    fontWeight="500"
+                  >
+                    {d.day}
+                  </text>
+
+                  {/* Date Sub-label */}
+                  <text
+                    x={x + barWidth / 2}
+                    y="152"
+                    fill="#9aa89b"
+                    fontSize="10"
+                    textAnchor="middle"
+                    fontFamily="monospace"
+                  >
+                    {d.dateStr}
+                  </text>
+                </g>
+              );
+            })}
+          </svg>
         </div>
       </div>
 
@@ -285,7 +436,7 @@ export default function AdminDashboardPage() {
                 <ChevronRight className="w-3.5 h-3.5 text-[#9aa89b] group-hover:text-[#22c55e] transition" />
               </div>
               <p className="text-[11px] text-[#9aa89b] mt-2 leading-relaxed">
-                Update the console security key anytime. Changing your password immediately secures all sessions.
+                Update the console security key anytime. Changing your password immediately secures all sessions with bcrypt.
               </p>
             </div>
             <div className="text-[10px] font-mono text-[#4ade80] mt-3 flex items-center gap-1">
@@ -306,7 +457,7 @@ export default function AdminDashboardPage() {
                 <ChevronRight className="w-3.5 h-3.5 text-[#9aa89b] group-hover:text-[#22c55e] transition" />
               </div>
               <p className="text-[11px] text-[#9aa89b] mt-2 leading-relaxed">
-                Upload PDFs or certifications. Uploaded documents automatically show up on public compliance downloads.
+                Upload PDFs or certifications. Check expiration alerts (30/60/90 days) and update regulatory files.
               </p>
             </div>
             <div className="text-[10px] font-mono text-[#4ade80] mt-3 flex items-center gap-1">
@@ -327,11 +478,11 @@ export default function AdminDashboardPage() {
                 <ChevronRight className="w-3.5 h-3.5 text-[#9aa89b] group-hover:text-[#22c55e] transition" />
               </div>
               <p className="text-[11px] text-[#9aa89b] mt-2 leading-relaxed">
-                View submitted tender details, copy technical dossiers, and click &ldquo;Reply by Email&rdquo; for instant response.
+                Filter, bulk-manage, and copy technical dossiers. Click &ldquo;Reply by Email&rdquo; for instant dispatch.
               </p>
             </div>
             <div className="text-[10px] font-mono text-[#4ade80] mt-3 flex items-center gap-1">
-              <span>Inquiries → Direct Reply</span>
+              <span>Inquiries → Bulk Actions</span>
             </div>
           </Link>
         </div>
@@ -406,6 +557,7 @@ export default function AdminDashboardPage() {
                 <tr>
                   <th className="py-2.5 px-3">Date</th>
                   <th className="py-2.5 px-3">Client</th>
+                  <th className="py-2.5 px-3">Classification</th>
                   <th className="py-2.5 px-3">Subject</th>
                   <th className="py-2.5 px-3">Status</th>
                   <th className="py-2.5 px-3 text-right">Action</th>
@@ -418,8 +570,16 @@ export default function AdminDashboardPage() {
                       {new Date(inq.timestamp).toLocaleDateString()}
                     </td>
                     <td className="py-3 px-3">
-                      <div className="font-semibold text-[#f6f7f4]">{inq.clientName}</div>
+                      <div className="font-semibold text-[#f6f7f4]">
+                        {inq.clientName}
+                        {inq.company && <span className="text-white/40 font-normal ml-1">({inq.company})</span>}
+                      </div>
                       <div className="text-[11px] text-[#9aa89b]">{inq.email}</div>
+                    </td>
+                    <td className="py-3 px-3">
+                      <span className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-white/5 border border-white/10 text-white/80">
+                        {inq.type || "General"}
+                      </span>
                     </td>
                     <td className="py-3 px-3 max-w-xs truncate text-[#9aa89b]">
                       {inq.subject}
@@ -500,8 +660,7 @@ export default function AdminDashboardPage() {
           </div>
           <h3 className="font-bold text-sm text-[#f6f7f4]">Official Document Downloads</h3>
           <p className="text-xs text-[#9aa89b] leading-relaxed">
-            Upload new PDF dossiers, BIR Form 2303, client list audits, or update existing download
-            URLs.
+            Upload new PDF dossiers, BIR Form 2303, client list audits, or monitor document expiration alerts.
           </p>
           <Link
             href="/admin/documents"

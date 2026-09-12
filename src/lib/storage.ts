@@ -5,6 +5,7 @@ import type {
   AdminSettings,
   CompanyData,
   InquiryRecord,
+  AuditLogEntry,
 } from "@/types/admin";
 import type { ServiceItem } from "@/data/services";
 import type { ProjectItem } from "@/data/projects";
@@ -24,6 +25,8 @@ import { speciesData as defaultSpecies } from "@/data/species";
 import { generalFaqs as defaultFaqs } from "@/data/faqs";
 import { protocolSteps as defaultProtocol } from "@/data/protocol";
 import { documents as defaultDocuments } from "@/data/documents";
+import { hashPassword, getDefaultAdminPassword } from "@/lib/auth";
+import { getCached, setCached, invalidateCache } from "@/lib/cache";
 
 const DB_DIR = path.join(process.cwd(), "data");
 const DB_FILE = path.join(DB_DIR, "admin-db.json");
@@ -41,6 +44,8 @@ export const DOMAIN_KEYS = {
   documents: "fhg:documents",
   inquiries: "fhg:inquiries",
   settings: "fhg:settings",
+  auditLogs: "fhg:audit_logs",
+  passwordHash: "fhg:password_hash",
 } as const;
 
 // Legacy key maintained for automatic migration of existing stores
@@ -49,6 +54,7 @@ const MONOLITHIC_KEY = "fhg:admin_store_v1";
 const defaultSettings: AdminSettings = {
   contactEmail: defaultCompany.headOffice.emails[0] || "edluna1971@yahoo.com",
   notificationEnabled: true,
+  sessionTimeoutMinutes: 60,
 };
 
 function getDefaultStore(): AdminStore {
@@ -64,6 +70,7 @@ function getDefaultStore(): AdminStore {
     documents: JSON.parse(JSON.stringify(defaultDocuments)),
     inquiries: [],
     settings: JSON.parse(JSON.stringify(defaultSettings)),
+    auditLogs: [],
     lastUpdated: new Date().toISOString(),
   };
 }
@@ -149,12 +156,16 @@ async function kvSet<T>(key: string, value: T): Promise<boolean> {
 }
 
 // Read from local JSON database file (development & offline fallback)
-function readLocalDb(): Partial<AdminStore> | null {
+interface LocalDbStore extends Partial<AdminStore> {
+  passwordHash?: string;
+}
+
+function readLocalDb(): LocalDbStore | null {
   try {
     if (fs.existsSync(DB_FILE)) {
       const content = fs.readFileSync(DB_FILE, "utf-8");
       if (content.trim()) {
-        return JSON.parse(content) as Partial<AdminStore>;
+        return JSON.parse(content) as LocalDbStore;
       }
     }
   } catch {
@@ -164,7 +175,7 @@ function readLocalDb(): Partial<AdminStore> | null {
 }
 
 // Write to local JSON database file (safe write, silently ignores read-only environments)
-function writeLocalDb(store: Partial<AdminStore>): void {
+function writeLocalDb(store: Partial<LocalDbStore>): void {
   try {
     if (!fs.existsSync(DB_DIR)) {
       fs.mkdirSync(DB_DIR, { recursive: true });
@@ -182,6 +193,11 @@ async function getDomainData<T>(
   domain: keyof typeof DOMAIN_KEYS,
   defaultVal: T
 ): Promise<T> {
+  const cached = getCached<T>(`domain:${domain}`);
+  if (cached !== null) {
+    return cached;
+  }
+
   const isDefaultArray = Array.isArray(defaultVal);
   const isValid = (candidate: unknown): candidate is T => {
     if (candidate === null || candidate === undefined) return false;
@@ -189,42 +205,43 @@ async function getDomainData<T>(
     return typeof candidate === "object" && !Array.isArray(candidate);
   };
 
+  let finalVal: T = defaultVal;
   const cfg = getKvConfig();
+
   if (cfg) {
     // 1. Check atomic per-domain key
     const val = await kvGet<unknown>(DOMAIN_KEYS[domain]);
     if (isValid(val)) {
-      return val;
-    }
-
-    // 2. Migration fallback: check legacy monolithic store in KV
-    const monolith = await kvGet<Record<string, unknown>>(MONOLITHIC_KEY);
-    if (monolith && monolith[domain] !== undefined && monolith[domain] !== null) {
-      const candidate = monolith[domain];
-      if (isValid(candidate)) {
-        // Self-heal: seed per-domain key asynchronously
-        void kvSet(DOMAIN_KEYS[domain], candidate);
-        return candidate;
+      finalVal = val;
+    } else {
+      // 2. Migration fallback: check legacy monolithic store in KV
+      const monolith = await kvGet<Record<string, unknown>>(MONOLITHIC_KEY);
+      if (monolith && monolith[domain] !== undefined && monolith[domain] !== null) {
+        const candidate = monolith[domain];
+        if (isValid(candidate)) {
+          void kvSet(DOMAIN_KEYS[domain], candidate);
+          finalVal = candidate;
+        }
+      } else {
+        // 3. Fall back to local file or default baseline
+        const local = readLocalDb();
+        const localVal = local ? (local[domain as keyof AdminStore] as unknown) : undefined;
+        finalVal = isValid(localVal) ? localVal : defaultVal;
+        void kvSet(DOMAIN_KEYS[domain], finalVal);
       }
     }
-
-    // 3. Fall back to local file or default baseline
+  } else {
+    // Local filesystem mode
     const local = readLocalDb();
-    const localVal = local ? (local[domain as keyof AdminStore] as unknown) : undefined;
-    const finalVal = isValid(localVal) ? localVal : defaultVal;
-
-    // Seed per-domain key so future reads are instantaneous
-    void kvSet(DOMAIN_KEYS[domain], finalVal);
-    return finalVal;
+    const candidate = local ? (local[domain as keyof AdminStore] as unknown) : undefined;
+    if (isValid(candidate)) {
+      finalVal = candidate;
+    }
   }
 
-  // Local filesystem mode
-  const local = readLocalDb();
-  const candidate = local ? (local[domain as keyof AdminStore] as unknown) : undefined;
-  if (isValid(candidate)) {
-    return candidate;
-  }
-  return defaultVal;
+  // Micro-cache result for 20 seconds
+  setCached(`domain:${domain}`, finalVal, 20);
+  return finalVal;
 }
 
 // Generic per-domain saver that updates KV atomically without touching other domains
@@ -232,6 +249,9 @@ async function saveDomainData<T>(
   domain: keyof typeof DOMAIN_KEYS,
   value: T
 ): Promise<T> {
+  invalidateCache(`domain:${domain}`);
+  invalidateCache("store:full");
+
   // 1. Write atomic per-domain key in KV
   await kvSet(DOMAIN_KEYS[domain], value);
 
@@ -239,6 +259,50 @@ async function saveDomainData<T>(
   writeLocalDb({ [domain]: value });
 
   return value;
+}
+
+// -----------------------------------------------------------------------------
+// Admin Password Storage (Isolated from Public Settings)
+// -----------------------------------------------------------------------------
+
+export async function getAdminPasswordHash(): Promise<string> {
+  const cfg = getKvConfig();
+  if (cfg) {
+    const hash = await kvGet<string>(DOMAIN_KEYS.passwordHash);
+    if (hash && typeof hash === "string" && hash.trim().length > 0) {
+      return hash.trim();
+    }
+  }
+
+  const local = readLocalDb();
+  if (local?.passwordHash && typeof local.passwordHash === "string" && local.passwordHash.trim().length > 0) {
+    return local.passwordHash.trim();
+  }
+
+  // Legacy fallback to settings
+  const settings = await getSettingsData().catch(() => null);
+  if (settings?.adminPassword && settings.adminPassword.trim().length > 0) {
+    return settings.adminPassword.trim();
+  }
+
+  return getDefaultAdminPassword();
+}
+
+export async function setAdminPassword(plainPassword: string): Promise<boolean> {
+  const hash = await hashPassword(plainPassword);
+
+  // Save isolated hash
+  await kvSet(DOMAIN_KEYS.passwordHash, hash);
+  writeLocalDb({ passwordHash: hash });
+
+  // Clean password from settings object if it was there
+  const settings = await getSettingsData();
+  if (settings.adminPassword) {
+    delete settings.adminPassword;
+    await saveDomainData("settings", settings);
+  }
+
+  return true;
 }
 
 // -----------------------------------------------------------------------------
@@ -318,11 +382,45 @@ export async function saveDocumentsData(documents: DocumentItem[]): Promise<Docu
 }
 
 export async function getSettingsData(): Promise<AdminSettings> {
-  return await getDomainData<AdminSettings>("settings", JSON.parse(JSON.stringify(defaultSettings)));
+  const settings = await getDomainData<AdminSettings>("settings", JSON.parse(JSON.stringify(defaultSettings)));
+  // Ensure adminPassword is never returned with settings
+  if (settings.adminPassword) {
+    delete settings.adminPassword;
+  }
+  return settings;
 }
 
 export async function saveSettingsData(settings: AdminSettings): Promise<AdminSettings> {
-  return await saveDomainData<AdminSettings>("settings", settings);
+  const sanitized = { ...settings };
+  if (sanitized.adminPassword) {
+    delete sanitized.adminPassword;
+  }
+  return await saveDomainData<AdminSettings>("settings", sanitized);
+}
+
+// -----------------------------------------------------------------------------
+// Audit Logging (Decision 2: 100 capped entries in KV)
+// -----------------------------------------------------------------------------
+
+export async function getAuditLogs(): Promise<AuditLogEntry[]> {
+  return await getDomainData<AuditLogEntry[]>("auditLogs", []);
+}
+
+export async function addAuditLog(
+  entry: Omit<AuditLogEntry, "id" | "timestamp">
+): Promise<void> {
+  try {
+    const current = await getAuditLogs();
+    const newEntry: AuditLogEntry = {
+      id: `log_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`,
+      timestamp: new Date().toISOString(),
+      ...entry,
+    };
+    const capped = [newEntry, ...current].slice(0, 100);
+    await saveDomainData("auditLogs", capped);
+  } catch (err) {
+    console.error("Failed to record audit log:", err);
+  }
 }
 
 // -----------------------------------------------------------------------------
@@ -373,6 +471,56 @@ export async function updateInquiryStatus(
   return found;
 }
 
+export async function bulkUpdateInquiryStatus(
+  ids: string[],
+  status: InquiryRecord["status"]
+): Promise<number> {
+  const idSet = new Set(ids);
+  const current = await getInquiriesData();
+  let modifiedCount = 0;
+  const updated = current.map((inq) => {
+    if (idSet.has(inq.id) && inq.status !== status) {
+      modifiedCount++;
+      return { ...inq, status };
+    }
+    return inq;
+  });
+
+  if (modifiedCount > 0) {
+    await saveInquiriesData(updated);
+  }
+  return modifiedCount;
+}
+
+export async function bulkDeleteInquiries(ids: string[]): Promise<number> {
+  const idSet = new Set(ids);
+  const current = await getInquiriesData();
+  const filtered = current.filter((inq) => !idSet.has(inq.id));
+  const removedCount = current.length - filtered.length;
+
+  if (removedCount > 0) {
+    await saveInquiriesData(filtered);
+  }
+  return removedCount;
+}
+
+export async function recordInquiryReply(id: string): Promise<boolean> {
+  const current = await getInquiriesData();
+  let found = false;
+  const updated = current.map((inq) => {
+    if (inq.id === id) {
+      found = true;
+      return { ...inq, repliedAt: new Date().toISOString(), status: "read" as const };
+    }
+    return inq;
+  });
+
+  if (found) {
+    await saveInquiriesData(updated);
+  }
+  return found;
+}
+
 export async function updateInquiryNote(
   id: string,
   internalNote: string
@@ -408,6 +556,11 @@ export async function deleteInquiryRecord(id: string): Promise<boolean> {
 // -----------------------------------------------------------------------------
 
 export async function getAdminStore(): Promise<AdminStore> {
+  const cachedStore = getCached<AdminStore>("store:full");
+  if (cachedStore) {
+    return cachedStore;
+  }
+
   const [
     company,
     services,
@@ -420,6 +573,7 @@ export async function getAdminStore(): Promise<AdminStore> {
     documents,
     inquiries,
     settings,
+    auditLogs,
   ] = await Promise.all([
     getCompanyData(),
     getServicesData(),
@@ -432,9 +586,10 @@ export async function getAdminStore(): Promise<AdminStore> {
     getDocumentsData(),
     getInquiriesData(),
     getSettingsData(),
+    getAuditLogs(),
   ]);
 
-  return {
+  const store: AdminStore = {
     company,
     services,
     projects,
@@ -446,8 +601,12 @@ export async function getAdminStore(): Promise<AdminStore> {
     documents,
     inquiries,
     settings,
+    auditLogs,
     lastUpdated: new Date().toISOString(),
   };
+
+  setCached("store:full", store, 20);
+  return store;
 }
 
 export async function saveAdminStore(updates: Partial<AdminStore>): Promise<AdminStore> {
@@ -466,10 +625,17 @@ export async function saveAdminStore(updates: Partial<AdminStore>): Promise<Admi
   if (updates.settings) promises.push(saveSettingsData(updates.settings));
 
   await Promise.all(promises);
+  invalidateCache();
   return await getAdminStore();
 }
 
 export async function resetToDefaults(): Promise<AdminStore> {
   const fresh = getDefaultStore();
-  return await saveAdminStore(fresh);
+  const result = await saveAdminStore(fresh);
+  await addAuditLog({
+    action: "system.factory_reset",
+    actor: "admin",
+    details: "All platform data reset to initial static factory defaults",
+  });
+  return result;
 }

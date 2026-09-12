@@ -15,6 +15,8 @@ import {
 } from "lucide-react";
 import AdminHeader from "@/components/admin/AdminHeader";
 import AdminModal from "@/components/admin/AdminModal";
+import DeleteConfirmModal from "@/components/admin/DeleteConfirmModal";
+import { getAdminMutationHeaders } from "@/lib/csrf-client";
 import type { ClientItem } from "@/data/clients";
 
 const SECTORS = [
@@ -34,6 +36,7 @@ export default function AdminClientsPage() {
   const [isSaving, setIsSaving] = useState(false);
   const [feedback, setFeedback] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [itemToDelete, setItemToDelete] = useState<ClientItem | null>(null);
 
   useEffect(() => {
     let mounted = true;
@@ -64,9 +67,10 @@ export default function AdminClientsPage() {
     setFeedback(null);
     setError(null);
     try {
+      const headers = await getAdminMutationHeaders();
       const res = await fetch("/api/admin/data", {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers,
         body: JSON.stringify({ section: "clients", data: updatedList }),
       });
 
@@ -108,10 +112,11 @@ export default function AdminClientsPage() {
     saveClientsToApi(next);
   }
 
-  function handleDelete(id: string) {
-    if (!confirm("Are you sure you want to remove this client from the official portfolio?")) return;
-    const next = clients.filter((c) => c.id !== id);
-    saveClientsToApi(next);
+  async function handleConfirmDelete() {
+    if (!itemToDelete) return;
+    const next = clients.filter((c) => c.id !== itemToDelete.id);
+    await saveClientsToApi(next);
+    setItemToDelete(null);
   }
 
   function handleMove(index: number, direction: "up" | "down") {
@@ -260,7 +265,7 @@ export default function AdminClientsPage() {
                           <Edit2 className="w-3.5 h-3.5" />
                         </button>
                         <button
-                          onClick={() => handleDelete(item.id)}
+                          onClick={() => setItemToDelete(item)}
                           className="p-1.5 rounded-lg bg-white/5 hover:bg-red-500/20 text-[#9aa89b] hover:text-red-400 transition cursor-pointer"
                           title="Delete Client"
                         >
@@ -368,6 +373,15 @@ export default function AdminClientsPage() {
           </form>
         </AdminModal>
       )}
+
+      {/* Delete Confirmation Modal */}
+      <DeleteConfirmModal
+        isOpen={Boolean(itemToDelete)}
+        onClose={() => setItemToDelete(null)}
+        onConfirm={handleConfirmDelete}
+        itemTitle={itemToDelete?.name || "client partner"}
+        itemType="client partner"
+      />
     </div>
   );
 }

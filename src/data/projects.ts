@@ -7,6 +7,8 @@ export interface ProjectItem {
   category: "infrastructure" | "commercial" | "reforestation";
   badge: "Ongoing" | "Completed";
   imageUrl?: string;
+  year?: string;
+  contractValue?: string;
 }
 
 export const projectsData: ProjectItem[] = [

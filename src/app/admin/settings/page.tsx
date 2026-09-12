@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import {
   Save,
@@ -20,9 +20,12 @@ import {
   Globe,
   Clock,
   AlertTriangle,
+  UserCheck,
 } from "lucide-react";
 import AdminHeader from "@/components/admin/AdminHeader";
 import AdminModal from "@/components/admin/AdminModal";
+import AdminActivityLog from "@/components/admin/AdminActivityLog";
+import { getAdminMutationHeaders } from "@/lib/csrf-client";
 import type { AdminSettings, AdminStore } from "@/types/admin";
 
 interface SystemStatus {
@@ -65,6 +68,18 @@ export default function AdminSettingsPage() {
   // Live test email dispatch state
   const [isSendingTestEmail, setIsSendingTestEmail] = useState(false);
   const [testEmailResult, setTestEmailResult] = useState<{ success: boolean; message: string } | null>(null);
+
+  // Password strength calculation
+  const passwordStrength = useMemo(() => {
+    if (!newPassword) return 0;
+    let score = 0;
+    if (newPassword.length >= 8) score += 1;
+    if (newPassword.length >= 12) score += 1;
+    if (/[A-Z]/.test(newPassword)) score += 1;
+    if (/[0-9]/.test(newPassword)) score += 1;
+    if (/[^A-Za-z0-9]/.test(newPassword)) score += 1;
+    return score;
+  }, [newPassword]);
 
   useEffect(() => {
     let mounted = true;
@@ -114,9 +129,10 @@ export default function AdminSettingsPage() {
     setErrorMessage(null);
 
     try {
+      const headers = await getAdminMutationHeaders();
       const res = await fetch("/api/admin/data", {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers,
         body: JSON.stringify({ section: "settings", data: settings }),
       });
 
@@ -138,9 +154,10 @@ export default function AdminSettingsPage() {
     setIsSendingTestEmail(true);
     setTestEmailResult(null);
     try {
+      const headers = await getAdminMutationHeaders();
       const res = await fetch("/api/admin/test-email", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers,
         body: JSON.stringify({ recipientEmail: settings.contactEmail }),
       });
       const data = await res.json();
@@ -179,26 +196,16 @@ export default function AdminSettingsPage() {
     setIsChangingPassword(true);
 
     try {
-      // 1. Verify current credentials against login endpoint
-      const verifyRes = await fetch("/api/admin/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ password: currentPassword }),
-      });
-
-      if (!verifyRes.ok) {
-        throw new Error("Current password verification failed. Please enter the valid current password.");
-      }
-
-      // 2. Save new password into settings store
+      const headers = await getAdminMutationHeaders();
       const updateRes = await fetch("/api/admin/data", {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers,
         body: JSON.stringify({
           section: "settings",
           data: {
             ...settings,
-            adminPassword: newPassword,
+            currentPassword,
+            newPassword,
           },
         }),
       });
@@ -209,7 +216,7 @@ export default function AdminSettingsPage() {
       }
 
       setPasswordFeedback(
-        "Administrator password successfully updated. Logging you out to verify new credentials..."
+        "Administrator password successfully updated and hashed with bcrypt. Logging you out to verify new credentials..."
       );
       setCurrentPassword("");
       setNewPassword("");
@@ -272,9 +279,10 @@ export default function AdminSettingsPage() {
         throw new Error("Invalid backup format: JSON must be an object.");
       }
 
+      const headers = await getAdminMutationHeaders();
       const res = await fetch("/api/admin/data", {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers,
         body: JSON.stringify({ data: parsed }),
       });
 
@@ -298,9 +306,10 @@ export default function AdminSettingsPage() {
     setErrorMessage(null);
 
     try {
+      const headers = await getAdminMutationHeaders();
       const res = await fetch("/api/admin/data", {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers,
         body: JSON.stringify({ action: "reset" }),
       });
 
@@ -424,20 +433,14 @@ export default function AdminSettingsPage() {
           <div className="p-3.5 rounded-xl bg-[#050e07] border border-white/10 space-y-1">
             <div className="flex items-center gap-2 text-xs text-[#9aa89b]">
               <Clock className="w-3.5 h-3.5 text-[#22c55e]" />
-              <span>Last Synchronized</span>
+              <span>Active Session Security</span>
             </div>
-            <div className="text-xs font-semibold text-[#f6f7f4] truncate font-mono">
-              {systemStatus?.lastUpdated
-                ? new Date(systemStatus.lastUpdated).toLocaleDateString("en-US", {
-                    month: "short",
-                    day: "numeric",
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  })
-                : "Just now"}
+            <div className="text-xs font-semibold text-[#f6f7f4] flex items-center gap-1.5">
+              <UserCheck className="w-3.5 h-3.5 text-emerald-400" />
+              <span>Admin Role (7-Day Cookie)</span>
             </div>
-            <div className="text-[10px] font-mono text-[#9aa89b]">
-              11 Independent Storage Keys
+            <div className="text-[10px] font-mono text-emerald-400">
+              Double-Submit CSRF Guard Active
             </div>
           </div>
         </div>
@@ -498,7 +501,7 @@ export default function AdminSettingsPage() {
               </button>
             </div>
             <p className="text-[11px] text-[#9aa89b] mt-1">
-              Separate multiple email recipients with commas. Website lead dossiers from the RFP Estimator and Contact form route to all listed mailboxes.
+              Separate multiple email recipients with commas. Inbound website leads and instant RFP estimations route to all listed mailboxes.
             </p>
             {testEmailResult && (
               <div
@@ -531,14 +534,14 @@ export default function AdminSettingsPage() {
             <label htmlFor="notificationsToggle" className="text-xs text-[#f6f7f4] cursor-pointer">
               <span className="font-semibold block">Enable Live Email Lead Dispatch</span>
               <span className="text-[11px] text-[#9aa89b] block">
-                Deliver inbound contractor and client inquiries immediately.
+                Sends automated email notifications to administrators upon receiving new client tenders.
               </span>
             </label>
           </div>
         </div>
       </form>
 
-      {/* 3. Administrator Password Management */}
+      {/* 3. Administrator Password Management with Strength Meter */}
       <form
         onSubmit={handlePasswordChange}
         className="bg-[#0a170d] border border-white/10 rounded-2xl p-6 space-y-4"
@@ -551,7 +554,7 @@ export default function AdminSettingsPage() {
             </h3>
           </div>
           <p className="text-xs text-[#9aa89b] mt-1">
-            Update the secure key used to access this CMS back-office panel. Changes take effect immediately.
+            Update the secure key used to access this CMS back-office panel. Requires current password verification and saves with bcrypt.
           </p>
         </div>
 
@@ -572,7 +575,7 @@ export default function AdminSettingsPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
             <label className="block text-xs font-mono uppercase text-[#9aa89b] mb-1">
-              Current Password
+              Current Password <span className="text-red-400">*</span>
             </label>
             <input
               type="password"
@@ -580,12 +583,13 @@ export default function AdminSettingsPage() {
               onChange={(e) => setCurrentPassword(e.target.value)}
               className="w-full p-2.5 rounded-lg bg-[#050e07] border border-white/15 text-xs text-[#f6f7f4] focus:ring-1 focus:ring-[#22c55e] outline-none font-mono"
               placeholder="••••••••••••"
+              required
             />
           </div>
 
           <div>
             <label className="block text-xs font-mono uppercase text-[#9aa89b] mb-1">
-              New Password (Min. 8 chars)
+              New Password (Min. 8 chars) <span className="text-red-400">*</span>
             </label>
             <input
               type="password"
@@ -593,12 +597,42 @@ export default function AdminSettingsPage() {
               onChange={(e) => setNewPassword(e.target.value)}
               className="w-full p-2.5 rounded-lg bg-[#050e07] border border-white/15 text-xs text-[#f6f7f4] focus:ring-1 focus:ring-[#22c55e] outline-none font-mono"
               placeholder="••••••••••••"
+              required
             />
+            {newPassword && (
+              <div className="mt-2 space-y-1">
+                <div className="flex gap-1 h-1 w-full bg-white/10 rounded-full overflow-hidden">
+                  <div
+                    className={`h-full transition-all duration-300 ${
+                      passwordStrength <= 2
+                        ? "w-1/3 bg-red-500"
+                        : passwordStrength <= 3
+                        ? "w-2/3 bg-amber-500"
+                        : "w-full bg-emerald-500"
+                    }`}
+                  />
+                </div>
+                <div className="text-[10px] font-mono text-[#9aa89b] flex justify-between">
+                  <span>Strength</span>
+                  <span
+                    className={
+                      passwordStrength <= 2
+                        ? "text-red-400"
+                        : passwordStrength <= 3
+                        ? "text-amber-400"
+                        : "text-emerald-400 font-semibold"
+                    }
+                  >
+                    {passwordStrength <= 2 ? "Weak" : passwordStrength <= 3 ? "Good" : "Strong"}
+                  </span>
+                </div>
+              </div>
+            )}
           </div>
 
           <div>
             <label className="block text-xs font-mono uppercase text-[#9aa89b] mb-1">
-              Confirm New Password
+              Confirm New Password <span className="text-red-400">*</span>
             </label>
             <input
               type="password"
@@ -606,6 +640,7 @@ export default function AdminSettingsPage() {
               onChange={(e) => setConfirmPassword(e.target.value)}
               className="w-full p-2.5 rounded-lg bg-[#050e07] border border-white/15 text-xs text-[#f6f7f4] focus:ring-1 focus:ring-[#22c55e] outline-none font-mono"
               placeholder="••••••••••••"
+              required
             />
           </div>
         </div>
@@ -613,7 +648,7 @@ export default function AdminSettingsPage() {
         <div className="flex items-center justify-between pt-2">
           <div className="text-[11px] text-[#9aa89b] flex items-center gap-1.5">
             <Lock className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-            <span>Encrypted with HMAC-SHA256 authenticated sessions.</span>
+            <span>Hashed with bcrypt (10 rounds) & isolated from public store exports.</span>
           </div>
           <button
             type="submit"
@@ -661,7 +696,7 @@ export default function AdminSettingsPage() {
                 <span>Export System Snapshot</span>
               </div>
               <p className="text-[11px] text-[#9aa89b] mt-1.5 leading-relaxed">
-                Download a JSON archive containing all 11 business domains (company profile, fleet, species, projects, protocol, inquiries).
+                Download a JSON archive containing all 11 business domains (company profile, fleet, species, projects, protocol, inquiries). Passwords are never included.
               </p>
             </div>
             <button
@@ -722,6 +757,9 @@ export default function AdminSettingsPage() {
           </div>
         </div>
       </div>
+
+      {/* 5. Live Security & Mutation Audit Trail (Decision 2) */}
+      <AdminActivityLog />
 
       {/* Confirmation Modal for Reset */}
       <AdminModal

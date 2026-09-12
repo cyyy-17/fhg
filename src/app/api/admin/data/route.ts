@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { getAdminSession } from "@/lib/auth";
+import { getAdminSession, comparePassword } from "@/lib/auth";
 import {
   getAdminStore,
   saveAdminStore,
@@ -16,6 +16,9 @@ import {
   saveSettingsData,
   resetToDefaults,
   getKvConfig,
+  getAdminPasswordHash,
+  setAdminPassword,
+  addAuditLog,
 } from "@/lib/storage";
 import {
   companyDataSchema,
@@ -94,6 +97,11 @@ export async function PUT(request: Request) {
     if (!section) {
       if (typeof data === "object" && data !== null) {
         const updated = await saveAdminStore(data);
+        await addAuditLog({
+          action: "store.full_update",
+          actor: "admin",
+          details: "Restored or saved complete store snapshot",
+        });
         return NextResponse.json({
           success: true,
           message: "Entire store updated successfully.",
@@ -113,6 +121,11 @@ export async function PUT(request: Request) {
           );
         }
         const updated = await saveCompanyData(parsed.data as typeof import("@/data/company").companyData);
+        await addAuditLog({
+          action: "content.company_update",
+          actor: "admin",
+          details: "Updated company profile information and legal credentials",
+        });
         return NextResponse.json({ success: true, section, data: updated });
       }
       case "services": {
@@ -124,6 +137,11 @@ export async function PUT(request: Request) {
           );
         }
         const updated = await saveServicesData(parsed.data);
+        await addAuditLog({
+          action: "content.services_update",
+          actor: "admin",
+          details: `Updated ${parsed.data.length} services`,
+        });
         return NextResponse.json({ success: true, section, data: updated });
       }
       case "projects": {
@@ -135,6 +153,11 @@ export async function PUT(request: Request) {
           );
         }
         const updated = await saveProjectsData(parsed.data);
+        await addAuditLog({
+          action: "content.projects_update",
+          actor: "admin",
+          details: `Updated ${parsed.data.length} project portfolio items`,
+        });
         return NextResponse.json({ success: true, section, data: updated });
       }
       case "clients": {
@@ -146,6 +169,11 @@ export async function PUT(request: Request) {
           );
         }
         const updated = await saveClientsData(parsed.data);
+        await addAuditLog({
+          action: "content.clients_update",
+          actor: "admin",
+          details: `Updated ${parsed.data.length} enterprise clients`,
+        });
         return NextResponse.json({ success: true, section, data: updated });
       }
       case "equipment": {
@@ -157,6 +185,11 @@ export async function PUT(request: Request) {
           );
         }
         const updated = await saveEquipmentData(parsed.data);
+        await addAuditLog({
+          action: "content.equipment_update",
+          actor: "admin",
+          details: `Updated ${parsed.data.length} equipment assets`,
+        });
         return NextResponse.json({ success: true, section, data: updated });
       }
       case "species": {
@@ -168,6 +201,11 @@ export async function PUT(request: Request) {
           );
         }
         const updated = await saveSpeciesData(parsed.data);
+        await addAuditLog({
+          action: "content.species_update",
+          actor: "admin",
+          details: `Updated ${parsed.data.length} nursery species`,
+        });
         return NextResponse.json({ success: true, section, data: updated });
       }
       case "faqs": {
@@ -179,6 +217,11 @@ export async function PUT(request: Request) {
           );
         }
         const updated = await saveFaqsData(parsed.data);
+        await addAuditLog({
+          action: "content.faqs_update",
+          actor: "admin",
+          details: `Updated ${parsed.data.length} FAQs`,
+        });
         return NextResponse.json({ success: true, section, data: updated });
       }
       case "protocol": {
@@ -190,6 +233,11 @@ export async function PUT(request: Request) {
           );
         }
         const updated = await saveProtocolData(parsed.data);
+        await addAuditLog({
+          action: "content.protocol_update",
+          actor: "admin",
+          details: `Updated ${parsed.data.length} protocol steps`,
+        });
         return NextResponse.json({ success: true, section, data: updated });
       }
       case "documents": {
@@ -201,10 +249,59 @@ export async function PUT(request: Request) {
           );
         }
         const updated = await saveDocumentsData(parsed.data);
+        await addAuditLog({
+          action: "content.documents_update",
+          actor: "admin",
+          details: `Updated ${parsed.data.length} statutory compliance documents`,
+        });
         return NextResponse.json({ success: true, section, data: updated });
       }
       case "settings": {
-        const parsed = adminSettingsSchema.safeParse(data);
+        // Check for password change request
+        if (data.newPassword && typeof data.newPassword === "string" && data.newPassword.trim().length > 0) {
+          if (!data.currentPassword || typeof data.currentPassword !== "string") {
+            return NextResponse.json(
+              { error: "Current administrator password is required to set a new password." },
+              { status: 400 }
+            );
+          }
+
+          const storedHash = await getAdminPasswordHash();
+          const isCurrentValid = await comparePassword(data.currentPassword, storedHash);
+
+          if (!isCurrentValid) {
+            await addAuditLog({
+              action: "auth.password_change_failed",
+              actor: "admin",
+              details: "Failed attempt to change administrator password: wrong current password.",
+            });
+            return NextResponse.json(
+              { error: "Current password does not match. Password was not changed." },
+              { status: 403 }
+            );
+          }
+
+          if (data.newPassword.length < 8) {
+            return NextResponse.json(
+              { error: "New password must be at least 8 characters long." },
+              { status: 400 }
+            );
+          }
+
+          await setAdminPassword(data.newPassword);
+          await addAuditLog({
+            action: "auth.password_changed",
+            actor: "admin",
+            details: "Administrator password successfully updated and re-hashed with bcrypt.",
+          });
+        }
+
+        // Clean password fields before saving settings
+        const settingsPayload = { ...data };
+        delete settingsPayload.currentPassword;
+        delete settingsPayload.newPassword;
+        delete settingsPayload.adminPassword;
+        const parsed = adminSettingsSchema.safeParse(settingsPayload);
         if (!parsed.success) {
           return NextResponse.json(
             { error: "Invalid settings schema.", details: parsed.error.format() },
@@ -212,7 +309,17 @@ export async function PUT(request: Request) {
           );
         }
         const updated = await saveSettingsData(parsed.data);
-        return NextResponse.json({ success: true, section, data: updated });
+        await addAuditLog({
+          action: "settings.update",
+          actor: "admin",
+          details: "Updated platform settings and notification preferences",
+        });
+        return NextResponse.json({
+          success: true,
+          section,
+          data: updated,
+          passwordUpdated: !!data.newPassword,
+        });
       }
       default:
         return NextResponse.json(

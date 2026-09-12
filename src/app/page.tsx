@@ -13,7 +13,7 @@ import FloatingActions from "@/components/FloatingActions";
 import { getAdminStore } from "@/lib/storage";
 import { SITE_URL } from "@/lib/site";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60;
 
 export default async function Home() {
   const store = await getAdminStore();
