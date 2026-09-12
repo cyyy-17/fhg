@@ -47,7 +47,7 @@ export const DOMAIN_KEYS = {
 const MONOLITHIC_KEY = "fhg:admin_store_v1";
 
 const defaultSettings: AdminSettings = {
-  contactEmail: "info@foresthillsgarden.com",
+  contactEmail: defaultCompany.headOffice.emails[0] || "edluna1971@yahoo.com",
   notificationEnabled: true,
 };
 

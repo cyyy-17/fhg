@@ -85,14 +85,16 @@ export default function AdminDocumentsPage() {
   }
 
   function handleCreateNew() {
+    const today = new Date().toISOString().slice(0, 10).replace(/-/g, "");
+    const randomSuffix = Math.floor(100 + Math.random() * 900);
     const newItem: DocumentItem = {
       id: `doc-${Date.now()}`,
-      title: "New Official Certification Dossier",
+      title: "",
       category: "Legal Registration",
-      docNumber: "Official Standing Document",
-      fileUrl: "/docs/company-profile.pdf",
-      fileSize: "PDF Document",
-      description: "Audited statutory document for institutional developer tenders.",
+      docNumber: `DOC-${today}-${randomSuffix}`,
+      fileUrl: "",
+      fileSize: "",
+      description: "",
       status: "Official Certified",
     };
     setEditingItem(newItem);
@@ -112,10 +114,17 @@ export default function AdminDocumentsPage() {
     saveDocsToApi(next);
   }
 
-  function handleDelete(id: string) {
-    if (!confirm("Are you sure you want to remove this document from the vault?")) return;
-    const next = docs.filter((d) => d.id !== id);
+  const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
+
+  function requestDelete(id: string) {
+    setDeleteConfirmId(id);
+  }
+
+  function confirmDelete() {
+    if (!deleteConfirmId) return;
+    const next = docs.filter((d) => d.id !== deleteConfirmId);
     saveDocsToApi(next);
+    setDeleteConfirmId(null);
   }
 
   const filtered = docs.filter((d) => {
@@ -145,15 +154,17 @@ export default function AdminDocumentsPage() {
       : "Uploaded Document";
 
     const isPdf = uploaded.url.toLowerCase().endsWith(".pdf");
+    const today = new Date().toISOString().slice(0, 10).replace(/-/g, "");
+    const randomSuffix = Math.floor(100 + Math.random() * 900);
 
     const newItem: DocumentItem = {
       id: `doc-${Date.now()}`,
       title,
       category: "Legal Registration",
-      docNumber: `FILE-${Date.now().toString().slice(-6)}`,
+      docNumber: `DOC-${today}-${randomSuffix}`,
       fileUrl: uploaded.url,
       fileSize: `${uploaded.fileSize} ${isPdf ? "PDF" : "Asset"}`,
-      description: `Uploaded document asset: ${uploaded.fileName}`,
+      description: `Official document asset: ${uploaded.fileName}`,
       status: "Official Certified",
     };
 
@@ -321,7 +332,7 @@ export default function AdminDocumentsPage() {
                           <Edit2 className="w-3.5 h-3.5" />
                         </button>
                         <button
-                          onClick={() => handleDelete(item.id)}
+                          onClick={() => requestDelete(item.id)}
                           className="p-1.5 rounded-lg bg-white/5 hover:bg-red-500/20 text-[#9aa89b] hover:text-red-400 transition cursor-pointer"
                           title="Delete Document"
                         >
@@ -486,6 +497,40 @@ export default function AdminDocumentsPage() {
               </button>
             </div>
           </form>
+        </AdminModal>
+      )}
+
+      {/* Confirmation Modal for Permanent Delete */}
+      {deleteConfirmId && (
+        <AdminModal
+          isOpen={Boolean(deleteConfirmId)}
+          onClose={() => setDeleteConfirmId(null)}
+          title="Confirm Document Removal"
+          subtitle="This will remove the document entry from the public and admin vaults."
+          maxWidth="md"
+        >
+          <div className="space-y-4">
+            <p className="text-sm text-[#9aa89b]">
+              Are you sure you want to remove this document from the vault? This cannot be undone.
+            </p>
+            <div className="flex items-center justify-end gap-3 pt-3 border-t border-white/10">
+              <button
+                type="button"
+                onClick={() => setDeleteConfirmId(null)}
+                className="px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 text-[#9aa89b] hover:text-white text-xs font-semibold cursor-pointer transition"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={confirmDelete}
+                className="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-500 text-white text-xs font-semibold flex items-center gap-1.5 cursor-pointer transition"
+              >
+                <Trash2 className="w-3.5 h-3.5" />
+                <span>Remove Document</span>
+              </button>
+            </div>
+          </div>
         </AdminModal>
       )}
     </div>

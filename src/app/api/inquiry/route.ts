@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import { addInquiryRecord, getSettingsData } from "@/lib/storage";
+import { inquirySubmissionSchema } from "@/lib/schemas";
+import { companyData } from "@/data/company";
 
 interface InquiryPayload {
   fullName?: string;
@@ -25,44 +27,35 @@ export async function POST(request: Request) {
       );
     }
 
-    const clientName = (body.fullName || body.name || "").trim();
-    const email = (body.email || "").trim();
-    const phone = (body.phone || "").trim();
-    const subject = (body.subject || "Arboricultural Contract Inquiry").trim();
-    const message = (body.message || "").trim();
-    const company = (body.company || "").trim();
+    // 2. Normalize and validate with Zod schema
+    const normalized = {
+      fullName: (body.fullName || body.name || "").trim(),
+      email: (body.email || "").trim(),
+      phone: (body.phone || "").trim(),
+      subject: (body.subject || "Arboricultural Contract Inquiry").trim(),
+      message: (body.message || "No project notes provided.").trim(),
+      company: body.company?.trim() ? body.company.trim() : undefined,
+      consent: Boolean(body.consent),
+      website: body.website || "",
+    };
 
-    // 2. Field Validations
-    if (!clientName) {
+    const parsed = inquirySubmissionSchema.safeParse(normalized);
+    if (!parsed.success) {
+      const firstError = parsed.error.issues[0]?.message || "Validation failed.";
       return NextResponse.json(
-        { success: false, error: "Client name is required." },
+        { success: false, error: firstError },
         { status: 400 }
       );
     }
 
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      return NextResponse.json(
-        { success: false, error: "A valid email address is required." },
-        { status: 400 }
-      );
-    }
-
-    if (!phone) {
-      return NextResponse.json(
-        { success: false, error: "A contact phone number is required." },
-        { status: 400 }
-      );
-    }
-
-    if (!body.consent) {
-      return NextResponse.json(
-        { success: false, error: "Consent to data processing under RA 10173 is mandatory." },
-        { status: 400 }
-      );
-    }
+    const { fullName: clientName, email, phone, subject, message, company } = parsed.data;
 
     const settings = await getSettingsData().catch(() => null);
-    const destinationEmail = settings?.contactEmail || process.env.CONTACT_EMAIL || "edluna1971@yahoo.com";
+    const destinationEmail =
+      settings?.contactEmail ||
+      process.env.CONTACT_EMAIL ||
+      companyData.headOffice.emails[0] ||
+      "edluna1971@yahoo.com";
 
     // 3. Compile Standard Technical Dossier
     const timestamp = new Date().toISOString();
@@ -91,8 +84,11 @@ export async function POST(request: Request) {
       console.warn("Failed to persist inquiry in admin inbox:", storeErr);
     }
 
-    // 5. Optional external dispatch (e.g. if RESEND_API_KEY or SMTP is configured)
-    const resendApiKey = process.env.RESEND_API_KEY?.trim().replace(/^["']|["']$/g, "").replace(/[\r\n\s]+/g, "");
+    // 5. Optional external dispatch via Resend if RESEND_API_KEY is configured
+    const resendApiKey = process.env.RESEND_API_KEY?.trim()
+      .replace(/^["']|["']$/g, "")
+      .replace(/[\r\n\s]+/g, "");
+
     if (resendApiKey && destinationEmail) {
       try {
         await fetch("https://api.resend.com/emails", {

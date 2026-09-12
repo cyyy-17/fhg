@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
 import {
   Save,
   Shield,
@@ -34,8 +35,9 @@ interface SystemStatus {
 }
 
 export default function AdminSettingsPage() {
+  const router = useRouter();
   const [settings, setSettings] = useState<AdminSettings>({
-    contactEmail: "info@foresthillsgarden.com",
+    contactEmail: "",
     notificationEnabled: true,
   });
   const [systemStatus, setSystemStatus] = useState<SystemStatus | null>(null);
@@ -59,6 +61,10 @@ export default function AdminSettingsPage() {
   // Restore file input ref
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [isRestoring, setIsRestoring] = useState(false);
+
+  // Live test email dispatch state
+  const [isSendingTestEmail, setIsSendingTestEmail] = useState(false);
+  const [testEmailResult, setTestEmailResult] = useState<{ success: boolean; message: string } | null>(null);
 
   useEffect(() => {
     let mounted = true;
@@ -128,6 +134,30 @@ export default function AdminSettingsPage() {
     }
   }
 
+  async function handleSendTestEmail() {
+    setIsSendingTestEmail(true);
+    setTestEmailResult(null);
+    try {
+      const res = await fetch("/api/admin/test-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ recipientEmail: settings.contactEmail }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || "Failed to dispatch test email.");
+      }
+      setTestEmailResult({ success: true, message: data.message });
+    } catch (err) {
+      setTestEmailResult({
+        success: false,
+        message: err instanceof Error ? err.message : "Error testing email dispatch.",
+      });
+    } finally {
+      setIsSendingTestEmail(false);
+    }
+  }
+
   async function handlePasswordChange(e: React.FormEvent) {
     e.preventDefault();
     setPasswordFeedback(null);
@@ -178,11 +208,22 @@ export default function AdminSettingsPage() {
         throw new Error(err.error || "Failed to update administrator password.");
       }
 
-      setPasswordFeedback("Administrator password successfully updated. Future logins will require this new key.");
+      setPasswordFeedback(
+        "Administrator password successfully updated. Logging you out to verify new credentials..."
+      );
       setCurrentPassword("");
       setNewPassword("");
       setConfirmPassword("");
-      setTimeout(() => setPasswordFeedback(null), 5000);
+
+      setTimeout(async () => {
+        try {
+          await fetch("/api/admin/auth/logout", { method: "POST" });
+        } catch {
+          // silent ignore
+        }
+        router.push("/admin/login?message=password_changed");
+        router.refresh();
+      }, 1600);
     } catch (err) {
       setPasswordError(err instanceof Error ? err.message : "Failed to change password.");
     } finally {
@@ -321,9 +362,22 @@ export default function AdminSettingsPage() {
               Storage Engine &amp; Cloud Infrastructure Diagnostics
             </h3>
           </div>
-          <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">
-            System Operational
-          </span>
+          {systemStatus?.kvConnected && systemStatus?.blobConnected ? (
+            <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-300 border border-emerald-500/20 flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              Cloud Synchronized
+            </span>
+          ) : systemStatus?.kvConnected || systemStatus?.blobConnected ? (
+            <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded-md bg-amber-500/10 text-amber-300 border border-amber-500/20 flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
+              Partial Cloud Storage
+            </span>
+          ) : (
+            <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded-md bg-yellow-500/10 text-yellow-400 border border-yellow-500/20 flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-yellow-400" />
+              Local Storage Mode
+            </span>
+          )}
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -420,16 +474,48 @@ export default function AdminSettingsPage() {
             <label className="block text-xs font-mono uppercase text-[#9aa89b] mb-1">
               Primary RFP &amp; Inquiry Recipient Email
             </label>
-            <input
-              type="email"
-              value={settings.contactEmail || ""}
-              onChange={(e) => setSettings({ ...settings, contactEmail: e.target.value })}
-              className="w-full p-2.5 rounded-lg bg-[#050e07] border border-white/15 text-xs text-[#f6f7f4] focus:ring-1 focus:ring-[#22c55e] outline-none font-mono"
-              placeholder="operations@foresthillsgarden.com"
-            />
+            <div className="flex gap-2">
+              <input
+                type="email"
+                value={settings.contactEmail || ""}
+                onChange={(e) => setSettings({ ...settings, contactEmail: e.target.value })}
+                className="flex-1 p-2.5 rounded-lg bg-[#050e07] border border-white/15 text-xs text-[#f6f7f4] focus:ring-1 focus:ring-[#22c55e] outline-none font-mono"
+                placeholder="edluna1971@yahoo.com"
+              />
+              <button
+                type="button"
+                onClick={handleSendTestEmail}
+                disabled={isSendingTestEmail || !settings.contactEmail}
+                className="px-3 py-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-semibold text-[#f6f7f4] transition flex items-center gap-1.5 cursor-pointer shrink-0 disabled:opacity-40"
+                title="Send a live test message via Resend"
+              >
+                {isSendingTestEmail ? (
+                  <Loader2 className="w-3.5 h-3.5 animate-spin text-[#22c55e]" />
+                ) : (
+                  <Mail className="w-3.5 h-3.5 text-[#22c55e]" />
+                )}
+                <span>{isSendingTestEmail ? "Sending..." : "Test Dispatch"}</span>
+              </button>
+            </div>
             <p className="text-[11px] text-[#9aa89b] mt-1">
               Website lead dossiers from the RFP Estimator and Contact form route to this mailbox.
             </p>
+            {testEmailResult && (
+              <div
+                className={`mt-2 p-2.5 rounded-lg text-xs flex items-center gap-2 border ${
+                  testEmailResult.success
+                    ? "bg-emerald-500/10 border-emerald-500/30 text-emerald-300"
+                    : "bg-amber-500/10 border-amber-500/30 text-amber-300"
+                }`}
+              >
+                {testEmailResult.success ? (
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                ) : (
+                  <AlertCircle className="w-4 h-4 text-amber-400 shrink-0" />
+                )}
+                <span className="break-all">{testEmailResult.message}</span>
+              </div>
+            )}
           </div>
 
           <div className="flex items-center gap-3 pt-4">

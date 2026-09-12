@@ -174,6 +174,24 @@ export default function AdminInquiriesPage() {
         </div>
       </div>
 
+      {/* Advisory Banner for High Record Count */}
+      {inquiries.length >= 100 && (
+        <div className="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs flex items-center justify-between gap-3">
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-amber-400 shrink-0" />
+            <span>
+              You have {inquiries.length} inquiries in storage. Consider exporting a backup and archiving older records to keep the console fast.
+            </span>
+          </div>
+          <a
+            href="/admin/settings"
+            className="px-2.5 py-1 rounded bg-amber-500/20 hover:bg-amber-500/30 text-amber-200 text-[11px] font-semibold transition shrink-0"
+          >
+            Go to Settings &amp; Backup
+          </a>
+        </div>
+      )}
+
       {/* Inquiries List */}
       {loading ? (
         <div className="py-12 text-center text-xs text-[#9aa89b]">Loading inquiries...</div>
@@ -347,6 +365,18 @@ export default function AdminInquiriesPage() {
               </div>
 
               <div className="flex items-center gap-2">
+                <a
+                  href={`mailto:${selectedInquiry.email}?subject=${encodeURIComponent(
+                    `Re: ${selectedInquiry.subject} - Forest Hills Garden`
+                  )}&body=${encodeURIComponent(
+                    `Dear ${selectedInquiry.clientName},\n\nThank you for reaching out to Forest Hills Garden regarding your project inquiry.\n\n`
+                  )}`}
+                  className="px-3 py-1.5 rounded-lg bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border border-emerald-500/30 text-xs font-medium flex items-center gap-1.5 cursor-pointer transition"
+                  title="Open mail client to reply directly"
+                >
+                  <Mail className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>Reply by Email</span>
+                </a>
                 <button
                   type="button"
                   onClick={() => requestDelete(selectedInquiry.id)}

@@ -29,8 +29,11 @@ export async function POST(request: Request) {
 
     await setAdminSessionCookie();
 
+    const isDefault = expectedPassword === "admin1234";
+
     return NextResponse.json({
       success: true,
+      isDefaultPassword: isDefault,
       message: "Admin authentication successful.",
     });
   } catch (error) {

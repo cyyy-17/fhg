@@ -14,7 +14,7 @@ export default function FileUploadWidget({
   onUploadComplete,
   label = "Upload File or Document",
   accept = ".pdf,.png,.jpg,.jpeg,.webp",
-  helperText = "PDF or Images up to 25MB. Files are permanently stored in /public/uploads/",
+  helperText = "PDF or images up to 25MB. Uploads are stored securely in cloud storage.",
 }: FileUploadWidgetProps) {
   const [isUploading, setIsUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);

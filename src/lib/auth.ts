@@ -6,11 +6,21 @@ const SESSION_MAX_AGE = 60 * 60 * 24 * 7; // 7 days
 
 // Helper to retrieve the secret key for HMAC signing
 function getSessionSecret(): string {
-  return process.env.SESSION_SECRET || process.env.ADMIN_SESSION_SECRET || process.env.ADMIN_PASSWORD || "fhg-secret-fallback-key-batch-2026-batangas";
+  const secret = process.env.SESSION_SECRET || process.env.ADMIN_SESSION_SECRET;
+  if (!secret && process.env.NODE_ENV === "production") {
+    console.warn(
+      "[SECURITY WARNING] Neither SESSION_SECRET nor ADMIN_SESSION_SECRET is configured in environment variables. Using static fallback."
+    );
+  }
+  return secret || "fhg-secret-fallback-key-batch-2026-batangas";
 }
 
 export function getAdminPassword(): string {
   return process.env.ADMIN_PASSWORD || "admin1234";
+}
+
+export function isDefaultPasswordSet(): boolean {
+  return getAdminPassword() === "admin1234";
 }
 
 // HMAC-SHA256 signing using standard Web Crypto API

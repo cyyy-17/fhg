@@ -16,6 +16,10 @@ import {
   Download,
   AlertTriangle,
   RefreshCw,
+  CheckCircle2,
+  KeyRound,
+  ChevronRight,
+  ShieldCheck,
 } from "lucide-react";
 import AdminHeader from "@/components/admin/AdminHeader";
 import type { AdminStore, InquiryRecord } from "@/types/admin";
@@ -215,6 +219,105 @@ export default function AdminDashboardPage() {
         <div className="flex items-center gap-2 text-[#9aa89b] font-mono text-[11px]">
           <Clock className="w-3.5 h-3.5 text-[#4ade80]" />
           <span>Synced: {new Date(store.lastUpdated).toLocaleTimeString()}</span>
+        </div>
+      </div>
+
+      {/* Quick Start & Handover Reference */}
+      <div className="bg-[#0a170d] border border-white/10 rounded-2xl p-6 space-y-4">
+        <div className="flex items-center justify-between border-b border-white/10 pb-3">
+          <div className="flex items-center gap-2.5">
+            <ShieldCheck className="w-4 h-4 text-[#22c55e]" />
+            <h3 className="text-sm font-bold font-heading text-[#f6f7f4]">
+              Client Administrator Quick Start &amp; Operating Guide
+            </h3>
+          </div>
+          <span className="text-[11px] font-mono text-[#9aa89b]">Zero-Hassle Reference</span>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <Link
+            href="/admin/settings"
+            className="p-4 rounded-xl bg-[#050e07] border border-white/10 hover:border-[#22c55e]/40 transition group flex flex-col justify-between"
+          >
+            <div>
+              <div className="flex items-center justify-between text-xs font-semibold text-[#f6f7f4]">
+                <div className="flex items-center gap-2">
+                  <Mail className="w-4 h-4 text-[#22c55e]" />
+                  <span>1. Lead Routing Email</span>
+                </div>
+                <ChevronRight className="w-3.5 h-3.5 text-[#9aa89b] group-hover:text-[#22c55e] transition" />
+              </div>
+              <p className="text-[11px] text-[#9aa89b] mt-2 leading-relaxed">
+                Configure where instant RFP estimates and client contact forms are delivered, with a live test dispatch button.
+              </p>
+            </div>
+            <div className="text-[10px] font-mono text-[#4ade80] mt-3 flex items-center gap-1">
+              <span>Settings → Routing</span>
+            </div>
+          </Link>
+
+          <Link
+            href="/admin/settings"
+            className="p-4 rounded-xl bg-[#050e07] border border-white/10 hover:border-[#22c55e]/40 transition group flex flex-col justify-between"
+          >
+            <div>
+              <div className="flex items-center justify-between text-xs font-semibold text-[#f6f7f4]">
+                <div className="flex items-center gap-2">
+                  <KeyRound className="w-4 h-4 text-[#22c55e]" />
+                  <span>2. Access Password</span>
+                </div>
+                <ChevronRight className="w-3.5 h-3.5 text-[#9aa89b] group-hover:text-[#22c55e] transition" />
+              </div>
+              <p className="text-[11px] text-[#9aa89b] mt-2 leading-relaxed">
+                Update the console security key anytime. Changing your password immediately secures all sessions.
+              </p>
+            </div>
+            <div className="text-[10px] font-mono text-[#4ade80] mt-3 flex items-center gap-1">
+              <span>Settings → Access Key</span>
+            </div>
+          </Link>
+
+          <Link
+            href="/admin/documents"
+            className="p-4 rounded-xl bg-[#050e07] border border-white/10 hover:border-[#22c55e]/40 transition group flex flex-col justify-between"
+          >
+            <div>
+              <div className="flex items-center justify-between text-xs font-semibold text-[#f6f7f4]">
+                <div className="flex items-center gap-2">
+                  <FileText className="w-4 h-4 text-[#22c55e]" />
+                  <span>3. Document Vault</span>
+                </div>
+                <ChevronRight className="w-3.5 h-3.5 text-[#9aa89b] group-hover:text-[#22c55e] transition" />
+              </div>
+              <p className="text-[11px] text-[#9aa89b] mt-2 leading-relaxed">
+                Upload PDFs or certifications. Uploaded documents automatically show up on public compliance downloads.
+              </p>
+            </div>
+            <div className="text-[10px] font-mono text-[#4ade80] mt-3 flex items-center gap-1">
+              <span>Vault → Upload Dossier</span>
+            </div>
+          </Link>
+
+          <Link
+            href="/admin/inquiries"
+            className="p-4 rounded-xl bg-[#050e07] border border-white/10 hover:border-[#22c55e]/40 transition group flex flex-col justify-between"
+          >
+            <div>
+              <div className="flex items-center justify-between text-xs font-semibold text-[#f6f7f4]">
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-[#22c55e]" />
+                  <span>4. Review Inbound Leads</span>
+                </div>
+                <ChevronRight className="w-3.5 h-3.5 text-[#9aa89b] group-hover:text-[#22c55e] transition" />
+              </div>
+              <p className="text-[11px] text-[#9aa89b] mt-2 leading-relaxed">
+                View submitted tender details, copy technical dossiers, and click &ldquo;Reply by Email&rdquo; for instant response.
+              </p>
+            </div>
+            <div className="text-[10px] font-mono text-[#4ade80] mt-3 flex items-center gap-1">
+              <span>Inquiries → Direct Reply</span>
+            </div>
+          </Link>
         </div>
       </div>
 
