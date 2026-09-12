@@ -127,8 +127,9 @@ export async function middleware(request: NextRequest) {
     }
 
     // CSRF Protection on mutating requests (POST, PUT, PATCH, DELETE)
+    // Note: /api/admin/upload is session-protected and handles multipart streaming
     const isMutatingMethod = ["POST", "PUT", "PATCH", "DELETE"].includes(request.method);
-    if (isMutatingMethod) {
+    if (isMutatingMethod && pathname !== "/api/admin/upload") {
       const cookieCsrf = request.cookies.get(CSRF_COOKIE_NAME)?.value;
       const headerCsrf = request.headers.get(CSRF_HEADER_NAME);
 

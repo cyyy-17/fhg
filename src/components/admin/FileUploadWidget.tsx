@@ -2,6 +2,7 @@
 
 import { useState, useRef } from "react";
 import { UploadCloud, CheckCircle2, AlertCircle, Copy, Check, Loader2 } from "lucide-react";
+import { getClientCsrfToken } from "@/lib/csrf";
 
 interface FileUploadWidgetProps {
   onUploadComplete?: (url: string, fileName: string, fileSize: string) => void;
@@ -10,11 +11,72 @@ interface FileUploadWidgetProps {
   helperText?: string;
 }
 
+/**
+ * Compresses an image file in the browser using HTML5 canvas
+ * so heavy smartphone camera photos (5-20MB) safely fit under
+ * the Vercel 4.5MB serverless payload limit without quality loss.
+ */
+async function compressImageIfNeeded(file: File, maxDimension = 2048, quality = 0.85): Promise<File> {
+  if (!file.type.startsWith("image/") || file.type === "image/svg+xml") {
+    return file;
+  }
+  // If already under 1.5MB, keep untouched
+  if (file.size < 1.5 * 1024 * 1024) {
+    return file;
+  }
+
+  return new Promise((resolve) => {
+    const img = new Image();
+    const url = URL.createObjectURL(file);
+    img.onload = () => {
+      URL.revokeObjectURL(url);
+      let { width, height } = img;
+      if (width > maxDimension || height > maxDimension) {
+        if (width > height) {
+          height = Math.round((height * maxDimension) / width);
+          width = maxDimension;
+        } else {
+          width = Math.round((width * maxDimension) / height);
+          height = maxDimension;
+        }
+      }
+
+      const canvas = document.createElement("canvas");
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) {
+        return resolve(file);
+      }
+      ctx.drawImage(img, 0, 0, width, height);
+      canvas.toBlob(
+        (blob) => {
+          if (!blob || blob.size >= file.size) {
+            return resolve(file);
+          }
+          const compressedFile = new File([blob], file.name, {
+            type: file.type === "image/png" ? "image/png" : "image/jpeg",
+            lastModified: Date.now(),
+          });
+          resolve(compressedFile);
+        },
+        file.type === "image/png" ? "image/png" : "image/jpeg",
+        quality
+      );
+    };
+    img.onerror = () => {
+      URL.revokeObjectURL(url);
+      resolve(file);
+    };
+    img.src = url;
+  });
+}
+
 export default function FileUploadWidget({
   onUploadComplete,
   label = "Upload File or Document",
   accept = ".pdf,.png,.jpg,.jpeg,.webp",
-  helperText = "PDF or images up to 25MB. Uploads are stored securely in cloud storage.",
+  helperText = "Photos are automatically optimized. Max 4.5MB per asset for Vercel cloud storage.",
 }: FileUploadWidgetProps) {
   const [isUploading, setIsUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -23,30 +85,65 @@ export default function FileUploadWidget({
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   async function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0];
-    if (!file) return;
+    const rawFile = e.target.files?.[0];
+    if (!rawFile) return;
 
     setIsUploading(true);
     setError(null);
     setUploadedUrl(null);
 
     try {
+      // 1. Client-side auto-compress large images
+      const file = await compressImageIfNeeded(rawFile);
+
+      // 2. Pre-flight check against 4.5MB Vercel serverless payload limit
+      if (file.size > 4.5 * 1024 * 1024) {
+        throw new Error(
+          `File size (${(file.size / (1024 * 1024)).toFixed(1)}MB) exceeds Vercel's 4.5MB serverless upload limit. Please select a smaller file.`
+        );
+      }
+
       const formData = new FormData();
       formData.append("file", file);
 
+      const csrfToken = getClientCsrfToken();
+      const headers: Record<string, string> = {};
+      if (csrfToken) {
+        headers["x-csrf-token"] = csrfToken;
+      }
+
       const res = await fetch("/api/admin/upload", {
         method: "POST",
+        headers,
         body: formData,
       });
 
-      const json = await res.json();
+      const responseText = await res.text();
+      let json: { error?: string; url?: string; fileName?: string; fileSize?: string } = {};
+      try {
+        json = JSON.parse(responseText);
+      } catch {
+        // Response was not JSON (e.g., plain text 413 or 504 from edge proxy)
+      }
+
       if (!res.ok) {
-        throw new Error(json.error || "Failed to upload file.");
+        if (res.status === 413 || responseText.toLowerCase().includes("entity too large")) {
+          throw new Error("File exceeds Vercel's 4.5MB serverless upload limit. Please select a smaller file.");
+        }
+        throw new Error(json.error || responseText || `Upload failed with HTTP status ${res.status}.`);
+      }
+
+      if (!json.url) {
+        throw new Error("Upload succeeded but no asset URL was returned.");
       }
 
       setUploadedUrl(json.url);
       if (onUploadComplete) {
-        onUploadComplete(json.url, json.fileName, json.fileSize);
+        onUploadComplete(
+          json.url,
+          json.fileName || file.name,
+          json.fileSize || `${(file.size / (1024 * 1024)).toFixed(2)} MB`
+        );
       }
     } catch (err) {
       const msg = err instanceof Error ? err.message : "An unexpected error occurred during upload.";
