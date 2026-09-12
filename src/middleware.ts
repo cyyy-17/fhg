@@ -113,9 +113,13 @@ export async function middleware(request: NextRequest) {
     return attachCsrfCookieIfNeeded(NextResponse.next());
   }
 
-  // 4. Protect /api/admin Routes (except login & csrf)
+  // 4. Protect /api/admin Routes (except login, logout & csrf)
   if (pathname.startsWith("/api/admin")) {
-    if (pathname.startsWith("/api/admin/auth/login") || pathname === "/api/admin/csrf") {
+    if (
+      pathname.startsWith("/api/admin/auth/login") ||
+      pathname.startsWith("/api/admin/auth/logout") ||
+      pathname === "/api/admin/csrf"
+    ) {
       return attachCsrfCookieIfNeeded(NextResponse.next());
     }
 

@@ -131,6 +131,18 @@ export async function setAdminSessionCookie(): Promise<string> {
 export async function clearAdminSessionCookie(): Promise<void> {
   const cookieStore = await cookies();
   cookieStore.delete(SESSION_COOKIE_NAME);
+  try {
+    cookieStore.set(SESSION_COOKIE_NAME, "", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      path: "/",
+      maxAge: 0,
+      expires: new Date(0),
+    });
+  } catch {
+    // Cookie store deletion was performed
+  }
 }
 
 export async function getAdminSession(): Promise<AuthSession | null> {

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import {
   LayoutDashboard,
@@ -24,6 +24,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import { useLenisScrollLock } from "@/hooks/useLenisScrollLock";
+import { getClientCsrfToken } from "@/lib/csrf";
 
 interface NavGroup {
   title: string;
@@ -38,7 +39,6 @@ interface NavGroup {
 
 export default function AdminSidebar() {
   const pathname = usePathname();
-  const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [unreadCount, setUnreadCount] = useState<number>(0);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
@@ -108,13 +108,23 @@ export default function AdminSidebar() {
   ];
 
   async function handleLogout() {
+    if (isLoggingOut) return;
     setIsLoggingOut(true);
     try {
-      await fetch("/api/admin/auth/logout", { method: "POST" });
-      router.push("/admin/login");
-      router.refresh();
-    } catch {
-      setIsLoggingOut(false);
+      const csrfToken = getClientCsrfToken();
+      await fetch("/api/admin/auth/logout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          ...(csrfToken ? { "x-csrf-token": csrfToken } : {}),
+        },
+      });
+    } catch (err) {
+      console.error("Sign out error:", err);
+    } finally {
+      // Full browser reload ensures all App Router layout state, locks, and cache are purged on logout
+      // eslint-disable-next-line @next/next/no-location-assign-relative-destination
+      window.location.href = "/admin/login?message=logged_out";
     }
   }
 

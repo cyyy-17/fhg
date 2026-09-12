@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect, useRef, useMemo } from "react";
-import { useRouter } from "next/navigation";
 import {
   Save,
   Shield,
@@ -38,7 +37,6 @@ interface SystemStatus {
 }
 
 export default function AdminSettingsPage() {
-  const router = useRouter();
   const [settings, setSettings] = useState<AdminSettings>({
     contactEmail: "",
     notificationEnabled: true,
@@ -224,12 +222,14 @@ export default function AdminSettingsPage() {
 
       setTimeout(async () => {
         try {
-          await fetch("/api/admin/auth/logout", { method: "POST" });
+          const headers = await getAdminMutationHeaders();
+          await fetch("/api/admin/auth/logout", { method: "POST", headers });
         } catch {
           // silent ignore
+        } finally {
+          // eslint-disable-next-line @next/next/no-location-assign-relative-destination
+          window.location.href = "/admin/login?message=password_changed";
         }
-        router.push("/admin/login?message=password_changed");
-        router.refresh();
       }, 1600);
     } catch (err) {
       setPasswordError(err instanceof Error ? err.message : "Failed to change password.");
