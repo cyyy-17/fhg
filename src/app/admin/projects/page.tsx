@@ -179,7 +179,7 @@ export default function AdminProjectsPage() {
           />
         </div>
 
-        <div className="flex items-center gap-2 w-full md:w-auto overflow-x-auto">
+        <div className="flex flex-wrap items-center gap-2 w-full md:w-auto">
           <select
             value={categoryFilter}
             onChange={(e) => setCategoryFilter(e.target.value)}

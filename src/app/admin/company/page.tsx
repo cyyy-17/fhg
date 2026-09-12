@@ -159,7 +159,14 @@ export default function AdminCompanyPage() {
       )}
 
       {/* Tab Controls */}
-      <div className="flex items-center gap-1 p-1 rounded-xl bg-[#0a170d] border border-white/10 overflow-x-auto scrollbar-none">
+      <div
+        onWheel={(e) => {
+          if (e.deltaY !== 0 && e.currentTarget.scrollWidth > e.currentTarget.clientWidth) {
+            e.currentTarget.scrollLeft += e.deltaY;
+          }
+        }}
+        className="flex flex-wrap items-center gap-1.5 p-1.5 rounded-xl bg-[#0a170d] border border-white/10"
+      >
         {tabs.map((tab) => {
           const Icon = tab.icon;
           const isActive = activeTab === tab.key;
@@ -167,7 +174,7 @@ export default function AdminCompanyPage() {
             <button
               key={tab.key}
               onClick={() => setActiveTab(tab.key)}
-              className={`px-3.5 py-2 rounded-lg text-xs font-medium flex items-center gap-2 shrink-0 transition cursor-pointer ${
+              className={`px-3.5 py-2 rounded-lg text-xs font-medium flex items-center gap-2 transition cursor-pointer ${
                 isActive
                   ? "bg-[#16a34a] text-[#f6f7f4] font-semibold shadow-xs"
                   : "text-[#9aa89b] hover:text-[#f6f7f4] hover:bg-white/5"

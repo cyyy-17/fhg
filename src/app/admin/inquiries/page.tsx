@@ -193,7 +193,7 @@ export default function AdminInquiriesPage() {
           />
         </div>
 
-        <div className="flex items-center gap-1 w-full sm:w-auto overflow-x-auto">
+        <div className="flex flex-wrap items-center gap-1 w-full sm:w-auto">
           {(["all", "unread", "read", "archived"] as const).map((s) => (
             <button
               key={s}

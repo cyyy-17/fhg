@@ -98,7 +98,12 @@ export default function ProcurementHub({
         <div className="flex justify-center mb-10 -mx-4 px-4 sm:mx-0 sm:px-0">
           <div
             data-lenis-prevent="true"
-            className="inline-flex items-center gap-1 p-1.5 rounded-xl bg-[#0a170d] border border-white/10 shadow-xl max-w-full overflow-x-auto scrollbar-none touch-pan-x overscroll-x-contain"
+            onWheel={(e) => {
+              if (e.deltaY !== 0 && e.currentTarget.scrollWidth > e.currentTarget.clientWidth) {
+                e.currentTarget.scrollLeft += e.deltaY;
+              }
+            }}
+            className="inline-flex items-center sm:flex-wrap sm:justify-center gap-1 p-1.5 rounded-xl bg-[#0a170d] border border-white/10 shadow-xl max-w-full overflow-x-auto sm:overflow-visible scrollbar-none touch-pan-x overscroll-x-contain"
             style={{ WebkitOverflowScrolling: "touch", touchAction: "pan-x pan-y" }}
           >
             {tabs.map((tab) => {
