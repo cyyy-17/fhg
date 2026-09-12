@@ -11,6 +11,10 @@ import {
   CheckCircle2,
   AlertCircle,
   Loader2,
+  MoveUp,
+  MoveDown,
+  Copy,
+  Check,
 } from "lucide-react";
 import AdminHeader from "@/components/admin/AdminHeader";
 import AdminModal from "@/components/admin/AdminModal";
@@ -115,6 +119,18 @@ export default function AdminDocumentsPage() {
   }
 
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
+  const [copiedUrl, setCopiedUrl] = useState(false);
+
+  function handleMove(index: number, direction: "up" | "down") {
+    const target = direction === "up" ? index - 1 : index + 1;
+    if (target < 0 || target >= docs.length) return;
+
+    const next = [...docs];
+    const temp = next[index];
+    next[index] = next[target];
+    next[target] = temp;
+    saveDocsToApi(next);
+  }
 
   function requestDelete(id: string) {
     setDeleteConfirmId(id);
@@ -322,6 +338,30 @@ export default function AdminDocumentsPage() {
                     <td className="py-3 px-4 text-right">
                       <div className="flex items-center justify-end gap-1.5">
                         <button
+                          type="button"
+                          onClick={() => {
+                            const idx = docs.findIndex((d) => d.id === item.id);
+                            handleMove(idx, "up");
+                          }}
+                          disabled={docs.findIndex((d) => d.id === item.id) === 0}
+                          className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-[#9aa89b] hover:text-white disabled:opacity-30 transition cursor-pointer"
+                          title="Move Up"
+                        >
+                          <MoveUp className="w-3.5 h-3.5" />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const idx = docs.findIndex((d) => d.id === item.id);
+                            handleMove(idx, "down");
+                          }}
+                          disabled={docs.findIndex((d) => d.id === item.id) === docs.length - 1}
+                          className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-[#9aa89b] hover:text-white disabled:opacity-30 transition cursor-pointer"
+                          title="Move Down"
+                        >
+                          <MoveDown className="w-3.5 h-3.5" />
+                        </button>
+                        <button
                           onClick={() => {
                             setEditingItem(JSON.parse(JSON.stringify(item)));
                             setIsCreating(false);
@@ -427,17 +467,38 @@ export default function AdminDocumentsPage() {
               </div>
 
               <div>
-                <label className="block text-xs font-mono uppercase text-[#9aa89b] mb-1">
-                  File Download URL
-                </label>
+                <div className="flex items-center justify-between mb-1">
+                  <label className="block text-xs font-mono uppercase text-[#9aa89b]">
+                    File Download URL
+                  </label>
+                  {editingItem.fileUrl.startsWith("http") && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        navigator.clipboard.writeText(editingItem.fileUrl);
+                        setCopiedUrl(true);
+                        setTimeout(() => setCopiedUrl(false), 2000);
+                      }}
+                      className="text-[10px] text-[#22c55e] hover:underline flex items-center gap-1 cursor-pointer"
+                    >
+                      {copiedUrl ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
+                      <span>{copiedUrl ? "Copied" : "Copy URL"}</span>
+                    </button>
+                  )}
+                </div>
                 <input
                   type="text"
                   required
                   value={editingItem.fileUrl}
                   onChange={(e) => setEditingItem({ ...editingItem, fileUrl: e.target.value })}
-                  placeholder="/docs/file-name.pdf"
+                  placeholder="/docs/file-name.pdf or https://..."
                   className="w-full p-2.5 rounded-lg bg-[#050e07] border border-white/15 text-xs text-[#f6f7f4] font-mono focus:ring-1 focus:ring-[#22c55e] outline-none"
                 />
+                {editingItem.fileUrl.startsWith("http") && (
+                  <p className="text-[10px] text-[#9aa89b] mt-1">
+                    Cloud-hosted asset URL (Vercel Blob / CDN). Use uploader above to replace.
+                  </p>
+                )}
               </div>
 
               <div>

@@ -3,6 +3,7 @@ import { getAdminSession } from "@/lib/auth";
 import {
   getInquiriesData,
   updateInquiryStatus,
+  updateInquiryNote,
   deleteInquiryRecord,
 } from "@/lib/storage";
 
@@ -27,20 +28,43 @@ export async function PATCH(request: Request) {
     }
 
     const body = await request.json();
-    const { id, status } = body;
+    const { id, status, internalNote } = body;
 
-    if (!id || !status || !["unread", "read", "archived"].includes(status)) {
-      return NextResponse.json({ error: "Invalid status parameters." }, { status: 400 });
+    if (!id || typeof id !== "string") {
+      return NextResponse.json({ error: "Inquiry ID is required." }, { status: 400 });
     }
 
-    const success = await updateInquiryStatus(id, status);
-    if (!success) {
-      return NextResponse.json({ error: "Inquiry not found." }, { status: 404 });
+    let updatedAny = false;
+
+    if (status !== undefined) {
+      if (!["unread", "read", "archived"].includes(status)) {
+        return NextResponse.json({ error: "Invalid status parameters." }, { status: 400 });
+      }
+      const success = await updateInquiryStatus(id, status);
+      if (!success) {
+        return NextResponse.json({ error: "Inquiry not found." }, { status: 404 });
+      }
+      updatedAny = true;
+    }
+
+    if (internalNote !== undefined) {
+      if (typeof internalNote !== "string") {
+        return NextResponse.json({ error: "Internal note must be a string." }, { status: 400 });
+      }
+      const success = await updateInquiryNote(id, internalNote);
+      if (!success) {
+        return NextResponse.json({ error: "Inquiry not found." }, { status: 404 });
+      }
+      updatedAny = true;
+    }
+
+    if (!updatedAny) {
+      return NextResponse.json({ error: "No valid fields provided to update." }, { status: 400 });
     }
 
     return NextResponse.json({
       success: true,
-      message: `Inquiry status updated to ${status}.`,
+      message: "Inquiry record updated successfully.",
     });
   } catch (error) {
     console.error("Admin inquiry PATCH error:", error);

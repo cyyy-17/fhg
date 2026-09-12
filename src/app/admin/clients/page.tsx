@@ -10,6 +10,8 @@ import {
   AlertCircle,
   Loader2,
   Building2,
+  MoveUp,
+  MoveDown,
 } from "lucide-react";
 import AdminHeader from "@/components/admin/AdminHeader";
 import AdminModal from "@/components/admin/AdminModal";
@@ -109,6 +111,17 @@ export default function AdminClientsPage() {
   function handleDelete(id: string) {
     if (!confirm("Are you sure you want to remove this client from the official portfolio?")) return;
     const next = clients.filter((c) => c.id !== id);
+    saveClientsToApi(next);
+  }
+
+  function handleMove(index: number, direction: "up" | "down") {
+    const target = direction === "up" ? index - 1 : index + 1;
+    if (target < 0 || target >= clients.length) return;
+
+    const next = [...clients];
+    const temp = next[index];
+    next[index] = next[target];
+    next[target] = temp;
     saveClientsToApi(next);
   }
 
@@ -212,6 +225,30 @@ export default function AdminClientsPage() {
                     </td>
                     <td className="py-3 px-4 text-right">
                       <div className="flex items-center justify-end gap-1.5">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const idx = clients.findIndex((c) => c.id === item.id);
+                            handleMove(idx, "up");
+                          }}
+                          disabled={clients.findIndex((c) => c.id === item.id) === 0}
+                          className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-[#9aa89b] hover:text-white disabled:opacity-30 transition cursor-pointer"
+                          title="Move Up"
+                        >
+                          <MoveUp className="w-3.5 h-3.5" />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const idx = clients.findIndex((c) => c.id === item.id);
+                            handleMove(idx, "down");
+                          }}
+                          disabled={clients.findIndex((c) => c.id === item.id) === clients.length - 1}
+                          className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-[#9aa89b] hover:text-white disabled:opacity-30 transition cursor-pointer"
+                          title="Move Down"
+                        >
+                          <MoveDown className="w-3.5 h-3.5" />
+                        </button>
                         <button
                           onClick={() => {
                             setEditingItem(JSON.parse(JSON.stringify(item)));

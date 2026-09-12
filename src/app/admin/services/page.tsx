@@ -9,10 +9,88 @@ import {
   CheckCircle2,
   AlertCircle,
   Loader2,
+  MoveUp,
+  MoveDown,
+  X,
 } from "lucide-react";
 import AdminHeader from "@/components/admin/AdminHeader";
 import AdminModal from "@/components/admin/AdminModal";
 import type { ServiceItem } from "@/data/services";
+
+function ListInputEditor({
+  label,
+  items,
+  placeholder,
+  onChange,
+}: {
+  label: string;
+  items: string[];
+  placeholder?: string;
+  onChange: (items: string[]) => void;
+}) {
+  const [newItem, setNewItem] = useState("");
+
+  function handleAdd() {
+    if (!newItem.trim()) return;
+    onChange([...items, newItem.trim()]);
+    setNewItem("");
+  }
+
+  function handleRemove(index: number) {
+    onChange(items.filter((_, i) => i !== index));
+  }
+
+  return (
+    <div className="space-y-2">
+      <label className="block text-xs font-mono uppercase text-[#9aa89b]">
+        {label} ({items.length})
+      </label>
+      <div className="flex gap-2">
+        <input
+          type="text"
+          value={newItem}
+          onChange={(e) => setNewItem(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              handleAdd();
+            }
+          }}
+          placeholder={placeholder || "Type item and press Enter or Add..."}
+          className="flex-1 p-2.5 rounded-lg bg-[#050e07] border border-white/15 text-xs text-[#f6f7f4] focus:ring-1 focus:ring-[#22c55e] outline-none"
+        />
+        <button
+          type="button"
+          onClick={handleAdd}
+          className="px-3 py-2 rounded-lg bg-white/5 hover:bg-[#22c55e]/20 text-[#22c55e] border border-[#22c55e]/30 text-xs font-semibold flex items-center gap-1 transition cursor-pointer"
+        >
+          <Plus className="w-3.5 h-3.5" />
+          <span>Add</span>
+        </button>
+      </div>
+      {items.length > 0 && (
+        <div className="flex flex-wrap gap-1.5 pt-1 max-h-36 overflow-y-auto">
+          {items.map((item, idx) => (
+            <span
+              key={idx}
+              className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#050e07] border border-white/15 text-xs text-[#f6f7f4]"
+            >
+              <span>{item}</span>
+              <button
+                type="button"
+                onClick={() => handleRemove(idx)}
+                className="text-[#9aa89b] hover:text-red-400 cursor-pointer p-0.5"
+                title="Remove item"
+              >
+                <X className="w-3 h-3" />
+              </button>
+            </span>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
 
 const AVAILABLE_ICONS = [
   "TreePine",
@@ -122,6 +200,17 @@ export default function AdminServicesPage() {
     saveServicesToApi(next);
   }
 
+  function handleMove(index: number, direction: "up" | "down") {
+    const target = direction === "up" ? index - 1 : index + 1;
+    if (target < 0 || target >= services.length) return;
+
+    const next = [...services];
+    const temp = next[index];
+    next[index] = next[target];
+    next[target] = temp;
+    saveServicesToApi(next);
+  }
+
   const filtered = services.filter(
     (s) =>
       s.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -219,6 +308,30 @@ export default function AdminServicesPage() {
                     </td>
                     <td className="py-3 px-4 text-right">
                       <div className="flex items-center justify-end gap-1.5">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const idx = services.findIndex((s) => s.id === item.id);
+                            handleMove(idx, "up");
+                          }}
+                          disabled={services.findIndex((s) => s.id === item.id) === 0}
+                          className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-[#9aa89b] hover:text-white disabled:opacity-30 transition cursor-pointer"
+                          title="Move Up"
+                        >
+                          <MoveUp className="w-3.5 h-3.5" />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const idx = services.findIndex((s) => s.id === item.id);
+                            handleMove(idx, "down");
+                          }}
+                          disabled={services.findIndex((s) => s.id === item.id) === services.length - 1}
+                          className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-[#9aa89b] hover:text-white disabled:opacity-30 transition cursor-pointer"
+                          title="Move Down"
+                        >
+                          <MoveDown className="w-3.5 h-3.5" />
+                        </button>
                         <button
                           onClick={() => {
                             setEditingItem(JSON.parse(JSON.stringify(item)));
@@ -339,80 +452,53 @@ export default function AdminServicesPage() {
               </div>
 
               <div className="sm:col-span-2">
-                <label className="block text-xs font-mono uppercase text-[#9aa89b] mb-1">
-                  Key Metrics (Comma Separated)
-                </label>
-                <input
-                  type="text"
-                  value={editingItem.metrics.join(", ")}
-                  onChange={(e) =>
-                    setEditingItem({
-                      ...editingItem,
-                      metrics: e.target.value.split(",").map((s) => s.trim()).filter(Boolean),
-                    })
-                  }
+                <ListInputEditor
+                  label="Key Operational Metrics"
+                  items={editingItem.metrics || []}
                   placeholder="e.g. 25T–50T Cranes, 98.7% Survival, 12-Mo Warranty"
-                  className="w-full p-2.5 rounded-lg bg-[#050e07] border border-white/15 text-xs text-[#f6f7f4] focus:ring-1 focus:ring-[#22c55e] outline-none font-mono"
+                  onChange={(metrics) => setEditingItem({ ...editingItem, metrics })}
                 />
               </div>
 
               <div className="sm:col-span-2">
-                <label className="block text-xs font-mono uppercase text-[#9aa89b] mb-1">
-                  Scope Deliverables (One per line)
-                </label>
-                <textarea
-                  rows={3}
-                  value={editingItem.specs.deliverables.join("\n")}
-                  onChange={(e) =>
+                <ListInputEditor
+                  label="Scope Deliverables"
+                  items={editingItem.specs.deliverables || []}
+                  placeholder="e.g. Site survey, heavy canopy pruning, root balling..."
+                  onChange={(deliverables) =>
                     setEditingItem({
                       ...editingItem,
-                      specs: {
-                        ...editingItem.specs,
-                        deliverables: e.target.value.split("\n").filter((l) => l.trim()),
-                      },
+                      specs: { ...editingItem.specs, deliverables },
                     })
                   }
-                  className="w-full p-2.5 rounded-lg bg-[#050e07] border border-white/15 text-xs text-[#f6f7f4] focus:ring-1 focus:ring-[#22c55e] outline-none font-mono"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-mono uppercase text-[#9aa89b] mb-1">
-                  Allocated Equipment Fleet (One per line)
-                </label>
-                <textarea
-                  rows={3}
-                  value={editingItem.specs.equipment.join("\n")}
-                  onChange={(e) =>
+                <ListInputEditor
+                  label="Allocated Equipment Fleet"
+                  items={editingItem.specs.equipment || []}
+                  placeholder="e.g. Stihl MS-382 Chainsaws, 50T Mobile Crane..."
+                  onChange={(equipment) =>
                     setEditingItem({
                       ...editingItem,
-                      specs: {
-                        ...editingItem.specs,
-                        equipment: e.target.value.split("\n").filter((l) => l.trim()),
-                      },
+                      specs: { ...editingItem.specs, equipment },
                     })
                   }
-                  className="w-full p-2.5 rounded-lg bg-[#050e07] border border-white/15 text-xs text-[#f6f7f4] focus:ring-1 focus:ring-[#22c55e] outline-none font-mono"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-mono uppercase text-[#9aa89b] mb-1">
-                  Mandatory Statutory Permits (One per line)
-                </label>
-                <textarea
-                  rows={3}
-                  value={editingItem.specs.permits.join("\n")}
-                  onChange={(e) =>
+                <ListInputEditor
+                  label="Mandatory Statutory Permits"
+                  items={editingItem.specs.permits || []}
+                  placeholder="e.g. DENR Tree Removal Permit, PCA Cutting Permit..."
+                  onChange={(permits) =>
                     setEditingItem({
                       ...editingItem,
-                      specs: {
-                        ...editingItem.specs,
-                        permits: e.target.value.split("\n").filter((l) => l.trim()),
-                      },
+                      specs: { ...editingItem.specs, permits },
                     })
                   }
-                  className="w-full p-2.5 rounded-lg bg-[#050e07] border border-white/15 text-xs text-[#f6f7f4] focus:ring-1 focus:ring-[#22c55e] outline-none font-mono"
                 />
               </div>
             </div>

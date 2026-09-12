@@ -20,6 +20,8 @@ import {
   KeyRound,
   ChevronRight,
   ShieldCheck,
+  HelpCircle,
+  ClipboardList,
 } from "lucide-react";
 import AdminHeader from "@/components/admin/AdminHeader";
 import type { AdminStore, InquiryRecord } from "@/types/admin";
@@ -179,6 +181,20 @@ export default function AdminDashboardPage() {
       href: "/admin/documents",
     },
     {
+      label: "Standard Protocol",
+      value: store.protocol?.length || 6,
+      subtext: "Step-by-step Procedures",
+      icon: ClipboardList,
+      href: "/admin/protocol",
+    },
+    {
+      label: "Knowledge & FAQs",
+      value: store.faqs?.length || 7,
+      subtext: "Public Q&A and Guidance",
+      icon: HelpCircle,
+      href: "/admin/faqs",
+    },
+    {
       label: "Company Status",
       value: "28+ Yrs",
       subtext: store.company?.corporateTransition?.type || "Three-person Family Corp",
@@ -322,7 +338,7 @@ export default function AdminDashboardPage() {
       </div>
 
       {/* Grid of Modules & Stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
         {statCards.map((stat) => {
           const Icon = stat.icon;
           return (

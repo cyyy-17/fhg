@@ -89,7 +89,18 @@ export const documentItemSchema = z.object({
 });
 
 export const adminSettingsSchema = z.object({
-  contactEmail: z.string().email("Invalid email format").optional().or(z.literal("")),
+  contactEmail: z
+    .string()
+    .refine(
+      (val) => {
+        if (!val || val.trim() === "") return true;
+        const emails = val.split(",").map((s) => s.trim()).filter(Boolean);
+        return emails.length > 0 && emails.every((e) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e));
+      },
+      { message: "Invalid email format. Enter valid email(s) separated by commas." }
+    )
+    .optional()
+    .or(z.literal("")),
   adminPassword: z.string().min(6, "Password must be at least 6 characters").optional().or(z.literal("")),
   notificationEnabled: z.boolean().optional(),
 });

@@ -11,6 +11,8 @@ import {
   CheckCircle2,
   AlertCircle,
   Loader2,
+  Award,
+  FileCheck,
 } from "lucide-react";
 import AdminHeader from "@/components/admin/AdminHeader";
 import type { CompanyData } from "@/types/admin";
@@ -20,8 +22,18 @@ import CompanyLegalForm from "@/components/admin/company/CompanyLegalForm";
 import CompanyContactForm from "@/components/admin/company/CompanyContactForm";
 import CompanySafetyForm from "@/components/admin/company/CompanySafetyForm";
 import CompanyStatsForm from "@/components/admin/company/CompanyStatsForm";
+import CompanyAwardsForm from "@/components/admin/company/CompanyAwardsForm";
+import CompanyCredentialsForm from "@/components/admin/company/CompanyCredentialsForm";
 
-type TabSection = "identity" | "transition" | "legal" | "contact" | "safety" | "stats";
+type TabSection =
+  | "identity"
+  | "transition"
+  | "legal"
+  | "contact"
+  | "safety"
+  | "stats"
+  | "awards"
+  | "credentials";
 
 export default function AdminCompanyPage() {
   const [data, setData] = useState<CompanyData | null>(null);
@@ -99,6 +111,8 @@ export default function AdminCompanyPage() {
     { key: "legal", label: "Legal & Permits", icon: ShieldCheck },
     { key: "contact", label: "Head Office & Contacts", icon: MapPin },
     { key: "safety", label: "Warranty & EHS", icon: ShieldCheck },
+    { key: "awards", label: "Awards & Citations", icon: Award },
+    { key: "credentials", label: "Enterprise Credentials", icon: FileCheck },
     { key: "stats", label: "Hero Statistics", icon: BarChart3 },
   ];
 
@@ -173,6 +187,8 @@ export default function AdminCompanyPage() {
         {activeTab === "legal" && <CompanyLegalForm data={data} onChange={setData} />}
         {activeTab === "contact" && <CompanyContactForm data={data} onChange={setData} />}
         {activeTab === "safety" && <CompanySafetyForm data={data} onChange={setData} />}
+        {activeTab === "awards" && <CompanyAwardsForm data={data} onChange={setData} />}
+        {activeTab === "credentials" && <CompanyCredentialsForm data={data} onChange={setData} />}
         {activeTab === "stats" && <CompanyStatsForm data={data} onChange={setData} />}
       </div>
     </div>

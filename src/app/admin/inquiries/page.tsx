@@ -11,6 +11,8 @@ import {
   RefreshCw,
   Building2,
   Phone,
+  FileText,
+  Save,
 } from "lucide-react";
 import AdminHeader from "@/components/admin/AdminHeader";
 import AdminModal from "@/components/admin/AdminModal";
@@ -25,6 +27,40 @@ export default function AdminInquiriesPage() {
   const [copied, setCopied] = useState(false);
   const [actionLoading, setActionLoading] = useState(false);
   const [deleteConfirmId, setDeleteConfirmId] = useState<string | null>(null);
+  const [internalNoteInput, setInternalNoteInput] = useState("");
+  const [noteSaved, setNoteSaved] = useState(false);
+
+  function handleSelectInquiry(inq: InquiryRecord) {
+    setSelectedInquiry(inq);
+    setInternalNoteInput(inq.internalNote || "");
+    setNoteSaved(false);
+  }
+
+  async function handleSaveNote() {
+    if (!selectedInquiry) return;
+    setActionLoading(true);
+    try {
+      const res = await fetch("/api/admin/inquiries", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: selectedInquiry.id, internalNote: internalNoteInput }),
+      });
+      if (res.ok) {
+        setInquiries((prev) =>
+          prev.map((i) =>
+            i.id === selectedInquiry.id ? { ...i, internalNote: internalNoteInput } : i
+          )
+        );
+        setSelectedInquiry((prev) =>
+          prev ? { ...prev, internalNote: internalNoteInput } : null
+        );
+        setNoteSaved(true);
+        setTimeout(() => setNoteSaved(false), 2500);
+      }
+    } finally {
+      setActionLoading(false);
+    }
+  }
 
   const fetchInquiries = useCallback(async (showSpinner = false) => {
     if (showSpinner) setLoading(true);
@@ -205,7 +241,7 @@ export default function AdminInquiriesPage() {
             {filtered.map((inq) => (
               <div
                 key={inq.id}
-                onClick={() => setSelectedInquiry(inq)}
+                onClick={() => handleSelectInquiry(inq)}
                 className={`p-4 hover:bg-white/5 transition flex flex-col sm:flex-row sm:items-center justify-between gap-3 cursor-pointer ${
                   inq.status === "unread" ? "bg-emerald-950/15" : ""
                 }`}
@@ -223,6 +259,12 @@ export default function AdminInquiriesPage() {
                     {inq.company && (
                       <span className="text-xs text-[#9aa89b] truncate">
                         • {inq.company}
+                      </span>
+                    )}
+                    {inq.internalNote && (
+                      <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 flex items-center gap-1 shrink-0">
+                        <FileText className="w-2.5 h-2.5" />
+                        <span>Note</span>
                       </span>
                     )}
                     <span
@@ -343,6 +385,43 @@ export default function AdminInquiriesPage() {
                 </pre>
               </div>
             )}
+
+            {/* Internal Operational Note */}
+            <div className="space-y-2 p-3.5 rounded-xl bg-[#08130a] border border-white/10">
+              <div className="flex items-center justify-between">
+                <label className="text-[11px] font-mono uppercase text-[#22c55e] font-semibold flex items-center gap-1.5">
+                  <FileText className="w-3.5 h-3.5" />
+                  <span>Internal Operational Note</span>
+                </label>
+                {noteSaved && (
+                  <span className="text-[11px] font-mono text-emerald-400 flex items-center gap-1 animate-fade-in">
+                    <Check className="w-3 h-3" />
+                    <span>Saved note</span>
+                  </span>
+                )}
+              </div>
+              <p className="text-[11px] text-[#9aa89b]">
+                Private administrative notes regarding this lead (e.g. site visit schedule, quotation status, client budget). Only visible in admin panel.
+              </p>
+              <textarea
+                rows={3}
+                value={internalNoteInput}
+                onChange={(e) => setInternalNoteInput(e.target.value)}
+                placeholder="Add private operational follow-up notes here..."
+                className="w-full p-2.5 rounded-lg bg-[#050e07] border border-white/15 text-xs text-[#f6f7f4] focus:ring-1 focus:ring-[#22c55e] outline-none leading-relaxed"
+              />
+              <div className="flex justify-end">
+                <button
+                  type="button"
+                  disabled={actionLoading}
+                  onClick={handleSaveNote}
+                  className="px-3 py-1.5 rounded-lg bg-linear-to-r from-[#15803d] to-[#16a34a] hover:from-[#16a34a] hover:to-[#22c55e] text-[#f6f7f4] text-xs font-semibold shadow transition flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
+                >
+                  <Save className="w-3.5 h-3.5" />
+                  <span>{actionLoading ? "Saving..." : "Save Note"}</span>
+                </button>
+              </div>
+            </div>
 
             {/* Actions Footer */}
             <div className="flex flex-wrap items-center justify-between gap-2 pt-3 border-t border-white/10">

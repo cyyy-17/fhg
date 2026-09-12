@@ -60,6 +60,21 @@ export default function CompanySafetyForm({ data, onChange }: CompanySafetyFormP
           />
         </div>
 
+        <div className="md:col-span-2">
+          <label className="block text-xs font-mono uppercase text-[#9aa89b] mb-1">
+            Post-Transplantation Monitoring Schedule
+          </label>
+          <textarea
+            rows={2}
+            value={warranty.monitoringInterval || ""}
+            onChange={(e) =>
+              onChange({ ...data, warranty: { ...warranty, monitoringInterval: e.target.value } })
+            }
+            placeholder="e.g. Bi-weekly root-conditioning, micro-irrigation, and canopy pruning audit for first 180 days"
+            className="w-full p-2.5 rounded-lg bg-[#050e07] border border-white/15 text-xs text-[#f6f7f4] focus:ring-1 focus:ring-[#22c55e] outline-none"
+          />
+        </div>
+
         <div>
           <label className="block text-xs font-mono uppercase text-[#9aa89b] mb-1">
             Safe Manhours (Zero LTI)
@@ -90,6 +105,60 @@ export default function CompanySafetyForm({ data, onChange }: CompanySafetyFormP
                 safetyEhs: { ...safetyEhs, safetyAward: e.target.value },
               })
             }
+            className="w-full p-2.5 rounded-lg bg-[#050e07] border border-white/15 text-xs text-[#f6f7f4] focus:ring-1 focus:ring-[#22c55e] outline-none"
+          />
+        </div>
+
+        <div>
+          <label className="block text-xs font-mono uppercase text-[#9aa89b] mb-1">
+            Safety &amp; Compliance Rating
+          </label>
+          <input
+            type="text"
+            value={safetyEhs.complianceRating || ""}
+            onChange={(e) =>
+              onChange({
+                ...data,
+                safetyEhs: { ...safetyEhs, complianceRating: e.target.value },
+              })
+            }
+            placeholder="e.g. 100% Safety & Environmental Compliance Rating with DENR, PCA & DPWH"
+            className="w-full p-2.5 rounded-lg bg-[#050e07] border border-white/15 text-xs text-[#f6f7f4] focus:ring-1 focus:ring-[#22c55e] outline-none font-mono"
+          />
+        </div>
+
+        <div>
+          <label className="block text-xs font-mono uppercase text-[#9aa89b] mb-1">
+            Project Insurance Shield (CGL &amp; CAR)
+          </label>
+          <input
+            type="text"
+            value={safetyEhs.insurance || ""}
+            onChange={(e) =>
+              onChange({
+                ...data,
+                safetyEhs: { ...safetyEhs, insurance: e.target.value },
+              })
+            }
+            placeholder="e.g. Comprehensive General Liability (CGL) & Contractor's All Risk (CAR) active project coverage"
+            className="w-full p-2.5 rounded-lg bg-[#050e07] border border-white/15 text-xs text-[#f6f7f4] focus:ring-1 focus:ring-[#22c55e] outline-none"
+          />
+        </div>
+
+        <div className="md:col-span-2">
+          <label className="block text-xs font-mono uppercase text-[#9aa89b] mb-1">
+            Accredited Safety &amp; Health Officers (COSH &amp; BOSH)
+          </label>
+          <input
+            type="text"
+            value={safetyEhs.officers || ""}
+            onChange={(e) =>
+              onChange({
+                ...data,
+                safetyEhs: { ...safetyEhs, officers: e.target.value },
+              })
+            }
+            placeholder="e.g. DOLE-Accredited Construction Occupational Safety and Health (COSH) & BOSH Officers on-site"
             className="w-full p-2.5 rounded-lg bg-[#050e07] border border-white/15 text-xs text-[#f6f7f4] focus:ring-1 focus:ring-[#22c55e] outline-none"
           />
         </div>

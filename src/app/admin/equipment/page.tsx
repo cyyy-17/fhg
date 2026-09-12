@@ -10,6 +10,8 @@ import {
   AlertCircle,
   Loader2,
   ShieldCheck,
+  MoveUp,
+  MoveDown,
 } from "lucide-react";
 import AdminHeader from "@/components/admin/AdminHeader";
 import AdminModal from "@/components/admin/AdminModal";
@@ -117,6 +119,17 @@ export default function AdminEquipmentPage() {
     if (!confirm("Are you sure you want to remove this equipment item from the active fleet roster?"))
       return;
     const next = fleet.filter((f) => f.id !== id);
+    saveFleetToApi(next);
+  }
+
+  function handleMove(index: number, direction: "up" | "down") {
+    const target = direction === "up" ? index - 1 : index + 1;
+    if (target < 0 || target >= fleet.length) return;
+
+    const next = [...fleet];
+    const temp = next[index];
+    next[index] = next[target];
+    next[target] = temp;
     saveFleetToApi(next);
   }
 
@@ -231,6 +244,30 @@ export default function AdminEquipmentPage() {
                     </td>
                     <td className="py-3 px-4 text-right">
                       <div className="flex items-center justify-end gap-1.5">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const idx = fleet.findIndex((f) => f.id === item.id);
+                            handleMove(idx, "up");
+                          }}
+                          disabled={fleet.findIndex((f) => f.id === item.id) === 0}
+                          className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-[#9aa89b] hover:text-white disabled:opacity-30 transition cursor-pointer"
+                          title="Move Up"
+                        >
+                          <MoveUp className="w-3.5 h-3.5" />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const idx = fleet.findIndex((f) => f.id === item.id);
+                            handleMove(idx, "down");
+                          }}
+                          disabled={fleet.findIndex((f) => f.id === item.id) === fleet.length - 1}
+                          className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-[#9aa89b] hover:text-white disabled:opacity-30 transition cursor-pointer"
+                          title="Move Down"
+                        >
+                          <MoveDown className="w-3.5 h-3.5" />
+                        </button>
                         <button
                           onClick={() => {
                             setEditingItem(JSON.parse(JSON.stringify(item)));

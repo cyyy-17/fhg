@@ -44,6 +44,13 @@ export async function POST(request: Request) {
       );
     }
 
+    const recipientList = recipientEmail
+      .split(",")
+      .map((e) => e.trim())
+      .filter((e) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e));
+
+    const finalRecipients = recipientList.length > 0 ? recipientList : [recipientEmail];
+
     const response = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
@@ -52,14 +59,14 @@ export async function POST(request: Request) {
       },
       body: JSON.stringify({
         from: "Forest Hills Garden <onboarding@resend.dev>",
-        to: [recipientEmail],
+        to: finalRecipients,
         subject: `[FHG System Test] Live Email Verification - ${new Date().toLocaleDateString()}`,
         text:
           `[FOREST HILLS GARDEN - SYSTEM TEST TRANSMISSION]\n` +
           `Timestamp: ${new Date().toISOString()}\n` +
-          `Recipient: ${recipientEmail}\n\n` +
+          `Recipients: ${finalRecipients.join(", ")}\n\n` +
           `This is an automated test verifying that your Resend API integration and outbound mailbox routing are functioning correctly.\n\n` +
-          `All public inquiries and RFP tender submissions will be routed to this verified mailbox.`,
+          `All public inquiries and RFP tender submissions will be routed to these verified mailboxes.`,
       }),
     });
 
@@ -79,7 +86,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json({
       success: true,
-      message: `Test email dispatched successfully to ${recipientEmail}. Check your inbox or spam folder.`,
+      message: `Test email dispatched successfully to ${finalRecipients.join(", ")}. Check your inbox or spam folder.`,
       id: data?.id,
     });
   } catch (error) {

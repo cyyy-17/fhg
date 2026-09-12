@@ -373,6 +373,26 @@ export async function updateInquiryStatus(
   return found;
 }
 
+export async function updateInquiryNote(
+  id: string,
+  internalNote: string
+): Promise<boolean> {
+  const current = await getInquiriesData();
+  let found = false;
+  const updated = current.map((inq) => {
+    if (inq.id === id) {
+      found = true;
+      return { ...inq, internalNote };
+    }
+    return inq;
+  });
+
+  if (found) {
+    await saveInquiriesData(updated);
+  }
+  return found;
+}
+
 export async function deleteInquiryRecord(id: string): Promise<boolean> {
   const current = await getInquiriesData();
   const filtered = current.filter((inq) => inq.id !== id);

@@ -11,6 +11,8 @@ import {
   AlertCircle,
   Loader2,
   MapPin,
+  MoveUp,
+  MoveDown,
 } from "lucide-react";
 import AdminHeader from "@/components/admin/AdminHeader";
 import AdminModal from "@/components/admin/AdminModal";
@@ -140,6 +142,51 @@ export default function AdminNurseriesPage() {
     if (!confirm("Are you sure you want to remove this species entry?")) return;
     const next = species.filter((s) => s.id !== id);
     saveSpeciesList(next);
+  }
+
+  function handleMoveSpecies(index: number, direction: "up" | "down") {
+    const target = direction === "up" ? index - 1 : index + 1;
+    if (target < 0 || target >= species.length) return;
+
+    const next = [...species];
+    const temp = next[index];
+    next[index] = next[target];
+    next[target] = temp;
+    saveSpeciesList(next);
+  }
+
+  function handleAddFacility() {
+    if (!company) return;
+    const newFacility = {
+      name: "New Nursery Propagation Farm",
+      location: "Talisay, Batangas",
+      coordinates: "14.089851, 121.037593",
+      capacity: "50,000+ Forest Stocks",
+      specialty: "Acclimatized balled trees and DENR compensatory planting stocks.",
+      googleMapsUrl: "https://maps.google.com/?q=Talisay,+Batangas",
+      wazeUrl: "https://waze.com/ul?q=Talisay+Batangas",
+    };
+    const next = [...(company.nurseries || []), newFacility];
+    setCompany({ ...company, nurseries: next });
+  }
+
+  function handleDeleteFacility(index: number) {
+    if (!company) return;
+    if (!confirm("Are you sure you want to remove this nursery facility?")) return;
+    const next = company.nurseries.filter((_, idx) => idx !== index);
+    setCompany({ ...company, nurseries: next });
+  }
+
+  function handleMoveFacility(index: number, direction: "up" | "down") {
+    if (!company) return;
+    const target = direction === "up" ? index - 1 : index + 1;
+    if (target < 0 || target >= company.nurseries.length) return;
+
+    const next = [...company.nurseries];
+    const temp = next[index];
+    next[index] = next[target];
+    next[target] = temp;
+    setCompany({ ...company, nurseries: next });
   }
 
   const filteredSpecies = species.filter(
@@ -285,6 +332,30 @@ export default function AdminNurseriesPage() {
                         <td className="py-3 px-4 text-right">
                           <div className="flex items-center justify-end gap-1.5">
                             <button
+                              type="button"
+                              onClick={() => {
+                                const idx = species.findIndex((s) => s.id === item.id);
+                                handleMoveSpecies(idx, "up");
+                              }}
+                              disabled={species.findIndex((s) => s.id === item.id) === 0}
+                              className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-[#9aa89b] hover:text-white disabled:opacity-30 transition cursor-pointer"
+                              title="Move Up"
+                            >
+                              <MoveUp className="w-3.5 h-3.5" />
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                const idx = species.findIndex((s) => s.id === item.id);
+                                handleMoveSpecies(idx, "down");
+                              }}
+                              disabled={species.findIndex((s) => s.id === item.id) === species.length - 1}
+                              className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-[#9aa89b] hover:text-white disabled:opacity-30 transition cursor-pointer"
+                              title="Move Down"
+                            >
+                              <MoveDown className="w-3.5 h-3.5" />
+                            </button>
+                            <button
                               onClick={() => {
                                 setEditingSpecies(JSON.parse(JSON.stringify(item)));
                                 setIsCreatingSpecies(false);
@@ -315,104 +386,200 @@ export default function AdminNurseriesPage() {
 
       {/* TAB 2: NURSERY FACILITIES */}
       {activeTab === "facilities" && company && (
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {company.nurseries.map((nursery, idx) => (
-            <div
-              key={idx}
-              className="bg-[#0a170d] border border-white/10 rounded-2xl p-5 space-y-3.5"
-            >
-              <div className="flex items-center justify-between border-b border-white/10 pb-2">
-                <div className="flex items-center gap-2">
-                  <MapPin className="w-4 h-4 text-[#22c55e]" />
-                  <span className="text-xs font-mono uppercase text-[#22c55e] font-semibold">
-                    Facility #{idx + 1}
-                  </span>
-                </div>
-              </div>
-
-              <div>
-                <label className="block text-[10px] font-mono uppercase text-[#9aa89b] mb-1">
-                  Facility Name
-                </label>
-                <input
-                  type="text"
-                  value={nursery.name}
-                  onChange={(e) => {
-                    const next = [...company.nurseries];
-                    next[idx] = { ...next[idx], name: e.target.value };
-                    setCompany({ ...company, nurseries: next });
-                  }}
-                  className="w-full p-2 rounded-lg bg-[#050e07] border border-white/15 text-xs text-[#f6f7f4] font-semibold"
-                />
-              </div>
-
-              <div>
-                <label className="block text-[10px] font-mono uppercase text-[#9aa89b] mb-1">
-                  Location Address
-                </label>
-                <input
-                  type="text"
-                  value={nursery.location}
-                  onChange={(e) => {
-                    const next = [...company.nurseries];
-                    next[idx] = { ...next[idx], location: e.target.value };
-                    setCompany({ ...company, nurseries: next });
-                  }}
-                  className="w-full p-2 rounded-lg bg-[#050e07] border border-white/15 text-xs text-[#f6f7f4]"
-                />
-              </div>
-
-              <div>
-                <label className="block text-[10px] font-mono uppercase text-[#9aa89b] mb-1">
-                  Holding Capacity
-                </label>
-                <input
-                  type="text"
-                  value={nursery.capacity}
-                  onChange={(e) => {
-                    const next = [...company.nurseries];
-                    next[idx] = { ...next[idx], capacity: e.target.value };
-                    setCompany({ ...company, nurseries: next });
-                  }}
-                  className="w-full p-2 rounded-lg bg-[#050e07] border border-white/15 text-xs text-[#22c55e] font-mono"
-                />
-              </div>
-
-              <div>
-                <label className="block text-[10px] font-mono uppercase text-[#9aa89b] mb-1">
-                  Facility Specialty & Acclimatization Stock
-                </label>
-                <textarea
-                  rows={3}
-                  value={nursery.specialty}
-                  onChange={(e) => {
-                    const next = [...company.nurseries];
-                    next[idx] = { ...next[idx], specialty: e.target.value };
-                    setCompany({ ...company, nurseries: next });
-                  }}
-                  className="w-full p-2 rounded-lg bg-[#050e07] border border-white/15 text-xs text-[#f6f7f4]"
-                />
-              </div>
-
-              {nursery.coordinates && (
-                <div>
-                  <label className="block text-[10px] font-mono uppercase text-[#9aa89b] mb-1">
-                    GPS Coordinates
-                  </label>
-                  <input
-                    type="text"
-                    value={nursery.coordinates}
-                    onChange={(e) => {
-                      const next = [...company.nurseries];
-                      next[idx] = { ...next[idx], coordinates: e.target.value };
-                      setCompany({ ...company, nurseries: next });
-                    }}
-                    className="w-full p-2 rounded-lg bg-[#050e07] border border-white/15 text-xs text-[#f6f7f4] font-mono"
-                  />
-                </div>
-              )}
+        <div className="space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-xl bg-[#0a170d] border border-white/10">
+            <div>
+              <h3 className="text-sm font-bold font-heading text-[#f6f7f4] flex items-center gap-2">
+                <MapPin className="w-4 h-4 text-[#22c55e]" />
+                <span>Nursery Propagation Facilities ({company.nurseries?.length || 0})</span>
+              </h3>
+              <p className="text-xs text-[#9aa89b] mt-0.5">
+                Configure production farms, specimen holding capacity, GPS coordinates, and client navigation links.
+              </p>
             </div>
-          ))}
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={handleAddFacility}
+                className="px-3.5 py-1.5 rounded-lg bg-white/5 hover:bg-[#22c55e]/20 text-[#22c55e] border border-[#22c55e]/30 text-xs font-semibold flex items-center gap-1.5 transition cursor-pointer"
+              >
+                <Plus className="w-3.5 h-3.5" />
+                <span>Add Facility</span>
+              </button>
+              <button
+                type="button"
+                onClick={saveFacilities}
+                disabled={isSaving}
+                className="px-4 py-1.5 rounded-lg bg-linear-to-r from-[#15803d] to-[#16a34a] hover:from-[#16a34a] hover:to-[#22c55e] text-[#f6f7f4] text-xs font-semibold shadow-md transition flex items-center gap-1.5 cursor-pointer disabled:opacity-50"
+              >
+                {isSaving ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Save className="w-3.5 h-3.5" />}
+                <span>Save All Facilities</span>
+              </button>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            {company.nurseries.map((nursery, idx) => (
+              <div
+                key={idx}
+                className="bg-[#0a170d] border border-white/10 rounded-2xl p-5 space-y-3.5 flex flex-col justify-between"
+              >
+                <div className="space-y-3.5">
+                  <div className="flex items-center justify-between border-b border-white/10 pb-2">
+                    <div className="flex items-center gap-2">
+                      <MapPin className="w-4 h-4 text-[#22c55e]" />
+                      <span className="text-xs font-mono uppercase text-[#22c55e] font-semibold">
+                        Facility #{idx + 1}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <button
+                        type="button"
+                        onClick={() => handleMoveFacility(idx, "up")}
+                        disabled={idx === 0}
+                        className="p-1 rounded-md bg-white/5 hover:bg-white/10 text-[#9aa89b] hover:text-white disabled:opacity-30 transition cursor-pointer"
+                        title="Move Up"
+                      >
+                        <MoveUp className="w-3 h-3" />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleMoveFacility(idx, "down")}
+                        disabled={idx === company.nurseries.length - 1}
+                        className="p-1 rounded-md bg-white/5 hover:bg-white/10 text-[#9aa89b] hover:text-white disabled:opacity-30 transition cursor-pointer"
+                        title="Move Down"
+                      >
+                        <MoveDown className="w-3 h-3" />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleDeleteFacility(idx)}
+                        className="p-1 rounded-md bg-white/5 hover:bg-red-500/20 text-[#9aa89b] hover:text-red-400 transition cursor-pointer ml-1"
+                        title="Delete Facility"
+                      >
+                        <Trash2 className="w-3 h-3" />
+                      </button>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-[10px] font-mono uppercase text-[#9aa89b] mb-1">
+                      Facility Name *
+                    </label>
+                    <input
+                      type="text"
+                      value={nursery.name}
+                      onChange={(e) => {
+                        const next = [...company.nurseries];
+                        next[idx] = { ...next[idx], name: e.target.value };
+                        setCompany({ ...company, nurseries: next });
+                      }}
+                      className="w-full p-2 rounded-lg bg-[#050e07] border border-white/15 text-xs text-[#f6f7f4] font-semibold focus:ring-1 focus:ring-[#22c55e] outline-none"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-[10px] font-mono uppercase text-[#9aa89b] mb-1">
+                      Location Address
+                    </label>
+                    <input
+                      type="text"
+                      value={nursery.location}
+                      onChange={(e) => {
+                        const next = [...company.nurseries];
+                        next[idx] = { ...next[idx], location: e.target.value };
+                        setCompany({ ...company, nurseries: next });
+                      }}
+                      className="w-full p-2 rounded-lg bg-[#050e07] border border-white/15 text-xs text-[#f6f7f4] focus:ring-1 focus:ring-[#22c55e] outline-none"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-[10px] font-mono uppercase text-[#9aa89b] mb-1">
+                      Holding Capacity
+                    </label>
+                    <input
+                      type="text"
+                      value={nursery.capacity}
+                      onChange={(e) => {
+                        const next = [...company.nurseries];
+                        next[idx] = { ...next[idx], capacity: e.target.value };
+                        setCompany({ ...company, nurseries: next });
+                      }}
+                      className="w-full p-2 rounded-lg bg-[#050e07] border border-white/15 text-xs text-[#22c55e] font-mono focus:ring-1 focus:ring-[#22c55e] outline-none"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-[10px] font-mono uppercase text-[#9aa89b] mb-1">
+                      Facility Specialty &amp; Acclimatization Stock
+                    </label>
+                    <textarea
+                      rows={3}
+                      value={nursery.specialty}
+                      onChange={(e) => {
+                        const next = [...company.nurseries];
+                        next[idx] = { ...next[idx], specialty: e.target.value };
+                        setCompany({ ...company, nurseries: next });
+                      }}
+                      className="w-full p-2 rounded-lg bg-[#050e07] border border-white/15 text-xs text-[#f6f7f4] focus:ring-1 focus:ring-[#22c55e] outline-none leading-relaxed"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-[10px] font-mono uppercase text-[#9aa89b] mb-1">
+                      GPS Coordinates
+                    </label>
+                    <input
+                      type="text"
+                      value={nursery.coordinates || ""}
+                      onChange={(e) => {
+                        const next = [...company.nurseries];
+                        next[idx] = { ...next[idx], coordinates: e.target.value };
+                        setCompany({ ...company, nurseries: next });
+                      }}
+                      placeholder="e.g. 14.089851, 121.037593"
+                      className="w-full p-2 rounded-lg bg-[#050e07] border border-white/15 text-xs text-[#f6f7f4] font-mono focus:ring-1 focus:ring-[#22c55e] outline-none"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-[10px] font-mono uppercase text-[#9aa89b] mb-1">
+                      Google Maps URL
+                    </label>
+                    <input
+                      type="text"
+                      value={nursery.googleMapsUrl || ""}
+                      onChange={(e) => {
+                        const next = [...company.nurseries];
+                        next[idx] = { ...next[idx], googleMapsUrl: e.target.value };
+                        setCompany({ ...company, nurseries: next });
+                      }}
+                      placeholder="https://maps.google.com/?q=..."
+                      className="w-full p-2 rounded-lg bg-[#050e07] border border-white/15 text-xs text-[#f6f7f4] font-mono focus:ring-1 focus:ring-[#22c55e] outline-none"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-[10px] font-mono uppercase text-[#9aa89b] mb-1">
+                      Waze URL
+                    </label>
+                    <input
+                      type="text"
+                      value={nursery.wazeUrl || ""}
+                      onChange={(e) => {
+                        const next = [...company.nurseries];
+                        next[idx] = { ...next[idx], wazeUrl: e.target.value };
+                        setCompany({ ...company, nurseries: next });
+                      }}
+                      placeholder="https://waze.com/ul?q=..."
+                      className="w-full p-2 rounded-lg bg-[#050e07] border border-white/15 text-xs text-[#f6f7f4] font-mono focus:ring-1 focus:ring-[#22c55e] outline-none"
+                    />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       )}
 

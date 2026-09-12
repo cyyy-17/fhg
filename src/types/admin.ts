@@ -21,6 +21,7 @@ export interface InquiryRecord {
   message: string;
   status: "unread" | "read" | "archived";
   dossierText?: string;
+  internalNote?: string;
 }
 
 export interface AdminSettings {

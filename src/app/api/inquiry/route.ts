@@ -91,6 +91,13 @@ export async function POST(request: Request) {
 
     if (resendApiKey && destinationEmail) {
       try {
+        const recipientList = destinationEmail
+          .split(",")
+          .map((e) => e.trim())
+          .filter((e) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e));
+
+        const finalRecipients = recipientList.length > 0 ? recipientList : [destinationEmail];
+
         await fetch("https://api.resend.com/emails", {
           method: "POST",
           headers: {
@@ -99,7 +106,7 @@ export async function POST(request: Request) {
           },
           body: JSON.stringify({
             from: "Forest Hills Garden <onboarding@resend.dev>",
-            to: [destinationEmail],
+            to: finalRecipients,
             reply_to: email,
             subject: `[Web Inquiry] ${subject} - ${clientName}`,
             text: compiledDossier,

@@ -10,6 +10,8 @@ import {
   AlertCircle,
   Loader2,
   MapPin,
+  MoveUp,
+  MoveDown,
 } from "lucide-react";
 import AdminHeader from "@/components/admin/AdminHeader";
 import AdminModal from "@/components/admin/AdminModal";
@@ -106,6 +108,17 @@ export default function AdminProjectsPage() {
   function handleDelete(id: string) {
     if (!confirm("Are you sure you want to permanently remove this project record?")) return;
     const next = projects.filter((p) => p.id !== id);
+    saveProjectsToApi(next);
+  }
+
+  function handleMove(index: number, direction: "up" | "down") {
+    const target = direction === "up" ? index - 1 : index + 1;
+    if (target < 0 || target >= projects.length) return;
+
+    const next = [...projects];
+    const temp = next[index];
+    next[index] = next[target];
+    next[target] = temp;
     saveProjectsToApi(next);
   }
 
@@ -236,6 +249,30 @@ export default function AdminProjectsPage() {
                     </td>
                     <td className="py-3 px-4 text-right">
                       <div className="flex items-center justify-end gap-1.5">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const idx = projects.findIndex((p) => p.id === item.id);
+                            handleMove(idx, "up");
+                          }}
+                          disabled={projects.findIndex((p) => p.id === item.id) === 0}
+                          className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-[#9aa89b] hover:text-white disabled:opacity-30 transition cursor-pointer"
+                          title="Move Up"
+                        >
+                          <MoveUp className="w-3.5 h-3.5" />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const idx = projects.findIndex((p) => p.id === item.id);
+                            handleMove(idx, "down");
+                          }}
+                          disabled={projects.findIndex((p) => p.id === item.id) === projects.length - 1}
+                          className="p-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-[#9aa89b] hover:text-white disabled:opacity-30 transition cursor-pointer"
+                          title="Move Down"
+                        >
+                          <MoveDown className="w-3.5 h-3.5" />
+                        </button>
                         <button
                           onClick={() => {
                             setEditingItem(JSON.parse(JSON.stringify(item)));

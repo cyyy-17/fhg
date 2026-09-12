@@ -11,6 +11,9 @@ interface ProfileOverviewTabProps {
 
 export default function ProfileOverviewTab({ onOpenBioModal, company: passedCompany }: ProfileOverviewTabProps) {
   const company = passedCompany || companyData;
+  const stats = company?.stats && company.stats.length > 0 ? company.stats : companyData.stats;
+  const nurseries = company?.nurseries && company.nurseries.length > 0 ? company.nurseries : companyData.nurseries;
+
   return (
     <div className="space-y-6 animate-fadeIn">
       {/* Top Bento Row: Heritage Narrative + KPI Stats */}
@@ -83,7 +86,7 @@ export default function ProfileOverviewTab({ onOpenBioModal, company: passedComp
 
         {/* Card B: KPI Micro-Stats Grid (5 cols) */}
         <div className="lg:col-span-5 grid grid-cols-2 gap-4">
-          {companyData.stats.map((stat, idx) => (
+          {stats.map((stat, idx) => (
             <div
               key={idx}
               className="rounded-2xl bg-[#0a170d] p-6 flex flex-col justify-between border border-white/10 group hover:border-[#22c55e]/40 hover:shadow-[0_0_20px_rgba(34,197,94,0.1)] transition-all"
@@ -145,89 +148,44 @@ export default function ProfileOverviewTab({ onOpenBioModal, company: passedComp
           </div>
         </div>
 
-        {/* Hub 2: Sitio Latag Nursery Facility */}
-        <div className="rounded-xl bg-[#0a170d] p-5 sm:p-6 border border-white/10 flex flex-col justify-between group hover:border-[#22c55e]/40 transition-colors">
-          <div>
-            <div className="flex items-center gap-2 text-[#4ade80] mb-3">
-              <MapPin className="w-4 h-4 text-[#22c55e] shrink-0" />
-              <h4 className="font-semibold text-[#f6f7f4] text-xs uppercase tracking-wider truncate">{companyData.nurseries[0].name}</h4>
+        {/* Dynamic Nursery Facility Hubs */}
+        {nurseries.map((nursery, idx) => (
+          <div
+            key={idx}
+            className="rounded-xl bg-[#0a170d] p-5 sm:p-6 border border-white/10 flex flex-col justify-between group hover:border-[#22c55e]/40 transition-colors"
+          >
+            <div>
+              <div className="flex items-center gap-2 text-[#4ade80] mb-3">
+                <MapPin className="w-4 h-4 text-[#22c55e] shrink-0" />
+                <h4 className="font-semibold text-[#f6f7f4] text-xs uppercase tracking-wider truncate">{nursery.name}</h4>
+              </div>
+              <p className="text-xs text-[#4ade80] font-mono font-semibold mb-1">
+                {nursery.capacity}
+              </p>
+              <p className="text-[11px] text-[#9aa89b] leading-relaxed mb-4 line-clamp-4">
+                {nursery.specialty}
+              </p>
             </div>
-            <p className="text-xs text-[#4ade80] font-mono font-semibold mb-1">
-              {companyData.nurseries[0].capacity}
-            </p>
-            <p className="text-[11px] text-[#9aa89b] leading-relaxed mb-4 line-clamp-4">
-              {companyData.nurseries[0].specialty}
-            </p>
-          </div>
-          <div className="pt-3 border-t border-white/10 flex items-center justify-between text-xs">
-            <a
-              href={companyData.nurseries[0].googleMapsUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[#f59e0b] hover:text-[#fbbf24] font-medium flex items-center gap-1 transition-colors text-[11px]"
-            >
-              <ExternalLink className="w-3.5 h-3.5 text-[#f59e0b]" />
-              <span>View Map</span>
-            </a>
-            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#16a34a]/15 border border-[#16a34a]/30 text-[#4ade80]">Main Facility</span>
-          </div>
-        </div>
-
-        {/* Hub 3: Tumaway Plant Propagation Farm */}
-        <div className="rounded-xl bg-[#0a170d] p-5 sm:p-6 border border-white/10 flex flex-col justify-between group hover:border-[#22c55e]/40 transition-colors">
-          <div>
-            <div className="flex items-center gap-2 text-[#4ade80] mb-3">
-              <MapPin className="w-4 h-4 text-[#22c55e] shrink-0" />
-              <h4 className="font-semibold text-[#f6f7f4] text-xs uppercase tracking-wider truncate">{companyData.nurseries[1].name}</h4>
+            <div className="pt-3 border-t border-white/10 flex items-center justify-between text-xs">
+              {nursery.googleMapsUrl ? (
+                <a
+                  href={nursery.googleMapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#f59e0b] hover:text-[#fbbf24] font-medium flex items-center gap-1 transition-colors text-[11px]"
+                >
+                  <ExternalLink className="w-3.5 h-3.5 text-[#f59e0b]" />
+                  <span>View Map</span>
+                </a>
+              ) : (
+                <span className="text-[10px] text-[#9aa89b] font-mono">{nursery.location}</span>
+              )}
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#16a34a]/15 border border-[#16a34a]/30 text-[#4ade80]">
+                {idx === 0 ? "Main Facility" : idx === 1 ? "Heavy Holding" : "Propagation Farm"}
+              </span>
             </div>
-            <p className="text-xs text-[#4ade80] font-mono font-semibold mb-1">
-              {companyData.nurseries[1].capacity}
-            </p>
-            <p className="text-[11px] text-[#9aa89b] leading-relaxed mb-4 line-clamp-4">
-              {companyData.nurseries[1].specialty}
-            </p>
           </div>
-          <div className="pt-3 border-t border-white/10 flex items-center justify-between text-xs">
-            <a
-              href={companyData.nurseries[1].googleMapsUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[#f59e0b] hover:text-[#fbbf24] font-medium flex items-center gap-1 transition-colors text-[11px]"
-            >
-              <ExternalLink className="w-3.5 h-3.5 text-[#f59e0b]" />
-              <span>View Map</span>
-            </a>
-            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#16a34a]/15 border border-[#16a34a]/30 text-[#4ade80]">Heavy Holding</span>
-          </div>
-        </div>
-
-        {/* Hub 4: Aya Facility */}
-        <div className="rounded-xl bg-[#0a170d] p-5 sm:p-6 border border-white/10 flex flex-col justify-between group hover:border-[#22c55e]/40 transition-colors">
-          <div>
-            <div className="flex items-center gap-2 text-[#4ade80] mb-3">
-              <MapPin className="w-4 h-4 text-[#22c55e] shrink-0" />
-              <h4 className="font-semibold text-[#f6f7f4] text-xs uppercase tracking-wider truncate">{companyData.nurseries[2].name}</h4>
-            </div>
-            <p className="text-xs text-[#4ade80] font-mono font-semibold mb-1">
-              {companyData.nurseries[2].capacity}
-            </p>
-            <p className="text-[11px] text-[#9aa89b] leading-relaxed mb-4 line-clamp-4">
-              {companyData.nurseries[2].specialty}
-            </p>
-          </div>
-          <div className="pt-3 border-t border-white/10 flex items-center justify-between text-xs">
-            <a
-              href={companyData.nurseries[2].googleMapsUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[#f59e0b] hover:text-[#fbbf24] font-medium flex items-center gap-1 transition-colors text-[11px]"
-            >
-              <ExternalLink className="w-3.5 h-3.5 text-[#f59e0b]" />
-              <span>View Map</span>
-            </a>
-            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#16a34a]/15 border border-[#16a34a]/30 text-[#4ade80]">Eco Reserve</span>
-          </div>
-        </div>
+        ))}
       </div>
     </div>
   );

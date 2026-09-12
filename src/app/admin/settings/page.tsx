@@ -472,15 +472,15 @@ export default function AdminSettingsPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label className="block text-xs font-mono uppercase text-[#9aa89b] mb-1">
-              Primary RFP &amp; Inquiry Recipient Email
+              Primary RFP &amp; Inquiry Recipient Email(s)
             </label>
             <div className="flex gap-2">
               <input
-                type="email"
+                type="text"
                 value={settings.contactEmail || ""}
                 onChange={(e) => setSettings({ ...settings, contactEmail: e.target.value })}
                 className="flex-1 p-2.5 rounded-lg bg-[#050e07] border border-white/15 text-xs text-[#f6f7f4] focus:ring-1 focus:ring-[#22c55e] outline-none font-mono"
-                placeholder="edluna1971@yahoo.com"
+                placeholder="edluna1971@yahoo.com, foresthillsgarden@gmail.com"
               />
               <button
                 type="button"
@@ -498,7 +498,7 @@ export default function AdminSettingsPage() {
               </button>
             </div>
             <p className="text-[11px] text-[#9aa89b] mt-1">
-              Website lead dossiers from the RFP Estimator and Contact form route to this mailbox.
+              Separate multiple email recipients with commas. Website lead dossiers from the RFP Estimator and Contact form route to all listed mailboxes.
             </p>
             {testEmailResult && (
               <div
