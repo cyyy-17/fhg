@@ -344,6 +344,7 @@ export default function ServicesGrid({ initialServices }: ServicesGridProps = {}
       {/* Service Detail Modal */}
       <ServiceDetailModal
         service={selectedService}
+        image={selectedService ? serviceRealImages[selectedService.id] : undefined}
         onClose={() => setSelectedService(null)}
       />
     </section>
