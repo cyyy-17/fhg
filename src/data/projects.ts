@@ -6,6 +6,7 @@ export interface ProjectItem {
   scope: string;
   category: "infrastructure" | "commercial" | "reforestation";
   badge: "Ongoing" | "Completed";
+  imageUrl?: string;
 }
 
 export const projectsData: ProjectItem[] = [

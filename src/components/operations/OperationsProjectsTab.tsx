@@ -124,11 +124,11 @@ export default function OperationsProjectsTab({ initialProjects }: OperationsPro
             >
               <div>
                 <div className="mb-4 rounded-xl overflow-hidden border border-white/8">
-                  {projectImages[project.id] ? (
+                  {project.imageUrl || projectImages[project.id] ? (
                     <div className="relative aspect-video w-full overflow-hidden">
                       <Image
-                        src={projectImages[project.id].src}
-                        alt={projectImages[project.id].alt}
+                        src={project.imageUrl || projectImages[project.id].src}
+                        alt={project.imageUrl ? project.title : projectImages[project.id].alt}
                         fill
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         className="object-cover object-center group-hover:scale-105 transition-transform duration-500"

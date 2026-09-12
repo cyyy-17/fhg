@@ -205,11 +205,11 @@ export default function ServicesGrid({ initialServices }: ServicesGridProps = {}
               >
                 <div>
                   <div className="mb-4 rounded-lg overflow-hidden border border-white/10">
-                    {serviceRealImages[service.id] ? (
+                    {service.imageUrl || serviceRealImages[service.id] ? (
                       <div className="relative aspect-video w-full overflow-hidden">
                         <Image
-                          src={serviceRealImages[service.id].src}
-                          alt={serviceRealImages[service.id].alt}
+                          src={service.imageUrl || serviceRealImages[service.id].src}
+                          alt={service.imageUrl ? service.title : serviceRealImages[service.id].alt}
                           fill
                           sizes="(max-width: 640px) 85vw, (max-width: 1024px) 380px, 400px"
                           className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
@@ -344,7 +344,13 @@ export default function ServicesGrid({ initialServices }: ServicesGridProps = {}
       {/* Service Detail Modal */}
       <ServiceDetailModal
         service={selectedService}
-        image={selectedService ? serviceRealImages[selectedService.id] : undefined}
+        image={
+          selectedService?.imageUrl
+            ? { src: selectedService.imageUrl, alt: selectedService.title }
+            : selectedService
+            ? serviceRealImages[selectedService.id]
+            : undefined
+        }
         onClose={() => setSelectedService(null)}
       />
     </section>

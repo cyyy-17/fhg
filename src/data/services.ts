@@ -13,6 +13,7 @@ export interface ServiceItem {
   metrics: string[];
   specs: ServiceSpecs;
   icon: "TreePine" | "Axe" | "Palmtree" | "ClipboardCheck" | "Sprout" | "Mountain" | "Flower2" | "Layers";
+  imageUrl?: string;
 }
 
 export const servicesData: ServiceItem[] = [

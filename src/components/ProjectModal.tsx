@@ -2,11 +2,27 @@
 
 import { useEffect } from "react";
 import { createPortal } from "react-dom";
+import Image from "next/image";
 import { X, Building2, MapPin, ShieldCheck, CheckCircle2, ArrowRight, Axe, FileText } from "lucide-react";
 import { ProjectItem } from "@/data/projects";
 import MediaPlaceholder from "./MediaPlaceholder";
 import { useIsMounted } from "@/hooks/useIsMounted";
 import { useLenisScrollLock } from "@/hooks/useLenisScrollLock";
+
+const defaultProjectImages: Record<string, { src: string; alt: string }> = {
+  "mdc-sereneo-nuvali": {
+    src: "/images/transplanted_trees.jpg",
+    alt: "Nuvali Estate large-scale tree earthballing and specimen transplanting",
+  },
+  "giga-ace-6-isla-wind": {
+    src: "/images/earthballing.jpg",
+    alt: "Quezon North Wind Farm access road clearing and tree relocation",
+  },
+  "zambales-reforestation": {
+    src: "/images/watershed_reforestation.jpg",
+    alt: "Zambales 2,627 hectare DENR National Greening Program watershed reforestation",
+  },
+};
 
 interface ProjectModalProps {
   project: ProjectItem | null;
@@ -90,14 +106,34 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
 
         {/* Visual Inspection Asset */}
         <div className="mb-6 rounded-xl overflow-hidden border border-white/10 shadow-lg">
-          <MediaPlaceholder
-            variant={isRefor ? "nursery-propagation" : isInfra ? "site-clearing" : "tree-specimen"}
-            aspect="21/9"
-            title={`${project.title} • Technical Log`}
-            subtitle={`Executed under contract with ${project.client}`}
-            badge={`Verified Field Asset • ${project.location}`}
-            tag={`FHG_PROJECT_${project.id.toUpperCase()}`}
-          />
+          {project.imageUrl || defaultProjectImages[project.id] ? (
+            <div className="relative aspect-21/9 w-full overflow-hidden">
+              <Image
+                src={project.imageUrl || defaultProjectImages[project.id].src}
+                alt={project.imageUrl ? project.title : defaultProjectImages[project.id].alt}
+                fill
+                sizes="(max-width: 768px) 100vw, 896px"
+                className="object-cover object-center"
+              />
+              <div className="absolute inset-0 bg-linear-to-t from-[#050d07] via-transparent to-[#050d07]/40 pointer-events-none" />
+              <div className="absolute top-3 left-3 px-2.5 py-1 rounded bg-[#050d07]/90 border border-white/10 text-[10px] font-mono font-semibold text-[#f6f7f4] uppercase tracking-wider flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e]" />
+                <span>Verified Field Asset • {project.location}</span>
+              </div>
+              <div className="absolute bottom-3 right-3 px-2.5 py-1 rounded bg-[#050d07]/90 border border-white/10 text-[10px] font-mono text-[#4ade80] uppercase tracking-wider">
+                {project.category.toUpperCase()}
+              </div>
+            </div>
+          ) : (
+            <MediaPlaceholder
+              variant={isRefor ? "nursery-propagation" : isInfra ? "site-clearing" : "tree-specimen"}
+              aspect="21/9"
+              title={`${project.title} • Technical Log`}
+              subtitle={`Executed under contract with ${project.client}`}
+              badge={`Verified Field Asset • ${project.location}`}
+              tag={`FHG_PROJECT_${project.id.toUpperCase()}`}
+            />
+          )}
         </div>
 
         {/* Two-Column Specification Matrix */}

@@ -12,9 +12,12 @@ import {
   MoveUp,
   MoveDown,
   X,
+  Image as ImageIcon,
 } from "lucide-react";
+import Image from "next/image";
 import AdminHeader from "@/components/admin/AdminHeader";
 import AdminModal from "@/components/admin/AdminModal";
+import FileUploadWidget from "@/components/admin/FileUploadWidget";
 import type { ServiceItem } from "@/data/services";
 
 function ListInputEditor({
@@ -281,9 +284,28 @@ export default function AdminServicesPage() {
                 {filtered.map((item) => (
                   <tr key={item.id} className="hover:bg-white/5 transition">
                     <td className="py-3 px-4">
-                      <div className="font-semibold text-sm text-[#f6f7f4]">{item.title}</div>
-                      <div className="text-[11px] text-[#9aa89b] max-w-sm truncate mt-0.5">
-                        {item.shortDesc}
+                      <div className="flex items-center gap-3">
+                        {item.imageUrl ? (
+                          <div className="relative w-10 h-10 rounded-lg overflow-hidden shrink-0 border border-white/10 bg-[#050e07]">
+                            <Image
+                              src={item.imageUrl}
+                              alt={item.title}
+                              fill
+                              sizes="40px"
+                              className="object-cover"
+                            />
+                          </div>
+                        ) : (
+                          <div className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-[#9aa89b] shrink-0">
+                            <ImageIcon className="w-4 h-4 opacity-50" />
+                          </div>
+                        )}
+                        <div className="min-w-0">
+                          <div className="font-semibold text-sm text-[#f6f7f4]">{item.title}</div>
+                          <div className="text-[11px] text-[#9aa89b] max-w-sm truncate mt-0.5">
+                            {item.shortDesc}
+                          </div>
+                        </div>
                       </div>
                     </td>
                     <td className="py-3 px-4">
@@ -435,6 +457,47 @@ export default function AdminServicesPage() {
                     })
                   }
                   className="w-full p-2.5 rounded-lg bg-[#050e07] border border-white/15 text-xs text-[#f6f7f4] focus:ring-1 focus:ring-[#22c55e] outline-none"
+                />
+              </div>
+
+              {/* Service Field Photography */}
+              <div className="sm:col-span-2 space-y-2 p-3.5 rounded-xl bg-[#08130a] border border-white/10">
+                <label className="block text-xs font-mono uppercase text-[#22c55e] font-semibold">
+                  Service Photography Asset
+                </label>
+                {editingItem.imageUrl ? (
+                  <div className="relative aspect-video w-full max-w-sm rounded-xl overflow-hidden border border-white/15 bg-[#050e07] shadow-md">
+                    <Image
+                      src={editingItem.imageUrl}
+                      alt={editingItem.title}
+                      fill
+                      sizes="380px"
+                      className="object-cover"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setEditingItem({ ...editingItem, imageUrl: "" })}
+                      className="absolute top-2 right-2 p-1.5 rounded-lg bg-black/70 hover:bg-red-600 text-white transition cursor-pointer"
+                      title="Remove image"
+                    >
+                      <Trash2 className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
+                ) : null}
+                <FileUploadWidget
+                  label={editingItem.imageUrl ? "Replace Service Image" : "Upload Service Image"}
+                  accept=".jpg,.jpeg,.png,.webp"
+                  helperText="Upload a high-resolution field photograph. This replaces the default placeholder on the website and technical dossier."
+                  onUploadComplete={(url) => {
+                    setEditingItem({ ...editingItem, imageUrl: url });
+                  }}
+                />
+                <input
+                  type="text"
+                  value={editingItem.imageUrl || ""}
+                  onChange={(e) => setEditingItem({ ...editingItem, imageUrl: e.target.value })}
+                  placeholder="Or paste an image URL directly: /images/services/my-service.jpg or https://..."
+                  className="w-full p-2 rounded-lg bg-[#050e07] border border-white/10 text-xs text-[#f6f7f4] font-mono focus:ring-1 focus:ring-[#22c55e] outline-none"
                 />
               </div>
 
